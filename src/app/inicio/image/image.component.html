@@ -1,0 +1,14 @@
+
+<div *ngIf="$userData | async as res" id="containerImg">
+  <ng-container *ngIf="res.container?res.container[0].formato === 'image':'image'; else elseTemplate">
+  <img
+  [src]=" recursoUrl(swch(res.container?res.container[0].imgVideo:undefined))"
+  class="d-block w-100"
+  loading="lazy" />
+</ng-container>
+<ng-template  #elseTemplate>
+    <video autoplay loop  controls  >
+      <source [src]="recursoUrl(swch(res.container?res.container[0].imgVideo:undefined))">
+    </video>
+</ng-template>
+</div>

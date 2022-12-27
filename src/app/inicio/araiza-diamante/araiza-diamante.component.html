@@ -1,0 +1,54 @@
+<div class="container-diamante">
+
+    <div class="article-container araizaDiam">
+        <div class="texto">
+
+            <h1>ARAIZA <br><span style="color:#DC994D;"> DIAMANTE</span></h1>
+            <article>
+                ¡Conoce los beneficios que obtienes al convertirte en colaborador de Araiza Diamante!
+            </article>
+            <button  mat-raised-button id="btnWeb" (click)="irLink('https://araizahoteles.com/araiza-diamante/inicio.php/?lang=es')">Sitio web</button>
+        </div>
+        <img class="imgAraiza" [src]="this.link+'assets/img/celular-araiza.png'" alt="">
+    </div>
+    <div class="article-container" id="seccion4">
+        <img class="imgAraiza2" [src]="this.link+'assets/img/descuentos-pic.png'" alt="">
+        <div>
+            <h1 class="h1-s">30% de descuento en <br><span style="color:#DC994D;">alimentos y bebidas</span></h1>
+            <article>
+                Aplica en todos los hoteles.
+            </article>
+        </div>
+    </div>
+    <div id="seccion2" class="seccion">
+        <h1 class="h1-s">RECOMPENSAS</h1>
+        <article>
+            Revisa las Recompensas que puedes adquirir con tus puntos de Araiza Diamante
+        </article>
+        <button id="recompensas"  (click)="irLink('https://araizahoteles.com/wp-content/uploads/2021/12/AraizaDiamanteCatalogoRecompensas.pdf')" color ="primary" mat-raised-button >Recompensas</button>
+    </div>
+    <div id="seccion3" class="seccion">
+        <div id="alianzas">
+            <h1 class="h1-s">ALIANZAS</h1>
+            <article>
+                Conoce los descuentos de las alianzas a los que puedes ser acreedor con tu tarjeta de Araiza Diamante.
+            </article>
+        </div>
+        <br>
+
+    <div class="container">
+        <img class="control prev" [src]="this.link+'assets/img/img1.png'" alt="img1">
+        <div class="slider">
+            <img [src]="this.link+'assets/img/celular-araiza.png'" alt="img2">
+            <img [src]="this.link+'assets/img/celular-araiza.png'" alt="img3">
+            <img [src]="this.link+'assets/img/aniversario.png'" alt="img4">
+            <img [src]="this.link+'assets/img/aniversario.png'" alt="img5">
+            <img [src]="this.link+'assets/img/pruebas/banner1.jpg'" alt="img6">
+            <img [src]="this.link+'assets/img/pruebas/banner1.jpg'" alt="img7">
+        </div>
+        <img class="control next" [src]="this.link+'assets/img/img2.png'" alt="img8">
+    </div>
+    <br><br>
+    </div>
+</div>
+<app-footer></app-footer>

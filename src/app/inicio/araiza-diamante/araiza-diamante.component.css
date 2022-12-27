@@ -1,0 +1,327 @@
+@font-face {
+    font-family: 'gotham-book';
+    src: url('../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Book.otf');
+}
+
+@font-face {
+    font-family: 'gotham-bold';
+    src: url('../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Bold.otf');
+}
+
+article {
+    font-family: 'gotham-book';
+    font-size: 18px;
+}
+
+/*texto del celular con circulos*/
+.texto article {
+    font-size: 2vw;
+    line-height: normal;
+}
+
+h1 {
+    font-family: 'gotham-bold';
+    font-size: 3vw;
+    line-height: normal;
+}
+
+.h1-s{
+    font-family: 'gotham-bold';
+    font-size: 2vw;
+    line-height: normal;
+}
+
+/*Agregando estetica al celular , seccion1 */
+.article-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.article-container.araizaDiam {
+    background-color: #F4F4F4;
+}
+
+.araizaDiam .texto {
+    margin-left: 15%;
+}
+
+.seccion {
+    justify-content: center;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.imgAraiza, .imgAraiza2 {
+    width: 30%;
+    margin-right: 15%;
+}
+
+.imgAraiza2 {
+    margin-right: 5%;
+}
+
+/*seccion 3*/
+
+#lista-alianza {
+    justify-content: center;
+    margin-top: 5%;
+}
+
+#seccion3 {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+/*seccion 2*/
+#seccion2 {
+    display: block;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-image: url('../../../assets/img/fondo-rectangular.png');
+    color: white;
+    background-size: cover;
+}
+
+#f2 {
+    transform: rotate(180deg);
+    width:16px;
+    height:16px;
+}
+
+#f1 {
+    width:16px;
+    height:16px;
+}
+
+svg {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+button {
+    margin-top: 10px;
+    border-radius: 0;
+    font-family: 'gotham-bold';
+}
+
+#btnWeb{
+    background : #293641;
+    color: white;
+}
+
+/**seccion 4*/
+#seccion4 {
+    margin-top: 8%;
+    margin-bottom: 7%;
+}
+
+
+/*editando flechas*/
+.carousel-arrow-next {
+    background: red;
+}
+
+@media (max-width: 1100px){
+    h1 {
+        font-size: 3vw;
+    }
+}
+
+@media (max-width: 650px){
+    h1 {
+        font-size: 3.5vw;
+    }
+
+    .texto article {
+        font-size: 2.5vw;
+    }
+    article {
+        font-size: 2vw;
+    }
+}
+
+@media (max-width: 600px){
+    article {
+        font-size: 3vw !important;
+    }
+    .texto h1 {
+        font-size: 4vw;
+    }
+    .texto article {
+        font-size: 3.5vw !important;
+    }
+    .h1-s{
+        font-size: 3.5vw;
+    }
+}
+
+@media (max-width: 300px){
+    .h1-s {
+        font-size: 5vw;
+    }
+    .texto h1 {
+        font-size: 5.5vw;
+    }
+    article {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 900px){
+    .araizaDiam .texto{
+        padding-left: 20px;
+    }
+}
+
+/*SLIDER DE ABAJO**/
+
+.container {
+    position: relative;
+    max-width: max-content;
+    width: 100%;
+    display: inline-flex;
+}
+
+.container .slider {
+    display: flex;
+    background: transparent;
+    padding: 2px;
+    width: 100%;
+    height: 200px;
+    margin: 20px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+.container .slider img {
+    margin: 5px;
+    width: 250px;
+
+    background-color: white;
+    object-fit: contain;
+}
+
+.container .control {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgb(173, 172, 172);
+    cursor: pointer;
+    object-fit: contain;
+    padding: 10px;
+}
+
+.container .prev {
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container .next {
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
+
+#recompensas {
+  margin-top: 25px;
+}
+@media(max-width:1790px){
+    .container {
+        position: relative;
+        max-width: max-content;
+        width: 100%;
+        display: inline-flex;
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
+    .container .prev {
+        left: 0;
+        top: 50%;
+        transform: translate(25%, -50%);
+    }
+
+    .container .next {
+        right: 0;
+        top: 50%;
+        transform: translate(-25%, -50%);
+    }
+
+}
+
+@media(max-width:1400px){
+    .container {
+        position: relative;
+        max-width: max-content;
+        width: 100%;
+        display: inline-flex;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .container .prev {
+        left: 0;
+        top: 50%;
+        transform: translate(50%, -50%);
+    }
+
+    .container .next {
+        right: 0;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+}
+
+@media(max-width:950px){
+    .container {
+        position: relative;
+        max-width: max-content;
+        width: 100%;
+        display: inline-flex;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .container .prev {
+        left: 0;
+        top: 50%;
+        transform: translate(75%, -50%);
+    }
+
+    .container .next {
+        right: 0;
+        top: 50%;
+        transform: translate(-75%, -50%);
+    }
+
+}
+
+
+@media(max-width:500px){
+    .container {
+        position: relative;
+        max-width: max-content;
+        width: 100%;
+        display: inline-flex;
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+
+    .container .prev {
+        left: 0;
+        top: 50%;
+        transform: translate(85%, -50%);
+    }
+
+    .container .next {
+        right: 0;
+        top: 50%;
+        transform: translate(-85%, -50%);
+    }
+
+}

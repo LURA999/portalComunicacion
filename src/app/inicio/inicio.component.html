@@ -1,0 +1,114 @@
+
+<div class="container-p">
+  <ngb-carousel *ngIf="imageObject.length == 0? imageObjectRemplazo : imageObject">
+    <ng-template ngbSlide *ngFor="let slide of imageObject.length == 0? imageObjectRemplazo : imageObject">
+      <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
+        <img width="100%"
+        [src]=" recursoUrl( imageObject.length == 0?  slide.src : slide.src, false,imageObject.length,true)" />
+      </ng-container>
+      <ng-template  #elseTemplate>
+        <div style="background-color: rgb(184, 184, 184);">
+          <video  loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" width="100%"  >
+            <source [src]="recursoUrl(slide.src, true,imageObject.length,true)" >
+          </video>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ngb-carousel>
+    <div class="container-article">
+        <div class="article">
+          <h2>¡BIENVENIDO A <span>GRUPO ARAIZA!</span></h2>
+            <article>
+                Estamos muy contentos de que formes parte del equipo, te presentamos el portal de comunicación de Araiza Hoteles,
+                un espacio dedicado para ti y una herramienta valiosa con la que podrás mantenerte informado.
+                ¡No te pierdas las próximas actualizaciones!
+            </article>
+        </div>
+    </div>
+    <div id="section_3">
+        <div>
+          <img id="imgHidden" [src]="this.link+'assets/img/estudiante1.png'" alt="imagen estudiante">
+        </div>
+        <div id="section_3texto">
+          <h2>ARAIZA APRENDE</h2>
+          <div>
+            <img id="imgHidden2" [src]="this.link+'assets/img/estudiante1.png'" alt="imagen estudiante">
+          </div>
+          <article>
+          ¿Te interesa crecer de manera profesional? No te piedas los turoriales que Hotel Araiza ha preparado para ti con enfoque a distantas áreas.
+          </article>
+          <br><button id="botonTuto" mat-raised-button color="primary">Tutoriales</button>
+        </div>
+      </div>
+    <div id="seccion4-notice">
+    <h2> Noticias</h2>
+      <div id="container-notice">
+        <ng-container *ngIf="noticias.length > 0; else elseTemplate">
+          <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
+            <mat-card class="noticia">
+              <mat-card-header>
+                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+              </mat-card-header>
+              <div class="container-matCard">
+              <div class="img-card">
+                <!-- <img mat-card-image [src]="recursoUrl('http://localhost/portalComunicacion/API/imgVideo/galeria-noticia/fotos/'+i.imgVideo)" [alt]="i.imgVideo">-->
+                <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                  <img height="160"
+                  [src]=" recursoUrl( imageObject.length == 0?  i.imgVideo : i.imgVideo,false,1,false)"
+                  class="d-block w-100"
+                  loading="lazy" />
+                </ng-container>
+                <ng-template  #elseTemplate>
+                    <video height="100%" width="100%" loop  controls  >
+                      <source [src]="recursoUrl(i.imgVideo,true,1,false)" >
+                    </video>
+                </ng-template>
+              </div>
+              <mat-card-content>
+                <span class="fecha">{{dateNormal(i.fechaInicial)}}</span>
+                <h3>{{i.titulo}}</h3>
+                  <div class="texto">
+                    {{cortarTexto(i.descripcion!.toString(), cortar[x], x)}}
+                    <br>
+                    <br>
+                    <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="leerMas">Leer mas... </span>
+                    <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="leerMas">Leer menos... </span>
+                  </div>
+              </mat-card-content>
+              </div>
+              </mat-card>
+        </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="lista-noticias">
+            <div *ngFor="let item of cortar">
+              <mat-card class="noticia">
+                <mat-card-header>
+                 <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+                </mat-card-header>
+                <div class="container-matCard">
+                <div class="img-card">
+                  <img mat-card-image [src]="this.link+'assets/img/image.png'" alt="Photo of a Shiba Inu">
+                </div>
+                <mat-card-content>
+                  <span class="fecha">oct 4. 2020</span>
+                  <h3>Mes del cancer de mama</h3>
+                  <div>
+                    Este mes de octubre Hotel Araiza se une a la lucha contra el cáncer de mama, no olvides portar tu listón rosa durante todo el mes.
+                    <br>
+                    <br>
+                    <span class="leerMas">Leer mas... </span>
+                  </div>
+                </mat-card-content>
+                </div>
+               </mat-card>
+            </div>
+        </div>
+        </ng-template>
+
+          </div>
+      </div>
+    </div>
+
+
+    <app-footer></app-footer>

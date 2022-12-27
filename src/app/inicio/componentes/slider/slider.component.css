@@ -1,0 +1,39 @@
+
+#container-slider {
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  #container-slider ::ng-deep  button {
+    width: 15px !important;
+    height: 15px !important;
+
+    border-radius: 100%;
+  }
+
+img {
+  height: 600px;
+}
+
+@media(max-width:900px) { 
+  img {
+    height: 400px;
+  }
+}
+
+
+@media(max-width:470px) { 
+  img {
+    height: 300px;
+  }
+}
+/*
+.carousel-inner > .item {
+  position: relative;
+  display: none;
+  -webkit-transition: 0.5s ease-in-out left !important;
+  -moz-transition: 0.5s ease-in-out left !important;
+  -o-transition: 0.5s ease-in-out left !important;
+  transition: 0.5s ease-in-out left !important;
+}*/

@@ -1,0 +1,233 @@
+<div class="navbar-container">
+  <mat-toolbar  [hidden]="isAdmin">
+    <mat-toolbar-row>
+      <div id="btn-toggle">
+        <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon >menu</mat-icon>
+        </button>
+      </div>
+      <div class="logout" [hidden]="mobileQuery.matches">
+        <img [src]="this.link+'assets/img/araiza_logo_dash.png'" alt="">
+      </div>
+      <div id="space"></div>
+      <div class="logout" [hidden]="!mobileQuery.matches">
+        <img [src]="this.link+'assets/img/araiza_logo_dash.png'" alt="">
+      </div>
+
+        <div id="menu">
+          <div class="opc menu-opc" (click)="navegarNavH('/general')">
+              General
+          </div>
+          <div class="opc menu-opc" >
+            <div class="btn-group">
+              <div data-toggle="dropdown" (click)="navegarNavH('/general/mexicali')">
+                  Mexicali
+              </div>
+              <ul class="dropdown-menu noclose"  (click)="navegarNavH('/general/bookings','mexicali')">
+                  <li >
+                     Reservado
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div class="opc menu-opc">
+            <div class="btn-group">
+              <div data-toggle="dropdown" (click)="navegarNavH('/general/calafia')">
+                  Calafia
+              </div>
+              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','calafia')">
+                  <li >
+                     Reservado
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div class="opc menu-opc">
+            <div class="btn-group">
+              <div data-toggle="dropdown" (click)="navegarNavH('/general/sanLuis')" >
+                  San Luis
+              </div>
+              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','sanLuis')">
+                  <li >
+                      Reservado
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div class="opc menu-opc">
+            <div class="btn-group">
+              <div data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
+                  Palmira
+              </div>
+              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','palmira')">
+                  <li>
+                      Reservado
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div class="opc menu-opc">
+            <div class="btn-group">
+              <div data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
+                  Hermosillo
+              </div>
+              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','hermosillo')">
+                  <li>
+                      Reservado
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div class="opc logout" [hidden]="isAdminPortal" (click)="portal('/general/slider')">
+            <mat-icon>settings</mat-icon>
+          </div>
+          <div class="opc logout" (click)="salir()">
+              <mat-icon>exit_to_app</mat-icon>
+          </div>
+        </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class="navbar-sidenav-container">
+
+    <!--Esto va dentro de la etiqueta mat-sidenav [opened]="mobileQuery.matches"-->
+    <mat-sidenav [ngStyle]="{'background-color': isAdmin===true?'#293641':'white'}" #snav [opened]="isAdmin"  [mode]="mode">
+              <!--Navbar de Usuario normal-->
+              <mat-nav-list id="usuarioNav" [hidden]="isAdmin">
+                <div >
+                  <p> Menu </p>
+                </div>
+                <a  mat-list-item class="menu-opc" (click)="navegarNavH('/general')">
+                  General
+                </a>
+                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(1)">
+                <mat-expansion-panel-header #panelH >
+                  <a mat-list-item   class="menu-opc" (click)="panelH._toggle()" (click)="navegarNavH('/general/mexicali')">
+                     Mexicali
+                  </a>
+                </mat-expansion-panel-header>
+                <a mat-list-item (click)="navegarNavH('/general/bookings','mexicali')" class="menu-opc" routerLinkActive="active" mat-line>
+                  Reservado</a>
+                </mat-expansion-panel>
+                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(2)">
+                <mat-expansion-panel-header #panelH2>
+                  <a mat-list-item class="menu-opc"  (click)="panelH2._toggle()" (click)="navegarNavH('/general/calafia')">
+                   Calafia
+                </a>
+                </mat-expansion-panel-header>
+                <a mat-list-item (click)="navegarNavH('/general/bookings','calafia')" class="menu-opc" routerLinkActive="active" mat-line>
+                  Reservado</a>
+                </mat-expansion-panel>
+                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(3)">
+                <mat-expansion-panel-header #panelH3>
+                <a mat-list-item class="menu-opc"  (click)="panelH3._toggle()" (click)="navegarNavH('/general/sanLuis')">
+                  San Luis
+                </a>
+                </mat-expansion-panel-header>
+                <a mat-list-item class="menu-opc"(click)="navegarNavH('/general/bookings','sanLuis')" routerLinkActive="active" mat-line>
+                  Reservado</a>
+                </mat-expansion-panel>
+                <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(4)">
+                <mat-expansion-panel-header #panelH4>
+                <a mat-list-item class="menu-opc"  (click)="panelH4._toggle()" (click)="navegarNavH('/general/palmira')">
+                   Palmira
+                </a>
+                </mat-expansion-panel-header>
+                <a mat-list-item class="menu-opc" (click)="navegarNavH('/general/bookings','palmira')" routerLinkActive="active" mat-line>
+                  Reservado</a>
+                </mat-expansion-panel>
+                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(5)">
+                <mat-expansion-panel-header #panelH5 >
+                <a mat-list-item class="menu-opc"  (click)="panelH5._toggle()" (click)="navegarNavH('/general/hermosillo')">
+                  Hermosillo
+                </a>
+                </mat-expansion-panel-header>
+                <a mat-list-item (click)="navegarNavH('/general/bookings','hermosillo')" routerLinkActive="active" mat-line>
+                  Reservado</a>
+                </mat-expansion-panel>
+                <a mat-list-item class="logout"  (click)="salir()" routerLinkActive="active">
+                  <mat-icon mat-list-icon>
+                  exit_to_app
+                  </mat-icon>
+                   Salir
+                </a>
+                <a mat-list-item class="logout"  [hidden]="isAdminPortal" (click)="portal('/general/slider')">
+                  <mat-icon mat-list-icon>
+                  settings
+                  </mat-icon>
+                  Ajustes
+                </a>
+              </mat-nav-list>
+      <!--Navbar de usuario administrador-->
+        <mat-nav-list id="adminNav" [hidden]="!isAdmin">
+
+        <div class="opcMenu" [ngStyle]="{'background-color': '#293641'}"  aria-selected="true">
+          <span > <img [src]="this.link+'assets/img/araiza-hoteles-logo-2.png'" alt=""> </span>
+        </div>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="portal('/general')"  >
+          <mat-icon mat-list-icon >
+          <img [src]="this.link+'assets/img/icon-nav-admin/icon-portal.png'" alt="">
+        </mat-icon>
+          <span   class="opc"> Portal  </span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/slider')"  >
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-slider.png'" alt="">
+          </mat-icon>
+          <span   class="opc verticalN-opc" > Slider  </span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/noticias')">
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-noticia.png'" alt="">
+          </mat-icon>
+          <span   class="opc verticalN-opc" > Noticias  </span>
+        </a> <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/menu')">
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-menu.png'" alt="">
+          </mat-icon>
+          <span   class="opc verticalN-opc" > Menu  </span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/cumpleanos')" >
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-cumple.png'" alt="">
+          </mat-icon>
+          <span class="opc verticalN-opc" > Cumpleaños  </span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/aniversario')" >
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-aniversario.png'" alt="">
+          </mat-icon>
+          <span class="opc verticalN-opc" > Aniversario  </span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/empleado-del-mes')">
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-aniversario.png'" alt="">
+          </mat-icon>
+          <span class="opc verticalN-opc" > Empleado del mes  </span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/galeriaMulti')" >
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-galeria.png'" alt="">
+          </mat-icon>
+          <span class="opc verticalN-opc"  > Galeria<br>Multimedia  </span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/usuarios')" >
+          <mat-icon mat-list-icon >
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-galeria.png'" alt="">
+          </mat-icon>
+          <span class="opc verticalN-opc"  > Usuarios</span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item class="logout" (click)="salir()" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            <img [src]="this.link+'assets/img/icon-nav-admin/icon-cerrarsesion.png'" alt="">
+          </mat-icon>
+          <span class="opc"  > Salir </span>
+        </a>
+        </mat-nav-list>
+    </mat-sidenav>
+  <!-- Main content -->
+  <mat-sidenav-content class="sidenav-content">
+    <router-outlet ></router-outlet>
+    <!-- <router-outlet name="auxName"></router-outlet>-->
+  </mat-sidenav-content>
+  </mat-sidenav-container>
+  </div>

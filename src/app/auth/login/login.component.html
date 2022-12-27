@@ -1,0 +1,46 @@
+<div class="container-img">
+
+    <div id="portada-sesion">
+        <img [src]="this.link+'assets/img/filtro.png'" id="filtro2" alt="">
+
+        <div  id="titulo-log">
+            <div id="titulo-letra">
+
+                <span class="r1">¡Bienvenido!</span><br><span class="r2"> Grupo Araiza</span>
+            </div>
+        </div>
+   </div>
+        <div class="containerform">
+            <img [src]="this.link+'assets/img/araiza_logo_dash.png'" id="logo" alt="">
+            <div id="subrayado">
+                <div id="h1">Portal de <br>Comunicación</div>
+                <div class="linea"></div>
+            </div>
+            <form [formGroup]="formSesion" >
+                    <div class="inst">¿No tienes tu usuario y contraseña?<a href="#"> Solicitalo en Recursos Humanos.</a></div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label >Ingresa tu usuario</mat-label>
+                        <input class = "matInput" matInput formControlName= "usuario" placeholder="usuario" required>
+                    </mat-form-field>
+                </div>
+                <div >
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ingresa tu contraseña</mat-label>
+                        <input class = "matInput" formControlName= "contrasena" matInput [type]="hide ? 'password' : 'text'" required >
+                        <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        {{hide ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="form-botones">
+                <!--<div class="el">
+                    <span>Recuperar contraseña</span>
+                </div>-->
+                <div class="el el2">
+                    <button id="btn-iniciar" type="submit" mat-raised-button  (click)="form()" color="primary">Iniciar sesion</button>
+                </div>
+                </div>
+            </form>
+        </div>
+</div>

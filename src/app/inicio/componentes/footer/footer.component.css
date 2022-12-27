@@ -1,0 +1,58 @@
+footer {
+    position: absolute;
+    height: 130px;
+    width: 100%;
+    background: #293641;
+  }
+  
+  footer{
+    display: flex;
+    flex-direction: row-reverse;
+  
+  }
+  
+  footer img#logo1 {
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+  }
+  
+  footer .imgs {
+    height: 20px;
+    margin-left: 15px;
+    float: right;
+    margin-bottom: 10px;
+  } 
+
+  .container-pie {
+    align-self: center;
+    margin-right: 50px;
+  }
+  
+  @media(max-width:1000px){
+    
+  footer .imgs , footer .copy {
+    display: none;
+  } 
+
+  footer{
+    display: flex;
+    align-items: center;
+  }
+
+  footer img{
+    margin-left: 30px;
+    width: 60px !important;
+    height: 60px !important;
+    position: initial;
+    top: 0;
+    left: 0;
+    margin: 0;
+    display: flex;
+  }
+}
+

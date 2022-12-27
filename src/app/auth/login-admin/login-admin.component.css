@@ -1,0 +1,286 @@
+@font-face {
+    font-family: 'gotham-book';
+    src: url('../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Book.otf');
+  }
+
+  @font-face {
+    font-family: 'gotham-bold';
+    src: url('../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Bold.otf');
+  }
+
+@font-face {
+    font-family: 'roboto-black';
+    src: url(../../../assets/fonts/Roboto/Roboto-Black.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/**Definiendo formulario*/
+.containerform  {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    padding: 80px;
+    transform: translate(-50%, -50%);
+}
+
+.inst {
+    font-family: 'gotham-book';
+    margin-bottom: 10px;
+}
+
+.inst a {
+    color: #c56b25;
+}
+
+form {
+    padding-right: 10px;
+    }
+
+.form-botones .el {
+    margin-bottom: 10px;
+    font-family: 'gotham-bold';
+    color: #c56b25;
+}
+
+.form-botones .el:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.form-botones .el2 {
+    float: right;
+    font-family: 'roboto-black';
+}
+
+.grupo2 {
+    margin-top: 3.5px;
+    margin-bottom: 3.5px;
+}
+
+.login{
+    text-align: left;
+}
+
+/*
+.mat-form-field-underline {
+    background-color: rgb(241, 0, 0) !important;;
+}
+.mat-form-field-ripple {
+    background-color: transparent !important;
+}
+.mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: #e91e63 !important;
+}
+*/
+
+.mat-icon {
+    opacity: 0.5;
+
+}
+/** Modificando los colores detallistas de angular */
+.mat-form-field-ripple {
+    background-color: transparent !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: white;
+}
+.mat-icon-button {
+    opacity: 0.5;
+
+}
+
+h1 {
+    font-family: 'gotham-bold';
+}
+
+/*Titulo login*/
+
+
+.container-img{
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size:100% 100% ;
+   background-image: url("../../../assets/img/araizamxli.png");
+}
+
+
+#titulo-log{
+
+}
+
+#titulo-letra {
+    font-size: 2vw;
+    line-height: normal;
+}
+
+#portada-sesion {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.container-img #titulo-log img{
+
+}
+
+img#img {
+    width: 14%;
+    height: 10%;
+}
+
+
+.r1 {
+    font-family: 'gotham-bold';
+}
+
+.r2 {
+    font-family: 'gotham-book';
+}
+
+
+mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-form-field-infix {
+    display: block;
+    flex: auto;
+    min-width: 0;
+    width: 80% !important;
+}
+
+.filtroFull {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+@media (max-width: 1500px) {
+    .container-img  #titulo-log{
+      line-height: 100% ;
+    }
+
+}
+
+@media (max-width: 1002px) {
+    .containerform {
+      font-size: 12px;
+    }
+    .containerform h1{
+      font-size: 16px;
+    }
+    button {
+      font-size: 12px;
+    }
+    .matInput {
+      font-size: 12px;
+    }
+}
+
+@media (max-width: 850px) {
+    .containerfixed {
+      font-size: 10px;
+    }
+}
+
+@media (max-width: 850px) {
+    .titulo h1 {
+      font-size: 1rem;
+    }
+    .containerfixed {
+      font-size: 10px;
+    }
+}
+
+@media(max-width:950px){
+    .containerform{
+      width: 600px;
+    }
+}
+
+@media(max-width:700px){
+    .containerform{
+      width: 500px;
+    }
+    #titulo-letra {
+      font-size: 15px;
+    }
+    .form-botones {
+      display: grid;
+    }
+    button {
+      width: 100%;
+    }
+}
+
+@media(max-width:600px){
+  .containerform{
+    width: 400px;
+  }
+}
+
+@media(max-width:450px){
+  .containerform{
+    width: 300px;
+  }
+}
+
+@media(max-width:350px){
+  .containerform{
+    width: 250px;
+  }
+}
+
+
+@media(max-height:588px) and (min-width:705px) {
+  .container-img {
+    top: auto;
+    bottom: auto;
+  }
+
+  .filtroFull{
+    height: auto;
+    position: static;
+  }
+}
+
+
+@media (max-height:594px) {
+  /*.container-img {
+    top: auto;
+    bottom: auto;
+  }
+
+  .filtroFull{
+    height: auto;
+    position: static;
+  }*/
+}
+
+
+/*
+@media(max-height:581px) and (min-width:500px){
+  .container-img {
+    top: auto;
+    bottom: auto;
+  }
+
+  .filtroFull{
+    height: auto;
+    position: static;
+  }
+}*/

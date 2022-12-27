@@ -1,0 +1,159 @@
+<div class="container-p">
+  <ngb-carousel *ngIf="imageObject.length == 0? imageObjectRemplazo : imageObject">
+    <ng-template ngbSlide *ngFor="let slide of imageObject.length == 0? imageObjectRemplazo : imageObject">
+      <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
+        <img width="100%"
+        [src]=" recursoUrl( imageObject.length == 0?  slide.src : slide.src, 1,imageObject.length,true)"/>
+      </ng-container>
+      <ng-template  #elseTemplate>
+        <div style="background-color: rgb(184, 184, 184);">
+          <video loop muted autoplay oncanplay="this.play()"
+          onloadedmetadata="this.muted = true"  width="100%"  >
+            <source [src]="recursoUrl(slide.src, 2,imageObject.length,true)" >
+          </video>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ngb-carousel>
+
+    <div id="section2">
+      <div class="info">
+        <h2>INFORMACIÓN <span>DEL MES</span></h2>
+        <span>Mantente al día con las actualizaciones mensuales que Araiza Hoteles trae para ti.</span>
+      </div>
+      <div class="menu">
+      <div class="subMenu">
+        <div class="subseccion1">
+          <div class="cajaMenu" (click)="imagenCompartida('menu')">
+          <div><img [src]="this.link+'assets/img/camapana1.png'"></div>
+          <div class="item"> MENÚ </div></div>
+
+          <div class="cajaMenu" (click)="imagenCompartida('aniversario')">
+          <div><img [src]="this.link+'assets/img/aniversario.png'"></div>
+          <div class="item"> ANIVERSARIO </div>
+          </div>
+        </div>
+        <div class="subseccion2">
+          <div class="cajaMenu" (click)="imagenCompartida('cumpleaños')">
+            <div><img [src]="this.link+'assets/img/cumpleaños.png'"></div>
+            <div class="item"> CUMPLEAÑOS </div>
+          </div>
+          <div class="cajaMenu" (click)="irLink('https://www.facebook.com/AraizaHotelReclutamiento')">
+            <div><img [src]="this.link+'assets/img/vacantes.png'"></div>
+            <div class="item"> VACANTES </div>
+            </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div id="seccion4-notice">
+      <h2 >NOTICIAS</h2>
+        <div id="container-notice">
+          <ng-container *ngIf="noticias.length > 0; else elseTemplate">
+            <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
+              <mat-card class="noticia">
+                <mat-card-header>
+                  <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+                </mat-card-header>
+                <div class="container-matCard">
+                <div class="img-card">
+                  <!-- <img mat-card-image [src]="recursoUrl('http://localhost/portalComunicacion/API/imgVideo/galeria-noticia/fotos/'+i.imgVideo)" [alt]="i.imgVideo">-->
+                  <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                    <img
+                    [src]=" recursoUrl( imageObject.length == 0?  i.imgVideo : i.imgVideo,1,1,false)"
+                    class="d-block w-100"
+                    loading="lazy" />
+                  </ng-container>
+                  <ng-template  #elseTemplate>
+                      <video height="100%" width="100%" loop  controls  >
+                        <source [src]="recursoUrl(i.imgVideo,2,1,false)">
+                      </video>
+                  </ng-template>
+                </div>
+                <mat-card-content>
+                  <span class="fecha">{{dateNormal(i.fechaInicial)}}</span>
+                  <h3>{{i.titulo}}</h3>
+                    <div class="texto">
+                      {{cortarTexto(i.descripcion!.toString(), cortar[x], x)}}
+                      <br>
+                      <br>
+                      <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="leerMas">Leer mas... </span>
+                      <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="leerMas">Leer menos... </span>
+                    </div>
+                </mat-card-content>
+                </div>
+                </mat-card>
+          </div>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <div class="lista-noticias">
+              <div *ngFor="let item of cortar">
+                <mat-card class="noticia">
+                  <mat-card-header>
+                   <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+                  </mat-card-header>
+                  <div class="container-matCard">
+                  <div class="img-card">
+                    <img mat-card-image [src]="this.link+'assets/img/image.png'" alt="Photo of a Shiba Inu">
+                  </div>
+                  <mat-card-content>
+                    <span class="fecha">oct 4. 2020</span>
+                    <h3>Mes del cancer de mama</h3>
+                    <div>
+                      Este mes de octubre Hotel Araiza se une a la lucha contra el cáncer de mama, no olvides portar tu listón rosa durante todo el mes.
+                      <br>
+                      <br>
+                      <span class="leerMas">Leer mas... </span>
+                    </div>
+                  </mat-card-content>
+                  </div>
+                 </mat-card>
+              </div>
+          </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="container-beneficios">
+        <div id="beneficios">
+          <span><label id="conoce">CONOCE</label> TUS BENEFICIOS</span>
+            <div (click)="enviarPagina('https://view.genial.ly/622f7d8050e05f0018d0eccc')" class="cBfcios">
+              <div class="muestra">
+                <img [src]="this.link+'assets/img/beneficios/base-planta.png'" alt="" >
+              </div>
+            </div>
+            <div (click)="enviarPagina('https://view.genial.ly/6228feb16883860011940903/presentation-curso-de-induccion-mexicali')" class="cBfcios" >
+              <div  class="muestra">
+                  <img [src]="this.link+'assets/img/beneficios/nuevo-ingreso.png'" alt="">
+              </div>
+            </div>
+            <div class="cBfcios" (click)="imagenCompartida('empleado-mes')">
+              <div  class="muestra">
+                <img [src]="this.link+'assets/img/beneficios/empleado-mes.png'" alt="">
+              </div>
+            </div>
+            <div class="cBfcios">
+              <div class="muestra">
+                <img [src]="this.link+'assets/img/beneficios/araiza-diamante.png'" [routerLink]="'/general/araiza-diamante'" alt="">
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="container-autoc">
+        <div id="cuerpo-bt">
+          <h1>AUTOCAPACITACIONES</h1>
+          <div id="texto">
+            Las constancias de finalización de los cursos, serán entregadas al departamento de
+            <b> Recursos Humanos </b> para control de los cursos realizados.
+            Este mes te recomendamos los cursos de:
+          </div>
+          <div id="bt-autoc">
+            <button mat-raised-button class="bAuto" (click)="enviarPagina('https://aprende.org/aprende?r=.cfcs_course&tagID=928')" color="primary">SEGURIDAD E HIGIENE EN AMBIENTE LABORAL</button>
+            <button mat-raised-button class="bAuto" (click)="enviarPagina('https://aprende.org/aprende?r=.cfcs_course&tagID=928')" color="primary">HABILIDADES DE PRESENTACIONES</button>
+            <button mat-raised-button class="bAuto" (click)="enviarPagina('https://aprende.org/aprende?r=.cfcs_course&tagID=928')" color="primary">CÓMPUTO BÁSICO</button>
+          </div>
+        </div>
+        <img [src]="this.link+'assets/img/morra-like.png'" alt="">
+      </div>
+    <app-footer></app-footer>
+</div>

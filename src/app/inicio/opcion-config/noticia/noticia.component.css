@@ -1,0 +1,32 @@
+
+@font-face {
+  font-family: 'gotham-bold';
+  src: url('../../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Bold.otf');
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+
+h1 {
+  font-family:  'gotham-bold';
+}
+
+form {
+    width: 100%;
+    align-self: center;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+@media(max-height:517px){
+    .container {
+        display: block;
+    }
+
+}
