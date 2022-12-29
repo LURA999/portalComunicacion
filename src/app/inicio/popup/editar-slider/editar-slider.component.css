@@ -1,9 +1,9 @@
 form {
     display: grid;
-    
+
 }
 
-::ng-deep .mat-form-field-infix {
+ mat-form-field {
     display: block;
     flex: auto;
     min-width: 0;

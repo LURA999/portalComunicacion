@@ -127,7 +127,7 @@ export class GaleriaMultiComponent implements OnInit {
       let dialogRef = this.dialog.open(EliminarComponent, {
         height: 'auto',
         width: 'auto',
-        data:{id:Number(id), opc:noticiaSlider, selec:model}
+        data:{id:Number(id), opc:noticiaSlider, seccion: "foto/imagen"}
       });
 
       dialogRef.afterClosed().subscribe(async (resp:any)=>{
@@ -245,7 +245,7 @@ export class GaleriaMultiComponent implements OnInit {
       let dialogRef = this.dialog.open(EliminarComponent, {
         height: 'auto',
         width: 'auto',
-        data:{id:Number(id), opc:noticiaSlider}
+        data:{id:Number(id), opc:noticiaSlider, seccion: "foto/imagen"}
       });
       dialogRef.afterClosed().subscribe(async (resp:any)=>{
         if(typeof resp !== 'boolean' && resp !== undefined ){

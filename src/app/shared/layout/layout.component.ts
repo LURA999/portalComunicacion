@@ -120,14 +120,13 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     activarSeccion(link? : string, nombre? :string){
-
       for (let i = 0; i < document.getElementsByClassName("menu-opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("menu-opc")[i],"color","#000000")
       }
+
       for (let i = 0; i < document.getElementsByClassName("verticalN-opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("verticalN-opc")[i],"color","#FFFFFF")
       }
-    console.log(nombre);
 
       if (nombre !==undefined ) {
         switch (nombre) {
@@ -237,11 +236,8 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngAfterContentInit(): void {
       this.DataService.open.subscribe(res => {
-        console.log(Number(this.auth.getCveRol()));
-
         if (Number(this.auth.getCveRol()) == 1) {
           this.isAdminPortal = false;
-
           //en estas paginas el navabar  no aparecera del lado izquierdo desplazando estos componentes:
           if (res === undefined || res==="mexicali"
           || res==="calafia" || res==="sanLuis"

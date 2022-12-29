@@ -1,4 +1,4 @@
-class usuarioModel {
+export class usuarioModel {
   usuario : number = 0
   nombres : string = ""
   apellidoPaterno : string = ""

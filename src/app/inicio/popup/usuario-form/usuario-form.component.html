@@ -1,1 +1,66 @@
-<p>usuario-form works!</p>
+<h2 mat-dialog-title>{{ data ===undefined? 'Agregando nuevo usuario' : 'Modificando usuario'}}</h2>
+<form [formGroup]="formUsuario">
+<mat-dialog-content>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Numero de empleado</mat-label>
+      <input  formControlName="usuario"  matInput>
+    </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" >
+        <mat-label>Nombres</mat-label>
+        <input  formControlName="nombres"  matInput>
+      </mat-form-field>
+      </div>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Apellido paterno</mat-label>
+      <input  formControlName="apellidoPaterno"  matInput>
+    </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Apellido materno</mat-label>
+      <input  formControlName="apellidoMaterno"  matInput>
+    </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Correo</mat-label>
+      <input  formControlName="correo"  matInput>
+    </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input class = "matInput" formControlName= "contrasena" matInput [type]="hide ? 'password' : 'text'" >
+        <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        {{hide ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+      </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Hotel</mat-label>
+      <mat-select formControlName="cveLocal" (selectionChange)="seleccionandoHotel()">
+        <mat-option *ngFor="let i of locales" [value]="i.idLocal"> {{i.local}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="cveRol" (selectionChange)="seleccionandoRol()">
+        <mat-option value="1">Administrador</mat-option>
+        <mat-option value="2">Usuario</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+  </mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="enviandoDatos()">{{ data ===undefined? 'Crear' : 'Editar'}}</button>
+</mat-dialog-actions>
+</form>
+

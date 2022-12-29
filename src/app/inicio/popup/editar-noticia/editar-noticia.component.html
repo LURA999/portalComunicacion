@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Modificando Noticia </h2>
-<mat-dialog-content>Editar</mat-dialog-content>
-<div>
-    <form [formGroup]="formImgVideo">
+<form [formGroup]="formImgVideo">
+  <mat-dialog-content>
+  <div>
       <mat-form-field appearance="outline">
         <mat-label>Fecha inicial de la noticia</mat-label>
         <input  formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [max]="rango2" matInput [matDatepicker]="picker">
@@ -9,6 +9,8 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      </div>
+      <div>
           <mat-form-field appearance="outline">
             <mat-label>Fecha final de la noticia</mat-label>
             <input  formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango" matInput [matDatepicker]="picker2">
@@ -16,25 +18,32 @@
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
+        </div>
+        <div>
           <mat-form-field appearance="outline">
             <mat-label>Seleccione la seccion</mat-label>
             <mat-select formControlName="cveLocal">
               <mat-option [value]="i.idLocal" *ngFor="let i of localInterfaz" [disabled]="i.cantidad==4"> {{i.local}} </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+        <div>
           <mat-form-field appearance="outline">
             <mat-label>Titulo</mat-label>
             <input matInput formControlName="titulo" type="text" class="ing-txt">
           </mat-form-field>
+        </div>
+        <div>
           <mat-form-field appearance="outline">
             <mat-label>Descripcion</mat-label>
             <input matInput formControlName="descripcion" type="text" class="ing-txt">
           </mat-form-field>
+        </div>
           <input mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
-
-    </form>
-</div>
+</mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-button (click)="enviandoDatos()">Actualizar</button>
 </mat-dialog-actions>
+</form>
+

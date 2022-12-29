@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'gotham-bold';
+  src: url('../../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Bold.otf');
+}
+
+@font-face {
+  font-family: 'gotham-book';
+  src: url('../../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Book.otf');
+}
+
+h2, button{
+  font-family: 'gotham-bold';
+}
+
+mat-dialog-content{
+  font-family: 'gotham-book';
+}

@@ -7,6 +7,7 @@ import { ResponseInterfaceTs } from '../interfaces/response.interface';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../core/services/auth.service';
 
 export interface imageObject {
   id?: number,
@@ -40,7 +41,7 @@ export class InicioComponent implements OnInit {
 
   constructor(private DataService : DataNavbarService,
     private serviceImgVideo : SubirImgVideoService,
-    private sanitizer : DomSanitizer, config: NgbCarouselConfig
+    private sanitizer : DomSanitizer, config: NgbCarouselConfig, private auth : AuthService
     ) {
       config.interval = 9000;
       config.keyboard = true;

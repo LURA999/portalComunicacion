@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Modificando slider</h2>
-<mat-dialog-content>Editar</mat-dialog-content>
-    <form [formGroup]="formImgVideo">
+<form [formGroup]="formImgVideo">
+<mat-dialog-content>
     <mat-form-field appearance="outline" >
         <mat-label>Fecha inicial de la noticia</mat-label>
         <input  formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [max]="rango2" matInput [matDatepicker]="picker">
@@ -22,8 +22,9 @@
         </mat-select>
       </mat-form-field>
       <input mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
-    </form>
+    </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-button (click)="enviandoDatos()">Editar</button>
 </mat-dialog-actions>
+</form>

@@ -126,6 +126,8 @@ export class ImagenVideoComponent implements OnInit {
           })
         }
       }
+      console.log(this.localInterfaz);
+
     }))
 
   }
