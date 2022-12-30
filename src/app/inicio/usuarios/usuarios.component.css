@@ -1,17 +1,3 @@
-@font-face {
-  font-family: 'gotham-regular';
-  src: url('../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Black.otf');
-}
-
-@font-face {
-  font-family: 'gotham-book';
-  src: url('../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Book.otf');
-}
-
-@font-face {
-  font-family: 'gotham-bold';
-  src: url('../../../assets/fonts/Gotham-Font/Gotham-Font/Gotham-Bold.otf');
-}
 
 table {
   width: 100%;

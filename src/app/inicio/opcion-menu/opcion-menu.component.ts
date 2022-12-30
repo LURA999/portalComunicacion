@@ -37,9 +37,7 @@ export class OpcionMenuComponent implements OnInit {
   opc : number = 0
   api : string = environment.api
   $sub : Subscription = new Subscription()
-  images = [700, 800, 807, 500].map(
-    (n) => `https://picsum.photos/id/${n}/900/500`
-  );
+
   cargar : boolean = false;
   imageObject: imageObject[] = [];
   imageObjectRemplazo: imageObject[] = [];
@@ -213,7 +211,7 @@ export class OpcionMenuComponent implements OnInit {
   imagenCompartida(seccion : string){
     this.auth.crearElm(CryptoJS.AES.encrypt(seccion,"Amxl@2019*-").toString(),"sec");
     this.auth.crearElm(CryptoJS.AES.encrypt(this.paramUrl,"Amxl@2019*-").toString(),"lua");
-    this.route.navigate(["/general/imagen-compartida"]);
+    this.route.navigate(["/general/"+seccion]);
   }
 
   ngOnDestroy(): void {

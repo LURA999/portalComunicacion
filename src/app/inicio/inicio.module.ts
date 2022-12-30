@@ -26,10 +26,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioFormComponent } from './popup/usuario-form/usuario-form.component';
 import { EmpleadoDelMesComponent } from './opcion-config/empleado-del-mes/empleado-del-mes.component';
-import { CumpleanosComponent } from './cumpleanos/cumpleanos.component';
-import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
-import { AniversariosComponent } from './aniversarios/aniversarios.component';
-import { MenuComponent } from './menu/menu.component';
+import { CustomMaterialModule } from '../custom-material/custom-material.module';
 
 @NgModule({
   declarations: [
@@ -49,11 +46,7 @@ import { MenuComponent } from './menu/menu.component';
     ImageComponent,
     UsuariosComponent,
     UsuarioFormComponent,
-    EmpleadoDelMesComponent,
-    CumpleanosComponent,
-    CumpleanerosComponent,
-    AniversariosComponent,
-    MenuComponent
+    EmpleadoDelMesComponent
 
   ],
   imports: [
@@ -65,7 +58,8 @@ import { MenuComponent } from './menu/menu.component';
     CarouselModule,
     NgImageSliderModule,
     IvyCarouselModule,
-    NgbModule
+    NgbModule,
+    CustomMaterialModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}

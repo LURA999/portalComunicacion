@@ -77,6 +77,11 @@
         </mat-form-field>
       </div>
       <br>
+      <ng-container *ngIf="modalidad === false">
+        <img [src]="api+'imgVideo/fotos/'+data!.img" alt="imagen-usuario">
+        <br>
+        <br>
+      </ng-container>
       <div>
         <input mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
       </div>

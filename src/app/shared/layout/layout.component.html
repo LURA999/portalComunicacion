@@ -2,7 +2,7 @@
   <mat-toolbar  [hidden]="isAdmin">
     <mat-toolbar-row>
       <div id="btn-toggle">
-        <button mat-icon-button (click)="snav.toggle()">
+        <button  mat-icon-button (click)="snav.toggle()">
           <mat-icon >menu</mat-icon>
         </button>
       </div>
@@ -11,7 +11,7 @@
       </div>
       <div id="space"></div>
       <div class="logout" [hidden]="!mobileQuery.matches">
-        <img [src]="this.link+'assets/img/araiza_logo_dash.png'" alt="">
+        <img [src]="this.link+'assets/img/logos/araiza_logo_dash.png'" alt="">
       </div>
 
         <div id="menu">
@@ -161,64 +161,64 @@
         <mat-nav-list id="adminNav" [hidden]="!isAdmin">
 
         <div class="opcMenu" [ngStyle]="{'background-color': '#293641'}"  aria-selected="true">
-          <span > <img [src]="this.link+'assets/img/araiza-hoteles-logo-2.png'" alt=""> </span>
+          <span > <img [src]="this.link+'assets/img/logos/araiza-hoteles-logo-2.png'" alt=""> </span>
         </div>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="portal('/general')"  >
           <mat-icon mat-list-icon >
-          <img [src]="this.link+'assets/img/icon-nav-admin/icon-portal.png'" alt="">
+          <img [src]="this.link+'assets/img/img-nav-admin/icon-portal.png'" alt="">
         </mat-icon>
           <span   class="opc"> Portal  </span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/slider')"  >
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-slider.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/icon-slider.png'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Slider  </span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/noticias')">
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-noticia.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/icon-noticia.png'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Noticias  </span>
         </a> <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/menu')">
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-menu.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/icon-menu.png'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Menu  </span>
         </a>
         <!--<a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/cumpleanos')" >
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-cumple.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/img-cumple.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc" > Cumpleaños  </span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/aniversario')" >
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-aniversario.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/img-aniversario.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc" > Aniversario  </span>
         </a>-->
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/empleado-del-mes')">
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-aniversario.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/icon-aniversario.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc" > Empleado del mes  </span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/galeriaMulti')" >
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-galeria.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc"  > Galeria<br>Multimedia  </span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/usuarios')" >
           <mat-icon mat-list-icon >
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-galeria.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc"  > Usuarios</span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item class="logout" (click)="salir()" routerLinkActive="active">
           <mat-icon mat-list-icon>
-            <img [src]="this.link+'assets/img/icon-nav-admin/icon-cerrarsesion.png'" alt="">
+            <img [src]="this.link+'assets/img/img-nav-admin/icon-cerrarsesion.png'" alt="">
           </mat-icon>
           <span class="opc"  > Salir </span>
         </a>

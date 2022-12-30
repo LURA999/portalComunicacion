@@ -1,0 +1,23 @@
+
+#cabecera {
+  display: flex;
+}
+
+#cabecera-cumpleaños {
+  width: 100%;
+  object-fit: contain;
+}
+
+
+#titulo_1 {
+  margin-top: 13%;
+    margin-left: 10%;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    font-size: 3vw;
+    line-height: normal;
+    font-family: 'gotham-bold';
+
+}
+

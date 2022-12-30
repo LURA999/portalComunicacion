@@ -25,7 +25,9 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./src/assets/styles/my-theme.scss",
-              "node_modules/@coreui/coreui/scss/coreui.scss"
+
+              "node_modules/@coreui/coreui/scss/coreui.scss",
+              "./src/styles.css"
 
             ],
             "scripts": [

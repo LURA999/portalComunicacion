@@ -6,6 +6,7 @@ import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { environment } from 'src/environments/environment';
 import { local, usuarios } from '../../usuarios/usuarios.component';
 import { EditarSliderComponent } from '../editar-slider/editar-slider.component';
 
@@ -36,6 +37,8 @@ export class UsuarioFormComponent implements OnInit {
     fechaNacimiento: [ '' , Validators.required],
     fechaIngreso: [ '' , Validators.required ]
   })
+  link : string =  environment.production === true ? "": "../../../";
+  api : string = environment.api;
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
   private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService
@@ -95,7 +98,6 @@ export class UsuarioFormComponent implements OnInit {
       }
 
       this.data!.img = nombre
-      console.log(this.data);
 
       await lastValueFrom(this.usService.createuser(this.data!))
       this.usService.selectAllusers().subscribe(async (resp1:ResponseInterfaceTs) =>{
