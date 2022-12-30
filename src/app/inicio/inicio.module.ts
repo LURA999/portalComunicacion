@@ -25,6 +25,11 @@ import { ImageComponent } from './image/image.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioFormComponent } from './popup/usuario-form/usuario-form.component';
+import { EmpleadoDelMesComponent } from './opcion-config/empleado-del-mes/empleado-del-mes.component';
+import { CumpleanosComponent } from './cumpleanos/cumpleanos.component';
+import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
+import { AniversariosComponent } from './aniversarios/aniversarios.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,12 @@ import { UsuarioFormComponent } from './popup/usuario-form/usuario-form.componen
     EditarNoticiaComponent,
     ImageComponent,
     UsuariosComponent,
-    UsuarioFormComponent
+    UsuarioFormComponent,
+    EmpleadoDelMesComponent,
+    CumpleanosComponent,
+    CumpleanerosComponent,
+    AniversariosComponent,
+    MenuComponent
 
   ],
   imports: [

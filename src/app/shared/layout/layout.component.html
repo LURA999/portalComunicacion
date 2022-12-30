@@ -7,7 +7,7 @@
         </button>
       </div>
       <div class="logout" [hidden]="mobileQuery.matches">
-        <img [src]="this.link+'assets/img/araiza_logo_dash.png'" alt="">
+        <img [src]="logoActualizado()" alt="">
       </div>
       <div id="space"></div>
       <div class="logout" [hidden]="!mobileQuery.matches">
@@ -186,7 +186,7 @@
           </mat-icon>
           <span   class="opc verticalN-opc" > Menu  </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/cumpleanos')" >
+        <!--<a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/cumpleanos')" >
           <mat-icon mat-list-icon >
             <img [src]="this.link+'assets/img/icon-nav-admin/icon-cumple.png'" alt="">
           </mat-icon>
@@ -197,7 +197,7 @@
             <img [src]="this.link+'assets/img/icon-nav-admin/icon-aniversario.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc" > Aniversario  </span>
-        </a>
+        </a>-->
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/empleado-del-mes')">
           <mat-icon mat-list-icon >
             <img [src]="this.link+'assets/img/icon-nav-admin/icon-aniversario.png'" alt="">

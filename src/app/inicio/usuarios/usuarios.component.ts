@@ -32,6 +32,9 @@ export interface usuarios {
   cveRol:string;
   opciones : string;
   contrasena? : string;
+  img?: string;
+  fechaNacimiento:Date;
+  fechaIngreso:Date;
 }
 @Component({
   selector: 'app-usuarios',
@@ -68,8 +71,10 @@ export class UsuariosComponent implements OnInit {
     this.cargando = false;
 
     this.users.selectAllusers().subscribe(async (resp:ResponseInterfaceTs)=>{
+      console.log(resp.container);
+
       for await (const c of resp.container) {
-        this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno, contrasena:c.contrasena,opciones:""})
+        this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
       }
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.dataSource.paginator =  this.paginator;
@@ -106,10 +111,11 @@ export class UsuariosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
+          this.formBuscar.reset();
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,opciones:""})
+            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -128,10 +134,11 @@ export class UsuariosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
+          this.formBuscar.reset();
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,opciones:""})
+            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -151,10 +158,11 @@ export class UsuariosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
+          this.formBuscar.reset();
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,opciones:""})
+            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -175,7 +183,7 @@ export class UsuariosComponent implements OnInit {
         this.cargando = false;
         this.ELEMENT_DATA = [];
         for await (const c of resp.container) {
-          this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,opciones:""})
+          this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
         }
         this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
         this.dataSource.paginator =  this.paginator;

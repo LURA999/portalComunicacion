@@ -23,7 +23,7 @@ export class EliminarComponent implements OnInit {
 
   constructor( public dialogRef: MatDialogRef<EliminarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: eliminar,private serviceImgVideo : SubirImgVideoService,
-    private usService:UsuarioService) { }
+    private usService:UsuarioService, private servImgVideo : SubirImgVideoService) { }
 
   ngOnInit(): void {
 
@@ -49,6 +49,7 @@ export class EliminarComponent implements OnInit {
           }
           break;
         case "usuario":
+            await lastValueFrom(this.servImgVideo.eliminarDirImgUsuario(Number(this.data.id)));
             await lastValueFrom(this.usService.deleteUser(Number(this.data.id)))
             this.usService.selectAllusers().subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);

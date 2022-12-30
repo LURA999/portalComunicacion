@@ -90,8 +90,7 @@ export class ImagenVideoComponent implements OnInit {
       let intfz : imgVideoModel  = this.formImgVideo.value
       intfz.cveSeccion = this.cveSeccion
       intfz.formato =  this.formatoVideo
-      console.log(this.formImgVideo);
-
+      //en este paso se cambiara el nombre dependiendo de la seccion (pagina) en la que esten
       this.$sub.add(this.serviceImgVid.subirImgVideo2(this.formData,"imgVideo",this.cveSeccion).subscribe(async (resp:ResponseInterfaceTs)=>{
         intfz.dir = resp.container.directorio;
         if (this.cveSeccion == 1 ||  this.cveSeccion == -1) {
@@ -126,8 +125,6 @@ export class ImagenVideoComponent implements OnInit {
           })
         }
       }
-      console.log(this.localInterfaz);
-
     }))
 
   }
@@ -142,7 +139,7 @@ export class ImagenVideoComponent implements OnInit {
     try {
     extension = this.target.type.split("/")[1]
     } catch (error) { }
-
+    //nombres ya prestablecidos para categorias, ya establecidas
     switch (paramUrl) {
       case "slider":
         this.titulo = "SLIDER";

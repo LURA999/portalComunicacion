@@ -133,7 +133,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "general":
             this.render.setStyle(document.getElementsByClassName("menu-opc")[0],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[6],"color","#ffba60")
-
             break;
           case "calafia":
             this.render.setStyle(document.getElementsByClassName("menu-opc")[2],"color","#ffba60")
@@ -164,20 +163,20 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "menu":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
             break;
-          case "cumpleanos":
+          /*case "cumpleanos":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
           case "aniversario":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
-            break;
+            break;*/
           case "empleado-del-mes":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
           case "galeriaMulti":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
             break;
           case "usuarios":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
             break;
         }
       }else{
@@ -215,20 +214,20 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
          case "/general/menu":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
             break;
-          case "/general/cumpleanos":
+        /*  case "/general/cumpleanos":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
           case "/general/aniversario":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
-            break;
+            break;*/
           case "/general/empleado-del-mes":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
           case "/general/galeriaMulti":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
             break;
           case "/general/usuarios":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
             break;
         }
       }
@@ -273,5 +272,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         return false;
       }
 
+    }
+
+    logoActualizado() :string {
+      return this.link+'assets/img/logos/logo.svg';
     }
 }

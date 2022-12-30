@@ -58,7 +58,7 @@ import { MatNativeDateModule } from '@angular/material/core';
      // provide: MAT_DATE_FORMATS,
    //   useValue: MY_FORMATS
    // },
-    { provide: LOCALE_ID, useValue: 'es-MX' }
+    { provide: LOCALE_ID, useValue: 'en-US' }
   ],
   declarations: []
 })
