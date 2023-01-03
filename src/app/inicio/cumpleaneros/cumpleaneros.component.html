@@ -3,9 +3,19 @@
     <img [src]="link+'assets/img/img-seccion-hotel/cumpleaneros.png'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
     <span id="titulo_1">CUMPLEAÑEROS <br> <span id="titulo_2" [style.color]="color_primary"> DE {{mes}}</span></span>
   </div>
-  <div>
-    <div *ngFor="let item of items">
-
+  <div class="usuario-container">
+    <h2>¡Muchas Felicidades!</h2>
+    <span>Grupo Araiza te desea un año lleno de minutos de amor, felicidad y alegría. ¡Feliz Cumpleaños!</span>
+    <div  *ngFor="let i of usuarios" class="usuario">
+        <img [src]="api+'imgVideo/fotos/'+i.img" alt="" class="marco"> <br>
+        <div class="texto">
+          {{i.nombres+' '+i.apellidoPaterno}} <br>
+          {{i.departamento.toUpperCase()}}
+          <br><br>
+          <div class="dep" [style.background] = "color_primary">
+            {{dateNormal(i.fechaNacimiento)}}
+          </div>
+        </div>
     </div>
   </div>
 </div>

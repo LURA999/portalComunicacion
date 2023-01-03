@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -35,13 +36,15 @@ export class UsuarioFormComponent implements OnInit {
     contrasena: [ '' ],
     img : [ '' ],
     fechaNacimiento: [ '' , Validators.required],
-    fechaIngreso: [ '' , Validators.required ]
+    fechaIngreso: [ '' , Validators.required ],
+    departamento: [ '' , Validators.required ]
   })
+  guardHotel : number | undefined
   link : string =  environment.production === true ? "": "../../../";
   api : string = environment.api;
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
-  private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService
+  private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private auth : AuthService
   ) {
 
     if (data !== undefined) {
@@ -56,8 +59,10 @@ export class UsuarioFormComponent implements OnInit {
         contrasena: [ '' ],
         img : [ this.data!.img ],
         fechaNacimiento: [ new Date(this.data!.fechaNacimiento+"T00:00:00"), Validators.required],
-        fechaIngreso: [  new Date(this.data!.fechaIngreso+"T00:00:00") , Validators.required ]
+        fechaIngreso: [  new Date(this.data!.fechaIngreso+"T00:00:00") , Validators.required ],
+        departamento: [ this.data!.departamento , Validators.required ]
       })
+      this.guardHotel = Number(this.data!.cveLocal)
       this.modalidad = false;
     }else{
       this.modalidad = true;
@@ -71,7 +76,7 @@ export class UsuarioFormComponent implements OnInit {
     reader.readAsDataURL(this.targetFile )
     reader.onload = () => {
       this.formUsuario.patchValue({
-        img : reader.result
+        img : this.targetFile.name
       })
     }
     this.formData.append('info', this.targetFile, this.targetFile.name);
@@ -90,6 +95,8 @@ export class UsuarioFormComponent implements OnInit {
     let nombre :string = ""
     //aqui envia datos dependiendo si se actualizara o si se inertara un nuevo usuario
     if (this.modalidad === true) {
+      console.log("paso aqui");
+
       this.data = this.formUsuario.value
       //no es obligatorio insertar img, por lo tanto es necesario comprobar si se inserto una imagen
       if (this.insertarImagen == true) {
@@ -109,18 +116,20 @@ export class UsuarioFormComponent implements OnInit {
     //Se eliminara la anterior imagen, si esque se remplazo el actual
     if (this.insertarImagen === true) {
       this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"."+this.targetFile.name.split(".")[1]);
+
       await lastValueFrom(this.serviceImgVideo.eliminarDirImgUsuario(id));
+      await lastValueFrom(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"."+this.targetFile.name.split(".")[1]));
       //despues se actualizara la imagen nueva que eligio
-       await lastValueFrom(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"."+this.targetFile.name.split(".")[1]));
        let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
       this.data!.img = datos["nombre"];
+      console.log(this.data?.img);
+
       }
 
-      this.data!.usuario = id
+      // this.data!.usuario = id
       // a continuación se actualizara los demas datos del usuario
-      console.log(this.data);
-
       await lastValueFrom(this.usService.updateUser(this.data!))
+
       this.usService.selectAllusers().subscribe(async (resp1:ResponseInterfaceTs) =>{
         this.dialogRef.close(await resp1.container);
       })

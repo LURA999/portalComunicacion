@@ -26,6 +26,10 @@ export class UsuarioService {
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php');
   }
 
+  selectAllusersBirth(hot : number):Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?hotel='+hot);
+  }
+
   updateUser(us : usuarios) : Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders().set('Content-type','Application/json')
     return this.http.patch<ResponseInterfaceTs>(this.api+'Users/userLogin.php', us, {headers})

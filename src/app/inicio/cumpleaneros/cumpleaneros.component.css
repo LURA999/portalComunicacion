@@ -21,3 +21,28 @@
 
 }
 
+.usuario-container {
+  display: flex;
+  margin: 5%;
+  justify-content: center;
+}
+
+.usuario {
+  margin: 20px;
+}
+
+.marco {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+}
+
+.texto {
+  text-align: center;
+}
+
+.dep {
+  color: white;
+  padding: 5px;
+}
+

@@ -68,6 +68,8 @@ export class SubirImgVideoService {
     let headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
     return this.http.patch<ResponseInterfaceTs>(this.local+"Users/img.php?id="+id, {headers});
   }
 

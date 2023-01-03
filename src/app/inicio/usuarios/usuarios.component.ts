@@ -21,7 +21,6 @@ export interface local {
 
 
 export interface usuarios {
-  idUsuario : number;
   usuario : number;
   nombres: string;
   apellidoPaterno:string;
@@ -35,6 +34,7 @@ export interface usuarios {
   img?: string;
   fechaNacimiento:Date;
   fechaIngreso:Date;
+  departamento: string;
 }
 @Component({
   selector: 'app-usuarios',
@@ -71,10 +71,22 @@ export class UsuariosComponent implements OnInit {
     this.cargando = false;
 
     this.users.selectAllusers().subscribe(async (resp:ResponseInterfaceTs)=>{
-      console.log(resp.container);
-
       for await (const c of resp.container) {
-        this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
+        this.ELEMENT_DATA.push({
+          usuario:c.usuario,
+          nombres:c.nombres,
+          correo:c.correo,
+          local:c.local,
+          cveLocal:c.cveLocal,
+          cveRol: c.cveRol,
+          apellidoMaterno: c.apellidoMaterno,
+          apellidoPaterno:c.apellidoPaterno,
+          fechaNacimiento:c.fechaNacimiento,
+          fechaIngreso:c.fechaIngreso,
+          img:c.img,
+          opciones:"",
+          departamento:c.departamento
+        })
       }
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.dataSource.paginator =  this.paginator;
@@ -115,7 +127,21 @@ export class UsuariosComponent implements OnInit {
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
+            this.ELEMENT_DATA.push({
+              usuario:c.usuario,
+              nombres:c.nombres,
+              correo:c.correo,
+              local:c.local,
+              cveLocal:c.cveLocal,
+              cveRol: c.cveRol,
+              apellidoMaterno: c.apellidoMaterno,
+              apellidoPaterno:c.apellidoPaterno,
+              fechaNacimiento:c.fechaNacimiento,
+              fechaIngreso:c.fechaIngreso,
+              img:c.img,
+              opciones:"",
+              departamento:c.departamento
+            })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -138,7 +164,21 @@ export class UsuariosComponent implements OnInit {
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
+            this.ELEMENT_DATA.push({
+              usuario:c.usuario,
+              nombres:c.nombres,
+              correo:c.correo,
+              local:c.local,
+              cveLocal:c.cveLocal,
+              cveRol: c.cveRol,
+              apellidoMaterno: c.apellidoMaterno,
+              apellidoPaterno:c.apellidoPaterno,
+              fechaNacimiento:c.fechaNacimiento,
+              fechaIngreso:c.fechaIngreso,
+              img:c.img,
+              opciones:"",
+              departamento:c.departamento
+            })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -162,10 +202,25 @@ export class UsuariosComponent implements OnInit {
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
+            this.ELEMENT_DATA.push({
+            usuario:c.usuario,
+            nombres:c.nombres,
+            correo:c.correo,
+            local:c.local,
+            cveLocal:c.cveLocal,
+            cveRol: c.cveRol,
+            apellidoMaterno: c.apellidoMaterno,
+            apellidoPaterno:c.apellidoPaterno,
+            fechaNacimiento:c.fechaNacimiento,
+            fechaIngreso:c.fechaIngreso,
+            img:c.img,
+            opciones:"",
+            departamento:c.departamento
+          })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.dataSource.paginator =  this.paginator;
+          this.dataSource.paginator =
+          this.paginator;
           this.cargando = true;
         }
       }
@@ -183,7 +238,20 @@ export class UsuariosComponent implements OnInit {
         this.cargando = false;
         this.ELEMENT_DATA = [];
         for await (const c of resp.container) {
-          this.ELEMENT_DATA.push({idUsuario:Number(c.idUsuario),usuario:c.usuario,nombres:c.nombres,correo:c.correo,local:c.local,cveLocal:c.cveLocal,cveRol: c.cveRol,apellidoMaterno: c.apellidoMaterno, apellidoPaterno:c.apellidoPaterno,fechaNacimiento:c.fechaNacimiento,fechaIngreso:c.fechaIngreso,img:c.img,opciones:""})
+          this.ELEMENT_DATA.push({
+            usuario:c.usuario,
+            nombres:c.nombres,
+            correo:c.correo,
+            local:c.local,
+            cveLocal:c.cveLocal,
+            cveRol: c.cveRol,
+            apellidoMaterno: c.apellidoMaterno,
+            apellidoPaterno:c.apellidoPaterno,
+            fechaNacimiento:c.fechaNacimiento,
+            fechaIngreso:c.fechaIngreso,
+            img:c.img,opciones:"",
+            departamento:c.departamento
+          })
         }
         this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
         this.dataSource.paginator =  this.paginator;

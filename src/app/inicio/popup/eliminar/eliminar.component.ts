@@ -5,6 +5,7 @@ import { imgVideoModel } from 'src/app/interfaces/img-video.model';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 export interface eliminar {
   seccion: string,
@@ -23,7 +24,7 @@ export class EliminarComponent implements OnInit {
 
   constructor( public dialogRef: MatDialogRef<EliminarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: eliminar,private serviceImgVideo : SubirImgVideoService,
-    private usService:UsuarioService, private servImgVideo : SubirImgVideoService) { }
+    private usService:UsuarioService, private servImgVideo : SubirImgVideoService, private auth : AuthService) { }
 
   ngOnInit(): void {
 

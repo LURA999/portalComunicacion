@@ -209,7 +209,6 @@ export class OpcionMenuComponent implements OnInit {
   }
 
   imagenCompartida(seccion : string){
-    this.auth.crearElm(CryptoJS.AES.encrypt(seccion,"Amxl@2019*-").toString(),"sec");
     this.auth.crearElm(CryptoJS.AES.encrypt(this.paramUrl,"Amxl@2019*-").toString(),"lua");
     this.route.navigate(["/general/"+seccion]);
   }

@@ -27,6 +27,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioFormComponent } from './popup/usuario-form/usuario-form.component';
 import { EmpleadoDelMesComponent } from './opcion-config/empleado-del-mes/empleado-del-mes.component';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
+import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { CustomMaterialModule } from '../custom-material/custom-material.module'
     ImageComponent,
     UsuariosComponent,
     UsuarioFormComponent,
-    EmpleadoDelMesComponent
+    EmpleadoDelMesComponent,
+    CumpleanerosComponent
 
   ],
   imports: [
@@ -59,7 +62,8 @@ import { CustomMaterialModule } from '../custom-material/custom-material.module'
     NgImageSliderModule,
     IvyCarouselModule,
     NgbModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
