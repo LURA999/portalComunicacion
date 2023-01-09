@@ -36,10 +36,10 @@ export class CumpleanerosComponent implements OnInit {
     let opciones : any = { month: 'long', day: 'numeric', year: 'numeric' };
     this.mes = this.date.toLocaleDateString('es',opciones).split(" ")[2].toUpperCase();
     this.DataService.open.emit(this.luaStr);
+    console.log(this.lua);
 
     this.usServ.selectAllusersBirth(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
       console.log(resp.container);
-
        this.usuarios = resp.container;
     })
   }

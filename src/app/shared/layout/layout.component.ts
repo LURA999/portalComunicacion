@@ -120,6 +120,14 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     activarSeccion(link? : string, nombre? :string){
+      for (let i = 0; i < document.getElementsByClassName("opc").length; i++) {
+        this.render.setStyle(document.getElementsByClassName("opc")[i],"color","#000000")
+      }
+
+      for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
+        this.render.setStyle(document.getElementsByClassName("opcM")[i],"background-image","url("+this.link+"assets/img/pruebas/vector2.png)")
+      }
+
       for (let i = 0; i < document.getElementsByClassName("menu-opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("menu-opc")[i],"color","#000000")
       }
@@ -129,30 +137,37 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       if (nombre !==undefined ) {
+        console.log(document.getElementsByClassName("opcM"));
+
         switch (nombre) {
           case "general":
+            this.render.setStyle(document.getElementsByClassName("opc")[0],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[0],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[6],"color","#ffba60")
             break;
           case "calafia":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[2],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[1],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[2],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[3],"color","#ffba60")
             break;
          case "sanLuis":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[3],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[11],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[2],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[3],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[5],"color","#ffba60")
             break;
           case "mexicali":
+            this.render.setStyle(document.getElementsByClassName("opcM")[0],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[1],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
             break;
           case "palmira":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[4],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[13],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
             break;
           case "hermosillo":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[5],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[15],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
             break;
           case "slider":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
@@ -182,28 +197,33 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       }else{
         switch (link) {
           case "/general":
+            this.render.setStyle(document.getElementsByClassName("opc")[0],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[0],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[6],"color","#ffba60")
             break;
           case "/general/calafia":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[2],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[1],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[2],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[3],"color","#ffba60")
             break;
          case "/general/sanLuis":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[3],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[11],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[2],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[3],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[5],"color","#ffba60")
             break;
           case "/general/mexicali":
+            this.render.setStyle(document.getElementsByClassName("opcM")[0],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[1],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
             break;
           case "/general/palmira":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[4],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[13],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
             break;
           case "/general/hermosillo":
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[5],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[15],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
             break;
           case "/general/slider":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")

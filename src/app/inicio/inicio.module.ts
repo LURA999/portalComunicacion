@@ -28,6 +28,10 @@ import { UsuarioFormComponent } from './popup/usuario-form/usuario-form.componen
 import { EmpleadoDelMesComponent } from './opcion-config/empleado-del-mes/empleado-del-mes.component';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
+import { AniversariosComponent } from './aniversarios/aniversarios.component';
+import { MenuComponent } from './menu/menu.component';
+import { HistorialNoticiasComponent } from './historial-noticias/historial-noticias.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -49,12 +53,15 @@ import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
     UsuariosComponent,
     UsuarioFormComponent,
     EmpleadoDelMesComponent,
-    CumpleanerosComponent
-
+    CumpleanerosComponent,
+    AniversariosComponent,
+    MenuComponent,
+    HistorialNoticiasComponent
   ],
   imports: [
     HttpClientModule,
     CommonModule,
+    NgxPaginationModule,
     SharedModule,
     InicioRoutingModule,
     NgImageSliderModule,

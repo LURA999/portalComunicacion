@@ -93,37 +93,40 @@ export class UsuarioFormComponent implements OnInit {
 
   async enviandoDatos(){
     let nombre :string = ""
+    /**
+     * modalidad:
+     * true = nuevo usuario
+     * false = modificando usuario
+     */
+
     //aqui envia datos dependiendo si se actualizara o si se inertara un nuevo usuario
     if (this.modalidad === true) {
-      console.log("paso aqui");
-
       this.data = this.formUsuario.value
-      //no es obligatorio insertar img, por lo tanto es necesario comprobar si se inserto una imagen
+      //no es obligatorio insertar img, pero es necesario comprobar si se inserto una imagen
       if (this.insertarImagen == true) {
-        this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"."+this.targetFile.name.split(".")[1]);
+        this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]);
         nombre = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
       }
-
       this.data!.img = nombre
-
       await lastValueFrom(this.usService.createuser(this.data!))
       this.usService.selectAllusers().subscribe(async (resp1:ResponseInterfaceTs) =>{
         this.dialogRef.close(await resp1.container);
       })
     } else {
-      let id :number = this.data!.usuario;
+      let gimg = this.data!.img;
+
       this.data = this.formUsuario.value
+      this.data!.imgn = gimg;
+      this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+gimg?.split(".")[1]
+
     //Se eliminara la anterior imagen, si esque se remplazo el actual
     if (this.insertarImagen === true) {
-      this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"."+this.targetFile.name.split(".")[1]);
-
-      await lastValueFrom(this.serviceImgVideo.eliminarDirImgUsuario(id));
-      await lastValueFrom(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"."+this.targetFile.name.split(".")[1]));
+      this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]);
+      await lastValueFrom(this.serviceImgVideo.eliminarDirImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]));
+      await lastValueFrom(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]));
       //despues se actualizara la imagen nueva que eligio
-       let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
-      this.data!.img = datos["nombre"];
-      console.log(this.data?.img);
-
+      let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
+      this.data!.img = datos;
       }
 
       // this.data!.usuario = id

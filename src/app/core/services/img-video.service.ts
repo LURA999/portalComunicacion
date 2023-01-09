@@ -60,7 +60,7 @@ export class SubirImgVideoService {
   return this.http.post<ResponseInterfaceTs>(this.local+"Users/img.php", obj, {headers})
   }
 
-  eliminarDirImgUsuario(id: number) : Observable <ResponseInterfaceTs>{
+  eliminarDirImgUsuario(id: string) : Observable <ResponseInterfaceTs>{
     return this.http.delete<ResponseInterfaceTs>(this.local+"Users/img.php?delete="+id);
   }
 

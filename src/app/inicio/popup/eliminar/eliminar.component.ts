@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 
 export interface eliminar {
   seccion: string,
-  id: number,
+  id: string,
   opc?: boolean
 }
 
@@ -50,7 +50,7 @@ export class EliminarComponent implements OnInit {
           }
           break;
         case "usuario":
-            await lastValueFrom(this.servImgVideo.eliminarDirImgUsuario(Number(this.data.id)));
+            await lastValueFrom(this.servImgVideo.eliminarDirImgUsuario(this.data.id));
             await lastValueFrom(this.usService.deleteUser(Number(this.data.id)))
             this.usService.selectAllusers().subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);

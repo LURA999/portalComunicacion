@@ -8,6 +8,12 @@ import { environment } from 'src/environments/environment';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { Observable, Subscription } from 'rxjs';
 
+export interface usuario {
+  usuario : string;
+  departamento : string;
+  cumpleaños : string;
+}
+
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',

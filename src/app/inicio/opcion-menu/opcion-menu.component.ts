@@ -208,7 +208,7 @@ export class OpcionMenuComponent implements OnInit {
     window.open(link, "_blank");
   }
 
-  imagenCompartida(seccion : string){
+  routerLink(seccion : string){
     this.auth.crearElm(CryptoJS.AES.encrypt(this.paramUrl,"Amxl@2019*-").toString(),"lua");
     this.route.navigate(["/general/"+seccion]);
   }

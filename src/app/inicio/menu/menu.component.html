@@ -1,1 +1,33 @@
-<p>menu works!</p>
+<div class="container-comida">
+  <div id="cabecera">
+    <img [src]="link+'assets/img/img-seccion-hotel/logo-comedor.png'" id="logo-comedor" alt="logo-comedor">
+    <img [src]="link+'assets/img/img-seccion-hotel/comedor-head.png'" id="cabecera-comida"  alt="cabecera-cumpleaños">
+    <span id="titulo_1">MENÚ COMEDOR <br> <span id="titulo_2" [style.color]="color_primary"> DE {{mes}}</span></span>
+  </div>
+  <section class="comida-seccion">
+    <div id="comida-titulo">
+      <h2>¡Buen <span [style.color]="color_primary"> Provecho! </span></h2>
+      <span id="descrip">Esperamos que los platillos sean de tu agrado.</span>
+    </div>
+    <div id="comida-container">
+    <div  *ngFor="let i of usuarios; let idx = index">
+      <div class="cuadro">
+
+        <h3 class="nombre">{{i.nombres+' '+i.apellidoPaterno}}</h3>
+        <article class="texto">
+          <div >
+            {{i.departamento.toUpperCase()}}
+           <br>
+           <div class="fecha" [style.background] = "color_primary">
+             {{dateNormal(i.fechaNacimiento)}}
+           </div>
+         </div>
+        </article>
+
+      </div>
+
+    </div>
+    </div>
+  </section>
+</div>
+<app-footer></app-footer>

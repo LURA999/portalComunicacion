@@ -1,7 +1,6 @@
-.container {
-    display: flex;
-    justify-content: center;
-    height: 100%;
+.container-perso {
+  justify-content: center;
+  margin: 5%;
 }
 
 h1 {
@@ -17,17 +16,11 @@ mat-form-field {
     width: 100%;
 }
 
-@media(max-height:360px){
-    .container {
-        display: block;
-    }
-
-}
 
 span {
   font-family: 'gotham-book';
 }
-
+/*
 .carousel-indicators {
   box-sizing: content-box;
   flex: 0 1 auto;
@@ -46,4 +39,4 @@ span {
   border-bottom: 10px solid transparent;
   opacity: .5;
   transition: opacity .6s ease;
-}
+}*/

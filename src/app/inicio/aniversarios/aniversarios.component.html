@@ -1,1 +1,26 @@
-<p>aniversarios works!</p>
+<div class="container-cumpleaños">
+  <div id="cabecera">
+    <img [src]="link+'assets/img/img-seccion-hotel/aniversarios-head.svg'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
+    <span id="titulo_1" [style.color]="color_primary">ANIVERSARIOS <br> <span id="titulo_2" [style.color]="color_secundary"> DE {{mes}}</span></span>
+  </div>
+  <section class="usuario-seccion">
+    <h2>¡Muchas <span [style.color]="color_primary"> Felicidades! </span></h2>
+    <span id="descrip">Cada idea compartida y cada oportunidad aprovechada por usted nos ayudó a alcanzar las alturas. ¡Felicitaciones a sus esfuerzos!</span>
+    <div id="img-container">
+    <div  *ngFor="let i of usuarios; let idx = index">
+      <div class="usuario">
+        <img [src]="api+'imgVideo/fotos/'+i.img" alt="img-usuario" class="marco"> <br>
+        <div class="texto">
+           <span class="nombre">{{i.nombres+' '+i.apellidoPaterno}}</span><br>
+           <span [style.color]="color_primary" class="depa">{{i.departamento.toUpperCase()}}</span>
+          <br>
+          <div class="fechaNac" [style.background]="color_secundary">
+            {{dateNormal(i.fechaNacimiento)}}
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+</div>
+<app-footer></app-footer>

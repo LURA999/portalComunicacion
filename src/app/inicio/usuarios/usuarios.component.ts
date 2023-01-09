@@ -32,6 +32,7 @@ export interface usuarios {
   opciones : string;
   contrasena? : string;
   img?: string;
+  imgn? : string;
   fechaNacimiento:Date;
   fechaIngreso:Date;
   departamento: string;
@@ -189,7 +190,7 @@ export class UsuariosComponent implements OnInit {
      })
   }
 
-  borrar(usuario : number){
+  borrar(usuario : string){
     let dialogRef = this.dialog.open(EliminarComponent, {
       height: 'auto',
       width: 'auto',

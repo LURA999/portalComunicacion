@@ -9,4 +9,5 @@ export class metodosRepetidos {
         return  this.httpHeaders().set('Content-type','Application/json')
     }
 
+
 }

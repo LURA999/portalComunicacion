@@ -24,17 +24,17 @@
       <div class="menu">
       <div class="subMenu">
         <div class="subseccion1">
-          <div class="cajaMenu" (click)="imagenCompartida('menu')">
+          <div class="cajaMenu" (click)="routerLink('menu')">
           <div><img [src]="this.link+'assets/img/img-seccion-hotel/camapana1.png'"></div>
           <div class="item"> MENÚ </div></div>
 
-          <div class="cajaMenu" (click)="imagenCompartida('aniversarios')">
+          <div class="cajaMenu" (click)="routerLink('aniversarios')">
           <div><img [src]="this.link+'assets/img/img-seccion-hotel/aniversario.png'"></div>
           <div class="item"> ANIVERSARIO </div>
           </div>
         </div>
         <div class="subseccion2">
-          <div class="cajaMenu" (click)="imagenCompartida('cumpleaneros')">
+          <div class="cajaMenu" (click)="routerLink('cumpleaneros')">
             <div><img [src]="this.link+'assets/img/img-seccion-hotel/cumpleaños.png'"></div>
             <div class="item"> CUMPLEAÑOS </div>
           </div>
@@ -48,10 +48,25 @@
     </div>
     <div id="seccion4-notice">
       <h2 >NOTICIAS</h2>
-        <div id="container-notice">
+      <article>¡No te pierdas las novedades de lo que sucede en el hotel!</article>
+        <!-- Esto es para las diferentes cabeceras posibles de noticias -->
+        <div id="container-not2" *ngIf="noticias.length < 4 && noticias.length > 0">
+          <div id="opciones-not">
+            <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+          </div>
+          <hr>
+        </div>
+
+        <div id="container-notice" >
+            <div *ngIf="noticias.length == 4">
+              <div id="opciones-not">
+                <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+              </div>
+              <hr>
+            </div>
           <ng-container *ngIf="noticias.length > 0; else elseTemplate">
             <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
-              <mat-card class="noticia">
+              <mat-card [style.margin-left]="(x<cortar.length && x>0?'55px':'0px')" class="noticia">
                 <mat-card-header>
                   <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
                 </mat-card-header>
@@ -86,9 +101,15 @@
           </div>
           </ng-container>
           <ng-template #elseTemplate>
-            <div class="lista-noticias">
-              <div *ngFor="let item of cortar">
-                <mat-card class="noticia">
+            <div >
+              <div id="opciones-not">
+                <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+              </div>
+              <hr>
+            </div>
+              <div class="lista-noticias" *ngFor="let item of cortar;  let x=index">
+
+                <mat-card [style.margin-left]="(x<cortar.length && x>0?'55px':'0px')" class='noticia'>
                   <mat-card-header>
                    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
                   </mat-card-header>
@@ -109,7 +130,6 @@
                   </div>
                  </mat-card>
               </div>
-          </div>
           </ng-template>
         </div>
       </div>
@@ -126,7 +146,7 @@
                   <img [src]="this.link+'assets/img/beneficios/nuevo-ingreso.png'" alt="">
               </div>
             </div>
-            <div class="cBfcios" (click)="imagenCompartida('empleado-mes')">
+            <div class="cBfcios" (click)="routerLink('empleado-mes')">
               <div  class="muestra">
                 <img [src]="this.link+'assets/img/beneficios/empleado-mes.png'" alt="">
               </div>

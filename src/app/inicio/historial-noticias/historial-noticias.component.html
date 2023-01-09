@@ -1,0 +1,85 @@
+<div id="container-historial">
+  <h2>NOTICIAS</h2>
+  <div id="opciones-not">
+    <div class="tab t1"  (click)="routerLink()" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" >TODOS</div>
+
+  </div>
+  <hr>
+  <ng-container *ngIf="noticias.length > 0; else elseTemplate">
+
+    <div class="lista-noticias" *ngFor="let i of noticias | paginate: { itemsPerPage: 10, currentPage: p } ; let x=index ">
+      <div id="opciones-not">
+        <div class="tab t1"  alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink()">TODOS</div>
+      </div>
+      <div class="noticia">
+        <mat-card-header>
+          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+        </mat-card-header>
+        <div class="container-matCard">
+        <div class="img-card">
+          <!-- <img mat-card-image [src]="recursoUrl('http://localhost/portalComunicacion/API/imgVideo/galeria-noticia/fotos/'+i.imgVideo)" [alt]="i.imgVideo">-->
+          <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+            <img
+            [src]=" recursoUrl( imageObject.length == 0?  i.imgVideo : i.imgVideo,1,1,false)"
+            class="d-block w-100"
+            loading="lazy" />
+          </ng-container>
+          <ng-template  #elseTemplate>
+              <video height="100%" width="100%" loop  controls  >
+                <source [src]="recursoUrl(i.imgVideo,2,1,false)">
+              </video>
+          </ng-template>
+        </div>
+        <mat-card-content>
+          <span class="fecha">{{dateNormal(i.fechaInicial)}}</span>
+          <h3>{{i.titulo}}</h3>
+            <div class="texto">
+              {{cortarTexto(i.descripcion!.toString(), cortar[x], x)}}
+              <br>
+              <br>
+              <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="leerMas">Leer mas... </span>
+              <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="leerMas">Leer menos... </span>
+            </div>
+        </mat-card-content>
+        </div>
+      </div>
+  </div>
+
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  </ng-container>
+  <ng-template #elseTemplate>
+
+      <div class="lista-noticias" *ngFor="let item of cortar | paginate: { itemsPerPage: 1, currentPage: p } ; let x=index">
+
+        <div  class='noticia'>
+          <mat-card-header>
+           <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+          </mat-card-header>
+          <div class="container-matCard">
+          <div class="img-card">
+            <img mat-card-image [src]="this.link+'assets/img/pruebas/image.png'" alt="Photo of a Shiba Inu">
+          </div>
+          <mat-card-content>
+            <span class="fecha">oct 4. 2020</span>
+            <h3>Mes del cancer de mama</h3>
+            <div>
+              Este mes de octubre Hotel Araiza se une a la lucha contra el cáncer de mama, no olvides portar tu listón rosa durante todo el mes.
+              <br>
+              <br>
+              <span class="leerMas">Leer mas... </span>
+            </div>
+          </mat-card-content>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <pagination-controls class="my-pagination" (pageChange)="p = $event"
+      previousLabel=" < "
+      nextLabel=" > "
+
+      ></pagination-controls>
+
+  </ng-template>
+
+</div>

@@ -7,6 +7,7 @@ import { AniversariosComponent } from './aniversarios/aniversarios.component';
 import { AraizaDiamanteComponent } from './araiza-diamante/araiza-diamante.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
+import { HistorialNoticiasComponent } from './historial-noticias/historial-noticias.component';
 import { ImageComponent } from './image/image.component';
 import { InicioComponent } from './inicio.component';
 import { MenuComponent } from './menu/menu.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'cumpleaneros',canActivate: [SesionGuard], component: CumpleanerosComponent},
       { path: 'aniversarios',canActivate: [SesionGuard], component: AniversariosComponent},
       { path: 'menu',canActivate: [SesionGuard], component: MenuComponent},
+      { path: 'historial-noticias',canActivate: [SesionGuard], component: HistorialNoticiasComponent},
 
       //Sesion para el admin
       { path: 'slider',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},

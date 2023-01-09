@@ -1,7 +1,6 @@
-.container {
-    display: flex;
-    justify-content: center;
-    height: 100%;
+.container-perso {
+  justify-content: center;
+  margin: 5%;
 }
 
 
@@ -16,11 +15,4 @@ form {
 
 mat-form-field {
     width: 100%;
-}
-
-@media(max-height:517px){
-    .container {
-        display: block;
-    }
-
 }

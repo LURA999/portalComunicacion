@@ -1,5 +1,4 @@
 export class imgVideoModel  {
-
     fechaInicial : Date = new Date()
     fechaFinal : Date = new Date()
     cveLocal : number = 0

@@ -1,21 +1,26 @@
 <div class="container-cumpleaños">
   <div id="cabecera">
-    <img [src]="link+'assets/img/img-seccion-hotel/cumpleaneros.png'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
+    <img [src]="link+'assets/img/img-seccion-hotel/cumpleaneros-head.png'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
     <span id="titulo_1">CUMPLEAÑEROS <br> <span id="titulo_2" [style.color]="color_primary"> DE {{mes}}</span></span>
   </div>
-  <div class="usuario-container">
-    <h2>¡Muchas Felicidades!</h2>
-    <span>Grupo Araiza te desea un año lleno de minutos de amor, felicidad y alegría. ¡Feliz Cumpleaños!</span>
-    <div  *ngFor="let i of usuarios" class="usuario">
-        <img [src]="api+'imgVideo/fotos/'+i.img" alt="" class="marco"> <br>
+  <section class="usuario-seccion">
+    <h2>¡Muchas <span [style.color]="color_primary"> Felicidades! </span></h2>
+    <span id="descrip">Grupo Araiza te desea un año lleno de minutos de amor, felicidad y alegría. ¡Feliz Cumpleaños!</span>
+    <div id="img-container">
+    <div  *ngFor="let i of usuarios; let idx = index">
+      <div class="usuario">
+        <img [src]="api+'imgVideo/fotos/'+i.img" alt="img-usuario" class="marco"> <br>
         <div class="texto">
-          {{i.nombres+' '+i.apellidoPaterno}} <br>
-          {{i.departamento.toUpperCase()}}
-          <br><br>
-          <div class="dep" [style.background] = "color_primary">
+           <span class="nombre">{{i.nombres+' '+i.apellidoPaterno}}</span><br>
+           <span [style.color]="color_primary" class="depa">{{i.departamento.toUpperCase()}}</span>
+          <br>
+          <div class="fechaNac" [style.background] = "color_primary">
             {{dateNormal(i.fechaNacimiento)}}
           </div>
         </div>
+      </div>
     </div>
-  </div>
+    </div>
+  </section>
 </div>
+<app-footer></app-footer>

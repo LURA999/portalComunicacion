@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SubirImgVideoService } from 'src/app/core/services/noticia.service';
+import { SubirImgNoticiaService } from 'src/app/core/services/subirImgvideo.service';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
@@ -30,7 +30,7 @@ export class NoticiaComponent implements OnInit {
   activar : boolean = false
 
   constructor(private DataService : DataNavbarService, private fb : FormBuilder,
-    private serviceImgVideo : SubirImgVideoService,
+    private serviceImgVideo : SubirImgNoticiaService,
     public route : Router,private local : localService,
     ) {
      /* window.addEventListener("keypress", function(event){

@@ -11,38 +11,200 @@
 
 #titulo_1 {
   margin-top: 13%;
-    margin-left: 10%;
-    position: absolute;
-    z-index: 1;
-    color: white;
-    font-size: 3vw;
-    line-height: normal;
-    font-family: 'gotham-bold';
+  margin-left: 10%;
+  position: absolute;
+  z-index: 1;
+  color: white;
+  font-size: 3vw;
+  line-height: normal;
+  font-family: 'gotham-bold';
 
 }
 
-.usuario-container {
-  display: flex;
+h2 {
+  font-family: 'gotham-bold';
+  font-size: 1.5vw;
+}
+
+h2 span {
+  font-family: 'gotham-bold';
+  font-size: 1.5vw;
+}
+
+span#descrip {
+    font-family: 'gotham-book';
+    font-size: 0.8vw;
+}
+
+.usuario-seccion {
   margin: 5%;
+  text-align: center;
+}
+
+#img-container {
+  margin-top: 82px;
+  display: grid;
+  grid-template-columns: repeat(4, 0.18fr);
+  grid-auto-rows: auto;
   justify-content: center;
 }
 
 .usuario {
   margin: 20px;
+  font-family: 'gotham-book';
 }
 
 .marco {
-  width: 200px;
-  height: 200px;
+  width: 70%;
   border-radius: 100%;
 }
 
 .texto {
-  text-align: center;
+  margin-top: 30px;
+  text-align: -webkit-center;
 }
 
-.dep {
+.nombre{
+  font-size: .8vw;
+  line-height: normal;
+  font-weight: bold;
+}
+
+.depa {
+  font-size: .6vw;
+  line-height: normal;
+}
+
+.fechaNac {
+  margin-top: 3%;
   color: white;
-  padding: 5px;
+  padding: .2vw;
+  width: 40%;
+  font-size: 100%;
+  font-family: 'gotham-book';
+
 }
 
+
+@media (max-width: 1919px) {
+  h2 {
+    font-size: 30px;
+  }
+
+  h2 span {
+    font-size: 30px;
+  }
+
+  span#descrip {
+      font-family: 'gotham-book';
+      font-size: 15px;
+  }
+
+  .nombre{
+    font-size: larger;
+  }
+
+  .depa {
+    font-size: smaller;
+  }
+
+  .marco {
+    width: 200px;
+    border-radius: 100%;
+  }
+
+  #img-container {
+    grid-template-columns: repeat(4, 19rem);
+  }
+
+}
+
+
+@media (max-width: 1550px) {
+  #img-container {
+    grid-template-columns: repeat(3, 19rem);
+  }
+}
+
+
+@media (max-width: 1150px) {
+  #img-container {
+    grid-template-columns: repeat(2, 19rem);
+  }
+}
+
+@media (max-width: 800px) {
+
+  .nombre{
+    font-size: 14px;
+  }
+
+  .depa {
+    font-size: 10px;
+  }
+
+  .marco {
+    width: 200px;
+    border-radius: 100%;
+  }
+
+  .fechaNac {
+    font-size: 14px;
+  }
+
+  #img-container {
+    margin-top: 30px;
+
+    grid-template-columns: repeat(2, 17rem);
+  }
+
+  .marco {
+    width: 150px;
+  }
+
+}
+
+@media (max-width: 670px) {
+
+  h2 {
+    font-size: 16px;
+  }
+
+  h2 span {
+    font-size: 16px;
+  }
+
+  .usuario {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'gotham-book';
+  }
+
+
+  span#descrip {
+    font-family: 'gotham-book';
+    font-size: 11px;
+  }
+
+  .marco {
+    width: 100px;
+  }
+}
+
+@media (max-width: 545px) {
+  #img-container {
+    grid-template-columns: repeat(2, 25fr);
+  }
+
+  .fechaNac {
+    width: 50%;
+  }
+}
+
+@media (max-width: 270px) {
+  #img-container {
+    grid-template-columns: repeat(1, 13rem);
+  }
+
+}

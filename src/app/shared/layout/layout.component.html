@@ -1,3 +1,4 @@
+
 <div class="navbar-container">
   <mat-toolbar  [hidden]="isAdmin">
     <mat-toolbar-row>
@@ -15,68 +16,58 @@
       </div>
 
         <div id="menu">
-          <div class="opc menu-opc" (click)="navegarNavH('/general')">
+          <div class="opc" (click)="navegarNavH('/general')">
               General
           </div>
-          <div class="opc menu-opc" >
-            <div class="btn-group">
-              <div data-toggle="dropdown" (click)="navegarNavH('/general/mexicali')">
+            <div class="btn-group" >
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/mexicali')">
                   Mexicali
               </div>
               <ul class="dropdown-menu noclose"  (click)="navegarNavH('/general/bookings','mexicali')">
                   <li >
-                     Reservado
+                     Reservar
                   </li>
               </ul>
-            </div>
           </div>
-          <div class="opc menu-opc">
             <div class="btn-group">
-              <div data-toggle="dropdown" (click)="navegarNavH('/general/calafia')">
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/calafia')">
                   Calafia
               </div>
               <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','calafia')">
                   <li >
-                     Reservado
+                     Reservar
                   </li>
               </ul>
-            </div>
           </div>
-          <div class="opc menu-opc">
             <div class="btn-group">
-              <div data-toggle="dropdown" (click)="navegarNavH('/general/sanLuis')" >
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/sanLuis')" >
                   San Luis
               </div>
               <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','sanLuis')">
                   <li >
-                      Reservado
+                      Reservar
                   </li>
               </ul>
             </div>
-          </div>
-          <div class="opc menu-opc">
             <div class="btn-group">
-              <div data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
                   Palmira
               </div>
               <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','palmira')">
                   <li>
-                      Reservado
+                      Reservar
                   </li>
               </ul>
             </div>
-          </div>
-          <div class="opc menu-opc">
             <div class="btn-group">
-              <div data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
                   Hermosillo
               </div>
               <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','hermosillo')">
                   <li>
-                      Reservado
+                      Reservar
                   </li>
               </ul>
-            </div>
           </div>
           <div class="opc logout" [hidden]="isAdminPortal" (click)="portal('/general/slider')">
             <mat-icon>settings</mat-icon>
@@ -90,7 +81,7 @@
   <mat-sidenav-container class="navbar-sidenav-container">
 
     <!--Esto va dentro de la etiqueta mat-sidenav [opened]="mobileQuery.matches"-->
-    <mat-sidenav [ngStyle]="{'background-color': isAdmin===true?'#293641':'white'}" #snav [opened]="isAdmin"  [mode]="mode">
+    <mat-sidenav id="mat-estaticos" [ngStyle]="{'background-color': isAdmin===true?'#293641':'white'}" #snav [opened]="isAdmin"  [mode]="mode">
               <!--Navbar de Usuario normal-->
               <mat-nav-list id="usuarioNav" [hidden]="isAdmin">
                 <div >
@@ -106,7 +97,7 @@
                   </a>
                 </mat-expansion-panel-header>
                 <a mat-list-item (click)="navegarNavH('/general/bookings','mexicali')" class="menu-opc" routerLinkActive="active" mat-line>
-                  Reservado</a>
+                  Reservar</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(2)">
                 <mat-expansion-panel-header #panelH2>
@@ -115,7 +106,7 @@
                 </a>
                 </mat-expansion-panel-header>
                 <a mat-list-item (click)="navegarNavH('/general/bookings','calafia')" class="menu-opc" routerLinkActive="active" mat-line>
-                  Reservado</a>
+                  Reservar</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(3)">
                 <mat-expansion-panel-header #panelH3>
@@ -124,7 +115,7 @@
                 </a>
                 </mat-expansion-panel-header>
                 <a mat-list-item class="menu-opc"(click)="navegarNavH('/general/bookings','sanLuis')" routerLinkActive="active" mat-line>
-                  Reservado</a>
+                  Reservar</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(4)">
                 <mat-expansion-panel-header #panelH4>
@@ -133,7 +124,7 @@
                 </a>
                 </mat-expansion-panel-header>
                 <a mat-list-item class="menu-opc" (click)="navegarNavH('/general/bookings','palmira')" routerLinkActive="active" mat-line>
-                  Reservado</a>
+                  Reservar</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(5)">
                 <mat-expansion-panel-header #panelH5 >
@@ -142,7 +133,7 @@
                 </a>
                 </mat-expansion-panel-header>
                 <a mat-list-item (click)="navegarNavH('/general/bookings','hermosillo')" routerLinkActive="active" mat-line>
-                  Reservado</a>
+                  Reservar</a>
                 </mat-expansion-panel>
                 <a mat-list-item class="logout"  (click)="salir()" routerLinkActive="active">
                   <mat-icon mat-list-icon>
@@ -180,7 +171,8 @@
             <img [src]="this.link+'assets/img/img-nav-admin/icon-noticia.png'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Noticias  </span>
-        </a> <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/menu')">
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/menu')">
           <mat-icon mat-list-icon >
             <img [src]="this.link+'assets/img/img-nav-admin/icon-menu.png'" alt="">
           </mat-icon>
