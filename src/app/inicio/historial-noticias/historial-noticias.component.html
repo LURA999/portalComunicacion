@@ -1,10 +1,31 @@
 <div id="container-historial">
   <h2>NOTICIAS</h2>
+
+  <div id="primer-nivel">
+    <mat-form-field appearance="outline">
+      <mat-label>Mes</mat-label>
+      <mat-select>
+        <mat-option value="1">Enero</mat-option>
+        <mat-option value="2">Febrero</mat-option>
+        <mat-option value="3">Marzo</mat-option>
+        <mat-option value="4">Abril</mat-option>
+        <mat-option value="5">Mayo</mat-option>
+        <mat-option value="6">Junio</mat-option>
+        <mat-option value="7">Julio</mat-option>
+        <mat-option value="8">Agosto</mat-option>
+        <mat-option value="9">Septiembre</mat-option>
+        <mat-option value="10">Octubre</mat-option>
+        <mat-option value="11">Noviembre</mat-option>
+        <mat-option value="12">Diciembre</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div id="opciones-not">
     <div class="tab t1"  (click)="routerLink()" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" >TODOS</div>
 
   </div>
   <hr>
+  <div id="tercer-nivel">
   <ng-container *ngIf="noticias.length > 0; else elseTemplate">
 
     <div class="lista-noticias" *ngFor="let i of noticias | paginate: { itemsPerPage: 10, currentPage: p } ; let x=index ">
@@ -17,10 +38,9 @@
         </mat-card-header>
         <div class="container-matCard">
         <div class="img-card">
-          <!-- <img mat-card-image [src]="recursoUrl('http://localhost/portalComunicacion/API/imgVideo/galeria-noticia/fotos/'+i.imgVideo)" [alt]="i.imgVideo">-->
           <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
             <img
-            [src]=" recursoUrl( imageObject.length == 0?  i.imgVideo : i.imgVideo,1,1,false)"
+            [src]=" recursoUrl( noticias.length == 0?  i.imgVideo : i.imgVideo,1,1,false)"
             class="d-block w-100"
             loading="lazy" />
           </ng-container>
@@ -44,42 +64,17 @@
         </div>
       </div>
   </div>
-
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
+  <pagination-controls class="my-pagination"
+  nextLabel=" > "
+  previousLabel=" < "
+  (pageChange)="p = $event"></pagination-controls>
   </ng-container>
   <ng-template #elseTemplate>
 
-      <div class="lista-noticias" *ngFor="let item of cortar | paginate: { itemsPerPage: 1, currentPage: p } ; let x=index">
-
-        <div  class='noticia'>
-          <mat-card-header>
-           <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
-          </mat-card-header>
-          <div class="container-matCard">
-          <div class="img-card">
-            <img mat-card-image [src]="this.link+'assets/img/pruebas/image.png'" alt="Photo of a Shiba Inu">
-          </div>
-          <mat-card-content>
-            <span class="fecha">oct 4. 2020</span>
-            <h3>Mes del cancer de mama</h3>
-            <div>
-              Este mes de octubre Hotel Araiza se une a la lucha contra el cáncer de mama, no olvides portar tu listón rosa durante todo el mes.
-              <br>
-              <br>
-              <span class="leerMas">Leer mas... </span>
-            </div>
-          </mat-card-content>
-          </div>
-        </div>
-        <hr>
+      <div class="mensaje-nohay">
+        No hay noticias viejas
       </div>
-      <pagination-controls class="my-pagination" (pageChange)="p = $event"
-      previousLabel=" < "
-      nextLabel=" > "
-
-      ></pagination-controls>
 
   </ng-template>
-
+  </div>
 </div>

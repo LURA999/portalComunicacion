@@ -7,7 +7,6 @@ import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { imgVideoModel } from 'src/app/interfaces/img-video.model';
-import { imageObject } from '../opcion-menu/opcion-menu.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,14 +15,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./historial-noticias.component.css'],
 })
 export class HistorialNoticiasComponent implements OnInit {
-  cortar : boolean [] = [false,false,false,false];
   texto : string = ""
   api : string = environment.api
   noticias: imgVideoModel[] = [];
+  cortar : Array<boolean> = [];
   link : string =  environment.production === true ? "": "../../../";
-  imageObject: imageObject[] = [];
   p: number = 1;
-
   constructor(private snoticia : SubirImgVideoService,private DataService : DataNavbarService,  private auth : AuthService,
     private sanitizer : DomSanitizer, public route : Router
     ) { }
@@ -32,11 +29,11 @@ export class HistorialNoticiasComponent implements OnInit {
 
   ngOnInit(): void {
     this.DataService.open.emit(this.luaStr);
-    console.log(this.lua);
-
-    this.snoticia.todoImgVideo("imgVideoNoticia",this.lua,0).subscribe((resp:ResponseInterfaceTs) => {
-      console.log(resp.container);
-
+    this.snoticia.todoImgVideo("imgVideoNoticia",this.lua,0).subscribe( async (resp:ResponseInterfaceTs) => {
+      for await (const c of resp.container) {
+        this.noticias.push(c)
+      }
+      this. cortar = new Array(this.noticias.length).fill(false);
     })
   }
 

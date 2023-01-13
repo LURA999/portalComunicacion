@@ -59,6 +59,9 @@
 
 }
 
+#primer-nivel {
+  text-align: end;
+}
 
 /****/
 #container-notice {
@@ -137,8 +140,42 @@ hr {
   margin-left: 0;
 }
 
-.my-pagination ::ng-deep a {
-  border-radius: 100px;
+/**/
+
+.mensaje-nohay{
+  text-align: center;
+}
+
+/*select*/
+
+ mat-select {
+  background-image:url('../../../assets/img/icon/flecha.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  transform: translateY(-20%);
+  font-family: 'gotham-book';
 
 }
 
+::ng-deep .mat-select-arrow {
+  display: none;
+}
+
+::ng-deep .mat-form-field-infix {
+  font-family: 'gotham-book';
+}
+
+mat-option {
+  font-family: 'gotham-book';
+}
+
+@media(max-width:700px){
+  mat-form-field {
+    width: 100%;
+  }
+
+  .lista-noticias {
+    display: flex;
+  }
+}

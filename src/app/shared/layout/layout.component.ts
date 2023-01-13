@@ -94,11 +94,14 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }else{
             this.mode = 'over'
         }
+      console.log("paso en metodo portal");
+
       this.activarSeccion(link,undefined);
       this.route.navigateByUrl(link)
     }
 
     navegarNavH(link : string, nombre? : string){
+      console.log("paso en metodo navegarNavH");
 
       this.activarSeccion(link,nombre);
         this.route.navigateByUrl(link)
@@ -120,9 +123,15 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     activarSeccion(link? : string, nombre? :string){
+      console.log(document.getElementsByClassName("opc")[8]);
+
       for (let i = 0; i < document.getElementsByClassName("opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("opc")[i],"color","#000000")
       }
+
+      this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
+      this.render.setStyle(document.getElementsByClassName("opc")[15],"color","#FFFFFF")
+
 
       for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
         this.render.setStyle(document.getElementsByClassName("opcM")[i],"background-image","url("+this.link+"assets/img/pruebas/vector2.png)")
@@ -137,8 +146,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       if (nombre !==undefined ) {
-        console.log(document.getElementsByClassName("opcM"));
-
         switch (nombre) {
           case "general":
             this.render.setStyle(document.getElementsByClassName("opc")[0],"color","#ffba60")
@@ -275,7 +282,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.isAdmin = false
             this.mode = 'over'
         }
-        this.activarSeccion(undefined,res)
+        console.log("paso en metodo ngAfterContentInit");
+
+        this.activarSeccion(this.paramUrl,res)
         this.changeDetectorRef.detectChanges();
       })
 

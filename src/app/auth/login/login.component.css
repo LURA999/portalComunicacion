@@ -212,7 +212,7 @@ mat-form-field {
         margin-bottom: 60px;
     }
 
-    .containerform {
+     /*.containerform {
         font-size: 12px;
         position: absolute;
         top: 50%;
@@ -220,7 +220,7 @@ mat-form-field {
         left: 0;
         right: 0;
         transform: translate(0, -50%);
-    }
+    } */
 
     .linea {
       width: 391px;
@@ -299,17 +299,21 @@ mat-form-field {
 
 @media(max-height:660px){
   .containerform{
-    top: 45%;
+    top: 20%;
   }
 }
 
-@media(max-height:500px){
-  .containerform{
-    top: 40%;
-  }
-
+@media(max-height:500px ){
   #logo {
     margin-bottom: auto;
     bottom: 100%;
+  }
+  .containerform{
+    top: 13%;
+  }
 }
+@media(max-height:298px ){
+  .containerform{
+    top: 13%;
+  }
 }
