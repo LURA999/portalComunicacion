@@ -42,7 +42,7 @@ export class LoginAdminComponent implements OnInit {
     this.$sub.add(this.usuarioServicio.login(btoa(this.formSesion.controls['usuario'].value),btoa(this.formSesion.controls['contrasena'].value)).subscribe((response:any) =>{
       if(response.status === "ok"){
        this.auth.crearSesion(response.container);
-       this.router.navigateByUrl('/general/opcion-ImgVid')
+       this.router.navigateByUrl('/general/slider-config')
       }else{
         alert(response.info)
       }

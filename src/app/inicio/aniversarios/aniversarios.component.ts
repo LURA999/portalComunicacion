@@ -31,7 +31,7 @@ export class AniversariosComponent implements OnInit {
     this.mes = this.date.toLocaleDateString('es',opciones).split(" ")[2].toUpperCase();
     this.DataService.open.emit(this.luaStr);
 
-    this.usServ.selectAllusersBirth(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
+    this.usServ.selectAllusersAniv(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
       console.log(resp.container);
        this.usuarios = resp.container;
     })

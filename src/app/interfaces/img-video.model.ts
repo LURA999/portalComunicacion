@@ -10,5 +10,7 @@ export class imgVideoModel  {
     titulo? : string =""
     descripcion? : string =""
     cveSeccion? : number = 0
+    posicion!:number
+    link : string = ""
 
 }

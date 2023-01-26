@@ -170,6 +170,10 @@ mat-option {
   font-family: 'gotham-book';
 }
 
+mat-form-field {
+  width: 200px;
+}
+
 @media(max-width:700px){
   mat-form-field {
     width: 100%;

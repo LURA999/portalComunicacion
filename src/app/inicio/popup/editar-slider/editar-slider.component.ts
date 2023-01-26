@@ -32,7 +32,9 @@ export class EditarSliderComponent implements OnInit {
     fechaInicial : [new Date(this.data.fechaInicial+"T00:00:00"), Validators.required],
     fechaFinal : [new Date(this.data.fechaFinal+"T00:00:00"), Validators.required],
     imgVideo : [this.data.imgVideo, Validators.required],
-    cveLocal : [this.data.cveLocal, Validators.required]
+    cveLocal : [this.data.cveLocal, Validators.required],
+    link : [this.data.link ===undefined && this.data.link ===null? '': this.data.link],
+    posicion : [Number(this.data.posicion), Validators.required]
   })
   constructor( private fb : FormBuilder,public dialogRef: MatDialogRef<EditarSliderComponent>,
     @Inject(MAT_DIALOG_DATA) private data: imgVideoModel,private serviceImgVideo : SubirImgVideoService, private local : localService,

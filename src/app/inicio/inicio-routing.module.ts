@@ -11,12 +11,14 @@ import { HistorialNoticiasComponent } from './historial-noticias/historial-notic
 import { ImageComponent } from './image/image.component';
 import { InicioComponent } from './inicio.component';
 import { MenuComponent } from './menu/menu.component';
-import { EmpleadoDelMesComponent } from './opcion-config/empleado-del-mes/empleado-del-mes.component';
-import { GaleriaMultiComponent } from './opcion-config/galeria-multi/galeria-multi.component';
-import { ImagenVideoComponent } from './opcion-config/imagen-video/imagen-video.component';
-import { NoticiaComponent } from './opcion-config/noticia/noticia.component';
-import { OpcionMenuComponent } from './opcion-menu/opcion-menu.component';
-import { UsuariosComponent } from './usuarios/usuarios.component';
+import { EmpleadoDelMesComponent } from './opcion-config/empleado-mes-config/empleado-del-mes.component';
+import { GaleriaMultiComponent } from './opcion-config/galeria-multi-config/galeria-multi.component';
+import { ImagenVideoComponent } from './opcion-config/imagen-video-config/imagen-video.component';
+import { MenuConfigComponent } from './opcion-config/menu-config/menu-config.component';
+import { NoticiaComponent } from './opcion-config/noticia-config/noticia.component';
+import { OpcionMenuComponent } from './principal/opcion-menu.component';
+import { UsuariosComponent } from './opcion-config/usuarios-config/usuarios.component';
+import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/autocapac-config.component';
 
 const routes: Routes = [
   {
@@ -39,16 +41,17 @@ const routes: Routes = [
       { path: 'aniversarios',canActivate: [SesionGuard], component: AniversariosComponent},
       { path: 'menu',canActivate: [SesionGuard], component: MenuComponent},
       { path: 'historial-noticias',canActivate: [SesionGuard], component: HistorialNoticiasComponent},
-
       //Sesion para el admin
-      { path: 'slider',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
-      { path: 'noticias',canActivate: [LogSesionAdminGuard], component: NoticiaComponent},
-      { path: 'menu',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
+      { path: 'slider-config',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
+      { path: 'noticias-config',canActivate: [LogSesionAdminGuard], component: NoticiaComponent},
+      { path: 'menu-config',canActivate: [SesionGuard], component: MenuConfigComponent},
      /* { path: 'cumpleanos',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
       { path: 'aniversario',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},*/
-      { path: 'empleado-del-mes',canActivate: [LogSesionAdminGuard], component: EmpleadoDelMesComponent},
-      { path: 'galeriaMulti',canActivate: [LogSesionAdminGuard], component: GaleriaMultiComponent},
-      { path: 'usuarios',canActivate: [LogSesionAdminGuard], component: UsuariosComponent }
+      { path: 'empleado-mes-config',canActivate: [LogSesionAdminGuard], component: EmpleadoDelMesComponent},
+      { path: 'galeriaMulti-config',canActivate: [LogSesionAdminGuard], component: GaleriaMultiComponent},
+      { path: 'usuarios-config',canActivate: [LogSesionAdminGuard], component: UsuariosComponent },
+      { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente }
+
     ]
   }
 ];

@@ -91,7 +91,9 @@ export class InicioComponent implements OnInit {
               titulo: r.titulo,
               cveLocal:r.cveLocal,
               descripcion: r.descripcion,
-              formato: r.formato
+              formato: r.formato,
+              posicion : r.posicion,
+              link: r.link
             })
           }
         }

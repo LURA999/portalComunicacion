@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Agregando nueva comida</h2>
+<form [formGroup]="formComida">
+  <mat-dialog-content>
+
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input autocomplete="off" matInput formControlName="nombre" type="text" class="ing-txt">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Descripcion</mat-label>
+      <input autocomplete="off" matInput formControlName="descripcion" type="text" class="ing-txt">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha</mat-label>
+      <input autocomplete="off" formControlName="fecha"  matInput [matDatepicker]="picker2">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Seleccione un hotel</mat-label>
+      <mat-select formControlName="cveLocal">
+        <mat-option [value]="i.idLocal" *ngFor="let i of localesArray" > {{i.local}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="enviandoDatos()"> {{ modalidad === true? 'Insertar': 'Actualizar' }}</button>
+</mat-dialog-actions>
+</form>
+

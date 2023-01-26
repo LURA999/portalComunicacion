@@ -94,14 +94,13 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }else{
             this.mode = 'over'
         }
-      console.log("paso en metodo portal");
+        console.log(link);
 
       this.activarSeccion(link,undefined);
       this.route.navigateByUrl(link)
     }
 
     navegarNavH(link : string, nombre? : string){
-      console.log("paso en metodo navegarNavH");
 
       this.activarSeccion(link,nombre);
         this.route.navigateByUrl(link)
@@ -123,14 +122,13 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     activarSeccion(link? : string, nombre? :string){
-      console.log(document.getElementsByClassName("opc")[8]);
 
       for (let i = 0; i < document.getElementsByClassName("opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("opc")[i],"color","#000000")
       }
 
       this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
-      this.render.setStyle(document.getElementsByClassName("opc")[15],"color","#FFFFFF")
+      this.render.setStyle(document.getElementsByClassName("opc")[16],"color","#FFFFFF")
 
 
       for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
@@ -176,29 +174,26 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
             break;
-          case "slider":
+          case "slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
             break;
-          case "noticias":
+          case "noticias-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
             break;
-          case "menu":
+          case "menu-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
             break;
-          /*case "cumpleanos":
+          case "empleado-mes-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
-          case "aniversario":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
-            break;*/
-          case "empleado-del-mes":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
-            break;
-          case "galeriaMulti":
+          case "galeriaMulti-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
             break;
-          case "usuarios":
+          case "usuarios-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
+            break;
+          case "autocapac-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
             break;
         }
       }else{
@@ -232,29 +227,26 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
             break;
-          case "/general/slider":
+          case "/general/slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
             break;
-          case "/general/noticias":
+          case "/general/noticias-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
             break;
-         case "/general/menu":
+         case "/general/menu-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
             break;
-        /*  case "/general/cumpleanos":
+          case "/general/empleado-mes-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
-          case "/general/aniversario":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
-            break;*/
-          case "/general/empleado-del-mes":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
-            break;
-          case "/general/galeriaMulti":
+          case "/general/galeriaMulti-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
             break;
-          case "/general/usuarios":
+          case "/general/usuarios-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
+            break;
+          case "/general/autocapac-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
             break;
         }
       }
@@ -282,7 +274,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.isAdmin = false
             this.mode = 'over'
         }
-        console.log("paso en metodo ngAfterContentInit");
 
         this.activarSeccion(this.paramUrl,res)
         this.changeDetectorRef.detectChanges();

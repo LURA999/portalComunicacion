@@ -12,7 +12,6 @@
 h2 {
   text-align: center;
   padding: 10px;
-  font-family: 'gotham-bold';
   font-size: 22px  ;
 }
 
@@ -287,7 +286,6 @@ img {
 
   .article h2 span{
     color: #DC994D;
-    font-family: 'gotham-bold';
     font-size: 16px;
   }
 

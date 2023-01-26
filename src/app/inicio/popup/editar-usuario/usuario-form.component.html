@@ -1,0 +1,100 @@
+<h2 mat-dialog-title>{{ modalidad === true? 'Agregando nuevo usuario' : 'Modificando usuario'}}</h2>
+<form [formGroup]="formUsuario">
+<mat-dialog-content>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Numero de empleado</mat-label>
+      <input autocomplete="off" formControlName="usuario"  matInput type="number">
+    </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" >
+        <mat-label>Nombres</mat-label>
+        <input autocomplete="off" formControlName="nombres"  matInput>
+      </mat-form-field>
+      </div>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Apellido paterno</mat-label>
+      <input autocomplete="off" formControlName="apellidoPaterno"  matInput>
+    </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Apellido materno</mat-label>
+      <input autocomplete="off" formControlName="apellidoMaterno"  matInput>
+    </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline" >
+      <mat-label>Correo</mat-label>
+      <input autocomplete="off" formControlName="correo"  matInput>
+    </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input autocomplete="off" class = "matInput" formControlName= "contrasena" matInput [type]="hide ? 'password' : 'text'" >
+        <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        {{hide ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+      </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Hotel</mat-label>
+      <mat-select formControlName="cveLocal" (selectionChange)="seleccionandoHotel()">
+        <mat-option *ngFor="let i of locales" [value]="i.idLocal"> {{i.local}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="cveRol" (selectionChange)="seleccionandoRol()">
+        <mat-option value="1">Administrador</mat-option>
+        <mat-option value="2">Usuario</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" >
+        <mat-label>Departamento</mat-label>
+        <input autocomplete="off" formControlName="departamento"  matInput>
+      </mat-form-field>
+      </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de nacimiento</mat-label>
+          <input autocomplete="off" formControlName="fechaNacimiento" matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      </div>
+      <br>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de ingreso</mat-label>
+            <input autocomplete="off" formControlName="fechaIngreso" matInput [matDatepicker]="picker2">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <br>
+      <ng-container *ngIf="modalidad === false">
+        <img [src]="api+'imgVideo/fotos/'+data!.img" alt="imagen-usuario">
+        <br>
+        <br>
+      </ng-container>
+      <div>
+        <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
+      </div>
+  </mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="enviandoDatos()">{{ modalidad === true? 'Crear' : 'Editar'}}</button>
+</mat-dialog-actions>
+</form>
+

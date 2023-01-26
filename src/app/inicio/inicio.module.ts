@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { InicioRoutingModule } from './inicio-routing.module';
 import { InicioComponent } from './inicio.component';
-import { OpcionMenuComponent } from './opcion-menu/opcion-menu.component';
+import { OpcionMenuComponent } from './principal/opcion-menu.component';
 import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './componentes/footer/footer.component';
-import { ImagenVideoComponent } from './opcion-config/imagen-video/imagen-video.component';
-import { NoticiaComponent } from './opcion-config/noticia/noticia.component';
-import { GaleriaMultiComponent } from './opcion-config/galeria-multi/galeria-multi.component';
+import { ImagenVideoComponent } from './opcion-config/imagen-video-config/imagen-video.component';
+import { NoticiaComponent } from './opcion-config/noticia-config/noticia.component';
+import { GaleriaMultiComponent } from './opcion-config/galeria-multi-config/galeria-multi.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { SliderComponent } from './componentes/slider/slider.component';
 import { BookingsComponent } from './bookings/bookings.component';
@@ -23,15 +23,20 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { HttpClientModule } from '@angular/common/http';
 import { ImageComponent } from './image/image.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { UsuariosComponent } from './usuarios/usuarios.component';
-import { UsuarioFormComponent } from './popup/usuario-form/usuario-form.component';
-import { EmpleadoDelMesComponent } from './opcion-config/empleado-del-mes/empleado-del-mes.component';
+import { UsuariosComponent } from './opcion-config/usuarios-config/usuarios.component';
+import { UsuarioFormComponent } from './popup/editar-usuario/usuario-form.component';
+import { EmpleadoDelMesComponent } from './opcion-config/empleado-mes-config/empleado-del-mes.component';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
 import { AniversariosComponent } from './aniversarios/aniversarios.component';
 import { MenuComponent } from './menu/menu.component';
 import { HistorialNoticiasComponent } from './historial-noticias/historial-noticias.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MenuConfigComponent } from './opcion-config/menu-config/menu-config.component';
+import { ComidaFormComponent } from './popup/editar-comida/comida-form.component';
+import { EditarMesEmpleadoComponent } from './popup/editar-mes-empleado/editar-mes-empleado.component';
+import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/autocapac-config.component';
+import { EditarAutocapacComponent } from './popup/editar-autocapac/editar-autocapac.component';
 
 
 @NgModule({
@@ -56,7 +61,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CumpleanerosComponent,
     AniversariosComponent,
     MenuComponent,
-    HistorialNoticiasComponent
+    HistorialNoticiasComponent,
+    MenuConfigComponent,
+    ComidaFormComponent,
+    EditarMesEmpleadoComponent,
+    AutoCapacConfigComponente,
+    EditarAutocapacComponent
   ],
   imports: [
     HttpClientModule,

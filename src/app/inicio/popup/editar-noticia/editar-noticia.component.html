@@ -4,42 +4,48 @@
   <div>
       <mat-form-field appearance="outline">
         <mat-label>Fecha inicial de la noticia</mat-label>
-        <input  formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [max]="rango2" matInput [matDatepicker]="picker">
+        <input  autocomplete="off" formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [max]="rango2" matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       </div>
       <div>
-          <mat-form-field appearance="outline">
-            <mat-label>Fecha final de la noticia</mat-label>
-            <input  formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango" matInput [matDatepicker]="picker2">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>Seleccione la seccion</mat-label>
-            <mat-select formControlName="cveLocal">
-              <mat-option [value]="i.idLocal" *ngFor="let i of localInterfaz" [disabled]="i.cantidad==4"> {{i.local}} </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>Titulo</mat-label>
-            <input matInput formControlName="titulo" type="text" class="ing-txt">
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>Descripcion</mat-label>
-            <input matInput formControlName="descripcion" type="text" class="ing-txt">
-          </mat-form-field>
-        </div>
-          <input mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha final de la noticia</mat-label>
+        <input autocomplete="off"  formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango" matInput [matDatepicker]="picker2">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccione la seccion</mat-label>
+        <mat-select formControlName="cveLocal">
+          <mat-option [value]="i.idLocal" *ngFor="let i of localInterfaz" [disabled]="i.cantidad==4"> {{i.local}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Titulo</mat-label>
+        <input autocomplete="off" matInput formControlName="titulo" type="text" class="ing-txt">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Descripcion</mat-label>
+        <input autocomplete="off" matInput formControlName="descripcion" type="text" class="ing-txt">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-ripple-form-field" appearance="outline">
+        <mat-label>Ingrese link de la noticia</mat-label>
+        <input autocomplete="off"  matInput formControlName="link" >
+      </mat-form-field>
+    </div>
+    <input  autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>

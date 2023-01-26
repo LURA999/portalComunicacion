@@ -3,14 +3,14 @@
 <mat-dialog-content>
     <mat-form-field appearance="outline" >
         <mat-label>Fecha inicial de la noticia</mat-label>
-        <input  formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [max]="rango2" matInput [matDatepicker]="picker">
+        <input autocomplete="off" formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [max]="rango2" matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Fecha final de la noticia</mat-label>
-        <input  formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango"  matInput [matDatepicker]="picker2">
+        <input autocomplete="off" formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango"  matInput [matDatepicker]="picker2">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
@@ -21,7 +21,20 @@
           <mat-option [value]="i.idLocal" *ngFor="let i of localInterfaz" [disabled]="i.cantidad==5"> {{i.local}} </mat-option>
         </mat-select>
       </mat-form-field>
-      <input mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
+      <mat-form-field class="example-ripple-form-field" appearance="outline">
+        <mat-label>Ingrese link del slider</mat-label>
+        <input autocomplete="off"  matInput formControlName="link" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Elige la posición del slider</mat-label>
+        <mat-select formControlName="posicion" >
+          <mat-option [value]="1"> 1 </mat-option>
+          <mat-option [value]="2"> 2 </mat-option>
+          <mat-option [value]="3"> 3 </mat-option>
+          <mat-option [value]="4"> 4 </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <input  autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
     </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>

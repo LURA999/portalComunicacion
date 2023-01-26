@@ -34,7 +34,8 @@ export class EditarNoticiaComponent implements OnInit{
     imgVideo : [this.data.imgVideo, Validators.required],
     cveLocal : [this.data.cveLocal, Validators.required],
     titulo : [this.data.titulo, Validators.required],
-    descripcion : [this.data.descripcion, Validators.required]
+    descripcion : [this.data.descripcion, Validators.required],
+    link : [this.data.link,Validators.required]
   })
 
   constructor( private fb : FormBuilder,public dialogRef: MatDialogRef<EditarNoticiaComponent>,

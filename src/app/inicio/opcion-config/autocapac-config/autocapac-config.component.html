@@ -1,0 +1,74 @@
+<div class="container">
+  <h2>AUTOCAPACITACIONES</h2>
+  <div class="cabecera">
+    <form  class="cabecera" [formGroup]="formBuscar">
+    <div class="search">
+      <mat-form-field class="example-ripple-form-field" appearance="standard">
+        <mat-label>Buscar auto capacitacion</mat-label>
+        <input autocomplete="off" matInput formControlName="buscador" >
+      </mat-form-field>
+      <div class="btn-buscar" (click)="buscador()">
+        <button id="btn-trans">
+        <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </div>
+    </form>
+    <div id="matform-c">
+    <form class="cabecera" [formGroup]="formBuscar">
+    <mat-form-field id="selectLocal" appearance="outline">
+      <mat-label>Seleccione la seccion</mat-label>
+      <mat-select formControlName="seccion">
+        <mat-option *ngFor="let i of locales" [value]="i.idLocal"> {{i.local}} </mat-option>
+        <mat-option value="-1">Ninguno</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </form>
+    </div>
+    <div id="botonc">
+      <button  mat-raised-button color="primary" (click)="agregar()">
+        Agregar autocapacitacion
+      </button>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource">
+    <!-- Name Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Autocapacitacion </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="fechaInicial">
+      <th mat-header-cell *matHeaderCellDef> Fecha inicial </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaInicial}} </td>
+    </ng-container><!-- Symbol Column -->
+    <!-- Weight Column -->
+    <ng-container matColumnDef="fechaFinal">
+      <th mat-header-cell *matHeaderCellDef> Fecha final </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaFinal}} </td>
+    </ng-container>
+    <ng-container matColumnDef="hotel">
+      <th mat-header-cell *matHeaderCellDef> Hotel </th>
+      <td mat-cell *matCellDef="let element"> {{element.local}} </td>
+    </ng-container>
+    <ng-container matColumnDef="opciones">
+      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <td mat-cell *matCellDef="let element">
+      <button mat-raised-button color="primary" (click)="editar(element)">
+        Editar
+      </button>
+      <button mat-raised-button color="primary" (click)="borrar(element.idAutoCap)">
+        Borrar
+      </button>
+    </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="preloader" style="position: relative; left:45%; margin-top:5%; margin-bottom: 5%;" [hidden]="cargando"></div>
+  <div class="existe" [hidden]="hayElementos()"> No hay Autocapacitaciones registrados...</div>
+  <mat-paginator [pageSize]="10"
+                aria-label="Select page of users">
+  </mat-paginator>
+</div>

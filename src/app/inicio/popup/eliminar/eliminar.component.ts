@@ -6,6 +6,9 @@ import { lastValueFrom, Subscription } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ComidaService } from 'src/app/core/services/comida.service';
+import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
+import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
 
 export interface eliminar {
   seccion: string,
@@ -24,7 +27,9 @@ export class EliminarComponent implements OnInit {
 
   constructor( public dialogRef: MatDialogRef<EliminarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: eliminar,private serviceImgVideo : SubirImgVideoService,
-    private usService:UsuarioService, private servImgVideo : SubirImgVideoService, private auth : AuthService) { }
+    private usService:UsuarioService, private servImgVideo : SubirImgVideoService,
+    private comidaServ : ComidaService, private autocap : AutocapacitacionService,
+    private mesService:EmpleadoMesService, private auth : AuthService) { }
 
   ngOnInit(): void {
 
@@ -52,11 +57,30 @@ export class EliminarComponent implements OnInit {
         case "usuario":
             await lastValueFrom(this.servImgVideo.eliminarDirImgUsuario(this.data.id));
             await lastValueFrom(this.usService.deleteUser(Number(this.data.id)))
-            this.usService.selectAllusers().subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);
             })
           break;
+        case 'Comida':
+          await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)))
+          this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.dialogRef.close(await resp1.container);
+          })
+          break;
+        case 'autocapacitacion':
+            await lastValueFrom(this.autocap.eliminarAutocapacitacion(Number(this.data.id)))
+            this.autocap.mostrarTodoAutocapacitacion(0).subscribe(async (resp1:ResponseInterfaceTs) =>{
+              this.dialogRef.close(await resp1.container);
+            })
+          break;
+        case 'fecha':
+          await lastValueFrom(this.mesService.eliminarFecha(Number(this.data.id)))
+          this.usService.selectAllusers(2).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.dialogRef.close(await resp1.container);
+          })
+          break;
         }
+
       }
   }
 

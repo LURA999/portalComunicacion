@@ -1,6 +1,6 @@
 <div class="container-cumpleaños">
   <div id="cabecera">
-    <img [src]="link+'assets/img/img-seccion-hotel/aniversarios-head.svg'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
+    <img [src]="link+'assets/img/img-seccion-hotel/aniversarios-head.png'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
     <span id="titulo_1" [style.color]="color_primary">ANIVERSARIOS <br> <span id="titulo_2" [style.color]="color_secundary"> DE {{mes}}</span></span>
   </div>
   <section class="usuario-seccion">
@@ -15,7 +15,7 @@
            <span [style.color]="color_primary" class="depa">{{i.departamento.toUpperCase()}}</span>
           <br>
           <div class="fechaNac" [style.background]="color_secundary">
-            {{dateNormal(i.fechaNacimiento)}}
+            {{dateNormal(i.fechaIngreso)}}
           </div>
         </div>
       </div>
