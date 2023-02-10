@@ -1,0 +1,106 @@
+
+
+#cabecera {
+  display: flex;
+}
+
+#logo-comedor {
+  position: absolute;
+  margin-left: 10%;
+  margin-top: 25%;
+  width: 8%;
+  object-fit: contain;
+}
+
+article {
+  position: absolute;
+  margin-left: 10%;
+  margin-top: 14%;
+  font-family: 'gotham-book';
+  font-size: 1vw;
+  line-height: normal;
+}
+
+#cabecera-mes {
+  width: 100%;
+  object-fit: contain;
+}
+
+
+#titulo_1 {
+  margin-top: 5%;
+  margin-left: 10%;
+  position: absolute;
+  font-size: 3vw;
+  line-height: normal;
+  font-family: 'gotham-bold';
+}
+
+#titulo_2 {
+  color: black;
+}
+
+#titulo {
+  margin-bottom: 3%;
+}
+
+#titulo h2 {
+  font-size: 1.2vw;
+}
+
+section {
+  margin: 5%;
+  font-family: 'gotham-book';
+  font-size: 1vw;
+  line-height: normal;
+  height: 100%;
+}
+
+
+section {
+  margin: 5%;
+  font-family: 'gotham-book';
+  font-size: 1vw;
+  line-height: normal;
+}
+
+/*usuarios container*/
+
+.corona {
+  width: 30%;
+}
+
+table {
+  width: 100%;
+  vertical-align: middle;
+}
+
+td.num {
+  font-size: 1.8vw;
+  font-family: 'gotham-bold';
+  text-align: center;
+}
+
+td.img {
+  text-align: center;
+}
+
+td.ud {
+  text-align: center;
+}
+
+
+.nombre{
+  font-size: .8vw;
+  line-height: normal;
+  font-weight: bold;
+}
+
+
+.img-card img {
+  border-radius: 50%;
+  width: 60%;
+  align-items: center;
+}
+
+

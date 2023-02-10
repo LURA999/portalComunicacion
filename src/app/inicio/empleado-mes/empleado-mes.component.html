@@ -1,0 +1,58 @@
+<div id="container-mes">
+  <div id="cabecera">
+    <img [src]="link+'assets/img/img-seccion-hotel/mesirvesario-head.png'" id="cabecera-mes"  alt="cabecera-mes">
+    <span id="titulo_1" [style.color]="color_primary" >EMPLEADO <br> <span id="titulo_2"> DEL MES </span></span>
+    <article>
+      El trabajo que brindó superó todas <br> las expectativas. Grupo Araiza agradece tu apoyo <br> y dedicación.
+    </article>
+    <img [src]="link+'assets/img/img-seccion-hotel/logo-mesirvesario.png'" id="logo-comedor" alt="logo-comedor">
+
+  </div>
+  <section>
+    <div id="titulo">
+      <h2>Ganadores</h2>
+    </div>
+    <div id="usuarios-container">
+        <div class="renglon" *ngFor="let i of usuarios; let idx = index">
+          <table >
+            <tr >
+              <td class="num" [width]="'5%'">
+                <ng-container *ngIf="i.posicion === '1'; else elseTemplate">
+                  <div><img [src]="link+'assets/img/img-seccion-hotel/corona.png'" alt="corona" class="corona"></div>
+                  <div>1</div>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  {{i.posicion}}
+                </ng-template>
+              </td>
+              <td class="img" [width]="'15%'">
+                <div class="img-card">
+                  <img [src]=" recursoUrl( i.img )" />
+                </div>
+              </td>
+              <td  [width]="'40%'">
+                <span class="nombres"> <b>{{i.nombres+" "+i.apellidoPaterno}}</b></span><br>
+                {{i.departamento}}
+              </td>
+              <td class="ud">
+                {{i.contrato == 1?'Sindicalizado':'No sindicalizado'}}
+              </td>
+              <td class="ud">
+                {{i.mes}}
+              </td>
+            </tr>
+
+          </table>
+          &nbsp;
+          <hr>
+          &nbsp;
+    </div>
+
+  </div>
+  <div class="preloader" style="position: relative; left:45%; margin-top:5%; margin-bottom: 5%;" [hidden]="cargando"></div>
+  <div class="existe" [hidden]="hayElementos()"> No hay empleados del mes...</div>
+  </section>
+
+</div>
+
+  <app-footer></app-footer>
