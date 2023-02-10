@@ -44,12 +44,12 @@ export class EliminarComponent implements OnInit {
         case "foto/imagen":
           if (this.data.opc === true) {
             await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
-            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1).subscribe(async (resp : ResponseInterfaceTs)=>{
+            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
               this.dialogRef.close(await resp.container===undefined?[]:resp.container);
             }))
           } else {
             await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideo"))
-            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1).subscribe(async (resp : ResponseInterfaceTs)=>{
+            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
               this.dialogRef.close(await resp.container===undefined?[]:resp.container);
             }))
           }

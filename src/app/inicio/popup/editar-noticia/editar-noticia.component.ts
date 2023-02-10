@@ -101,13 +101,13 @@ export class EditarNoticiaComponent implements OnInit{
       let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideoNoticia"))).container;
       this.data.imgVideo = datos.nombre
       this.data.formato = datos.tipo
-      }
+    }
 
     //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
     await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideoNoticia"))
 
     //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
-    this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1).subscribe((resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
       this.dialogRef.close(resp.container)
     }))
     }

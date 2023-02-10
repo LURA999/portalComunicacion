@@ -105,7 +105,7 @@ export class EditarSliderComponent implements OnInit {
       await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
 
       //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
-      this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1).subscribe((resp:ResponseInterfaceTs) =>{
+      this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
         this.dialogRef.close(resp.container)
       }))
     }

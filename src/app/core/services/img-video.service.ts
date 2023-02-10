@@ -14,8 +14,8 @@ export class SubirImgVideoService {
   constructor(private http : HttpClient) { }
 
   // fotos/videos de sliders o noticias
-  todoImgVideo(arch : string, cveLocal : number,cveSeccion : number)  : Observable <ResponseInterfaceTs> {
-    return this.http.get<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?cvLoc="+cveLocal+"&cvSec="+cveSeccion);
+  todoImgVideo(arch : string, cveLocal : number,cveSeccion : number,historial : number, filtroHistorial : number )  : Observable <ResponseInterfaceTs> {
+    return this.http.get<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?cvLoc="+cveLocal+"&cvSec="+cveSeccion+"&historial="+historial+"&filtroHistorial="+filtroHistorial);
   }
   subirImgVideo(obj : imgVideoModel,arch : string, actualizar:boolean) : Observable <ResponseInterfaceTs> {
     let headers = new HttpHeaders().set('Content-type','Application/json')

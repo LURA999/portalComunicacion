@@ -46,8 +46,10 @@ button {
   margin-top: auto;
 }
 
-.container {
-  margin-top: 10%;
+.container-autocapc {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 70px;
   align-self: center;
 }
 

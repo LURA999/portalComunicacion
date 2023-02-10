@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -8,6 +8,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { imgVideoModel } from 'src/app/interfaces/img-video.model';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-historial-noticias',
@@ -15,25 +17,43 @@ import { Router } from '@angular/router';
   styleUrls: ['./historial-noticias.component.css'],
 })
 export class HistorialNoticiasComponent implements OnInit {
-  texto : string = ""
-  api : string = environment.api
+  texto : string = "";
+  api : string = environment.api;
   noticias: imgVideoModel[] = [];
   cortar : Array<boolean> = [];
   link : string =  environment.production === true ? "": "../../../";
-  p: number = 1;
+  p2 : number = 1;
+
+  ant : boolean = true;
+  sig : boolean = true;
+  pGuard : number = 1;
+
+  mesForm : FormGroup = this.fb.group({
+    mes: [""]
+  });
+
+  @Input() id!: string;
+  @Input() maxSize!: number;
+  @Output() pageChange: EventEmitter<number> = new EventEmitter();
+  @Output() pageBoundsCorrection: EventEmitter<number> = new EventEmitter();
+   @ViewChild('p') childPagination: any
+
   constructor(private snoticia : SubirImgVideoService,private DataService : DataNavbarService,  private auth : AuthService,
-    private sanitizer : DomSanitizer, public route : Router
+    private sanitizer : DomSanitizer, public route : Router,private fb : FormBuilder, private imgService : SubirImgVideoService,
+    private changeDetectorRef: ChangeDetectorRef
     ) { }
   private lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
 
   ngOnInit(): void {
     this.DataService.open.emit(this.luaStr);
-    this.snoticia.todoImgVideo("imgVideoNoticia",this.lua,0).subscribe( async (resp:ResponseInterfaceTs) => {
-      for await (const c of resp.container) {
-        this.noticias.push(c)
+    this.snoticia.todoImgVideo("imgVideoNoticia",this.lua,0,1,0).subscribe( async (resp:ResponseInterfaceTs) => {
+      if (Number(resp.status) == 200) {
+        for await (const c of resp.container) {
+          this.noticias.push(c)
+        }
+        this. cortar = new Array(this.noticias.length).fill(false);
       }
-      this. cortar = new Array(this.noticias.length).fill(false);
     })
   }
 
@@ -91,5 +111,69 @@ export class HistorialNoticiasComponent implements OnInit {
 
   routerLink(){
     this.route.navigate(["/general/"+this.luaStr]);
+  }
+
+  mesClick(){
+    this.noticias = []
+    this.imgService.todoImgVideo("imgVideoNoticia", this.lua ,0, 1, Number(this.mesForm.value["mes"])).subscribe( async (resp : ResponseInterfaceTs) => {
+      if (Number(resp.status) == 200) {
+        for await (const c of resp.container) {
+          this.noticias.push(c)
+        }
+        this. cortar = new Array(this.noticias.length).fill(false);
+      }
+    })
+
+
+  }
+
+  anterior(p :any){
+    this.ant = false;
+    p.previous();
+  }
+
+  siguiente(p : any){
+    this.sig = false;
+    p.next();
+  }
+
+  paginaActual(p : any){
+
+       //Esta parte es para paginas que estan cercas de la pagina actual
+       /**Cando le picas a una flecha */
+       if(this.sig == false || this.ant == false){
+        if (this.sig == false) {
+
+        } else {
+
+        }
+        this.ant = true;
+        this.sig = true;
+      }else{
+        /**Cuando seleccionas sin flechas */
+
+      }
+  }
+
+  vacio(){}
+
+  ngAfterViewChecked(): void {
+    try {
+      if (this.childPagination.pages[1].label === "...") {
+        this.childPagination.pages.shift()
+        this.childPagination.pages.shift()
+      } else if(this.childPagination.pages[this.childPagination.pages.length-2].label == "..."){
+        this.childPagination.pages.pop()
+        this.childPagination.pages.pop()
+      }
+      this.changeDetectorRef.detectChanges();
+
+    } catch (error) {
+
+    }
+  }
+
+  irLink(link : string){
+    window.open(link,"_blank")
   }
 }

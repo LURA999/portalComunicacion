@@ -145,7 +145,7 @@ export class OpcionMenuComponent implements OnInit {
   }
 
   rellenarSlider(dir : string, number : number){
-    this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1).subscribe(async (resp : ResponseInterfaceTs)=>{
+    this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
       console.log(resp.container);
 
       if(resp.status.toString() === "200" ){

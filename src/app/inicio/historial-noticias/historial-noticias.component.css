@@ -4,9 +4,10 @@
   font-family: 'gotham-bold';
   margin-top: 50px;
   display: block;
-
+  height: 100%;
   margin-left: 10%;
   margin-right: 10%;
+  margin-bottom: 10%;
 }
 
 #container-historial h2 {
@@ -77,7 +78,6 @@
 .container-matCard {
   display: flex;
   height: 100%;
-  align-items: start;
 }
 
 
@@ -86,6 +86,7 @@
   margin: 0;
   text-align: center;
   max-width: 100%;
+  object-fit: contain;
 }
 
 hr {
@@ -115,6 +116,35 @@ hr {
 
 /*** nav **/
 
+#spacePagination{
+  margin-top: 150px;
+}
+
+pagination-template{
+  display: flex;
+}
+
+pagination-template a {
+  color: black;
+  text-decoration: none !important;
+  margin: 10px;
+  border-radius: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+pagination-template .current{
+  background-color: #DC994D;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+/**/
 .my-pagination ::ng-deep .ngx-pagination a, .ngx-pagination button {
   cursor: pointer;
   font-family: 'gotham-bold';
@@ -172,6 +202,10 @@ mat-option {
 
 mat-form-field {
   width: 200px;
+}
+
+.texto {
+  word-break: break-word;
 }
 
 @media(max-width:700px){

@@ -60,8 +60,8 @@ export class MenuConfigComponent implements OnInit {
     }))
     this.cargando = false;
 
-    this.comidaService.todoComida(0).subscribe(async (resp:ResponseInterfaceTs)=>{
-      if (resp.status == "200") {
+    this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
+      if (Number(resp.status) == 200) {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push(c)
       }
@@ -178,7 +178,7 @@ export class MenuConfigComponent implements OnInit {
   }
   buscador(){
     if(this.formBuscar.value["buscador"] === "" || this.formBuscar.value["buscador"] === undefined || this.formBuscar.value["buscador"] === null){
-      this.$sub.add(this.comidaService.todoComida(this.ifSeccion()).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.comidaService.todoComida(this.ifSeccion(),1).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (Number(resp.status) == 200) {
           this.cargando = false;
           this.ELEMENT_DATA = [];

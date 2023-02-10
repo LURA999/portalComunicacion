@@ -51,6 +51,7 @@
       <article>¡No te pierdas las novedades de lo que sucede en el hotel!</article>
         <!-- Esto es para las diferentes cabeceras posibles de noticias -->
         <div id="container-not2" *ngIf="noticias.length < 4 && noticias.length > 0">
+
           <div id="opciones-not">
             <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
           </div>
@@ -58,12 +59,13 @@
         </div>
 
         <div id="container-notice" >
-            <div *ngIf="noticias.length == 4">
+            <div id="container-not1" *ngIf="noticias.length == 4" >
               <div id="opciones-not">
                 <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
               </div>
               <hr>
             </div>
+
           <ng-container *ngIf="noticias.length > 0; else elseTemplate">
             <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
               <mat-card [style.margin-left]="(x<cortar.length && x>0?'55px':'0px')" class="noticia">
@@ -89,11 +91,13 @@
                   <span class="fecha">{{dateNormal(i.fechaInicial)}}</span>
                   <h3>{{i.titulo}}</h3>
                     <div class="texto">
-                      {{cortarTexto(i.descripcion!.toString(), cortar[x], x)}}
+                      {{i.descripcion!}}
+                      <!-- {{cortarTexto(i.descripcion!.toString(), cortar[x], x)}} -->
                       <br>
                       <br>
-                      <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="leerMas">Leer mas... </span>
-                      <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="leerMas">Leer menos... </span>
+                      <!-- <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="leerMas">Leer mas... </span>
+                      <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="leerMas">Leer menos... </span> -->
+                      <span (click)="irLink(i.link)" class="leerMas">Leer mas... </span>
                     </div>
                 </mat-card-content>
                 </div>

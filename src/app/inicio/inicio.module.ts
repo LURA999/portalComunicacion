@@ -37,6 +37,7 @@ import { ComidaFormComponent } from './popup/editar-comida/comida-form.component
 import { EditarMesEmpleadoComponent } from './popup/editar-mes-empleado/editar-mes-empleado.component';
 import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/autocapac-config.component';
 import { EditarAutocapacComponent } from './popup/editar-autocapac/editar-autocapac.component';
+import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { EditarAutocapacComponent } from './popup/editar-autocapac/editar-autoca
     ComidaFormComponent,
     EditarMesEmpleadoComponent,
     AutoCapacConfigComponente,
-    EditarAutocapacComponent
+    EditarAutocapacComponent,
+    EmpleadoMesComponent
   ],
   imports: [
     HttpClientModule,

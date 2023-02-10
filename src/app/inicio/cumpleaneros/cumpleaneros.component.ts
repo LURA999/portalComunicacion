@@ -27,6 +27,7 @@ export class CumpleanerosComponent implements OnInit {
   color_primary : string =  "#DC994D";
   private lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
+  cargando : boolean = false;
 
   constructor(private usServ : UsuarioService, private auth : AuthService,private DataService : DataNavbarService) {
 
@@ -36,11 +37,13 @@ export class CumpleanerosComponent implements OnInit {
     let opciones : any = { month: 'long', day: 'numeric', year: 'numeric' };
     this.mes = this.date.toLocaleDateString('es',opciones).split(" ")[2].toUpperCase();
     this.DataService.open.emit(this.luaStr);
-    console.log(this.lua);
-
+    this.cargando = false;
     this.usServ.selectAllusersBirth(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
-      console.log(resp.container);
-       this.usuarios = resp.container;
+      if (Number(resp.status) == 200) {
+        this.usuarios = resp.container;
+      }
+      this.cargando = true;
+
     })
   }
 
@@ -69,6 +72,12 @@ export class CumpleanerosComponent implements OnInit {
     return date2[0]+" "+date2[1];
   }
 
-
+  hayElementos() : boolean{
+    if(this.usuarios.length != 0 || this.cargando ===false){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 }

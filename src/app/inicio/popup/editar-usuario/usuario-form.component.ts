@@ -37,7 +37,8 @@ export class UsuarioFormComponent implements OnInit {
     img : [ '' ],
     fechaNacimiento: [ '' , Validators.required],
     fechaIngreso: [ '' , Validators.required ],
-    departamento: [ '' , Validators.required ]
+    departamento: [ '' , Validators.required ],
+    contrato: [ '' , Validators.required ]
   })
   guardHotel : number | undefined
   link : string =  environment.production === true ? "": "../../../";
@@ -60,7 +61,8 @@ export class UsuarioFormComponent implements OnInit {
         img : [ this.data!.img ],
         fechaNacimiento: [ new Date(this.data!.fechaNacimiento+"T00:00:00"), Validators.required],
         fechaIngreso: [  new Date(this.data!.fechaIngreso+"T00:00:00") , Validators.required ],
-        departamento: [ this.data!.departamento , Validators.required ]
+        departamento: [ this.data!.departamento , Validators.required ],
+        contrato: [ this.data?.contrato , Validators.required ]
       })
       this.guardHotel = Number(this.data!.cveLocal)
       this.modalidad = false;
@@ -128,13 +130,22 @@ export class UsuarioFormComponent implements OnInit {
       let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
       this.data!.img = datos;
       }
+      console.log(gimg);
+      console.log(this.data!.imgn);
 
       // this.data!.usuario = id
       // a continuación se actualizara los demas datos del usuario
+
+      if(this.data!.imgn === this.data!.img){
+        this.data!.img = '';
+      }
+
       await lastValueFrom(this.usService.updateUser(this.data!))
 
+
+
       if(Number(this.data!.cveLocal) != Number(this.formUsuario.value["cveLocal"])){
-       // this.targetFile = <DataTransfer>(event.target).files[0];
+        //this.targetFile = <DataTransfer>(event.target).files[0];
         this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]);
         await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData));
       }

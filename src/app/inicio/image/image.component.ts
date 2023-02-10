@@ -105,7 +105,7 @@ export class ImageComponent implements OnInit {
 
   cargarRecurso(){
     if (this.sec > 0) {
-    this.$userData = this.imgService.todoImgVideo("imgVideo", this.lua , this.sec)
+    this.$userData = this.imgService.todoImgVideo("imgVideo", this.lua , this.sec,0,-1)
     }
   }
 }

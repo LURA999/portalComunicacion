@@ -63,7 +63,7 @@ export class ComidaFormComponent implements OnInit {
     } else {
       if (this.modalidad == true) {
         await lastValueFrom(this.comidaService.insertarComida(this.formComida.value));
-        this.comidaService.todoComida(0).subscribe(async (resp:ResponseInterfaceTs)=>{
+        this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
            this.dialogRef.close(await resp.container);
         })
       } else {
@@ -71,7 +71,7 @@ export class ComidaFormComponent implements OnInit {
         this.data = this.formComida.value;
         this.data.idMenu = idMenu;
         await lastValueFrom(this.comidaService.actualizarComida(this.formComida.value));
-        this.comidaService.todoComida(0).subscribe(async (resp:ResponseInterfaceTs)=>{
+        this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
            this.dialogRef.close(await resp.container);
         })
       }

@@ -26,6 +26,7 @@ export class UsuarioService {
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?us_op='+op);
   }
 
+/**Todos los empleados que cumplen años - 1 */
   selectAllusersBirth(birt : number):Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?birt='+birt);
   }
@@ -34,6 +35,10 @@ export class UsuarioService {
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?aniv='+aniv);
   }
 
+  selectAllusersMesi(aniv : number):Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?mesi='+aniv);
+  }
+  /**  1*/
 
   updateUser(us : usuarios) : Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders().set('Content-type','Application/json')

@@ -19,6 +19,7 @@ import { NoticiaComponent } from './opcion-config/noticia-config/noticia.compone
 import { OpcionMenuComponent } from './principal/opcion-menu.component';
 import { UsuariosComponent } from './opcion-config/usuarios-config/usuarios.component';
 import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/autocapac-config.component';
+import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 
 const routes: Routes = [
   {
@@ -41,12 +42,11 @@ const routes: Routes = [
       { path: 'aniversarios',canActivate: [SesionGuard], component: AniversariosComponent},
       { path: 'menu',canActivate: [SesionGuard], component: MenuComponent},
       { path: 'historial-noticias',canActivate: [SesionGuard], component: HistorialNoticiasComponent},
+      { path: 'empleado-mes',canActivate: [SesionGuard], component: EmpleadoMesComponent},
       //Sesion para el admin
       { path: 'slider-config',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
       { path: 'noticias-config',canActivate: [LogSesionAdminGuard], component: NoticiaComponent},
-      { path: 'menu-config',canActivate: [SesionGuard], component: MenuConfigComponent},
-     /* { path: 'cumpleanos',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
-      { path: 'aniversario',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},*/
+      { path: 'menu-config',canActivate: [LogSesionAdminGuard], component: MenuConfigComponent},
       { path: 'empleado-mes-config',canActivate: [LogSesionAdminGuard], component: EmpleadoDelMesComponent},
       { path: 'galeriaMulti-config',canActivate: [LogSesionAdminGuard], component: GaleriaMultiComponent},
       { path: 'usuarios-config',canActivate: [LogSesionAdminGuard], component: UsuariosComponent },

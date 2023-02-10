@@ -62,7 +62,7 @@ export class GaleriaMultiComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargando2 = false;
-    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideo",-1,1).subscribe(async (resp : ResponseInterfaceTs)=>{
+    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
       if (resp.status.toString() === "200") {
         for await (const i of resp.container) {
           switch (Number(i.cveLocal)) {
@@ -91,7 +91,7 @@ export class GaleriaMultiComponent implements OnInit {
     }))
 
     this.cargando = false;
-    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideoNoticia",-1,1).subscribe(async (resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe(async (resp:ResponseInterfaceTs) =>{
       if (resp.status.toString() === "200") {
         for await (const i of resp.container) {
           switch (Number(i.cveLocal)) {

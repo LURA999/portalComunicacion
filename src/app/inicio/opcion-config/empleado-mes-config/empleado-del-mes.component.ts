@@ -31,12 +31,15 @@ export interface usuariosDelMes {
   cveLocal:string;
   opciones : string;
   fecha : string;
+  posicion : number;
 }
 
 export interface fechaCambio {
   idUsuario:number;
   fecha:Date;
   cveLocal:number;
+  posicion:number;
+  contrato:number;
 }
 
 
@@ -53,7 +56,7 @@ export class EmpleadoDelMesComponent implements OnInit {
   ELEMENT_DATA: usuariosDelMes[] = [ ];
   $sub : Subscription = new Subscription()
 
-  displayedColumns: string[] = ['no', 'nombre', 'hotel','fecha', 'opciones'];
+  displayedColumns: string[] = ['no', 'nombre', 'hotel', 'fecha','contrato', 'posicion', 'opciones'];
   dataSource = new MatTableDataSource<usuariosDelMes>(this.ELEMENT_DATA);
   locales : local [] = []
   cargando : boolean = false;
@@ -79,17 +82,7 @@ export class EmpleadoDelMesComponent implements OnInit {
 
       if (resp.status.toString() === '200') {
       for await (const c of resp.container) {
-        this.ELEMENT_DATA.push({
-          idUsuario:c.idUsuario,
-          usuario:c.usuario,
-          nombres:c.nombres,
-          local:c.local,
-          cveLocal:c.cveLocal,
-          apellidoMaterno: c.apellidoMaterno,
-          apellidoPaterno:c.apellidoPaterno,
-          opciones:"",
-          fecha: c.fecha
-        })
+        this.ELEMENT_DATA.push( c )
       }
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.dataSource.paginator =  this.paginator;
@@ -141,17 +134,7 @@ export class EmpleadoDelMesComponent implements OnInit {
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({
-              idUsuario:c.idUsuario,
-              usuario:c.usuario,
-              nombres:c.nombres,
-              local:c.local,
-              cveLocal:c.cveLocal,
-              apellidoMaterno: c.apellidoMaterno,
-              apellidoPaterno:c.apellidoPaterno,
-              opciones:"",
-              fecha: c.fecha,
-            })
+            this.ELEMENT_DATA.push( c )
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -175,17 +158,7 @@ export class EmpleadoDelMesComponent implements OnInit {
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push({
-              idUsuario:c.idUsuario,
-            usuario:c.usuario,
-            nombres:c.nombres,
-            local:c.local,
-            cveLocal:c.cveLocal,
-            apellidoMaterno: c.apellidoMaterno,
-            apellidoPaterno:c.apellidoPaterno,
-            opciones:"",
-            fecha: c.fecha
-          })
+            this.ELEMENT_DATA.push( c )
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator = this.paginator;
@@ -206,17 +179,7 @@ export class EmpleadoDelMesComponent implements OnInit {
         this.cargando = false;
         this.ELEMENT_DATA = [];
         for await (const c of resp.container) {
-          this.ELEMENT_DATA.push({
-            idUsuario:c.idUsuario,
-            usuario:c.usuario,
-            nombres:c.nombres,
-            local:c.local,
-            cveLocal:c.cveLocal,
-            apellidoMaterno: c.apellidoMaterno,
-            apellidoPaterno:c.apellidoPaterno,
-            opciones:"",
-            fecha: c.fecha
-          })
+          this.ELEMENT_DATA.push( c )
         }
         this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
         this.dataSource.paginator =  this.paginator;

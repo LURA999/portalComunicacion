@@ -1,6 +1,8 @@
-.container-perso {
+.container-noticia {
   justify-content: center;
-  margin: 5%;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 70px;
 }
 
 

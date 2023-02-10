@@ -15,14 +15,14 @@ export class InicioGuard implements CanActivate {
 
     if(this.cookie.get('user') == "" ){
       return true
-    }else{   
+    }else{
       if (this.auth.getCveRol() == 1) {
-        this.route.navigateByUrl('/general/slider')
+        this.route.navigateByUrl('/general/slider-config')
       }else{
         this.route.navigateByUrl('/general')
       }
       return false;
     }
   }
-  
+
 }

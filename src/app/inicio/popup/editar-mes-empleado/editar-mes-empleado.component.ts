@@ -6,6 +6,7 @@ import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { environment } from 'src/environments/environment';
 import { fechaCambio } from '../../opcion-config/empleado-mes-config/empleado-del-mes.component';
 import { locales } from '../editar-slider/editar-slider.component';
 
@@ -15,9 +16,12 @@ import { locales } from '../editar-slider/editar-slider.component';
   styleUrls: ['./editar-mes-empleado.component.css']
 })
 export class EditarMesEmpleadoComponent implements OnInit {
+  link : string =  environment.production === true ? "": "../../../";
   @ViewChild("picker2") abrirCalendario : any
   fechaMes : FormGroup = this.fb.group({
     fecha : ["", Validators.required ],
+    posicion : ["", Validators.required ],
+
   })
   $sub : Subscription = new Subscription()
   localInterfaz :locales[] = []
@@ -31,13 +35,16 @@ export class EditarMesEmpleadoComponent implements OnInit {
     private users : UsuarioService) {
       this.fechaMes = this.fb.group({
         fecha : [ '' , Validators.required],
+        posicion : [ '' , Validators.required],
+
       })
   }
 
   ngOnInit(): void {
     if (this.data.fecha !== undefined) {
       this.fechaMes = this.fb.group({
-        fecha : [new Date(this.data.fecha+"T00:00:00"), Validators.required]
+        fecha : [new Date(this.data.fecha+"T00:00:00"), Validators.required],
+        posicion : [this.data.posicion, Validators.required]
       })
       this.modalidad = false;
     }else{

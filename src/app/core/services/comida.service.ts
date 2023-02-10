@@ -23,8 +23,8 @@ export class ComidaService {
    return this.http.post<ResponseInterfaceTs>(this.api+'menu.php',input,{headers});
   }
 
-  todoComida(id:number) : Observable <ResponseInterfaceTs>{
-    return this.http.get<ResponseInterfaceTs>(this.api+'menu.php?hotel='+id);
+  todoComida(id:number, opc : number) : Observable <ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+'menu.php?hotel='+id+'&opc='+opc);
   }
 
   actualizarComida(input:comida) : Observable <ResponseInterfaceTs>{

@@ -74,6 +74,7 @@
   h3 {
     font-family: 'gotham-bold';
     font-size: 15px  ;
+    word-break: break-word;
   }
   .container-autoc {
     display: flex;
@@ -388,6 +389,11 @@ padding: 5%;
   #opciones-not {
     margin-top: 20px;
   }
+
+  #container-not1 {
+    display: block;
+  }
+
 
   .lista-noticias {
     display: block;

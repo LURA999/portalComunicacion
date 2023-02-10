@@ -11,10 +11,11 @@ h2 {
   justify-content: center;
 }
 
-.container {
+.container-mult {
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 70px;
+    align-self: center;
 }
 
 .caja {
@@ -24,8 +25,8 @@ h2 {
 img {
     width: auto;
     height: 200px;
-    min-width: auto;
-    max-width: 100%;
+    max-width: 100% !important;
+    object-fit: contain;
 }
 
 .seccion {
