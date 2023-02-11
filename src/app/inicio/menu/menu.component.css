@@ -43,6 +43,7 @@
 #comida-titulo{
   text-align: center;
   font-family: 'gotham-bold';
+  line-height: normal;
 }
 
 .cuadro {
@@ -94,6 +95,20 @@
 }
 
 
+@media (max-width: 1500px) {
+  #descrip {
+    font-size: 16px;
+  }
+  #titulo_1 {
+    font-size: 3.5vw;
+  }
+
+  #comida-titulo h2{
+    font-size: 2vw;
+  }
+}
+
+
 @media (max-width: 1550px) {
   #comida-container {
     grid-template-columns: repeat(3, 19rem);
@@ -102,13 +117,23 @@
 
 
 @media (max-width: 1150px) {
+
+  #descrip {
+    font-size: 12px;
+  }
+
+  #logo-comedor {
+    width: 12%;
+  }
   #comida-container {
     grid-template-columns: repeat(2, 19rem);
   }
 }
 
 @media (max-width: 800px) {
-
+  #comida-titulo h2{
+    font-size: 14px;
+  }
   #comida-container {
     margin-top: 30px;
   }
@@ -120,6 +145,17 @@
 }
 
 @media (max-width: 670px) {
+  .existe {
+    font-size: 2vw;
+  }
+
+  #comida-titulo h2{
+    font-size: 3vw;
+  }
+
+  #descrip {
+    font-size: 2.5vw;
+  }
 
   .cuadro {
     margin: auto;

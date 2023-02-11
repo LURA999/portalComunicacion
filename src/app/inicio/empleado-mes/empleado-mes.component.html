@@ -16,7 +16,7 @@
         <div class="renglon" *ngFor="let i of usuarios; let idx = index">
           <table >
             <tr >
-              <td class="num" [width]="'5%'">
+              <td class="num negrito" [width]="'5%'">
                 <ng-container *ngIf="i.posicion === '1'; else elseTemplate">
                   <div><img [src]="link+'assets/img/img-seccion-hotel/corona.png'" alt="corona" class="corona"></div>
                   <div>1</div>
@@ -31,7 +31,7 @@
                 </div>
               </td>
               <td  [width]="'40%'">
-                <span class="nombres"> <b>{{i.nombres+" "+i.apellidoPaterno}}</b></span><br>
+                <span class="negrito">{{i.nombres+" "+i.apellidoPaterno}}</span><br>
                 {{i.departamento}}
               </td>
               <td class="ud">

@@ -3,14 +3,13 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import * as CryptoJS from 'crypto-js';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
 import { Observable, Subscription } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { autocapacitacionInt } from '../opcion-config/autocapac-config/autocapac-config.component';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 
 
@@ -146,11 +145,13 @@ export class OpcionMenuComponent implements OnInit {
 
   rellenarSlider(dir : string, number : number){
     this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
-      console.log(resp.container);
 
       if(resp.status.toString() === "200" ){
+
         //se remplazan los por default por los que si existen en el banner
         if(dir === "imgVideo"){
+          console.log(resp.container);
+
           this.imageObject = []
           for await (const r of resp.container) {
             this.imageObject.push( {
@@ -160,6 +161,7 @@ export class OpcionMenuComponent implements OnInit {
             })
           }
         }else{
+
           //En este se llenan las noticias que remplazaran a los de default
           for await (const r of resp.container) {
             this.noticias.push( {
@@ -228,7 +230,7 @@ export class OpcionMenuComponent implements OnInit {
   }
 
   enviarPagina(link : string){
-    if (link !== null && link !== undefined) {
+    if (link !== null && link !== undefined && link !== '') {
       window.open(link, "_blank");
     }
   }

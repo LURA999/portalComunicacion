@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';

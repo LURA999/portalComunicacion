@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit,  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { lastValueFrom, Subscription } from 'rxjs';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ComidaService } from 'src/app/core/services/comida.service';

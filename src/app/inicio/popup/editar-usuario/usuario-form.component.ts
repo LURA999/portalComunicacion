@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import { local, usuarios } from '../../opcion-config/usuarios-config/usuarios.component';
 import { EditarSliderComponent } from '../editar-slider/editar-slider.component';

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
 import { UsuarioFormComponent } from '../../popup/editar-usuario/usuario-form.component';
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';

@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { usuarios } from 'src/app/inicio/opcion-config/usuarios-config/usuarios.component';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
-import { usuarioModel } from 'src/app/interfaces/usuario.model';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
+import { usuarioModel } from 'src/app/interfaces_modelos/usuario.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -54,5 +54,7 @@ export class UsuarioService {
     let headers = new HttpHeaders().set('Content-type','Application/json')
     return this.http.post<ResponseInterfaceTs>(this.api+'Users/userLogin.php', us, {headers})
   }
+
+
 
 }

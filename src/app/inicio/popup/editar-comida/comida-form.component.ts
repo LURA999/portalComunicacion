@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComidaService } from 'src/app/core/services/comida.service';
 import { localService } from 'src/app/core/services/local.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { comida } from '../../opcion-config/menu-config/menu-config.component';
 import { local } from '../../opcion-config/usuarios-config/usuarios.component';
 import {lastValueFrom } from 'rxjs';

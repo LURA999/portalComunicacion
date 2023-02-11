@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 
 export interface locales {
   idLocal : number

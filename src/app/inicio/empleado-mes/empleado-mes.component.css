@@ -56,14 +56,6 @@ section {
   height: 100%;
 }
 
-
-section {
-  margin: 5%;
-  font-family: 'gotham-book';
-  font-size: 1vw;
-  line-height: normal;
-}
-
 /*usuarios container*/
 
 .corona {
@@ -73,12 +65,18 @@ section {
 table {
   width: 100%;
   vertical-align: middle;
+  font-family: 'gotham-book';
+  font-size: 0.8vw;
 }
 
 td.num {
-  font-size: 1.8vw;
   font-family: 'gotham-bold';
   text-align: center;
+  font-size: 1.4vw;
+}
+
+.negrito {
+  font-family: 'gotham-bold';
 }
 
 td.img {
@@ -102,5 +100,63 @@ td.ud {
   width: 60%;
   align-items: center;
 }
+
+
+@media (max-width:1500px) {
+
+  table {
+    font-size: 1.2vw;
+  }
+
+  #titulo_1 {
+    font-size: 3.5vw;
+  }
+  article {
+    font-size: 1.5vw;
+  }
+
+  #titulo h2 {
+    font-size: 23px;
+  }
+
+  td.num {
+    font-size: 1.7vw;
+  }
+}
+
+@media (max-width:700px) {
+  #titulo_1 {
+    font-size: 4vw;
+  }
+  article {
+    font-size: 1.7vw;
+  }
+
+  #titulo h2 {
+    font-size: 14px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+  td.num {
+    font-size: 14px;
+  }
+}
+
+@media (max-width:500px) {
+  #titulo h2 {
+    font-size: 12px;
+  }
+
+  table {
+    font-size: 2vw;
+  }
+
+  td.num {
+    font-size: 12px;
+  }
+}
+
 
 

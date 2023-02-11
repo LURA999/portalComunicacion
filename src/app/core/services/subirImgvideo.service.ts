@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

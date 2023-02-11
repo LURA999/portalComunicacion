@@ -3,43 +3,48 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ButtonType } from '@coreui/angular';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
 import { Subscription } from 'rxjs';
-import { ComidaService } from 'src/app/core/services/comida.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
-import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
-import { ComidaFormComponent } from '../../popup/editar-comida/comida-form.component';
 import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
-import { local } from '../usuarios-config/usuarios.component';
+import { UsuarioFormComponent } from '../../popup/editar-usuario/usuario-form.component';
+import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
+import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
+import { EditarAutocapacComponent } from '../../popup/editar-autocapac/editar-autocapac.component';
 
-export interface comida {
-  idMenu:number;
-  nombre:string;
-  descripcion:string;
-  fecha:Date;
-  cveLocal: number;
-  local:string;
-  activo?:number;
+export interface local {
+  idLocal : number;
+  local : string;
 }
 
 
+export interface autocapacitacionInt {
+  nombre: string;
+  fechaInicial:Date;
+  fechaFinal:Date;
+  cveLocal: string;
+  local:string;
+  opciones:boolean;
+  idAutoCap: number;
+  link:string;
+}
 @Component({
-  selector: 'app-menu-config',
-  templateUrl: './menu-config.component.html',
-  styleUrls: ['./menu-config.component.css'],
-  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
+  selector: 'app-alianzas-config',
+  templateUrl: './alianzas-config.component.html',
+  styleUrls: ['./alianzas-config.component.css']
 })
-export class MenuConfigComponent implements OnInit {
+export class AlianzasConfigComponent implements OnInit {
 
   paramUrl : string = this.route.url.split("/")[2];
-  ELEMENT_DATA: comida[] = [ ];
+  ELEMENT_DATA: autocapacitacionInt[] = [ ];
   $sub : Subscription = new Subscription()
 
-  displayedColumns: string[] = ['nombre', 'descripcion','fecha', 'hotel', 'opciones'];
-  dataSource = new MatTableDataSource<comida>(this.ELEMENT_DATA);
+  displayedColumns: string[] = [ 'nombre', 'fechaInicial', 'fechaFinal', 'hotel', 'opciones'];
+  dataSource = new MatTableDataSource<autocapacitacionInt>(this.ELEMENT_DATA);
   locales : local [] = []
   cargando : boolean = false;
 
@@ -56,16 +61,22 @@ export class MenuConfigComponent implements OnInit {
       for await (const i of resp.container) {
         this.locales.push({idLocal:i.idLocal, local:i.nombre})
       }
-      this.locales.shift()
     }))
     this.cargando = false;
-
-    this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
-      if (Number(resp.status) == 200) {
+    this.autoCap.mostrarTodoAutocapacitacion(0).subscribe(async (resp:ResponseInterfaceTs)=>{
+    if (resp.status === '200') {
       for await (const c of resp.container) {
-        this.ELEMENT_DATA.push(c)
+        this.ELEMENT_DATA.push({
+          idAutoCap:c.idAutoCap,
+          nombre:c.nombre,
+          fechaInicial:c.fechaInicial,
+          fechaFinal:c.fechaFinal,
+          cveLocal:c.cveLocal,
+          local:c.local,
+          opciones:false,
+          link:c.link
+        })
       }
-
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.dataSource.paginator =  this.paginator;
       }
@@ -81,10 +92,10 @@ export class MenuConfigComponent implements OnInit {
   constructor(
     private DataService : DataNavbarService,
     public route : Router,
-    private comidaService : ComidaService,
     private dialog : NgDialogAnimationService,
     private loc : localService,
-    private fb : FormBuilder){
+    private fb : FormBuilder,
+    private autoCap : AutocapacitacionService){
 
   }
 
@@ -93,7 +104,7 @@ export class MenuConfigComponent implements OnInit {
   }
 
   agregar(){
-    let dialogRef = this.dialog.open(ComidaFormComponent, {
+    let dialogRef = this.dialog.open(EditarAutocapacComponent, {
       height: 'auto',
       width: '450px',
       data: undefined
@@ -101,12 +112,20 @@ export class MenuConfigComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
-          this.paginator.firstPage();
           this.formBuscar.reset();
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push(c)
+            this.ELEMENT_DATA.push({
+              idAutoCap:c.idAutoCap,
+              nombre:c.nombre,
+              fechaInicial:c.fechaInicial,
+              fechaFinal:c.fechaFinal,
+              cveLocal:c.cveLocal,
+              local:c.local,
+              opciones:false,
+              link:c.link
+            })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -116,21 +135,29 @@ export class MenuConfigComponent implements OnInit {
     })
   }
 
-  editar(com : comida){
-    let dialogRef = this.dialog.open(ComidaFormComponent, {
+  editar(usuario : autocapacitacionInt){
+    let dialogRef = this.dialog.open(EditarAutocapacComponent, {
       height: 'auto',
       width: '450px',
-      data: com
+      data: usuario
     });
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
-        this.paginator.firstPage();
         if (resp.length > 0) {
           this.formBuscar.reset();
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push( c )
+            this.ELEMENT_DATA.push({
+              idAutoCap:c.idAutoCap,
+              nombre:c.nombre,
+              fechaInicial:c.fechaInicial,
+              fechaFinal:c.fechaFinal,
+              cveLocal:c.cveLocal,
+              local:c.local,
+              opciones:false,
+              link:c.link
+            })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
@@ -145,17 +172,25 @@ export class MenuConfigComponent implements OnInit {
     let dialogRef = this.dialog.open(EliminarComponent, {
       height: 'auto',
       width: 'auto',
-      data: {id: usuario,seccion: "Comida"}
+      data: {id: usuario,seccion: "autocapacitacion"}
     });
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
-        this.paginator.firstPage();
         if (resp.length > 0) {
           this.formBuscar.reset();
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
-            this.ELEMENT_DATA.push(c)
+            this.ELEMENT_DATA.push({
+              idAutoCap:c.idAutoCap,
+              nombre:c.nombre,
+              fechaInicial:c.fechaInicial,
+              fechaFinal:c.fechaFinal,
+              cveLocal:c.cveLocal,
+              local:c.local,
+              opciones:false,
+              link:c.link
+          })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator = this.paginator;
@@ -169,52 +204,34 @@ export class MenuConfigComponent implements OnInit {
     this.$sub.unsubscribe();
   }
 
-  ifSeccion() : number{
-    if (Number(this.formBuscar.value["seccion"]) === -1 || this.formBuscar.value["seccion"] === undefined || this.formBuscar.value["seccion"] === '') {
-      return 0
-    }else{
-      return Number(this.formBuscar.value["seccion"])
-    }
-  }
   buscador(){
-    if(this.formBuscar.value["buscador"] === "" || this.formBuscar.value["buscador"] === undefined || this.formBuscar.value["buscador"] === null){
-      this.$sub.add(this.comidaService.todoComida(this.ifSeccion(),1).subscribe(async (resp:ResponseInterfaceTs)=>{
-        if (Number(resp.status) == 200) {
-          this.cargando = false;
-          this.ELEMENT_DATA = [];
-          for await (const c of resp.container) {
-            this.ELEMENT_DATA.push(c);
-          }
-          console.log(this.ELEMENT_DATA);
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.dataSource.paginator =  this.paginator;
-          this.cargando = true;
-        }else{
-          this.ELEMENT_DATA = [];
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+    this.$sub.add(this.autoCap.mostrarAutocapacitacion(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
+    this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"]).subscribe(async (resp:ResponseInterfaceTs)=>{
+      console.log(resp.container);
+
+      if (Number(resp.status) == 200) {
+        this.cargando = false;
+        this.ELEMENT_DATA = [];
+        for await (const c of resp.container) {
+          this.ELEMENT_DATA.push({
+            idAutoCap:c.idAutoCap,
+            nombre:c.nombre,
+            fechaInicial:c.fechaInicial,
+            fechaFinal:c.fechaFinal,
+            cveLocal:c.cveLocal,
+            local:c.local,
+            opciones:false,
+            link:c.link
+        })
         }
-      }))
-    }else {
-      this.$sub.add(this.comidaService.buscarComida(this.ifSeccion(),this.formBuscar.value["buscador"]).subscribe(async (resp:ResponseInterfaceTs)=>{
-        if (Number(resp.status) == 200) {
-          this.cargando = false;
-          this.ELEMENT_DATA = [];
-          for await (const c of resp.container) {
-            this.ELEMENT_DATA.push(c);
-          }
-          console.log(this.ELEMENT_DATA);
-
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.dataSource.paginator =  this.paginator;
-          this.cargando = true;
-        }else{
-          this.ELEMENT_DATA = [];
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-        }
-      }))
-    }
-
-
+        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+        this.dataSource.paginator =  this.paginator;
+        this.cargando = true;
+      }else{
+        this.ELEMENT_DATA = [];
+        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+      }
+    }))
 
   }
 
@@ -225,4 +242,6 @@ export class MenuConfigComponent implements OnInit {
       return false;
     }
   }
+
+
 }

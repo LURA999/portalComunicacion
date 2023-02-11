@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 
 export interface locales {
   idLocal : number
@@ -37,7 +37,7 @@ export class EditarSliderComponent implements OnInit {
     posicion : [Number(this.data.posicion), Validators.required]
   })
   constructor( private fb : FormBuilder,public dialogRef: MatDialogRef<EditarSliderComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: imgVideoModel,private serviceImgVideo : SubirImgVideoService, private local : localService,
+    @Inject(MAT_DIALOG_DATA) public data: imgVideoModel,private serviceImgVideo : SubirImgVideoService, private local : localService,
     ) {
       this.$sub.add(this.local.todoLocal(1).subscribe(async(resp: ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
@@ -70,7 +70,7 @@ export class EditarSliderComponent implements OnInit {
 
   subirImg(evt : any){
     this.nombreActualizadoImgVid = true
-    const target : any = <DataTransfer>(evt.target).files[0];
+    const target : any = <DataTransfer>(evt.target).files;
     const reader= new FileReader()
     reader.readAsDataURL(target)
     reader.onload = () => {

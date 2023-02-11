@@ -5,7 +5,7 @@ import { Subscription, lastValueFrom } from 'rxjs';
 import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import { fechaCambio } from '../../opcion-config/empleado-mes-config/empleado-del-mes.component';
 import { locales } from '../editar-slider/editar-slider.component';

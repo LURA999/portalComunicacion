@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgNoticiaService } from 'src/app/core/services/subirImgvideo.service';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { localService } from 'src/app/core/services/local.service';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 
 export interface locales {

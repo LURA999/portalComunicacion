@@ -1,8 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EditarSliderComponent } from '../../popup/editar-slider/editar-slider.component';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
@@ -30,7 +30,7 @@ export class GaleriaMultiComponent implements OnInit {
   arrayVidImgPalmiraS : imgVideoModel [] =  []
   arrayVidImgHermosilloS : imgVideoModel [] =  []
   arrayVidImgsanLuisS : imgVideoModel [] =  []
-  ////////
+   ////////
   arrayVidImgGeneralN : imgVideoModel [] =  []
   arrayVidImgMexicaliN : imgVideoModel [] =  []
   arrayVidImgCalafiaN : imgVideoModel [] =  []
@@ -65,6 +65,8 @@ export class GaleriaMultiComponent implements OnInit {
     this.$sub.add(this.servicioMulti.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
       if (resp.status.toString() === "200") {
         for await (const i of resp.container) {
+          console.log(i.posicion);
+
           switch (Number(i.cveLocal)) {
             case 0:
               this.arrayVidImgGeneralS.push(i)
@@ -250,24 +252,24 @@ export class GaleriaMultiComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async (resp:any)=>{
         if(typeof resp !== 'boolean' && resp !== undefined ){
           if(this.arrayVidImgGeneralS.indexOf(model) > -1) {
-            this.arrayVidImgGeneralS.splice(this.arrayVidImgGeneralS.indexOf(model),1)
+          this.arrayVidImgGeneralS.splice(this.arrayVidImgGeneralS.indexOf(model),1)
           }else if(this.arrayVidImgMexicaliS.indexOf(model) > -1) {
-            this.arrayVidImgMexicaliS.splice(this.arrayVidImgMexicaliS.indexOf(model),1)
+          this.arrayVidImgMexicaliS.splice(this.arrayVidImgMexicaliS.indexOf(model),1)
           }else if(this.arrayVidImgCalafiaS.indexOf(model) > -1) {
-            this.arrayVidImgCalafiaS.splice(this.arrayVidImgCalafiaS.indexOf(model),1)
+          this.arrayVidImgCalafiaS.splice(this.arrayVidImgCalafiaS.indexOf(model),1)
           }else  if(this.arrayVidImgPalmiraS.indexOf(model) > -1) {
-            this.arrayVidImgPalmiraS.splice(this.arrayVidImgPalmiraS.indexOf(model),1)
+          this.arrayVidImgPalmiraS.splice(this.arrayVidImgPalmiraS.indexOf(model),1)
           }else if(this.arrayVidImgHermosilloS.indexOf(model) > -1) {
-            this.arrayVidImgHermosilloS.splice(this.arrayVidImgHermosilloS.indexOf(model),1)
+          this.arrayVidImgHermosilloS.splice(this.arrayVidImgHermosilloS.indexOf(model),1)
           }else if(this.arrayVidImgsanLuisS.indexOf(model) > -1) {
-            this.arrayVidImgsanLuisS.splice(this.arrayVidImgsanLuisS.indexOf(model),1)
+          this.arrayVidImgsanLuisS.splice(this.arrayVidImgsanLuisS.indexOf(model),1)
           }
         }
       })
     }
   }
 
-  modificar( obj : imgVideoModel, noticiaSlider : Boolean){
+  modificar( obj : imgVideoModel, noticiaSlider : Boolean, arrNumPos? : Number []){
     if (noticiaSlider === true) {
       //abriendo noticia
      let dialogRef = this.dialog.open(EditarNoticiaComponent, {
@@ -285,6 +287,7 @@ export class GaleriaMultiComponent implements OnInit {
         this.arrayVidImgPalmiraN = []
         this.arrayVidImgHermosilloN = []
         this.arrayVidImgsanLuisN = []
+
             for await (const i of resp) {
               switch (Number(i.cveLocal)) {
                 case 0:
@@ -316,7 +319,7 @@ export class GaleriaMultiComponent implements OnInit {
       let dialogRef = this.dialog.open(EditarSliderComponent, {
         height: 'auto',
         width: '450px',
-        data: obj
+        data: {obj,arrNumPos}
       });
       dialogRef.afterClosed().subscribe(async (resp:any)=>{
         if (resp !== "" && resp !== undefined) {
@@ -326,7 +329,8 @@ export class GaleriaMultiComponent implements OnInit {
         this.arrayVidImgCalafiaS = []
         this.arrayVidImgPalmiraS = []
         this.arrayVidImgHermosilloS = []
-       this.arrayVidImgsanLuisS = []
+        this.arrayVidImgsanLuisS = []
+
         for await (const i of resp) {
           switch (Number(i.cveLocal)) {
             case 0:

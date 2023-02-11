@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { localService } from 'src/app/core/services/local.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { autocapacitacionInt } from '../../opcion-config/autocapac-config/autocapac-config.component';
 import { local } from '../../opcion-config/usuarios-config/usuarios.component';
 import { locales } from '../editar-slider/editar-slider.component';

@@ -141,6 +141,13 @@ span#descrip {
   }
 }
 
+@media (max-width: 1500px) {
+  #titulo_1 {
+    font-size: 3.5vw;
+  }
+
+}
+
 
 @media (max-width: 1150px) {
   #img-container {
@@ -156,6 +163,10 @@ span#descrip {
 
   .depa {
     font-size: 10px;
+  }
+
+  #titulo_1 {
+    font-size: 4vw;
   }
 
   .marco {
@@ -180,6 +191,9 @@ span#descrip {
 }
 
 @media (max-width: 670px) {
+  #titulo_1 {
+    font-size: 4.5vw;
+  }
 
   h2 {
     font-size: 16px;

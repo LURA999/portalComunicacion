@@ -2,7 +2,7 @@
   <ngb-carousel *ngIf="imageObject.length == 0? imageObjectRemplazo : imageObject">
     <ng-template ngbSlide *ngFor="let slide of imageObject.length == 0? imageObjectRemplazo : imageObject">
       <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
-        <img width="100%" [style.cursor]="slide.link===null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
+        <img width="100%" [style.cursor]="slide.link==='' || slide.link=== null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
         [src]=" recursoUrl( imageObject.length == 0?  slide.src : slide.src, 1,imageObject.length,true)"/>
       </ng-container>
       <ng-template  #elseTemplate>
@@ -65,7 +65,6 @@
               </div>
               <hr>
             </div>
-
           <ng-container *ngIf="noticias.length > 0; else elseTemplate">
             <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
               <mat-card [style.margin-left]="(x<cortar.length && x>0?'55px':'0px')" class="noticia">

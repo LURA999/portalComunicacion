@@ -6,6 +6,8 @@ import { LoginService } from 'src/app/core/services/login.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
+
 //import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class LoginAdminComponent implements OnInit {
 
   link : string =  environment.production === true ? "": "../../../";
 
-  constructor( private usuarioServicio : LoginService, private router:Router, private fb :FormBuilder,
+  constructor( private usuarioServicio : LoginService , private router:Router, private fb :FormBuilder,
     private auth : AuthService) { }
 
   ngOnInit(): void {

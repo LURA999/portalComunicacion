@@ -2,14 +2,13 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, View
 import * as CryptoJS from 'crypto-js';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-historial-noticias',
@@ -76,8 +75,10 @@ export class HistorialNoticiasComponent implements OnInit {
         return 4;
       case "hermosillo":
         return 5;
-      default:
+      case "general":
         return 0;
+      default:
+        return -1;
     }
   }
 

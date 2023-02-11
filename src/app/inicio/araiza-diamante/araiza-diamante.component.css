@@ -101,6 +101,10 @@ button {
     color: white;
 }
 
+#btnWeb:hover{
+  scale: 1.2;
+}
+
 /**seccion 4*/
 #seccion4 {
     margin-top: 8%;
@@ -219,6 +223,11 @@ button {
 #recompensas {
   margin-top: 25px;
 }
+
+#recompensas:hover {
+  scale: 1.2;
+}
+
 @media(max-width:1790px){
     .container {
         position: relative;

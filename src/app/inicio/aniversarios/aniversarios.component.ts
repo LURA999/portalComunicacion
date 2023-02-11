@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { UsuarioService } from 'src/app/core/services/usuario.service';

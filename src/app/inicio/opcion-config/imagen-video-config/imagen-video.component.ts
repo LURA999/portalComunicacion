@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { imgVideoModel } from 'src/app/interfaces/img-video.model';
-import { ResponseInterfaceTs } from 'src/app/interfaces/response.interface';
+import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { localService } from 'src/app/core/services/local.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 
