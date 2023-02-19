@@ -1,13 +1,21 @@
 
+
+#container-cumpleaños{
+  min-height: 100%;
+}
+
 #cabecera {
   display: flex;
 }
-
 #cabecera-cumpleaños {
   width: 100%;
   object-fit: contain;
 }
 
+html {
+  min-height: 100%;
+  position: relative;
+}
 
 #titulo_1 {
   margin-top: 13%;
@@ -29,7 +37,7 @@ h2 span {
   font-size: 1.5vw;
 }
 
-span#descrip {
+.descrip {
     font-family: 'gotham-book';
     font-size: 0.8vw;
 }
@@ -93,7 +101,7 @@ span#descrip {
     font-size: 30px;
   }
 
-  span#descrip {
+  .descrip {
       font-family: 'gotham-book';
       font-size: 15px;
   }
@@ -180,7 +188,7 @@ span#descrip {
   }
 
 
-  span#descrip {
+  .descrip {
     font-family: 'gotham-book';
     font-size: 11px;
   }
@@ -189,6 +197,8 @@ span#descrip {
     width: 100px;
   }
 }
+
+
 
 @media (max-width: 545px) {
   #img-container {

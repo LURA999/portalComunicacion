@@ -1,3 +1,6 @@
+#container-cumpleaños{
+  min-height: 100%;
+}
 
 #cabecera {
   display: flex;
@@ -42,7 +45,7 @@ h2 span {
   font-size: 1.5vw;
 }
 
-span#descrip {
+.descrip {
     font-family: 'gotham-book';
     font-size: 0.8vw;
 }
@@ -110,7 +113,7 @@ span#descrip {
     font-size: 30px;
   }
 
-  span#descrip {
+  .descrip {
       font-family: 'gotham-book';
       font-size: 15px;
   }
@@ -211,7 +214,7 @@ span#descrip {
   }
 
 
-  span#descrip {
+  .descrip {
     font-family: 'gotham-book';
     font-size: 11px;
   }

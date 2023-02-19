@@ -1,4 +1,6 @@
-
+#container-mes {
+  min-height: 100%;
+}
 
 #cabecera {
   display: flex;
@@ -101,6 +103,17 @@ td.ud {
   align-items: center;
 }
 
+.descrip {
+  font-size: 0.8vw;
+}
+
+
+@media (max-width: 1919px) {
+  .descrip {
+    font-size: 15px;
+  }
+}
+
 
 @media (max-width:1500px) {
 
@@ -141,6 +154,12 @@ td.ud {
   }
   td.num {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 670px) {
+  .descrip {
+    font-size: 11px;
   }
 }
 

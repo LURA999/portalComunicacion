@@ -1,11 +1,11 @@
-<div class="container-cumpleaños">
+<div id="container-cumpleaños">
   <div id="cabecera">
     <img [src]="link+'assets/img/img-seccion-hotel/aniversarios-head.png'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
     <span id="titulo_1" [style.color]="color_primary">ANIVERSARIOS <br> <span id="titulo_2" [style.color]="color_secundary"> DE {{mes}}</span></span>
   </div>
   <section class="usuario-seccion">
     <h2>¡Muchas <span [style.color]="color_primary"> Felicidades! </span></h2>
-    <span id="descrip">Cada idea compartida y cada oportunidad aprovechada por usted nos ayudó a alcanzar las alturas. ¡Felicitaciones a sus esfuerzos!</span>
+    <span class="descrip">Cada idea compartida y cada oportunidad aprovechada por usted nos ayudó a alcanzar las alturas. ¡Felicitaciones a sus esfuerzos!</span>
     <div id="img-container">
     <div  *ngFor="let i of usuarios; let idx = index">
       <div class="usuario">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="preloader" style="position: relative; left:45%; margin-top:5%; margin-bottom: 5%;" [hidden]="cargando"></div>
-    <div class="existe" [hidden]="hayElementos()"> No hay aniversarios este mes...</div>
+    <div class=" descrip existe " [hidden]="hayElementos()"> No hay aniversarios este mes...</div>
   </section>
 </div>
 <app-footer></app-footer>

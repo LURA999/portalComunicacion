@@ -50,6 +50,7 @@ export class SubirImgVideoService {
     return this.http.delete<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?delete2="+id);
   }
 
+
   //fotos de usuarios
 
   subirImgUsuario(obj : FormData) :Observable <ResponseInterfaceTs> {

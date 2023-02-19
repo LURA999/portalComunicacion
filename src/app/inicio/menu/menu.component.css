@@ -1,3 +1,6 @@
+#container-comida {
+  min-height: 100%;
+}
 
 #cabecera {
   display: flex;
@@ -26,6 +29,14 @@
   line-height: normal;
   font-family: 'gotham-bold';
 
+}
+
+h2 {
+  font-size: 1.5vw;
+}
+
+h2 span {
+  font-size: 1.5vw;
 }
 
 .comida-seccion {
@@ -83,29 +94,40 @@
   font-size: 0.8vw;
 }
 
+
+
 @media (max-width: 1919px) {
-  .nombre{
-    font-size: larger;
+  h2 {
+    font-size: 30px;
   }
+
+  h2 span {
+    font-size: 30px;
+  }
+
+  .descrip {
+      font-family: 'gotham-book';
+      font-size: 15px;
+  }
+
+  .nombre{
+    font-size: 16px;
+  }
+
+  .texto{
+    font-size: 14px;
+  }
+
+  .fecha {
+    font-size: 16px;
+  }
+
+
 
   #comida-container {
     grid-template-columns: repeat(4, 19rem);
   }
 
-}
-
-
-@media (max-width: 1500px) {
-  #descrip {
-    font-size: 16px;
-  }
-  #titulo_1 {
-    font-size: 3.5vw;
-  }
-
-  #comida-titulo h2{
-    font-size: 2vw;
-  }
 }
 
 
@@ -118,8 +140,18 @@
 
 @media (max-width: 1150px) {
 
-  #descrip {
+  .descrip {
     font-size: 12px;
+  }
+
+  .nombre{
+    font-size: 13px;
+  }
+  .texto{
+    font-size: 11px;
+  }
+  .fecha {
+    font-size: 13px;
   }
 
   #logo-comedor {
@@ -131,9 +163,7 @@
 }
 
 @media (max-width: 800px) {
-  #comida-titulo h2{
-    font-size: 14px;
-  }
+
   #comida-container {
     margin-top: 30px;
   }
@@ -145,16 +175,17 @@
 }
 
 @media (max-width: 670px) {
-  .existe {
-    font-size: 2vw;
+
+  h2 {
+    font-size: 16px;
   }
 
-  #comida-titulo h2{
-    font-size: 3vw;
+  h2 span {
+    font-size: 16px;
   }
 
-  #descrip {
-    font-size: 2.5vw;
+  .descrip {
+    font-size: 11px;
   }
 
   .cuadro {
@@ -164,4 +195,16 @@
     font-family: 'gotham-book';
   }
 
+}
+
+@media (max-width:450px){
+  .nombre{
+    font-size: 11px;
+  }
+  .texto{
+    font-size: 9px ;
+  }
+  .fecha {
+    font-size: 11px;
+  }
 }

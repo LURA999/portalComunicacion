@@ -78,8 +78,6 @@ export class EmpleadoDelMesComponent implements OnInit {
     this.cargando = false;
 
     this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
-      console.log(resp.container);
-
       if (resp.status.toString() === '200') {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push( c )

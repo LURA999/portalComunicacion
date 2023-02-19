@@ -236,6 +236,8 @@ export class OpcionMenuComponent implements OnInit {
   }
 
   routerLink(seccion : string){
+    console.log(seccion);
+
     this.auth.crearElm(CryptoJS.AES.encrypt(this.paramUrl,"Amxl@2019*-").toString(),"lua");
     this.route.navigate(["/general/"+seccion]);
   }

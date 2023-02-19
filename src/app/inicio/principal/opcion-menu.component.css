@@ -1,3 +1,7 @@
+.container-p {
+  min-height: 100%;
+}
+
 .menu {
   width: 70%;
   margin-top: 70px;
@@ -562,7 +566,7 @@ mat-card  {
 
 @media(max-width:900px) {
   .carousel-item img {
-  height: 400px;
+    height: 400px;
   }
 }
 
@@ -646,16 +650,16 @@ mat-card  {
 
 @media(max-width:470px) {
   .carousel-item img {
-  height: 300px;
+    height: 300px;
   }
 
-#cuerpo-bt h1 {
-  font-size: 100%;
-}
+  #cuerpo-bt h1 {
+    font-size: 100%;
+  }
 
-#bt-autoc button {
-  font-size: 3vw;
-}
+  #bt-autoc button {
+    font-size: 3vw;
+  }
 
 }
 

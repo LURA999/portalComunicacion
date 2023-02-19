@@ -25,12 +25,19 @@ export class GaleriaMultiComponent implements OnInit {
   $sub : Subscription = new Subscription()
 
   arrayVidImgGeneralS : imgVideoModel [] =  []
+  arrPosicionGeneralS : Number [] = []
   arrayVidImgMexicaliS : imgVideoModel [] =  []
+  arrPosicionMexicaliS : Number [] = []
   arrayVidImgCalafiaS : imgVideoModel [] =  []
+  arrPosicionCalafiaS : Number [] = []
   arrayVidImgPalmiraS : imgVideoModel [] =  []
+  arrPosicionPalmiraS : Number [] = []
   arrayVidImgHermosilloS : imgVideoModel [] =  []
+  arrPosicionHermosilloS : Number [] = []
   arrayVidImgsanLuisS : imgVideoModel [] =  []
-   ////////
+  arrPosicionsanLuisS : Number [] = []
+
+  ////////
   arrayVidImgGeneralN : imgVideoModel [] =  []
   arrayVidImgMexicaliN : imgVideoModel [] =  []
   arrayVidImgCalafiaN : imgVideoModel [] =  []
@@ -65,26 +72,30 @@ export class GaleriaMultiComponent implements OnInit {
     this.$sub.add(this.servicioMulti.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
       if (resp.status.toString() === "200") {
         for await (const i of resp.container) {
-          console.log(i.posicion);
-
           switch (Number(i.cveLocal)) {
             case 0:
               this.arrayVidImgGeneralS.push(i)
+              this.arrPosicionGeneralS.push(i.posicion)
               break;
             case 1:
               this.arrayVidImgMexicaliS.push(i)
+              this.arrPosicionMexicaliS.push(i.posicion)
               break;
             case 2:
               this.arrayVidImgCalafiaS.push(i)
+              this.arrPosicionCalafiaS.push(i.posicion)
               break;
             case 3:
               this.arrayVidImgsanLuisS.push(i)
+              this.arrPosicionsanLuisS.push(i.posicion)
               break;
             case 4:
               this.arrayVidImgPalmiraS.push(i)
+              this.arrPosicionPalmiraS.push(i.posicion)
               break;
             case 5:
               this.arrayVidImgHermosilloS.push(i)
+              this.arrPosicionHermosilloS.push(i.posicion)
               break;
           }
         }
@@ -252,17 +263,23 @@ export class GaleriaMultiComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async (resp:any)=>{
         if(typeof resp !== 'boolean' && resp !== undefined ){
           if(this.arrayVidImgGeneralS.indexOf(model) > -1) {
-          this.arrayVidImgGeneralS.splice(this.arrayVidImgGeneralS.indexOf(model),1)
+            this.arrayVidImgGeneralS.splice(this.arrayVidImgGeneralS.indexOf(model),1)
+            this.arrPosicionGeneralS.splice(Number(model.posicion),1)
           }else if(this.arrayVidImgMexicaliS.indexOf(model) > -1) {
-          this.arrayVidImgMexicaliS.splice(this.arrayVidImgMexicaliS.indexOf(model),1)
+            this.arrayVidImgMexicaliS.splice(this.arrayVidImgMexicaliS.indexOf(model),1)
+            this.arrPosicionMexicaliS.splice(this.arrPosicionMexicaliS.indexOf(Number(model.posicion)),1)
           }else if(this.arrayVidImgCalafiaS.indexOf(model) > -1) {
-          this.arrayVidImgCalafiaS.splice(this.arrayVidImgCalafiaS.indexOf(model),1)
+            this.arrayVidImgCalafiaS.splice(this.arrayVidImgCalafiaS.indexOf(model),1)
+            this.arrPosicionCalafiaS.splice(this.arrPosicionCalafiaS.indexOf(Number(model.posicion)),1)
           }else  if(this.arrayVidImgPalmiraS.indexOf(model) > -1) {
-          this.arrayVidImgPalmiraS.splice(this.arrayVidImgPalmiraS.indexOf(model),1)
+            this.arrayVidImgPalmiraS.splice(this.arrayVidImgPalmiraS.indexOf(model),1)
+            this.arrPosicionPalmiraS.splice(this.arrPosicionPalmiraS.indexOf(Number(model.posicion)),1)
           }else if(this.arrayVidImgHermosilloS.indexOf(model) > -1) {
-          this.arrayVidImgHermosilloS.splice(this.arrayVidImgHermosilloS.indexOf(model),1)
+            this.arrayVidImgHermosilloS.splice(this.arrayVidImgHermosilloS.indexOf(model),1)
+            this.arrPosicionHermosilloS.splice(this.arrPosicionHermosilloS.indexOf(Number(model.posicion)),1)
           }else if(this.arrayVidImgsanLuisS.indexOf(model) > -1) {
-          this.arrayVidImgsanLuisS.splice(this.arrayVidImgsanLuisS.indexOf(model),1)
+            this.arrayVidImgsanLuisS.splice(this.arrayVidImgsanLuisS.indexOf(model),1)
+            this.arrPosicionsanLuisS.splice(this.arrPosicionsanLuisS.indexOf(Number(model.posicion)),1)
           }
         }
       })
@@ -330,26 +347,37 @@ export class GaleriaMultiComponent implements OnInit {
         this.arrayVidImgPalmiraS = []
         this.arrayVidImgHermosilloS = []
         this.arrayVidImgsanLuisS = []
-
+        this.arrPosicionGeneralS = []
+        this.arrPosicionMexicaliS = []
+        this.arrPosicionCalafiaS = []
+        this.arrPosicionPalmiraS = []
+        this.arrPosicionHermosilloS =[]
+        this.arrPosicionsanLuisS = []
         for await (const i of resp) {
           switch (Number(i.cveLocal)) {
             case 0:
               this.arrayVidImgGeneralS.push(i)
+              this.arrPosicionGeneralS.push(i.posicion)
               break;
             case 1:
               this.arrayVidImgMexicaliS.push(i)
+              this.arrPosicionMexicaliS.push(i.posicion)
               break;
             case 2:
               this.arrayVidImgCalafiaS.push(i)
+              this.arrPosicionCalafiaS.push(i.posicion)
               break;
             case 3:
               this.arrayVidImgsanLuisS.push(i)
+              this.arrPosicionsanLuisS.push(i.posicion)
               break;
             case 4:
               this.arrayVidImgPalmiraS.push(i)
+              this.arrPosicionPalmiraS.push(i.posicion)
               break;
             case 5:
               this.arrayVidImgHermosilloS.push(i)
+              this.arrPosicionHermosilloS.push(i.posicion)
               break;
           }
         }

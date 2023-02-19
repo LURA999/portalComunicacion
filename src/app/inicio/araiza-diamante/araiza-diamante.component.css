@@ -1,3 +1,7 @@
+#container-diamante{
+  min-height: 100%;
+}
+
 article {
     font-family: 'gotham-book';
     font-size: 18px;

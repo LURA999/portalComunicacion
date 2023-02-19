@@ -1,4 +1,4 @@
-<div class="container-comida">
+<div id="container-comida">
   <div id="cabecera">
     <img [src]="link+'assets/img/img-seccion-hotel/logo-comedor.png'" id="logo-comedor" alt="logo-comedor">
     <img [src]="link+'assets/img/img-seccion-hotel/comedor-head.png'" id="cabecera-comida"  alt="cabecera-cumpleaños">
@@ -7,7 +7,7 @@
   <section class="comida-seccion">
     <div id="comida-titulo">
       <h2>¡Buen <span [style.color]="color_primary"> Provecho! </span></h2>
-      <span id="descrip">Esperamos que los platillos sean de tu agrado.</span>
+      <span class="descrip">Esperamos que los platillos sean de tu agrado.</span>
     </div>
     <div id="comida-container">
     <div  *ngFor="let i of menu; let idx = index">
@@ -30,7 +30,7 @@
 
     </div>
     <div class="preloader" style="position: relative; left:45%; margin-top:5%; margin-bottom: 5%;" [hidden]="cargando"></div>
-    <div class="existe" [hidden]="hayElementos()"> No hay comidas registradas...</div>
+    <div class="existe descrip" [hidden]="hayElementos()"> No hay comidas registradas...</div>
   </section>
 </div>
-<app-footer></app-footer>
+<app-footer ></app-footer>

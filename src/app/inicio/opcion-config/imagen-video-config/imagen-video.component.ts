@@ -102,15 +102,18 @@ export class ImagenVideoComponent implements OnInit {
         } else {
           intfz.imgVideo = this.nombreNuevo
         }
-        await lastValueFrom(this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar)).then(()=>{
-          if(this.cveSeccion == 1 ||  this.cveSeccion == -1){
-            this.route.navigate(['general/galeriaMulti-config'])
+        await lastValueFrom(this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar)).then((res : ResponseInterfaceTs)=>{
+          if (res != null) {
+            if(this.cveSeccion == 1 ||  this.cveSeccion == -1){
+              this.route.navigate(['general/galeriaMulti-config'])
+            }else{
+              this.formImgVideo.reset()
+              this.formatoVideo = ""
+              this.target = undefined
+            }
           }else{
-            this.formImgVideo.reset()
-            this.formatoVideo = ""
-            this.target = undefined
+            // this.serviceImgVid.
           }
-
         })
       }))
     }
@@ -194,11 +197,11 @@ export class ImagenVideoComponent implements OnInit {
     this.$sub.unsubscribe()
   }
 
-  activarBut(){
+  /*activarBut(){
     if(this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true){
       return true
     }else{
       return false
     }
-  }
+  }*/
 }

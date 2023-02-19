@@ -1,16 +1,15 @@
+
 footer {
     position: absolute;
     height: 130px;
+    bottom: none;
     width: 100%;
     background: #293641;
-  }
-  
-  footer{
     display: flex;
     flex-direction: row-reverse;
-  
+
   }
-  
+
   footer img#logo1 {
     width: 90px;
     height: 90px;
@@ -18,26 +17,28 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-   
+
   }
-  
+
   footer .imgs {
     height: 20px;
     margin-left: 15px;
     float: right;
     margin-bottom: 10px;
-  } 
+  }
 
   .container-pie {
     align-self: center;
     margin-right: 50px;
   }
-  
+
+
+
   @media(max-width:1000px){
-    
+
   footer .imgs , footer .copy {
     display: none;
-  } 
+  }
 
   footer{
     display: flex;

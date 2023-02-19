@@ -26,6 +26,10 @@
   src: url('./assets/fonts/Gotham-Font/Gotham-Font/GothamBook.ttf');
 }
 
+.container-glob {
+  height: 100%;
+}
+
 h2 {
   font-family: 'gotham-bold' !important;
 }
@@ -55,7 +59,7 @@ h2 {
 
 .existe {
   text-align: center;
-  font-family: 'gotham-bold';
+  font-family: 'gotham-bold' !important;
 }
 
 /*

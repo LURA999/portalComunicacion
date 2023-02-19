@@ -35,11 +35,15 @@ export class HistorialNoticiasComponent implements OnInit {
   @Input() maxSize!: number;
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
   @Output() pageBoundsCorrection: EventEmitter<number> = new EventEmitter();
-   @ViewChild('p') childPagination: any
+  @ViewChild('p') childPagination: any
 
-  constructor(private snoticia : SubirImgVideoService,private DataService : DataNavbarService,  private auth : AuthService,
-    private sanitizer : DomSanitizer, public route : Router,private fb : FormBuilder, private imgService : SubirImgVideoService,
-    private changeDetectorRef: ChangeDetectorRef
+  constructor(private snoticia : SubirImgVideoService,
+    private DataService : DataNavbarService,
+    private auth : AuthService,
+    private sanitizer : DomSanitizer,
+    public route : Router,
+    private fb : FormBuilder,
+    private imgService : SubirImgVideoService
     ) { }
   private lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
@@ -159,7 +163,7 @@ export class HistorialNoticiasComponent implements OnInit {
   vacio(){}
 
   ngAfterViewChecked(): void {
-    try {
+    /* try {
       if (this.childPagination.pages[1].label === "...") {
         this.childPagination.pages.shift()
         this.childPagination.pages.shift()
@@ -171,7 +175,7 @@ export class HistorialNoticiasComponent implements OnInit {
 
     } catch (error) {
 
-    }
+    } */
   }
 
   irLink(link : string){

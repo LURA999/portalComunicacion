@@ -1,8 +1,9 @@
-import { MediaMatcher } from '@angular/cdk/layout';
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-araiza-diamante',
@@ -12,6 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AraizaDiamanteComponent implements OnInit {
    link : string =  environment.production === true ? "": "../../../";
+   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
 
   _mobileQueryListener!: () => void;
   width : number =0
@@ -56,9 +58,13 @@ export class AraizaDiamanteComponent implements OnInit {
 
   window: number = Number(window.innerWidth);
   constructor(private changeDetectorRef: ChangeDetectorRef,
-    public route : Router) { }
+    private auth : AuthService,
+    public route : Router,
+    private DataService : DataNavbarService) { }
 
   ngOnInit(): void {
+    this.DataService.open.emit(this.luaStr);
+
     const prev = document.querySelector('.prev')
     const next = document.querySelector('.next')
     const slider = document.querySelector('.slider')

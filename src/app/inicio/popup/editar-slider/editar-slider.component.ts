@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -29,15 +30,19 @@ export class EditarSliderComponent implements OnInit {
   rango2 : Date | undefined
   formData : FormData = new FormData();
   formImgVideo : FormGroup = this.fb.group({
-    fechaInicial : [new Date(this.data.fechaInicial+"T00:00:00"), Validators.required],
-    fechaFinal : [new Date(this.data.fechaFinal+"T00:00:00"), Validators.required],
-    imgVideo : [this.data.imgVideo, Validators.required],
-    cveLocal : [this.data.cveLocal, Validators.required],
-    link : [this.data.link ===undefined && this.data.link ===null? '': this.data.link],
-    posicion : [Number(this.data.posicion), Validators.required]
+    fechaInicial : [new Date(this.data.obj.fechaInicial+"T00:00:00"), Validators.required],
+    fechaFinal : [new Date(this.data.obj.fechaFinal+"T00:00:00"), Validators.required],
+    imgVideo : [this.data.obj.imgVideo, Validators.required],
+    cveLocal : [this.data.obj.cveLocal, Validators.required],
+    link : [this.data.obj.link ===undefined && this.data.obj.link ===null? '': this.data.link],
+    posicion : [Number(this.data.obj.posicion), Validators.required]
   })
-  constructor( private fb : FormBuilder,public dialogRef: MatDialogRef<EditarSliderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: imgVideoModel,private serviceImgVideo : SubirImgVideoService, private local : localService,
+  constructor(
+    private fb : FormBuilder,
+    public dialogRef: MatDialogRef<EditarSliderComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private serviceImgVideo : SubirImgVideoService,
+    private local : localService,
     ) {
       this.$sub.add(this.local.todoLocal(1).subscribe(async(resp: ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
@@ -60,11 +65,11 @@ export class EditarSliderComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.rango == undefined){
-      this.rango =new Date(this.data.fechaInicial+"T00:00:00")
+      this.rango =new Date(this.data.obj.fechaInicial+"T00:00:00")
     }
 
     if(this.rango2 == undefined){
-      this.rango2 =new Date(this.data.fechaFinal+"T00:00:00")
+      this.rango2 =new Date(this.data.obj.fechaFinal+"T00:00:00")
     }
   }
 
@@ -86,19 +91,25 @@ export class EditarSliderComponent implements OnInit {
       alert("Por favor llene todos los campos");
     } else {
       //registrando id y formato
-      let id = this.data.idImgVideo;
-      let formato = this.data.formato;
-      this.data = this.formImgVideo.value;
-      this.data.idImgVideo = id;
-      this.data.formato = formato;
+      let id = this.data.obj.idImgVideo;
+      let formato = this.data.obj.formato;
+      if (this.data.obj ==  this.formImgVideo.value) {
+        console.log("Son iguales");
+      } else {
+        console.log("No son iguales");
+      }
+
+      this.data.obj = this.formImgVideo.value;
+      this.data.obj.idImgVideo = id;
+      this.data.obj.formato = formato;
 
       if (this.nombreActualizadoImgVid === true) {
         //Se eliminara la anterior imagen, si esque se remplazo el actual
-        await lastValueFrom(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.idImgVideo),"imgVideo"))
+        await lastValueFrom(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
         //despues se actualizara la imagen nueva que eligio
         let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideo"))).container;
-        this.data.imgVideo = datos.nombre
-        this.data.formato = datos.tipo
+        this.data.obj.imgVideo = datos.nombre
+        this.data.obj.formato = datos.tipo
       }
 
       //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
