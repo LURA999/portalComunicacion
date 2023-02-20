@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
@@ -51,6 +52,21 @@ export class SubirImgVideoService {
   }
 
 
+  actualizarPosicionTUSlide(obj:dosParamInt){
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posTU=true",obj, {headers} );
+  }
+
+  actualizarPosicionTDSlide(obj:dosParamInt){
+    return this.http.delete<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posTD="+obj.idP+"&cveLocal="+obj.cveLocal+"&cveSeccion"+obj.cveSeccion);
+  }
+
+  actualizarPosicionUSlide(obj:dosParamInt){
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posU=true",obj, {headers} );
+  }
   //fotos de usuarios
 
   subirImgUsuario(obj : FormData) :Observable <ResponseInterfaceTs> {
@@ -73,5 +89,6 @@ export class SubirImgVideoService {
 
     return this.http.patch<ResponseInterfaceTs>(this.local+"Users/img.php?id="+id, {headers});
   }
+
 
 }

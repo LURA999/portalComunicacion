@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { forkJoin, lastValueFrom, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { localService } from 'src/app/core/services/local.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
+import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 
 export interface locales {
   idLocal : number
@@ -102,17 +103,39 @@ export class ImagenVideoComponent implements OnInit {
         } else {
           intfz.imgVideo = this.nombreNuevo
         }
-        await lastValueFrom(this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar)).then((res : ResponseInterfaceTs)=>{
-          if (res != null) {
+        await lastValueFrom(this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar)).then( async (res : ResponseInterfaceTs)=>{
+          
+          if (Number(res.container[0]["pos"]) == 1) {
+            console.log("entro al if");
+            let dosParamInt : dosParamInt = {
+              idP : Number(intfz.posicion),
+              idS : 0,
+              cveLocal : intfz.cveLocal,
+              cveSeccion : intfz.cveSeccion!
+            }
+            
+            await lastValueFrom(this.serviceImgVid.actualizarPosicionTUSlide(dosParamInt));             
+            dosParamInt = {
+              idP : Number(res.container[0].id),
+              idS : Number(intfz.posicion),
+              cveLocal : intfz.cveLocal,
+              cveSeccion : intfz.cveSeccion!
+            }
+
+            await lastValueFrom(this.serviceImgVid.actualizarPosicionUSlide(dosParamInt));              
+
+          }else{
             if(this.cveSeccion == 1 ||  this.cveSeccion == -1){
-              this.route.navigate(['general/galeriaMulti-config'])
+             // this.route.navigate(['general/galeriaMulti-config'])
             }else{
               this.formImgVideo.reset()
               this.formatoVideo = ""
               this.target = undefined
             }
-          }else{
-            // this.serviceImgVid.
+           /* for (let i = 0; i < res.container.length; i++) {
+
+           } */
+          //  this.serviceImgVid.actualizarPosicionSlide()
           }
         })
       }))

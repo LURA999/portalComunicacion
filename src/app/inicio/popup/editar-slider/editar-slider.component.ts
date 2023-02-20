@@ -93,11 +93,6 @@ export class EditarSliderComponent implements OnInit {
       //registrando id y formato
       let id = this.data.obj.idImgVideo;
       let formato = this.data.obj.formato;
-      if (this.data.obj ==  this.formImgVideo.value) {
-        console.log("Son iguales");
-      } else {
-        console.log("No son iguales");
-      }
 
       this.data.obj = this.formImgVideo.value;
       this.data.obj.idImgVideo = id;
@@ -115,6 +110,9 @@ export class EditarSliderComponent implements OnInit {
       //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
       await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
 
+      //se actualizar las posiciones
+      
+      
       //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
       this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
         this.dialogRef.close(resp.container)
