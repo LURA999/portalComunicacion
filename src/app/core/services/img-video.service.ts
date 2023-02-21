@@ -39,6 +39,7 @@ export class SubirImgVideoService {
       headers.append('Content-Type', 'video/x-flv');
     return this.http.post<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?var="+x, obj, {headers})
   }
+
   actualizarImgVideo(obj : imgVideoModel,arch : string) : Observable <ResponseInterfaceTs>{
     let headers = new HttpHeaders().set('Content-type','Application/json')
     headers.append('Access-Control-Allow-Origin', '*');
@@ -58,8 +59,8 @@ export class SubirImgVideoService {
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posTU=true",obj, {headers} );
   }
 
-  actualizarPosicionTDSlide(obj:dosParamInt){
-    return this.http.delete<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posTD="+obj.idP+"&cveLocal="+obj.cveLocal+"&cveSeccion"+obj.cveSeccion);
+  eliminarPosicionTDSlide(obj:dosParamInt){
+    return this.http.delete<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posTD="+obj.idP+"&cveLocal="+obj.cveLocal+"&cveSeccion="+obj.cveSeccion);
   }
 
   actualizarPosicionUSlide(obj:dosParamInt){
@@ -67,8 +68,14 @@ export class SubirImgVideoService {
     headers.append('Access-Control-Allow-Origin', '*');
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posU=true",obj, {headers} );
   }
-  //fotos de usuarios
 
+  actualizarPosicionUCSlide(obj:dosParamInt){
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posUC=true",obj, {headers} );
+  }
+
+  //fotos de usuarios
   subirImgUsuario(obj : FormData) :Observable <ResponseInterfaceTs> {
     let headers = new HttpHeaders();
     headers.append('Access-Control-Allow-Origin', '*');

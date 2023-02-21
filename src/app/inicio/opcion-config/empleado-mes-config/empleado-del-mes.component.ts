@@ -3,17 +3,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ButtonType } from '@coreui/angular';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
-import { Subscription } from 'rxjs';
+import { Subscription,lastValueFrom } from 'rxjs';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
-import { UsuarioFormComponent } from '../../popup/editar-usuario/usuario-form.component';
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
 import { EditarMesEmpleadoComponent } from '../../popup/editar-mes-empleado/editar-mes-empleado.component';
+import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
 
 export interface local {
   idLocal : number;
@@ -28,7 +27,7 @@ export interface usuariosDelMes {
   apellidoPaterno:string;
   apellidoMaterno: string;
   local: string;
-  cveLocal:string;
+  cveLocal:number;
   opciones : string;
   fecha : string;
   posicion : number;
@@ -40,6 +39,8 @@ export interface fechaCambio {
   cveLocal:number;
   posicion:number;
   contrato:number;
+  total:number;
+  arr:number[];
 }
 
 
@@ -77,7 +78,7 @@ export class EmpleadoDelMesComponent implements OnInit {
     }))
     this.cargando = false;
 
-    this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.usService.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (resp.status.toString() === '200') {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push( c )
@@ -97,11 +98,11 @@ export class EmpleadoDelMesComponent implements OnInit {
   constructor(
     private DataService : DataNavbarService,
     public route : Router,
-    private users : UsuarioService,
     private dialog : NgDialogAnimationService,
     private loc : localService,
     private fb : FormBuilder,
-    private usService : UsuarioService){
+    private usService : UsuarioService,
+    private mesService : EmpleadoMesService){
 
   }
 
@@ -109,15 +110,18 @@ export class EmpleadoDelMesComponent implements OnInit {
     this.DataService.open.emit(this.paramUrl);
   }
 
-  editar_agregar(usuario : usuariosDelMes){
+  async editar_agregar(usuario : usuariosDelMes){
     let dialogRef : any;
+
     if (usuario.fecha === null) {
+      let arr :number[] = (await lastValueFrom(this.mesService.totalEmpleado(Number(usuario.cveLocal)))).container;
        dialogRef = this.dialog.open(EditarMesEmpleadoComponent, {
         height: 'auto',
         width: '450px',
-        data: {idUsuario : usuario.idUsuario}
+        data: {idUsuario : usuario.idUsuario, total: arr.length, arr : arr }
       });
     } else {
+
       dialogRef = this.dialog.open(EditarMesEmpleadoComponent, {
         height: 'auto',
         width: '450px',

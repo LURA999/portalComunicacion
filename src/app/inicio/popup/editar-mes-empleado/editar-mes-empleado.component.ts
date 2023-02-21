@@ -26,17 +26,16 @@ export class EditarMesEmpleadoComponent implements OnInit {
   $sub : Subscription = new Subscription()
   localInterfaz :locales[] = []
   modalidad : boolean = false;
-
+  cant : number = 0
   constructor(
     private fb : FormBuilder,
-    @Inject(MAT_DIALOG_DATA) private data:fechaCambio,
+    @Inject(MAT_DIALOG_DATA) public data:fechaCambio,
     public dialogRef: MatDialogRef<EditarMesEmpleadoComponent>,
     private mesService : EmpleadoMesService,
     private users : UsuarioService) {
       this.fechaMes = this.fb.group({
         fecha : [ '' , Validators.required],
         posicion : [ '' , Validators.required],
-
       })
   }
 
@@ -46,6 +45,8 @@ export class EditarMesEmpleadoComponent implements OnInit {
         fecha : [new Date(this.data.fecha+"T00:00:00"), Validators.required],
         posicion : [this.data.posicion, Validators.required]
       })
+
+
       this.modalidad = false;
     }else{
       this.modalidad = true;
@@ -57,14 +58,15 @@ export class EditarMesEmpleadoComponent implements OnInit {
     if (this.fechaMes.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
-      console.log(this.data);
-
+      const posPrincipal = this.data.posicion;
       let idUsuario = this.data.idUsuario;
         this.data = this.fechaMes.value;
         this.data.idUsuario = idUsuario;
       if (this.modalidad == true) {
         await lastValueFrom(this.mesService.insertarFecha(this.fechaMes.value));
       } else {
+
+        await lastValueFrom(this.mesService.actualizarFecha(this.fechaMes.value));
         await lastValueFrom(this.mesService.actualizarFecha(this.fechaMes.value));
       }
       this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{

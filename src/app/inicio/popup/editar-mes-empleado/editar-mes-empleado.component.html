@@ -11,9 +11,10 @@
     </mat-form-field>
   </div>
   <div>
+
     <mat-form-field appearance="outline">
-      <mat-label>Posición</mat-label>
-      <mat-select formControlName="posicion">
+      <mat-label>{{data.total === 3?'Ya no quedan lugares': 'Posición'}}</mat-label>
+      <mat-select [disabled]="data.total === 3" formControlName="posicion">
         <mat-option value="1" > 1 </mat-option>
         <mat-option value="2" > 2 </mat-option>
         <mat-option value="3" > 3 </mat-option>

@@ -135,6 +135,7 @@ export class GaleriaMultiComponent implements OnInit {
   }
 
   eliminar(id :any, noticiaSlider : Boolean, model : imgVideoModel){
+
     if (noticiaSlider === true) {
       //abriendo noticia
       let dialogRef = this.dialog.open(EliminarComponent, {
@@ -258,29 +259,52 @@ export class GaleriaMultiComponent implements OnInit {
       let dialogRef = this.dialog.open(EliminarComponent, {
         height: 'auto',
         width: '450px',
-        data:{id:Number(id), opc:noticiaSlider, seccion: "foto/imagen"}
+        data:{obj:model, opc:noticiaSlider, seccion: "foto/imagen"}
       });
       dialogRef.afterClosed().subscribe(async (resp:any)=>{
         if(typeof resp !== 'boolean' && resp !== undefined ){
-          if(this.arrayVidImgGeneralS.indexOf(model) > -1) {
-            this.arrayVidImgGeneralS.splice(this.arrayVidImgGeneralS.indexOf(model),1)
-            this.arrPosicionGeneralS.splice(Number(model.posicion),1)
-          }else if(this.arrayVidImgMexicaliS.indexOf(model) > -1) {
-            this.arrayVidImgMexicaliS.splice(this.arrayVidImgMexicaliS.indexOf(model),1)
-            this.arrPosicionMexicaliS.splice(this.arrPosicionMexicaliS.indexOf(Number(model.posicion)),1)
-          }else if(this.arrayVidImgCalafiaS.indexOf(model) > -1) {
-            this.arrayVidImgCalafiaS.splice(this.arrayVidImgCalafiaS.indexOf(model),1)
-            this.arrPosicionCalafiaS.splice(this.arrPosicionCalafiaS.indexOf(Number(model.posicion)),1)
-          }else  if(this.arrayVidImgPalmiraS.indexOf(model) > -1) {
-            this.arrayVidImgPalmiraS.splice(this.arrayVidImgPalmiraS.indexOf(model),1)
-            this.arrPosicionPalmiraS.splice(this.arrPosicionPalmiraS.indexOf(Number(model.posicion)),1)
-          }else if(this.arrayVidImgHermosilloS.indexOf(model) > -1) {
-            this.arrayVidImgHermosilloS.splice(this.arrayVidImgHermosilloS.indexOf(model),1)
-            this.arrPosicionHermosilloS.splice(this.arrPosicionHermosilloS.indexOf(Number(model.posicion)),1)
-          }else if(this.arrayVidImgsanLuisS.indexOf(model) > -1) {
-            this.arrayVidImgsanLuisS.splice(this.arrayVidImgsanLuisS.indexOf(model),1)
-            this.arrPosicionsanLuisS.splice(this.arrPosicionsanLuisS.indexOf(Number(model.posicion)),1)
+          this.cargando2 = false;
+        this.arrayVidImgGeneralS = []
+        this.arrayVidImgMexicaliS = []
+        this.arrayVidImgCalafiaS = []
+        this.arrayVidImgPalmiraS = []
+        this.arrayVidImgHermosilloS = []
+        this.arrayVidImgsanLuisS = []
+        this.arrPosicionGeneralS = []
+        this.arrPosicionMexicaliS = []
+        this.arrPosicionCalafiaS = []
+        this.arrPosicionPalmiraS = []
+        this.arrPosicionHermosilloS =[]
+        this.arrPosicionsanLuisS = []
+        for await (const i of resp) {
+          switch (Number(i.cveLocal)) {
+            case 0:
+              this.arrayVidImgGeneralS.push(i)
+              this.arrPosicionGeneralS.push(i.posicion)
+              break;
+            case 1:
+              this.arrayVidImgMexicaliS.push(i)
+              this.arrPosicionMexicaliS.push(i.posicion)
+              break;
+            case 2:
+              this.arrayVidImgCalafiaS.push(i)
+              this.arrPosicionCalafiaS.push(i.posicion)
+              break;
+            case 3:
+              this.arrayVidImgsanLuisS.push(i)
+              this.arrPosicionsanLuisS.push(i.posicion)
+              break;
+            case 4:
+              this.arrayVidImgPalmiraS.push(i)
+              this.arrPosicionPalmiraS.push(i.posicion)
+              break;
+            case 5:
+              this.arrayVidImgHermosilloS.push(i)
+              this.arrPosicionHermosilloS.push(i.posicion)
+              break;
           }
+        }
+        this.cargando2 = true;
         }
       })
     }

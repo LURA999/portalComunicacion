@@ -98,7 +98,7 @@
         <br>
       </ng-container>
       <div>
-        <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt"><br><br>
+        <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" #subirImagen (change)="subirImg($event)" class="ing-txt"><br><br>
       </div>
   </mat-dialog-content>
 <mat-dialog-actions>

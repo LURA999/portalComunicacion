@@ -104,25 +104,21 @@ export class ImagenVideoComponent implements OnInit {
           intfz.imgVideo = this.nombreNuevo
         }
         await lastValueFrom(this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar)).then( async (res : ResponseInterfaceTs)=>{
-          
           if (Number(res.container[0]["pos"]) == 1) {
-            console.log("entro al if");
             let dosParamInt : dosParamInt = {
               idP : Number(intfz.posicion),
               idS : 0,
               cveLocal : intfz.cveLocal,
               cveSeccion : intfz.cveSeccion!
             }
-            
-            await lastValueFrom(this.serviceImgVid.actualizarPosicionTUSlide(dosParamInt));             
+            await lastValueFrom(this.serviceImgVid.actualizarPosicionTUSlide(dosParamInt));
             dosParamInt = {
               idP : Number(res.container[0].id),
               idS : Number(intfz.posicion),
               cveLocal : intfz.cveLocal,
               cveSeccion : intfz.cveSeccion!
             }
-
-            await lastValueFrom(this.serviceImgVid.actualizarPosicionUSlide(dosParamInt));              
+            await lastValueFrom(this.serviceImgVid.actualizarPosicionUSlide(dosParamInt));
 
           }else{
             if(this.cveSeccion == 1 ||  this.cveSeccion == -1){

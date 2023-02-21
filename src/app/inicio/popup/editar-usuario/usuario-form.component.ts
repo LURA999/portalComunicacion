@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
@@ -43,9 +43,10 @@ export class UsuarioFormComponent implements OnInit {
   guardHotel : number | undefined
   link : string =  environment.production === true ? "": "../../../";
   api : string = environment.api;
+  @ViewChild("subirImagen") inpImg : HTMLInputElement | undefined
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
-  private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private auth : AuthService
+  private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private changeDetectorRef: ChangeDetectorRef
   ) {
 
     if (data !== undefined) {
@@ -74,14 +75,23 @@ export class UsuarioFormComponent implements OnInit {
   subirImg(evt : any){
     this.insertarImagen = true
     this.targetFile = <DataTransfer>(evt.target).files[0];
-    const reader= new FileReader()
-    reader.readAsDataURL(this.targetFile )
-    reader.onload = () => {
-      this.formUsuario.patchValue({
-        img : this.targetFile.name
-      })
+
+    if (this.targetFile.type.split("/")[0] === "image") {
+      const reader= new FileReader()
+      reader.readAsDataURL(this.targetFile )
+      reader.onload = () => {
+        this.formUsuario.patchValue({
+          img : this.targetFile.name
+        })
+      }
+      this.formData.append('info', this.targetFile, this.targetFile.name);
+    }else{
+      this.targetFile  = new DataTransfer()
+      let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+      inpimg2.value="";
+      alert("Solo se permiten subir imagenes");
     }
-    this.formData.append('info', this.targetFile, this.targetFile.name);
+
   }
 
 
@@ -185,3 +195,7 @@ export class UsuarioFormComponent implements OnInit {
     }
   }
 }
+function Child(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+

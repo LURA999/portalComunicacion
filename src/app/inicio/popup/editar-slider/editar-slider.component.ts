@@ -1,11 +1,9 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { lastValueFrom, Subscription } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
-import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 
 export interface locales {
@@ -90,12 +88,19 @@ export class EditarSliderComponent implements OnInit {
     if (this.formImgVideo.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
+
+
+      if(Number(this.data.obj.posicion) !== Number(this.formImgVideo.value["posicion"])) {
+        await lastValueFrom(this.serviceImgVideo.actualizarPosicionUCSlide({cveLocal: this.data.obj.cveLocal,cveSeccion: this.data.obj.cveSeccion,idP:this.formImgVideo.value["posicion"],idS:this.data.obj.posicion}))
+      }
+
+      const posicion2 =  this.data.obj.posicion
       //registrando id y formato
       let id = this.data.obj.idImgVideo;
       let formato = this.data.obj.formato;
-
       this.data.obj = this.formImgVideo.value;
       this.data.obj.idImgVideo = id;
+      this.data.obj.posicion2 = posicion2;
       this.data.obj.formato = formato;
 
       if (this.nombreActualizadoImgVid === true) {
@@ -110,9 +115,7 @@ export class EditarSliderComponent implements OnInit {
       //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
       await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
 
-      //se actualizar las posiciones
-      
-      
+
       //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
       this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
         this.dialogRef.close(resp.container)

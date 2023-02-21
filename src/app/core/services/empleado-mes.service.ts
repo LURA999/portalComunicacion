@@ -14,19 +14,23 @@ export class EmpleadoMesService {
   constructor(private http: HttpClient) { }
 
   eliminarFecha(id:number):Observable<ResponseInterfaceTs>{
-    return this.http.delete<ResponseInterfaceTs>(this.api+"fechaCambio.php?idUsuario="+id);
+    return this.http.delete<ResponseInterfaceTs>(this.api+"empleadoMes.php?idUsuario="+id);
   }
 
   actualizarFecha(fechaCam: fechaCambio){
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    return this.http.patch<ResponseInterfaceTs>(this.api+"fechaCambio.php" ,fechaCam, {headers});
+    return this.http.patch<ResponseInterfaceTs>(this.api+"empleadoMes.php" ,fechaCam, {headers});
   }
 
   insertarFecha(fechaCam: fechaCambio){
-    console.log('insertar');
-
     let headers = new HttpHeaders().set('Content-type','Application/json');
-    return this.http.post<ResponseInterfaceTs>(this.api+"fechaCambio.php" ,fechaCam, {headers});
+    return this.http.post<ResponseInterfaceTs>(this.api+"empleadoMes.php" ,fechaCam, {headers});
   }
+
+  totalEmpleado(cveLocal : number):Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+"empleadoMes.php?cveLocal="+cveLocal);
+
+  }
+
 
 }

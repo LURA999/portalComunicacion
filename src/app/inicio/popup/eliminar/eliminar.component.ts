@@ -9,12 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { ComidaService } from 'src/app/core/services/comida.service';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
-
-export interface eliminar {
-  seccion: string,
-  id: string,
-  opc?: boolean
-}
+import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 
 @Component({
   selector: 'app-eliminar',
@@ -26,10 +21,10 @@ export class EliminarComponent implements OnInit {
 
 
   constructor( public dialogRef: MatDialogRef<EliminarComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: eliminar,private serviceImgVideo : SubirImgVideoService,
+    @Inject(MAT_DIALOG_DATA) public data: any,private serviceImgVideo : SubirImgVideoService,
     private usService:UsuarioService, private servImgVideo : SubirImgVideoService,
     private comidaServ : ComidaService, private autocap : AutocapacitacionService,
-    private mesService:EmpleadoMesService, private auth : AuthService) { }
+    private mesService:EmpleadoMesService) { }
 
   ngOnInit(): void {
 
@@ -48,7 +43,15 @@ export class EliminarComponent implements OnInit {
               this.dialogRef.close(await resp.container===undefined?[]:resp.container);
             }))
           } else {
-            await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideo"))
+
+            await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
+            let deleteSlide : dosParamInt = {
+              cveLocal: Number(this.data.obj.cveLocal),
+              cveSeccion: Number(this.data.obj.cveSeccion),
+              idP: Number(this.data.obj.posicion),
+              idS:0
+            }
+            await lastValueFrom(this.servImgVideo.eliminarPosicionTDSlide(deleteSlide));
             this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
               this.dialogRef.close(await resp.container===undefined?[]:resp.container);
             }))
