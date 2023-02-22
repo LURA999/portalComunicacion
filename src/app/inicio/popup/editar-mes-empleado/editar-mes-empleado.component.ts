@@ -2,8 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription, lastValueFrom } from 'rxjs';
-import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
-import { localService } from 'src/app/core/services/local.service';
+import { EmpleadoMesService, fechaServ } from 'src/app/core/services/empleado-mes.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
@@ -37,6 +36,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
         fecha : [ '' , Validators.required],
         posicion : [ '' , Validators.required],
       })
+
   }
 
   ngOnInit(): void {
@@ -58,17 +58,34 @@ export class EditarMesEmpleadoComponent implements OnInit {
     if (this.fechaMes.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
-      const posPrincipal = this.data.posicion;
-      let idUsuario = this.data.idUsuario;
-        this.data = this.fechaMes.value;
-        this.data.idUsuario = idUsuario;
+      const posAnt = this.data.posicion;
+      const cveLocal = this.data.cveLocal;
+      const idUsuario = this.data.idUsuario;
+      this.data = this.fechaMes.value;
+      this.data.idUsuario = idUsuario;
       if (this.modalidad == true) {
+        //insertando a un empleado con una posicion NUEVA
         await lastValueFrom(this.mesService.insertarFecha(this.fechaMes.value));
       } else {
+        let actPos : fechaServ = ({
+          fecha : this.fechaMes.value["fecha"],
+          idUsuario : this.data.idUsuario,
+          posicion : this.fechaMes.value["posicion"],
+          posicionAnt : posAnt,
+          cveLocal : cveLocal
+        })
+        //actualizando un empleado con una posicion ya existe
+        if(Number(posAnt) != this.data.posicion ){
+
+          //este envie 4 param y no 3 como los otros, e igualmente no actualiza con el id del usuario, sino con el id de las posiciones
+          await lastValueFrom(this.mesService.actualizarFecha(actPos))
+        }
+
 
         await lastValueFrom(this.mesService.actualizarFecha(this.fechaMes.value));
-        await lastValueFrom(this.mesService.actualizarFecha(this.fechaMes.value));
+        // await lastValueFrom(this.mesService.actualizarFecha(this.fechaMes.value));
       }
+
       this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (resp.status.toString() === '200') {
           this.dialogRef.close(await resp.container);

@@ -3,7 +3,17 @@ import { Injectable } from '@angular/core';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { fechaCambio } from 'src/app/inicio/opcion-config/empleado-mes-config/empleado-del-mes.component';
+
+
+
+export interface fechaServ {
+  idUsuario:number;
+  fecha:Date;
+  posicion:number;
+  cveLocal : number;
+  posicionAnt?:number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +27,14 @@ export class EmpleadoMesService {
     return this.http.delete<ResponseInterfaceTs>(this.api+"empleadoMes.php?idUsuario="+id);
   }
 
-  actualizarFecha(fechaCam: fechaCambio){
+  actualizarFecha(fechaCam: fechaServ){
+    console.log(fechaCam);
+
     let headers = new HttpHeaders().set('Content-type','Application/json')
     return this.http.patch<ResponseInterfaceTs>(this.api+"empleadoMes.php" ,fechaCam, {headers});
   }
 
-  insertarFecha(fechaCam: fechaCambio){
+  insertarFecha(fechaCam: fechaServ){
     let headers = new HttpHeaders().set('Content-type','Application/json');
     return this.http.post<ResponseInterfaceTs>(this.api+"empleadoMes.php" ,fechaCam, {headers});
   }
@@ -31,6 +43,7 @@ export class EmpleadoMesService {
     return this.http.get<ResponseInterfaceTs>(this.api+"empleadoMes.php?cveLocal="+cveLocal);
 
   }
+
 
 
 }

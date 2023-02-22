@@ -72,8 +72,10 @@ export class EditarSliderComponent implements OnInit {
   }
 
   subirImg(evt : any){
+    console.log(evt);
+
     this.nombreActualizadoImgVid = true
-    const target : any = <DataTransfer>(evt.target).files;
+    const target : any = <DataTransfer>(evt.target).files[0];
     const reader= new FileReader()
     reader.readAsDataURL(target)
     reader.onload = () => {

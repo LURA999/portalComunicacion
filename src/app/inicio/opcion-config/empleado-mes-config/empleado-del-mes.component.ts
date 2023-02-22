@@ -43,7 +43,6 @@ export interface fechaCambio {
   arr:number[];
 }
 
-
 @Component({
   selector: 'app-usuarios',
   templateUrl: './empleado-del-mes.component.html',
