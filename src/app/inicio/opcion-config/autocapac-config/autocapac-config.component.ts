@@ -116,6 +116,9 @@ export class AutoCapacConfigComponente implements OnInit {
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
@@ -148,6 +151,9 @@ export class AutoCapacConfigComponente implements OnInit {
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
@@ -181,6 +187,9 @@ export class AutoCapacConfigComponente implements OnInit {
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {

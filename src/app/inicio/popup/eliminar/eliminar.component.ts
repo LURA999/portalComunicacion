@@ -77,7 +77,9 @@ export class EliminarComponent implements OnInit {
             })
           break;
         case 'fecha':
-          await lastValueFrom(this.mesService.eliminarFecha(Number(this.data.id)))
+
+          await lastValueFrom(this.mesService.eliminarFecha(Number(this.data.obj.idUsuario)))
+          await lastValueFrom(this.mesService.actualizarDFechaCambio(this.data.obj))
           this.usService.selectAllusers(2).subscribe(async (resp1:ResponseInterfaceTs) =>{
             this.dialogRef.close(await resp1.container);
           })

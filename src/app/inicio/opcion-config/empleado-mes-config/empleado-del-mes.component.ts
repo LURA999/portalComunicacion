@@ -117,7 +117,7 @@ export class EmpleadoDelMesComponent implements OnInit {
        dialogRef = this.dialog.open(EditarMesEmpleadoComponent, {
         height: 'auto',
         width: '450px',
-        data: {idUsuario : usuario.idUsuario, total: arr.length, arr : arr }
+        data: {idUsuario : usuario.idUsuario, cveLocal: usuario.cveLocal, posicion: usuario.posicion, total: arr.length, arr : arr }
       });
     } else {
 
@@ -132,6 +132,9 @@ export class EmpleadoDelMesComponent implements OnInit {
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
@@ -146,16 +149,19 @@ export class EmpleadoDelMesComponent implements OnInit {
      })
   }
 
-  borrar(usuario : string){
+  borrar(usuario : usuariosDelMes){
     let dialogRef = this.dialog.open(EliminarComponent, {
       height: 'auto',
       width: 'auto',
-      data: {id: usuario,seccion: "fecha"}
+      data: {obj: usuario,seccion: "fecha"}
     });
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
@@ -174,6 +180,7 @@ export class EmpleadoDelMesComponent implements OnInit {
   }
 
   buscador(){
+
     this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"],2).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
@@ -190,7 +197,6 @@ export class EmpleadoDelMesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       }
     }))
-
   }
 
   hayElementos() : boolean{

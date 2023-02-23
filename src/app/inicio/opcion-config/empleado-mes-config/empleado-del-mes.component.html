@@ -20,7 +20,7 @@
     <form class="cabecera" [formGroup]="formBuscar">
     <mat-form-field id="selectLocal" appearance="outline">
       <mat-label>Seleccione la seccion</mat-label>
-      <mat-select formControlName="seccion">
+      <mat-select formControlName="seccion" (selectionChange)="buscador()">
         <mat-option *ngFor="let i of locales" [value]="i.idLocal"> {{i.local}} </mat-option>
         <mat-option value="-1">Ninguno</mat-option>
       </mat-select>
@@ -65,7 +65,7 @@
       <button mat-raised-button color="primary" (click)="editar_agregar(element)">
         Editar
       </button>
-      <button mat-raised-button color="primary" (click)="borrar(element.idUsuario)">
+      <button mat-raised-button color="primary" (click)="borrar(element)">
         Borrar
       </button>
     </td>

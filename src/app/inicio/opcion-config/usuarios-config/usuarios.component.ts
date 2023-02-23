@@ -112,6 +112,9 @@ export class UsuariosComponent implements OnInit {
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
@@ -135,6 +138,9 @@ export class UsuariosComponent implements OnInit {
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
@@ -159,6 +165,9 @@ export class UsuariosComponent implements OnInit {
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
           this.cargando = false;
           this.ELEMENT_DATA = []
           for await (const c of resp) {
@@ -177,6 +186,9 @@ export class UsuariosComponent implements OnInit {
   }
 
   buscador(){
+    console.log(this.formBuscar.value);
+
+
     this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"],1).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {

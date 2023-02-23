@@ -177,6 +177,7 @@ export class MenuConfigComponent implements OnInit {
     }
   }
   buscador(){
+
     if(this.formBuscar.value["buscador"] === "" || this.formBuscar.value["buscador"] === undefined || this.formBuscar.value["buscador"] === null){
       this.$sub.add(this.comidaService.todoComida(this.ifSeccion(),1).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (Number(resp.status) == 200) {
@@ -202,8 +203,6 @@ export class MenuConfigComponent implements OnInit {
           for await (const c of resp.container) {
             this.ELEMENT_DATA.push(c);
           }
-          console.log(this.ELEMENT_DATA);
-
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
           this.cargando = true;

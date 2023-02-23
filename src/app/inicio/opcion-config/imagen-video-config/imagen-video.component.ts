@@ -122,16 +122,12 @@ export class ImagenVideoComponent implements OnInit {
 
           }else{
             if(this.cveSeccion == 1 ||  this.cveSeccion == -1){
-             // this.route.navigate(['general/galeriaMulti-config'])
+              this.route.navigate(['general/galeriaMulti-config'])
             }else{
               this.formImgVideo.reset()
               this.formatoVideo = ""
               this.target = undefined
             }
-           /* for (let i = 0; i < res.container.length; i++) {
-
-           } */
-          //  this.serviceImgVid.actualizarPosicionSlide()
           }
         })
       }))
@@ -216,11 +212,11 @@ export class ImagenVideoComponent implements OnInit {
     this.$sub.unsubscribe()
   }
 
-  /*activarBut(){
+  activarBut(){
     if(this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true){
       return true
     }else{
       return false
     }
-  }*/
+  }
 }

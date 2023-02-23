@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 
 
 
@@ -12,6 +13,7 @@ export interface fechaServ {
   posicion:number;
   cveLocal : number;
   posicionAnt?:number;
+  update?:boolean;
 }
 
 
@@ -28,13 +30,11 @@ export class EmpleadoMesService {
   }
 
   actualizarFecha(fechaCam: fechaServ){
-    console.log(fechaCam);
-
     let headers = new HttpHeaders().set('Content-type','Application/json')
     return this.http.patch<ResponseInterfaceTs>(this.api+"empleadoMes.php" ,fechaCam, {headers});
   }
 
-  insertarFecha(fechaCam: fechaServ){
+  insertarFecha(fechaCam: fechaServ):Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders().set('Content-type','Application/json');
     return this.http.post<ResponseInterfaceTs>(this.api+"empleadoMes.php" ,fechaCam, {headers});
   }
@@ -44,6 +44,18 @@ export class EmpleadoMesService {
 
   }
 
+  actualizarDFechaCambio(fechaCam:fechaServ):Observable<ResponseInterfaceTs> {
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    return this.http.patch<ResponseInterfaceTs>(this.api+"empleadoMes.php?todosD=true",fechaCam, {headers});
+  }
 
+  actualizarTUFechaCambio(fechaCam:dosParamInt):Observable<ResponseInterfaceTs> {
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    return this.http.patch<ResponseInterfaceTs>(this.api+"empleadoMes.php?todosTU=true",fechaCam, {headers});
+  }
 
+  actualizarUFechaCambio(fechaCam:dosParamInt):Observable<ResponseInterfaceTs> {
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    return this.http.patch<ResponseInterfaceTs>(this.api+"empleadoMes.php?fechaCamU=true",fechaCam, {headers});
+  }
 }

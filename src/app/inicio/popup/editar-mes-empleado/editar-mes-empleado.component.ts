@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { EmpleadoMesService, fechaServ } from 'src/app/core/services/empleado-mes.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
+import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import { fechaCambio } from '../../opcion-config/empleado-mes-config/empleado-del-mes.component';
@@ -40,6 +41,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (this.data.fecha !== undefined) {
       this.fechaMes = this.fb.group({
         fecha : [new Date(this.data.fecha+"T00:00:00"), Validators.required],
@@ -62,28 +64,53 @@ export class EditarMesEmpleadoComponent implements OnInit {
       const cveLocal = this.data.cveLocal;
       const idUsuario = this.data.idUsuario;
       this.data = this.fechaMes.value;
+      this.data["cveLocal"] = cveLocal;
       this.data.idUsuario = idUsuario;
       if (this.modalidad == true) {
         //insertando a un empleado con una posicion NUEVA
-        await lastValueFrom(this.mesService.insertarFecha(this.fechaMes.value));
+       await lastValueFrom(this.mesService.insertarFecha(this.data)).then(async (res:ResponseInterfaceTs) =>{
+        console.log(res);
+
+          if (Number(res.container[0]["pos"]) == 1) {
+
+            let dosParamInt : dosParamInt = {
+              idP : Number(this.data.posicion),
+              idS : 0,
+              cveLocal : cveLocal
+            }
+
+            await lastValueFrom(this.mesService.actualizarTUFechaCambio(dosParamInt));
+            dosParamInt = {
+              idP : Number(this.data.idUsuario),
+              idS : Number(this.data.posicion),
+              cveLocal : cveLocal
+            }
+           await lastValueFrom(this.mesService.actualizarUFechaCambio(dosParamInt));
+          }
+        });
       } else {
         let actPos : fechaServ = ({
           fecha : this.fechaMes.value["fecha"],
           idUsuario : this.data.idUsuario,
           posicion : this.fechaMes.value["posicion"],
           posicionAnt : posAnt,
-          cveLocal : cveLocal
+          cveLocal : cveLocal,
+          update:true
         })
         //actualizando un empleado con una posicion ya existe
         if(Number(posAnt) != this.data.posicion ){
-
-          //este envie 4 param y no 3 como los otros, e igualmente no actualiza con el id del usuario, sino con el id de las posiciones
           await lastValueFrom(this.mesService.actualizarFecha(actPos))
         }
 
-
-        await lastValueFrom(this.mesService.actualizarFecha(this.fechaMes.value));
-        // await lastValueFrom(this.mesService.actualizarFecha(this.fechaMes.value));
+        let actUsuario : fechaServ = ({
+          fecha : this.fechaMes.value["fecha"],
+          posicion : this.fechaMes.value["posicion"],
+          posicionAnt : posAnt,
+          cveLocal : cveLocal,
+          idUsuario :  this.data.idUsuario,
+          update: false
+        })
+        await lastValueFrom(this.mesService.actualizarFecha(actUsuario));
       }
 
       this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
