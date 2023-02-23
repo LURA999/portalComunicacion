@@ -122,13 +122,14 @@ export class ImagenVideoComponent implements OnInit {
 
           }else{
             if(this.cveSeccion == 1 ||  this.cveSeccion == -1){
-              this.route.navigate(['general/galeriaMulti-config'])
             }else{
               this.formImgVideo.reset()
               this.formatoVideo = ""
               this.target = undefined
             }
           }
+          this.route.navigate(['general/galeriaMulti-config'])
+
         })
       }))
     }
