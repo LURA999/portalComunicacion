@@ -6,7 +6,7 @@ import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { comida } from '../../opcion-config/menu-config/menu-config.component';
 import { local } from '../../opcion-config/usuarios-config/usuarios.component';
-import {lastValueFrom } from 'rxjs';
+import {lastValueFrom,Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comida-form',
@@ -23,10 +23,11 @@ export class ComidaFormComponent implements OnInit {
       descripcion : [ '' , Validators.required],
       cveLocal : [ '' , Validators.required]
     })
+    contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+    $sub : Subscription = new Subscription()
 
   constructor(private fb : FormBuilder,public dialogRef: MatDialogRef<ComidaFormComponent>,
     @Inject(MAT_DIALOG_DATA) private data: comida, private local : localService, private comidaService : ComidaService) {
-      console.log(this.data);
 
     }
 
@@ -47,12 +48,12 @@ export class ComidaFormComponent implements OnInit {
       this.modalidad = true;
     }
 
-    this.local.todoLocal(-1).subscribe(async(resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.local.todoLocal(-1).subscribe(async(resp:ResponseInterfaceTs) =>{
       for await (const i of resp.container) {
         this.localesArray.push({idLocal:i.idLocal, local:i.nombre})
       }
       this.localesArray.shift()
-    })
+    }))
 
 
   }
@@ -63,18 +64,22 @@ export class ComidaFormComponent implements OnInit {
     } else {
       if (this.modalidad == true) {
         await lastValueFrom(this.comidaService.insertarComida(this.formComida.value));
-        this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
+        this.$sub.add(this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
            this.dialogRef.close(await resp.container);
-        })
+        }))
       } else {
         let idMenu = this.data.idMenu;
         this.data = this.formComida.value;
         this.data.idMenu = idMenu;
         await lastValueFrom(this.comidaService.actualizarComida(this.formComida.value));
-        this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
+        this.$sub.add(this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
            this.dialogRef.close(await resp.container);
-        })
+        }))
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.$sub.unsubscribe()
   }
 }

@@ -10,6 +10,12 @@ export class AuthService {
   constructor(private router : Router , private sCookie : CookieService) { }
 
 
+  getId(){
+    let payload = this.sCookie.get('user')
+    let info = this.parseJwt(payload!!)
+    return info.id
+  }
+
   getCveLocal(){
     let payload = this.sCookie.get('user')
     let info = this.parseJwt(payload!!)

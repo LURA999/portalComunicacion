@@ -66,6 +66,12 @@ div#matform-c {
   margin-bottom: -10px;
 }
 
+/**columna visita*/
+
+.visita {
+  text-align: center;
+}
+
 /**Loading para componentes*/
 .preloader {
   width: 60px;

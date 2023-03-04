@@ -35,6 +35,38 @@ h2 {
 }
 
 
+/**LOADING PARA BLOQUEAR FUNCIONES*/
+#contenedor_carga{
+  background-color: rgba(88, 88, 88, 60%);
+  height: 100%;
+  width:100%;
+  position: fixed;
+  -webkit-transition: all 1s none;
+  -o-transition: all 1s none;
+  transition: all 1s none;
+  z-index:10000;
+  display: none;
+}
+#carga {
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%,-50%);
+  width: 60px;
+  height: 60px;
+  border: 10px solid #eee;
+  border-top: 10px solid #DC994D ;
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  cursor:wait;
+}
+
+
+
 /**Loading para componentes*/
 .preloader {
   width: 60px;
@@ -60,6 +92,17 @@ h2 {
 .existe {
   text-align: center;
   font-family: 'gotham-bold' !important;
+}
+
+
+/*DRAG AND DROP FORMS*/
+.example-handle {
+  float: right;
+  color: #ccc;
+  cursor: move;
+  width: 24px;
+  height: 24px;
+
 }
 
 /*

@@ -170,4 +170,8 @@ export class InicioComponent implements OnInit {
   irLink(link : string){
     window.open(link,"_blank")
   }
+
+  ngOnDestroy(): void {
+    this.$sub.unsubscribe()
+  }
 }

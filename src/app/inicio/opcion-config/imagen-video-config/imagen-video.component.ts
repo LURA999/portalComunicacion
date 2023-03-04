@@ -46,12 +46,14 @@ export class ImagenVideoComponent implements OnInit {
   $sub : Subscription = new Subscription()
   titulo : string = ""
   activar : boolean = false
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
   constructor(private DataService : DataNavbarService,
     private fb : FormBuilder,
     private serviceImgVid : SubirImgVideoService,
     public route : Router,
     private local : localService) {
+
       this.secciones_local(1);
      /*
      con esto desactivo el enter para el formulario
@@ -103,6 +105,8 @@ export class ImagenVideoComponent implements OnInit {
         } else {
           intfz.imgVideo = this.nombreNuevo
         }
+        this.contenedor_carga.style.display = "block";
+
         await lastValueFrom(this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar)).then( async (res : ResponseInterfaceTs)=>{
           if (Number(res.container[0]["pos"]) == 1) {
             let dosParamInt : dosParamInt = {
@@ -129,6 +133,7 @@ export class ImagenVideoComponent implements OnInit {
             }
           }
           this.route.navigate(['general/galeriaMulti-config'])
+          this.contenedor_carga.style.display = "none";
 
         })
       }))

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -14,6 +14,10 @@ export class localService {
 
   todoLocal(opc : number)  : Observable <ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.local+"local.php?opc="+opc);
+  }
+
+  getAlianzas() :Observable<any> {
+    return this.http.get<any>("https://www.araizahoteles.com/alianzas/datos2.php");
   }
 
 }

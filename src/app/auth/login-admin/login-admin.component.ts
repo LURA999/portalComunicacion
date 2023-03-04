@@ -54,4 +54,7 @@ export class LoginAdminComponent implements OnInit {
   }
 }
 
+  ngOnDestroy(): void {
+    this.$sub.unsubscribe()
+  }
 }

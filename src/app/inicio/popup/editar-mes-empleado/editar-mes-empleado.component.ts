@@ -27,6 +27,8 @@ export class EditarMesEmpleadoComponent implements OnInit {
   localInterfaz :locales[] = []
   modalidad : boolean = false;
   cant : number = 0
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+
   constructor(
     private fb : FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data:fechaCambio,
@@ -60,6 +62,8 @@ export class EditarMesEmpleadoComponent implements OnInit {
     if (this.fechaMes.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
+      this.contenedor_carga.style.display = "block";
+
       const posAnt = this.data.posicion;
       const cveLocal = this.data.cveLocal;
       const idUsuario = this.data.idUsuario;
@@ -69,8 +73,6 @@ export class EditarMesEmpleadoComponent implements OnInit {
       if (this.modalidad == true) {
         //insertando a un empleado con una posicion NUEVA
        await lastValueFrom(this.mesService.insertarFecha(this.data)).then(async (res:ResponseInterfaceTs) =>{
-        console.log(res);
-
           if (Number(res.container[0]["pos"]) == 1) {
 
             let dosParamInt : dosParamInt = {
@@ -113,11 +115,13 @@ export class EditarMesEmpleadoComponent implements OnInit {
         await lastValueFrom(this.mesService.actualizarFecha(actUsuario));
       }
 
-      this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (resp.status.toString() === '200') {
           this.dialogRef.close(await resp.container);
+          this.contenedor_carga.style.display = "none";
+
         }
-      })
+      }))
     }
   }
 }

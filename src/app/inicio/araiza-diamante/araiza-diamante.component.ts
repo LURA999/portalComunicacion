@@ -4,6 +4,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
+import { localService } from 'src/app/core/services/local.service';
+import { count, lastValueFrom } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-araiza-diamante',
@@ -14,7 +17,8 @@ import * as CryptoJS from 'crypto-js';
 export class AraizaDiamanteComponent implements OnInit {
    link : string =  environment.production === true ? "": "../../../";
    private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
-
+   alianzas : boolean = false;
+   alianzasArray : any;
   _mobileQueryListener!: () => void;
   width : number =0
 
@@ -57,17 +61,26 @@ export class AraizaDiamanteComponent implements OnInit {
   ];
 
   window: number = Number(window.innerWidth);
-  constructor(private changeDetectorRef: ChangeDetectorRef,
+
+
+
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
     private auth : AuthService,
+    private local : localService,
     public route : Router,
-    private DataService : DataNavbarService) { }
+    private DataService : DataNavbarService,
+    private sanitizer : DomSanitizer) { }
 
   ngOnInit(): void {
-    this.DataService.open.emit(this.luaStr);
+    this.cargandoAlianzas()
 
+    this.DataService.open.emit(this.luaStr);
     const prev = document.querySelector('.prev')
     const next = document.querySelector('.next')
     const slider = document.querySelector('.slider')
+
+
 
     prev!.addEventListener('click', () => {
         slider!.scrollLeft -= 300
@@ -77,6 +90,7 @@ export class AraizaDiamanteComponent implements OnInit {
         slider!.scrollLeft += 300
     })
     this.resonsiveCarrusel()
+
   }
 
   resonsiveCarrusel(){
@@ -94,6 +108,20 @@ export class AraizaDiamanteComponent implements OnInit {
 
   irLink(link: string){
     window.open(link, "_blank");
+  }
+
+  recursoUrl(src : string) : SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(src);
+  }
+
+  ngAfterViewChecked(): void {
+  }
+
+  async cargandoAlianzas() {
+    this.alianzasArray = await lastValueFrom(this.local.getAlianzas())
+    console.log(this.alianzasArray);
+
+    this.alianzas = true
   }
 
 }

@@ -68,6 +68,12 @@ h1 {
     margin-bottom: 10%;
 }
 
+.alianza {
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+}
+
 /*seccion 2*/
 #seccion2 {
     display: block;

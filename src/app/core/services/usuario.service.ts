@@ -40,9 +40,9 @@ export class UsuarioService {
   }
   /**  1*/
 
-  updateUser(us : usuarios) : Observable<ResponseInterfaceTs>{
+  updateUser(us : usuarios, modalidad : boolean) : Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    return this.http.patch<ResponseInterfaceTs>(this.api+'Users/userLogin.php', us, {headers})
+    return this.http.patch<ResponseInterfaceTs>(this.api+'Users/userLogin.php?modalidad='+modalidad, us, {headers})
   }
 
   updatePass(us : usuarioModel) : Observable<ResponseInterfaceTs>{

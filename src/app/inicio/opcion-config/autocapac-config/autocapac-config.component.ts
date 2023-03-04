@@ -3,15 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ButtonType } from '@coreui/angular';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
 import { Subscription } from 'rxjs';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { localService } from 'src/app/core/services/local.service';
-import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
-import { UsuarioFormComponent } from '../../popup/editar-usuario/usuario-form.component';
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { EditarAutocapacComponent } from '../../popup/editar-autocapac/editar-autocapac.component';
@@ -66,7 +63,7 @@ export class AutoCapacConfigComponente implements OnInit {
       }
     }))
     this.cargando = false;
-    this.autoCap.mostrarTodoAutocapacitacion(0).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.autoCap.mostrarTodoAutocapacitacion(0).subscribe(async (resp:ResponseInterfaceTs)=>{
     if (resp.status === '200') {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push({
@@ -84,7 +81,7 @@ export class AutoCapacConfigComponente implements OnInit {
       this.dataSource.paginator =  this.paginator;
       }
       this.cargando = true;
-    })
+    }))
   }
 
 
@@ -219,8 +216,6 @@ export class AutoCapacConfigComponente implements OnInit {
   buscador(){
     this.$sub.add(this.autoCap.mostrarAutocapacitacion(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"]).subscribe(async (resp:ResponseInterfaceTs)=>{
-      console.log(resp.container);
-
       if (Number(resp.status) == 200) {
         this.cargando = false;
         this.ELEMENT_DATA = [];

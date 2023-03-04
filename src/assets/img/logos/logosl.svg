@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 1080 1080" style="enable-background:new 0 0 1080 1080;" xml:space="preserve">
+	width="100px" height="90px" viewBox="0 0 1080 1080" style="enable-background:new 0 0 1080 1080;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#XMLID_00000103236184235126992710000002301226351865517198_);}
 	.st1{fill:#3C3C3B;}
@@ -9,7 +9,7 @@
 </style>
 <g>
 	<g>
-		
+
 			<linearGradient id="XMLID_00000031922308282587377280000002286962779998792834_" gradientUnits="userSpaceOnUse" x1="542.1644" y1="591.5212" x2="537.6142" y2="220.6882">
 			<stop  offset="0" style="stop-color:#84542D"/>
 			<stop  offset="6.110269e-02" style="stop-color:#8C5C33"/>

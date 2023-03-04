@@ -37,6 +37,7 @@ export interface usuarios {
   fechaIngreso:Date;
   departamento: string;
   contrato : number;
+  fecha : number;
 }
 @Component({
   selector: 'app-usuarios',
@@ -51,7 +52,7 @@ export class UsuariosComponent implements OnInit {
   ELEMENT_DATA: usuarios[] = [ ];
   $sub : Subscription = new Subscription()
 
-  displayedColumns: string[] = ['no', 'nombre', 'correo', 'hotel', 'opciones'];
+  displayedColumns: string[] = ['no', 'nombre', 'correo', 'hotel', 'visita', 'opciones'];
   dataSource = new MatTableDataSource<usuarios>(this.ELEMENT_DATA);
   locales : local [] = []
   cargando : boolean = false;
@@ -73,14 +74,14 @@ export class UsuariosComponent implements OnInit {
     }))
     this.cargando = false;
 
-    this.users.selectAllusers(1).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.users.selectAllusers(1).subscribe(async (resp:ResponseInterfaceTs)=>{
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push( c )
       }
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.dataSource.paginator =  this.paginator;
       this.cargando = true;
-    })
+    }))
   }
 
 
@@ -186,8 +187,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   buscador(){
-    console.log(this.formBuscar.value);
-
 
     this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"],1).subscribe(async (resp:ResponseInterfaceTs)=>{

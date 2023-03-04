@@ -25,6 +25,8 @@ export class UsuarioFormComponent implements OnInit {
   formData : FormData = new FormData();
   modalidad : boolean = false;
   targetFile : any
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+
   formUsuario : FormGroup = this.fb.group({
     usuario : ["", Validators.required ],
     apellidoPaterno : ["", Validators.required ],
@@ -109,39 +111,44 @@ export class UsuarioFormComponent implements OnInit {
      * modalidad:
      * true = nuevo usuario
      * false = modificando usuario
+     *
+     * La variable modalidad tambien funciona para permitir el acceso de insertar nuevamente la imagen, cuando se necesite
      */
 
     //aqui envia datos dependiendo si se actualizara o si se inertara un nuevo usuario
+
+
     if (this.modalidad === true) {
       this.data = this.formUsuario.value
       //no es obligatorio insertar img, pero es necesario comprobar si se inserto una imagen
-      if (this.insertarImagen == true) {
-        this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]);
+      if (this.insertarImagen === true) {
+        this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]);
         nombre = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
       }
       this.data!.img = nombre
       await lastValueFrom(this.usService.createuser(this.data!))
-      this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+      this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
         this.dialogRef.close(await resp1.container);
-      })
+      }))
     } else {
-      let gimg = this.data!.img;
+      this.contenedor_carga.style.display = "block";
 
+      let gimg = this.data!.img;
+      let cveLocal = this.data?.cveLocal //cvelocal anterior
       this.data = this.formUsuario.value
-      this.data!.imgn = gimg;
-      this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+gimg?.split(".")[1]
+      this.data!.imgn = gimg; //Foto anterior
+      this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+gimg?.split(".")[gimg?.split(".").length - 1] //Foto nueva
 
     //Se eliminara la anterior imagen, si esque se remplazo el actual
-    if (this.insertarImagen === true) {
-      this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]);
-      await lastValueFrom(this.serviceImgVideo.eliminarDirImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]));
-      await lastValueFrom(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]));
-      //despues se actualizara la imagen nueva que eligio
-      let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
-      this.data!.img = datos;
+      if (this.insertarImagen === true) {
+        this.modalidad = true;
+        this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]);
+        await lastValueFrom(this.serviceImgVideo.eliminarDirImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]));
+        await lastValueFrom(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]));
+        //despues se actualizara la imagen nueva que eligio
+        let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
+        this.data!.img = datos;
       }
-      console.log(gimg);
-      console.log(this.data!.imgn);
 
       // this.data!.usuario = id
       // a continuación se actualizara los demas datos del usuario
@@ -150,19 +157,24 @@ export class UsuarioFormComponent implements OnInit {
         this.data!.img = '';
       }
 
-      await lastValueFrom(this.usService.updateUser(this.data!))
+      await lastValueFrom(this.usService.updateUser(this.data!, this.modalidad))
 
+      /*   if (this.modalidad === false) {
+          console.log(this.modalidad);
 
+          console.log("cambiando imagen");
 
-      if(Number(this.data!.cveLocal) != Number(this.formUsuario.value["cveLocal"])){
-        //this.targetFile = <DataTransfer>(event.target).files[0];
-        this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[1]);
-        await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData));
-      }
+          if(Number(cveLocal) != Number(this.formUsuario.value["cveLocal"])) {
+          this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]);
+          await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData));
+        }
+      } */
 
-      this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+      this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
         this.dialogRef.close(await resp1.container);
-      })
+        this.contenedor_carga.style.display = "none";
+
+      }))
 
     }
   }
@@ -194,8 +206,5 @@ export class UsuarioFormComponent implements OnInit {
       })
     }
   }
-}
-function Child(arg0: string) {
-  throw new Error('Function not implemented.');
 }
 

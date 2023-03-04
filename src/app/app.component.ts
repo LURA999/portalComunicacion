@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { AuthService } from './core/services/auth.service';
+import { LoginService } from './core/services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +11,20 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'portal_comunicacion';
 
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+
+  constructor(private log : LoginService,private auth:AuthService){
+    // this.contenedor_carga.style.display = "block";
+    // this.contenedor_carga.style.display = "none";
+    this.registrarVisita()
+  }
+
+  async registrarVisita(){
+    try {
+      await lastValueFrom(this.log.registrarLogin(this.auth.getId()))
+    } catch (error) { }
+  }
+
 }
+
+

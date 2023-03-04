@@ -150,8 +150,6 @@ export class OpcionMenuComponent implements OnInit {
 
         //se remplazan los por default por los que si existen en el banner
         if(dir === "imgVideo"){
-          console.log(resp.container);
-
           this.imageObject = []
           for await (const r of resp.container) {
             this.imageObject.push( {
@@ -236,7 +234,6 @@ export class OpcionMenuComponent implements OnInit {
   }
 
   routerLink(seccion : string){
-    console.log(seccion);
 
     this.auth.crearElm(CryptoJS.AES.encrypt(this.paramUrl,"Amxl@2019*-").toString(),"lua");
     this.route.navigate(["/general/"+seccion]);

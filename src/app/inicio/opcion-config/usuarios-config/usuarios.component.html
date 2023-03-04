@@ -53,6 +53,10 @@
         <th mat-header-cell *matHeaderCellDef> Hotel </th>
         <td mat-cell *matCellDef="let element"> {{element.local}} </td>
       </ng-container>
+      <ng-container matColumnDef="visita" >
+        <th mat-header-cell *matHeaderCellDef> Visita </th>
+        <td mat-cell *matCellDef="let element" class="visita"> {{element.fecha ? 1 : 0}} </td>
+      </ng-container>
       <ng-container matColumnDef="opciones">
         <th mat-header-cell *matHeaderCellDef> Opciones </th>
         <td mat-cell *matCellDef="let element">

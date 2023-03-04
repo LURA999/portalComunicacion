@@ -186,7 +186,6 @@ export class MenuConfigComponent implements OnInit {
           for await (const c of resp.container) {
             this.ELEMENT_DATA.push(c);
           }
-          console.log(this.ELEMENT_DATA);
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
           this.cargando = true;

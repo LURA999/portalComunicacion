@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-historial-noticias',
@@ -22,6 +23,7 @@ export class HistorialNoticiasComponent implements OnInit {
   cortar : Array<boolean> = [];
   link : string =  environment.production === true ? "": "../../../";
   p2 : number = 1;
+  $sub : Subscription = new Subscription()
 
   ant : boolean = true;
   sig : boolean = true;
@@ -50,14 +52,14 @@ export class HistorialNoticiasComponent implements OnInit {
 
   ngOnInit(): void {
     this.DataService.open.emit(this.luaStr);
-    this.snoticia.todoImgVideo("imgVideoNoticia",this.lua,0,1,0).subscribe( async (resp:ResponseInterfaceTs) => {
+    this.$sub.add(this.snoticia.todoImgVideo("imgVideoNoticia",this.lua,0,1,0).subscribe( async (resp:ResponseInterfaceTs) => {
       if (Number(resp.status) == 200) {
         for await (const c of resp.container) {
           this.noticias.push(c)
         }
         this. cortar = new Array(this.noticias.length).fill(false);
       }
-    })
+    }))
   }
 
   dateNormal(date : Date){
@@ -120,14 +122,14 @@ export class HistorialNoticiasComponent implements OnInit {
 
   mesClick(){
     this.noticias = []
-    this.imgService.todoImgVideo("imgVideoNoticia", this.lua ,0, 1, Number(this.mesForm.value["mes"])).subscribe( async (resp : ResponseInterfaceTs) => {
+    this.$sub.add(this.imgService.todoImgVideo("imgVideoNoticia", this.lua ,0, 1, Number(this.mesForm.value["mes"])).subscribe( async (resp : ResponseInterfaceTs) => {
       if (Number(resp.status) == 200) {
         for await (const c of resp.container) {
           this.noticias.push(c)
         }
         this. cortar = new Array(this.noticias.length).fill(false);
       }
-    })
+    }))
 
 
   }
@@ -180,5 +182,9 @@ export class HistorialNoticiasComponent implements OnInit {
 
   irLink(link : string){
     window.open(link,"_blank")
+  }
+
+  ngOnDestroy(): void {
+    this.$sub.unsubscribe()
   }
 }

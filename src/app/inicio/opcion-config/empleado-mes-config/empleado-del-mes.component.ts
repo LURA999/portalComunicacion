@@ -77,7 +77,7 @@ export class EmpleadoDelMesComponent implements OnInit {
     }))
     this.cargando = false;
 
-    this.usService.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.usService.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (resp.status.toString() === '200') {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push( c )
@@ -86,7 +86,7 @@ export class EmpleadoDelMesComponent implements OnInit {
       this.dataSource.paginator =  this.paginator;
       this.cargando = true;
     }
-    })
+    }))
   }
 
 

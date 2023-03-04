@@ -316,7 +316,7 @@ export class GaleriaMultiComponent implements OnInit {
      let dialogRef = this.dialog.open(EditarNoticiaComponent, {
         height: 'auto',
         width: '450px',
-        data: obj
+        data: obj,
       });
 
       dialogRef.afterClosed().subscribe(async (resp:any)=>{

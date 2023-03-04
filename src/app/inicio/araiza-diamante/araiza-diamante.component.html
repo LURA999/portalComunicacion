@@ -38,7 +38,8 @@
 
     <div class="container">
         <img class="control prev" [src]="this.link+'assets/img/araiza-diamante/img1.png'" alt="img1">
-        <div class="slider">
+        <div class="slider" *ngFor="let item of alianzasArray; let i=index">
+            <img  [src]="item.logo" class = "alianza" alt="">
             <img [src]="this.link+'assets/img/pruebas/banner3.jpg'" alt="img2">
             <img [src]="this.link+'assets/img/pruebas/banner4.jpg'" alt="img3">
             <img [src]="this.link+'assets/img/pruebas/banner2.jpg'" alt="img4">

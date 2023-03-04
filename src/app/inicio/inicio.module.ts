@@ -38,7 +38,7 @@ import { EditarMesEmpleadoComponent } from './popup/editar-mes-empleado/editar-m
 import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/autocapac-config.component';
 import { EditarAutocapacComponent } from './popup/editar-autocapac/editar-autocapac.component';
 import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
-import { AlianzasConfigComponent } from './opcion-config/alianzas-config/alianzas-config.component';
+import { HistorialVisitasComponent } from './opcion-config/historial-visitas/historial-visitas.component';
 
 
 @NgModule({
@@ -70,7 +70,7 @@ import { AlianzasConfigComponent } from './opcion-config/alianzas-config/alianza
     AutoCapacConfigComponente,
     EditarAutocapacComponent,
     EmpleadoMesComponent,
-    AlianzasConfigComponent
+    HistorialVisitasComponent
   ],
   imports: [
     HttpClientModule,

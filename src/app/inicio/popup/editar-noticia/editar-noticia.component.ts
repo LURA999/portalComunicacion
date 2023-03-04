@@ -27,6 +27,7 @@ export class EditarNoticiaComponent implements OnInit{
   rango2 : Date | undefined
   formData : FormData = new FormData();
   $sub : Subscription = new Subscription()
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
   formImgVideo : FormGroup = this.fb.group({
     fechaInicial : [new Date(this.data.fechaInicial+"T00:00:00"), Validators.required],
@@ -40,7 +41,8 @@ export class EditarNoticiaComponent implements OnInit{
 
   constructor( private fb : FormBuilder,public dialogRef: MatDialogRef<EditarNoticiaComponent>,
     @Inject(MAT_DIALOG_DATA) private data: imgVideoModel,private serviceImgVideo : SubirImgVideoService, private local : localService) {
-     this.$sub.add(this.local.todoLocal(2).subscribe(async(resp: ResponseInterfaceTs)=>{
+
+      this.$sub.add(this.local.todoLocal(2).subscribe(async(resp: ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
           this.localInterfaz.push({
             idLocal : i.idLocal,
@@ -87,6 +89,8 @@ export class EditarNoticiaComponent implements OnInit{
     if (this.formImgVideo.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
+      this.contenedor_carga.style.display = "block";
+
     //registrando id y formato
     let id = this.data.idNoticia;
     let formato = this.data.formato;
@@ -109,6 +113,7 @@ export class EditarNoticiaComponent implements OnInit{
     //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
     this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
       this.dialogRef.close(resp.container)
+      this.contenedor_carga.style.display = "none";
     }))
     }
   }

@@ -28,6 +28,7 @@ export class NoticiaComponent implements OnInit {
   paramUrl : string = this.route.url.split("/")[2];
   $sub : Subscription = new Subscription()
   activar : boolean = false
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
   constructor(private DataService : DataNavbarService, private fb : FormBuilder,
     private serviceImgVideo : SubirImgNoticiaService,
@@ -90,6 +91,8 @@ export class NoticiaComponent implements OnInit {
     if (this.formImgVideo.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
+      this.contenedor_carga.style.display = "block";
+
       this.activar = true
       let intfz : imgVideoModel  = this.formImgVideo.value
       intfz.formato = this.formatoVideo
@@ -98,8 +101,11 @@ export class NoticiaComponent implements OnInit {
         intfz.imgVideo = resp.container.nombre;
         await lastValueFrom(this.serviceImgVideo.subirImgVideo(intfz,"imgVideoNoticia")).then(()=>{
           this.route.navigate(['general/galeriaMulti-config'])
+          this.contenedor_carga.style.display = "none";
+
         })
       }))
+
     }
   }
 

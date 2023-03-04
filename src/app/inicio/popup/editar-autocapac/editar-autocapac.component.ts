@@ -80,9 +80,13 @@ export class EditarAutocapacComponent implements OnInit {
         this.data.idAutoCap = idAutoCap;
         await lastValueFrom(this.autoService.actualizarAutocapacitacion(this.formAutoCapac.value));
       }
-      this.autoService.mostrarTodoAutocapacitacion(0).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.autoService.mostrarTodoAutocapacitacion(0).subscribe(async (resp:ResponseInterfaceTs)=>{
         this.dialogRef.close(await resp.container);
-     })
+     }))
     }
+  }
+
+  ngOnDestroy(): void {
+    this.$sub.unsubscribe()
   }
 }

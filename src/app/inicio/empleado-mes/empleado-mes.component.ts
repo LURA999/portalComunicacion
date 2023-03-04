@@ -6,6 +6,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-empleado-mes',
@@ -19,6 +20,8 @@ export class EmpleadoMesComponent implements OnInit {
   mes : string = ""
   usuarios : any [] = []
   api : string = environment.api
+  $sub : Subscription = new Subscription()
+
   color_primary : string =  "#DC994D";
   color_secundary : string =  "#293641";
   private lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
@@ -34,14 +37,13 @@ export class EmpleadoMesComponent implements OnInit {
     this.mes = this.date.toLocaleDateString('es',opciones).split(" ")[2].toUpperCase();
     this.DataService.open.emit(this.luaStr);
     this.cargando = false;
-    this.usServ.selectAllusersMesi(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
+    this.$sub.add(this.usServ.selectAllusersMesi(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
       if (Number(resp.status) == 200) {
         this.usuarios = resp.container;
       }
        this.cargando = true;
 
-
-    })
+    }))
   }
 
   private localNumero(lua : string) : number {
@@ -80,5 +82,9 @@ export class EmpleadoMesComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.$sub.unsubscribe()
   }
 }

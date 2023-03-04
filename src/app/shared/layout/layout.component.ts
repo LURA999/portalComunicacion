@@ -37,7 +37,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     logo:any
     verNavbar :boolean = true
     paramUrl : string = this.route.url.split("/")[2];
-
+    cambiarLogo : string = ""
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
@@ -94,7 +94,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }else{
             this.mode = 'over'
         }
-        console.log(link);
 
       this.activarSeccion(link,undefined);
       this.route.navigateByUrl(link)
@@ -294,7 +293,32 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
 
-    logoActualizado() :string {
-      return this.link+'assets/img/logos/logo.svg';
+    logoActualizado() :string{
+
+      if (this.route.url.split("/")[2] != "bookings" && this.route.url.split("/")[2] != "araiza-diamante") {
+        switch (this.route.url.split("/")[2]) {
+          case 'palmira':
+            return this.link+'assets/img/logos/logopal_sinlet.svg';
+          case 'calafia':
+            return this.link+'assets/img/logos/logocal_sinlet.svg';
+          default:
+            return this.link+'assets/img/logos/logo.svg';
+        }
+      }else {
+        switch (CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)) {
+          case 'palmira':
+            return this.link+'assets/img/logos/logopal_sinlet.svg';
+          case 'calafia':
+            return this.link+'assets/img/logos/logocal_sinlet.svg';
+          default:
+            return this.link+'assets/img/logos/logo.svg';
+        }
+      }
+
+
+    }
+
+    ngAfterViewChecked(): void {
+
     }
 }

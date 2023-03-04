@@ -5,6 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-aniversarios',
@@ -22,6 +23,7 @@ export class AniversariosComponent implements OnInit {
   private lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
   cargando : boolean = false;
+  $sub : Subscription = new Subscription()
 
   constructor(private usServ : UsuarioService, private auth : AuthService,private DataService : DataNavbarService) {
 
@@ -32,12 +34,12 @@ export class AniversariosComponent implements OnInit {
     this.mes = this.date.toLocaleDateString('es',opciones).split(" ")[2].toUpperCase();
     this.DataService.open.emit(this.luaStr);
     this.cargando = false;
-    this.usServ.selectAllusersAniv(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
+    this.$sub.add(this.usServ.selectAllusersAniv(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
       if (Number(resp.status) == 200) {
         this.usuarios = resp.container;
       }
       this.cargando = true;
-    })
+    }))
   }
 
   private localNumero(lua : string) : number {
@@ -71,5 +73,9 @@ export class AniversariosComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.$sub.unsubscribe()
   }
 }

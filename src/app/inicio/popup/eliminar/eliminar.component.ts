@@ -18,6 +18,7 @@ import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 })
 export class EliminarComponent implements OnInit {
   $sub : Subscription = new Subscription()
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
 
   constructor( public dialogRef: MatDialogRef<EliminarComponent>,
@@ -35,6 +36,8 @@ export class EliminarComponent implements OnInit {
     if (eliminar === false) {
       this.dialogRef.close(eliminar);
     } else {
+      this.contenedor_carga.style.display = "block";
+
       switch (this.data.seccion.toString()) {
         case "foto/imagen":
           if (this.data.opc === true) {
@@ -60,32 +63,32 @@ export class EliminarComponent implements OnInit {
         case "usuario":
             await lastValueFrom(this.servImgVideo.eliminarDirImgUsuario(this.data.id));
             await lastValueFrom(this.usService.deleteUser(Number(this.data.id)))
-            this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);
-            })
+            }))
           break;
         case 'Comida':
           await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)))
-          this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+          this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
             this.dialogRef.close(await resp1.container);
-          })
+          }))
           break;
         case 'autocapacitacion':
             await lastValueFrom(this.autocap.eliminarAutocapacitacion(Number(this.data.id)))
-            this.autocap.mostrarTodoAutocapacitacion(0).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.$sub.add(this.autocap.mostrarTodoAutocapacitacion(0).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);
-            })
+            }))
           break;
         case 'fecha':
 
           await lastValueFrom(this.mesService.eliminarFecha(Number(this.data.obj.idUsuario)))
           await lastValueFrom(this.mesService.actualizarDFechaCambio(this.data.obj))
-          this.usService.selectAllusers(2).subscribe(async (resp1:ResponseInterfaceTs) =>{
+          this.$sub.add(this.usService.selectAllusers(2).subscribe(async (resp1:ResponseInterfaceTs) =>{
             this.dialogRef.close(await resp1.container);
-          })
+          }))
           break;
         }
-
+        this.contenedor_carga.style.display = "none";
       }
   }
 
