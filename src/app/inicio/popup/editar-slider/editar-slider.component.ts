@@ -65,6 +65,7 @@ export class EditarSliderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     if(this.rango == undefined){
       this.rango =new Date(this.data.obj.fechaInicial+"T00:00:00")
     }
@@ -92,25 +93,22 @@ export class EditarSliderComponent implements OnInit {
       alert("Por favor llene todos los campos");
     } else {
 
-      this.contenedor_carga.style.display = "block";
+      this.contenedor_carga.style.display = "block";      
 
+      // viejos valores
+      const posicion2 =  this.data.obj.posicion;
+      const cveLocal2 = this.data.obj.cveLocal;
+      const id = this.data.obj.idImgVideo;
+      const formato = this.data.obj.formato;
 
-      //Esto nomas se hizo unicamente para el cambio de posiciones entre un mismo hotel
-      if(Number(this.data.obj.posicion) !== Number(this.formImgVideo.value["posicion"])) {
-        await lastValueFrom(this.serviceImgVideo.actualizarPosicionUCSlide({cveLocal: this.formImgVideo.value['cveLocal'],cveSeccion: this.data.obj.cveSeccion,idP:this.formImgVideo.value["posicion"],idS:this.data.obj.posicion}))
-      }
-
-      const posicion2 =  this.data.obj.posicion
-      const cveLocal2 = this.data.obj.cveLocal
       //registrando id y formato
-      let id = this.data.obj.idImgVideo;
-      let formato = this.data.obj.formato;
       this.data.obj = this.formImgVideo.value;
       this.data.obj.idImgVideo = id;
       this.data.obj.posicion2 = posicion2;
       this.data.obj.cveLocal2 = cveLocal2;
       this.data.obj.formato = formato;
 
+     
       if (this.nombreActualizadoImgVid === true) {
         //Se eliminara la anterior imagen, si esque se remplazo el actual
         await lastValueFrom(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
@@ -120,19 +118,29 @@ export class EditarSliderComponent implements OnInit {
         this.data.obj.formato = datos.tipo
       }
 
+      //Esto nomas se hizo unicamente para el cambio de posiciones entre un mismo hotel
+      if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) && Number(this.data.obj.cveLocal2) == Number(this.data.obj.cveLocal)) {        
+        
+        await lastValueFrom(this.serviceImgVideo.actualizarPosicionUCSlide({cveLocal: this.formImgVideo.value['cveLocal'],cveSeccion: this.data.obj.cveSeccion,idP:this.formImgVideo.value["posicion"],idS:this.data.obj.posicion2}))
+        await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
+      }
 
       //Esto se encargara de cambiar de hoteles correctamente
       if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
 
-        let dosParamInt : dosParamInt = {
-          idP : Number(this.data.obj.posicion),
-          idS : 0,
+        await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
+
+        let dosParamInt : any = {
+          idP1 : Number(this.data.obj.posicion),
+          idP2 : Number(this.data.obj.idImgVideo),
           cveLocal : Number(this.data.obj.cveLocal),
           cveSeccion : 1
         }
 
-        await lastValueFrom(this.serviceImgVideo.actualizarPosicionTUSlide(dosParamInt));
-         dosParamInt = {
+        await lastValueFrom(this.serviceImgVideo.actualizarPosicionTUVSlide(dosParamInt));
+        
+
+        dosParamInt = {
           idP : Number(this.data.obj.posicion2),
           idS : 0,
           cveLocal : Number(this.data.obj.cveLocal2),
@@ -140,11 +148,13 @@ export class EditarSliderComponent implements OnInit {
         }
 
         await lastValueFrom(this.serviceImgVideo.eliminarPosicionTDSlide(dosParamInt));
+
+
+
       }
 
       //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
-      await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
-
+     
 
       //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
       this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{

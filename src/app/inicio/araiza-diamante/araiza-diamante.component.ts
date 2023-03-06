@@ -5,7 +5,7 @@ import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { localService } from 'src/app/core/services/local.service';
-import { count, lastValueFrom } from 'rxjs';
+import { count, lastValueFrom, Observable } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -18,9 +18,10 @@ export class AraizaDiamanteComponent implements OnInit {
    link : string =  environment.production === true ? "": "../../../";
    private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
    alianzas : boolean = false;
-   alianzasArray : any;
+   alianzasArray : any[] = [];
   _mobileQueryListener!: () => void;
   width : number =0
+  $data: Observable<any> | undefined ;
 
   imgCollection: Array<any> = [
     {
@@ -118,10 +119,14 @@ export class AraizaDiamanteComponent implements OnInit {
   }
 
   async cargandoAlianzas() {
-    this.alianzasArray = await lastValueFrom(this.local.getAlianzas())
-    console.log(this.alianzasArray);
+    this.$data =  this.local.getAlianzas()
+    
+  }
 
-    this.alianzas = true
+  encodeURI(str : string){
+    let re = / /gi;
+    return str.replace(re, "%20");
   }
 
 }
+
