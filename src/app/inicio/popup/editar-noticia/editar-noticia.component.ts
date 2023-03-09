@@ -7,10 +7,15 @@ import { localService } from 'src/app/core/services/local.service';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 
-export interface locales {
+interface locales {
   idLocal : number
   local : string
   cantidad : number
+}
+
+interface dataForm {
+  obj : imgVideoModel
+  tipoNoticias : number
 }
 
 @Component({
@@ -30,17 +35,17 @@ export class EditarNoticiaComponent implements OnInit{
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
   formImgVideo : FormGroup = this.fb.group({
-    fechaInicial : [new Date(this.data.fechaInicial+"T00:00:00"), Validators.required],
-    fechaFinal : [new Date(this.data.fechaFinal+"T00:00:00"), Validators.required],
-    imgVideo : [this.data.imgVideo, Validators.required],
-    cveLocal : [this.data.cveLocal, Validators.required],
-    titulo : [this.data.titulo, Validators.required],
-    descripcion : [this.data.descripcion, Validators.required],
-    link : [this.data.link,Validators.required]
+    fechaInicial : [new Date(this.data.obj.fechaInicial+"T00:00:00"), Validators.required],
+    fechaFinal : [new Date(this.data.obj.fechaFinal+"T00:00:00"), Validators.required],
+    imgVideo : [this.data.obj.imgVideo, Validators.required],
+    cveLocal : [this.data.obj.cveLocal, Validators.required],
+    titulo : [this.data.obj.titulo, Validators.required],
+    descripcion : [this.data.obj.descripcion, Validators.required],
+    link : [this.data.obj.link,Validators.required]
   })
 
   constructor( private fb : FormBuilder,public dialogRef: MatDialogRef<EditarNoticiaComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: imgVideoModel,private serviceImgVideo : SubirImgVideoService, private local : localService) {
+    @Inject(MAT_DIALOG_DATA) private data: dataForm ,private serviceImgVideo : SubirImgVideoService, private local : localService) {
 
       this.$sub.add(this.local.todoLocal(2).subscribe(async(resp: ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
@@ -64,11 +69,11 @@ export class EditarNoticiaComponent implements OnInit{
   }
   ngOnInit(): void {
     if(this.rango == undefined){
-      this.rango =new Date(this.data.fechaInicial+"T00:00:00")
+      this.rango =new Date(this.data.obj.fechaInicial+"T00:00:00")
     }
 
     if(this.rango2 == undefined){
-      this.rango2 =new Date(this.data.fechaFinal+"T00:00:00")
+      this.rango2 =new Date(this.data.obj.fechaFinal+"T00:00:00")
     }
   }
 
@@ -92,26 +97,26 @@ export class EditarNoticiaComponent implements OnInit{
       this.contenedor_carga.style.display = "block";
 
     //registrando id y formato
-    let id = this.data.idNoticia;
-    let formato = this.data.formato;
-    this.data = this.formImgVideo.value;
-    this.data.idNoticia = id;
-    this.data.formato = formato;
+    let id = this.data.obj.idNoticia;
+    let formato = this.data.obj.formato;
+    this.data.obj = this.formImgVideo.value;
+    this.data.obj.idNoticia = id;
+    this.data.obj.formato = formato;
 
      //Se eliminara la anterior imagen, si esque se remplazo el actual
     if (this.nombreActualizadoImgVid === true) {
-      await lastValueFrom(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.idNoticia),"imgVideoNoticia"))
+      await lastValueFrom(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idNoticia),"imgVideoNoticia"))
       //despues se actualizara la imagen nueva que eligio
       let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideoNoticia"))).container;
-      this.data.imgVideo = datos.nombre
-      this.data.formato = datos.tipo
+      this.data.obj.imgVideo = datos.nombre
+      this.data.obj.formato = datos.tipo
     }
 
     //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
-    await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideoNoticia"))
+    await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data.obj,"imgVideoNoticia"))
 
     //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
-    this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",this.data.tipoNoticias,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
       this.dialogRef.close(resp.container)
       this.contenedor_carga.style.display = "none";
     }))

@@ -16,14 +16,32 @@
       </form>
       <div id="matform-c">
       <form class="cabecera" [formGroup]="formBuscar">
-      <mat-form-field id="selectLocal" appearance="outline">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccione una fecha</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Seleccione la seccion</mat-label>
         <mat-select formControlName="seccion" (selectionChange)="buscador()">
           <mat-option *ngFor="let i of locales"  [value]="i.idLocal"> {{i.local}} </mat-option>
           <mat-option value="-1">Ninguno</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccione una fecha</mat-label>
+        <input matInput [matDatepicker]="picker2">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
       </form>
+
+
       </div>
       <div id="botonc">
         <button  mat-raised-button color="primary" (click)="agregar()">

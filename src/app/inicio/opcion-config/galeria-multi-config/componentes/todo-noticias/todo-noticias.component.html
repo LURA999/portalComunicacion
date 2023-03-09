@@ -1,0 +1,125 @@
+<div class="preloader" style="position: relative; left:45%; margin-top:5%; margin-bottom: 5%;" [hidden]="cargando"></div>
+        <div class="existe" [hidden]="hayElementos()"> <h3 class="arrayVacio">No hay noticias... </h3></div>
+
+        <div *ngIf="arrayVidImgGeneralN.length > 0">
+            <h3>Noticia - General</h3>
+            <div class="seccion">
+                <div *ngFor="let i of arrayVidImgGeneralN">
+                <div class="limite">
+                  <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                    <img
+                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <video [currentTime]="1"  controls  >
+                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                    </video>
+                  </ng-template>
+                    <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                    <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,true)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idNoticia,true,i)">Eliminar</button>
+                </div >
+            </div>
+        </div>
+        </div>
+        <div *ngIf="arrayVidImgMexicaliN.length > 0">
+            <h3>Noticia - Mexicali</h3>
+            <div class="seccion">
+            <div *ngFor="let i of arrayVidImgMexicaliN">
+                <div class="limite">
+                  <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                    <img
+                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <video [currentTime]="1"  controls  >
+                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                    </video>
+                  </ng-template>
+                  <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                    <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,true)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idNoticia,true,i)">Eliminar</button>
+                </div >
+            </div>
+            </div>
+        </div>
+        <div *ngIf="arrayVidImgCalafiaN.length > 0">
+            <h3>Noticia - Calafia</h3>
+            <div class="seccion">
+            <div *ngFor="let i of arrayVidImgCalafiaN">
+                <div class="limite">
+                  <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                    <img
+                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <video [currentTime]="1"  controls  >
+                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                    </video>
+                  </ng-template>
+                    <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                    <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,true)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idNoticia,true,i)">Eliminar</button>
+                </div >
+            </div>
+            </div>
+        </div>
+        <div *ngIf="arrayVidImgsanLuisN.length > 0">
+            <h3>Noticia - San Luis</h3>
+            <div class="seccion">
+            <div *ngFor="let i of arrayVidImgsanLuisN">
+                <div class="limite">
+                  <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                    <img
+                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <video [currentTime]="1"  controls  >
+                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                    </video>
+                  </ng-template>
+                    <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                    <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,true)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idNoticia,true,i)">Eliminar</button>
+                </div >
+            </div>
+            </div>
+
+        </div>
+        <div *ngIf="arrayVidImgPalmiraN.length > 0">
+            <h3>Noticia - Palmira</h3>
+            <div class="seccion">
+                <div *ngFor="let i of arrayVidImgPalmiraN">
+                <div class="limite">
+                  <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                    <img
+                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <video [currentTime]="1"  controls  >
+                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                    </video>
+                  </ng-template>
+                    <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                    <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,true)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idNoticia,true,i)">Eliminar</button>
+                </div >
+            </div>
+        </div>
+        </div>
+
+        <div *ngIf="arrayVidImgHermosilloN.length > 0">
+            <h3>Noticia - Hermosillo</h3>
+            <div class="seccion">
+                <div *ngFor="let i of arrayVidImgHermosilloN">
+                    <div class="limite">
+                      <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                        <img
+                      [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                      </ng-container>
+                      <ng-template #elseTemplate>
+                        <video [currentTime]="1"  controls  >
+                          <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                        </video>
+                      </ng-template>
+                        <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                        <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,true)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idNoticia,true,i)">Eliminar</button>
+                    </div >
+                </div>
+            </div>
+        </div>

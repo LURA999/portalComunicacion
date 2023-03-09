@@ -136,125 +136,125 @@ export class GaleriaMultiComponent implements OnInit {
 
   eliminar(id :any, noticiaSlider : Boolean, model : imgVideoModel){
 
-    if (noticiaSlider === true) {
-      //abriendo noticia
-      let dialogRef = this.dialog.open(EliminarComponent, {
-        height: 'auto',
-        width: 'auto',
-        data:{id:Number(id), opc:noticiaSlider, seccion: "foto/imagen"}
-      });
+    // if (noticiaSlider === true) {
+    //   //abriendo noticia
+    //   let dialogRef = this.dialog.open(EliminarComponent, {
+    //     height: 'auto',
+    //     width: 'auto',
+    //     data:{id:Number(id), opc:noticiaSlider, seccion: "foto/imagen"}
+    //   });
 
-      dialogRef.afterClosed().subscribe(async (resp:any)=>{
-        //OPCION 2 PARA ELIMINAR UN ELEMENTO
+    //   dialogRef.afterClosed().subscribe(async (resp:any)=>{
+    //     //OPCION 2 PARA ELIMINAR UN ELEMENTO
 
-        if(typeof resp !== 'boolean' && resp !== undefined ){
-          if(this.arrayVidImgGeneralN.indexOf(model) > -1) {
-            this.arrayVidImgGeneralN.splice(this.arrayVidImgGeneralN.indexOf(model),1)
-          }else if(this.arrayVidImgMexicaliN.indexOf(model) > -1) {
-            this.arrayVidImgMexicaliN.splice(this.arrayVidImgMexicaliN.indexOf(model),1)
-          }else if(this.arrayVidImgCalafiaN.indexOf(model) > -1) {
-            this.arrayVidImgCalafiaN.splice(this.arrayVidImgCalafiaN.indexOf(model),1)
-          }else if(this.arrayVidImgPalmiraN.indexOf(model) > -1) {
-            this.arrayVidImgPalmiraN.splice(this.arrayVidImgPalmiraN.indexOf(model),1)
-          }else if(this.arrayVidImgHermosilloN.indexOf(model) > -1) {
-            this.arrayVidImgHermosilloN.splice(this.arrayVidImgHermosilloN.indexOf(model),1)
-          }else if(this.arrayVidImgsanLuisN.indexOf(model) >-1) {
-            this.arrayVidImgsanLuisN.splice(this.arrayVidImgsanLuisN.indexOf(model),1)
-          }
-        }
-        //OPCION 1 PARA ELIMINAR UN ELEMENTO (RECARGANDO LA TABLA, PERO YA TENIENDO PRECARGADO LOS DATOS, PARA CARGARLOS)
-        /*
-        //
-        if(typeof resp !== 'boolean'){
-          if(resp !== "" && resp !== undefined){
-          this.arrayVidImgGeneralN = []
-          this.arrayVidImgMexicaliN = []
-          this.arrayVidImgCalafiaN = []
-          this.arrayVidImgPalmiraN = []
-          this.arrayVidImgHermosilloN = []
-          this.arrayVidImgsanLuisN = []
-          for await (const i of resp) {
-            switch (Number(i.cveLocal)) {
-              case 0:
-                this.arrayVidImgGeneralN.push(i)
-                break;
-              case 1:
-                this.arrayVidImgMexicaliN.push(i)
-                break;
-              case 2:
-                this.arrayVidImgCalafiaN.push(i)
-                break;
-              case 3:
-                this.arrayVidImgsanLuisN.push(i)
-                break;
-              case 4:
-                this.arrayVidImgPalmiraN.push(i)
-                break;
-              case 5:
-                this.arrayVidImgHermosilloN.push(i)
-                break;
-            }
-          }
-          }else{
-            this.arrayVidImgGeneralN = []
-            this.arrayVidImgMexicaliN = []
-            this.arrayVidImgCalafiaN = []
-            this.arrayVidImgPalmiraN = []
-            this.arrayVidImgHermosilloN = []
-            this.arrayVidImgsanLuisN = []
-          }
-        }
-      })
+    //     if(typeof resp !== 'boolean' && resp !== undefined ){
+    //       if(this.arrayVidImgGeneralN.indexOf(model) > -1) {
+    //         this.arrayVidImgGeneralN.splice(this.arrayVidImgGeneralN.indexOf(model),1)
+    //       }else if(this.arrayVidImgMexicaliN.indexOf(model) > -1) {
+    //         this.arrayVidImgMexicaliN.splice(this.arrayVidImgMexicaliN.indexOf(model),1)
+    //       }else if(this.arrayVidImgCalafiaN.indexOf(model) > -1) {
+    //         this.arrayVidImgCalafiaN.splice(this.arrayVidImgCalafiaN.indexOf(model),1)
+    //       }else if(this.arrayVidImgPalmiraN.indexOf(model) > -1) {
+    //         this.arrayVidImgPalmiraN.splice(this.arrayVidImgPalmiraN.indexOf(model),1)
+    //       }else if(this.arrayVidImgHermosilloN.indexOf(model) > -1) {
+    //         this.arrayVidImgHermosilloN.splice(this.arrayVidImgHermosilloN.indexOf(model),1)
+    //       }else if(this.arrayVidImgsanLuisN.indexOf(model) >-1) {
+    //         this.arrayVidImgsanLuisN.splice(this.arrayVidImgsanLuisN.indexOf(model),1)
+    //       }
+    //     }
+    //     //OPCION 1 PARA ELIMINAR UN ELEMENTO (RECARGANDO LA TABLA, PERO YA TENIENDO PRECARGADO LOS DATOS, PARA CARGARLOS)
+    //     /*
+    //     //
+    //     if(typeof resp !== 'boolean'){
+    //       if(resp !== "" && resp !== undefined){
+    //       this.arrayVidImgGeneralN = []
+    //       this.arrayVidImgMexicaliN = []
+    //       this.arrayVidImgCalafiaN = []
+    //       this.arrayVidImgPalmiraN = []
+    //       this.arrayVidImgHermosilloN = []
+    //       this.arrayVidImgsanLuisN = []
+    //       for await (const i of resp) {
+    //         switch (Number(i.cveLocal)) {
+    //           case 0:
+    //             this.arrayVidImgGeneralN.push(i)
+    //             break;
+    //           case 1:
+    //             this.arrayVidImgMexicaliN.push(i)
+    //             break;
+    //           case 2:
+    //             this.arrayVidImgCalafiaN.push(i)
+    //             break;
+    //           case 3:
+    //             this.arrayVidImgsanLuisN.push(i)
+    //             break;
+    //           case 4:
+    //             this.arrayVidImgPalmiraN.push(i)
+    //             break;
+    //           case 5:
+    //             this.arrayVidImgHermosilloN.push(i)
+    //             break;
+    //         }
+    //       }
+    //       }else{
+    //         this.arrayVidImgGeneralN = []
+    //         this.arrayVidImgMexicaliN = []
+    //         this.arrayVidImgCalafiaN = []
+    //         this.arrayVidImgPalmiraN = []
+    //         this.arrayVidImgHermosilloN = []
+    //         this.arrayVidImgsanLuisN = []
+    //       }
+    //     }
+    //   })
 
-    } else {
-      //abriendo slider
-      let dialogRef = this.dialog.open(EliminarComponent, {
-        height: 'auto',
-        width: 'auto',
-        data:{id:Number(id), opc:noticiaSlider}
-      });
-      dialogRef.afterClosed().subscribe(async (resp:any)=>{
-        if(typeof resp !== 'boolean'){
-          if (resp !== "" && resp !== undefined) {
-            this.arrayVidImgGeneralS = []
-            this.arrayVidImgMexicaliS = []
-            this.arrayVidImgCalafiaS = []
-            this.arrayVidImgPalmiraS= []
-            this.arrayVidImgHermosilloS = []
-            this.arrayVidImgsanLuisS = []
-                for await (const i of resp) {
-                  switch (Number(i.cveLocal)) {
-                    case 0:
-                      this.arrayVidImgGeneralS.push(i)
-                      break;
-                    case 1:
-                      this.arrayVidImgMexicaliS.push(i)
-                      break;
-                    case 2:
-                      this.arrayVidImgCalafiaS.push(i)
-                      break;
-                    case 3:
-                      this.arrayVidImgsanLuisS.push(i)
-                      break;
-                    case 4:
-                      this.arrayVidImgPalmiraS.push(i)
-                      break;
-                    case 5:
-                      this.arrayVidImgHermosilloS.push(i)
-                      break;
-                  }
-              }
-          }else{
-            this.arrayVidImgGeneralS = []
-            this.arrayVidImgMexicaliS = []
-            this.arrayVidImgCalafiaS = []
-            this.arrayVidImgPalmiraS= []
-            this.arrayVidImgHermosilloS = []
-            this.arrayVidImgsanLuisS = []
-          }
-        }*/
-      })
-    } else {
+    // } else {
+    //   //abriendo slider
+    //   let dialogRef = this.dialog.open(EliminarComponent, {
+    //     height: 'auto',
+    //     width: 'auto',
+    //     data:{id:Number(id), opc:noticiaSlider}
+    //   });
+    //   dialogRef.afterClosed().subscribe(async (resp:any)=>{
+    //     if(typeof resp !== 'boolean'){
+    //       if (resp !== "" && resp !== undefined) {
+    //         this.arrayVidImgGeneralS = []
+    //         this.arrayVidImgMexicaliS = []
+    //         this.arrayVidImgCalafiaS = []
+    //         this.arrayVidImgPalmiraS= []
+    //         this.arrayVidImgHermosilloS = []
+    //         this.arrayVidImgsanLuisS = []
+    //             for await (const i of resp) {
+    //               switch (Number(i.cveLocal)) {
+    //                 case 0:
+    //                   this.arrayVidImgGeneralS.push(i)
+    //                   break;
+    //                 case 1:
+    //                   this.arrayVidImgMexicaliS.push(i)
+    //                   break;
+    //                 case 2:
+    //                   this.arrayVidImgCalafiaS.push(i)
+    //                   break;
+    //                 case 3:
+    //                   this.arrayVidImgsanLuisS.push(i)
+    //                   break;
+    //                 case 4:
+    //                   this.arrayVidImgPalmiraS.push(i)
+    //                   break;
+    //                 case 5:
+    //                   this.arrayVidImgHermosilloS.push(i)
+    //                   break;
+    //               }
+    //           }
+    //       }else{
+    //         this.arrayVidImgGeneralS = []
+    //         this.arrayVidImgMexicaliS = []
+    //         this.arrayVidImgCalafiaS = []
+    //         this.arrayVidImgPalmiraS= []
+    //         this.arrayVidImgHermosilloS = []
+    //         this.arrayVidImgsanLuisS = []
+    //       }
+    //     }*/
+    //   })
+    // } else {
       //abriendo slider
       let dialogRef = this.dialog.open(EliminarComponent, {
         height: 'auto',
@@ -307,11 +307,11 @@ export class GaleriaMultiComponent implements OnInit {
         this.cargando2 = true;
         }
       })
-    }
+    // }
   }
 
   modificar( obj : imgVideoModel, noticiaSlider : Boolean, arrNumPos? : Number []){
-    if (noticiaSlider === true) {
+   /*  if (noticiaSlider === true) {
       //abriendo noticia
      let dialogRef = this.dialog.open(EditarNoticiaComponent, {
         height: 'auto',
@@ -355,7 +355,7 @@ export class GaleriaMultiComponent implements OnInit {
         }
       })
 
-    } else {
+    } else { */
       //abriendo slider
       let dialogRef = this.dialog.open(EditarSliderComponent, {
         height: 'auto',
@@ -410,7 +410,7 @@ export class GaleriaMultiComponent implements OnInit {
       }
       })
 
-    }
+    // }
 
 
   }
@@ -418,11 +418,12 @@ export class GaleriaMultiComponent implements OnInit {
   recursoUrl(src : string, categoria:boolean, tipo:boolean) : SafeResourceUrl {
 
     if(categoria === false){
-      if (tipo === false) {
+      /* if (tipo === false) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-noticia/fotos/"+src);
       } else {
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-noticia/videos/"+src);
-      }
+      } */
+      return ''
     }else{
       if (tipo === false) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-slide/fotos/"+src);

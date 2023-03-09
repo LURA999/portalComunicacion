@@ -20,8 +20,9 @@ mat-form-field, input {
 
 }
 
-mat-form-field#selectLocal {
+mat-form-field {
   width: 200px;
+  margin: 5px;
 }
 
 ::ng-deep span.mat-select-min-line {

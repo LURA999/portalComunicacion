@@ -180,8 +180,10 @@ export class EmpleadoDelMesComponent implements OnInit {
   }
 
   buscador(){
+    console.log(this.formBuscar.value["buscador"]+"<->"+(this.formBuscar.value["seccion"]===null || this.formBuscar.value["seccion"]===undefined || this.formBuscar.value["seccion"]==="" ||
+    this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"])+"<->"+2);
 
-    this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
+    this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]===null || this.formBuscar.value["seccion"]===undefined || this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"],2).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
         this.cargando = false;

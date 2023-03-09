@@ -59,8 +59,8 @@
     <mat-form-field appearance="outline">
       <mat-label>Rol</mat-label>
       <mat-select formControlName="cveRol" (selectionChange)="seleccionandoRol()">
-        <mat-option value="1">Administrador</mat-option>
-        <mat-option value="2">Usuario</mat-option>
+        <mat-option [value]="1">Administrador</mat-option>
+        <mat-option [value]="2">Usuario</mat-option>
       </mat-select>
     </mat-form-field>
     </div>
@@ -68,8 +68,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Contrato</mat-label>
         <mat-select formControlName="contrato">
-          <mat-option value="1">Sindicalizado</mat-option>
-          <mat-option value="2">No sindicalizado</mat-option>
+          <mat-option [value]="1">Sindicalizado</mat-option>
+          <mat-option [value]="2">No sindicalizado</mat-option>
         </mat-select>
       </mat-form-field>
       </div>

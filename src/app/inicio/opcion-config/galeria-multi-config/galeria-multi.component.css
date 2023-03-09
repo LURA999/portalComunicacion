@@ -80,6 +80,12 @@ video{
   animation-timing-function: linear;
   cursor:wait;
 }
+
+
+mat-tab {
+  overflow-x: none;
+}
+
 @keyframes girar {
   from {
     transform: rotate(0deg);

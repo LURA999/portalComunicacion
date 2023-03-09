@@ -43,6 +43,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.data);
 
     if (this.data.fecha !== undefined) {
       this.fechaMes = this.fb.group({
@@ -73,25 +74,27 @@ export class EditarMesEmpleadoComponent implements OnInit {
       if (this.modalidad == true) {
         //insertando a un empleado con una posicion NUEVA
        await lastValueFrom(this.mesService.insertarFecha(this.data)).then(async (res:ResponseInterfaceTs) =>{
-          if (Number(res.container[0]["pos"]) == 1) {
+          // if (Number(res.container[0]["pos"]) == 1) {
 
-            let dosParamInt : dosParamInt = {
-              idP : Number(this.data.posicion),
-              idS : 0,
-              cveLocal : cveLocal
-            }
+          //   let dosParamInt : dosParamInt = {
+          //     idP : Number(this.data.posicion),
+          //     idS : 0,
+          //     cveLocal : cveLocal
+          //   }
 
-            await lastValueFrom(this.mesService.actualizarTUFechaCambio(dosParamInt));
-            dosParamInt = {
-              idP : Number(this.data.idUsuario),
-              idS : Number(this.data.posicion),
-              cveLocal : cveLocal
-            }
-           await lastValueFrom(this.mesService.actualizarUFechaCambio(dosParamInt));
-          }
+          //   await lastValueFrom(this.mesService.actualizarTUFechaCambio(dosParamInt));
+          //   dosParamInt = {
+          //     idP : Number(this.data.idUsuario),
+          //     idS : Number(this.data.posicion),
+          //     cveLocal : cveLocal
+          //   }
+          //  await lastValueFrom(this.mesService.actualizarUFechaCambio(dosParamInt));
+          // }
         });
       } else {
-        let actPos : fechaServ = ({
+        console.log("paso aqui");
+
+        /* let actPos : fechaServ = ({
           fecha : this.fechaMes.value["fecha"],
           idUsuario : this.data.idUsuario,
           posicion : this.fechaMes.value["posicion"],
@@ -103,7 +106,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
         if(Number(posAnt) != this.data.posicion ){
           await lastValueFrom(this.mesService.actualizarFecha(actPos))
         }
-
+        */
         let actUsuario : fechaServ = ({
           fecha : this.fechaMes.value["fecha"],
           posicion : this.fechaMes.value["posicion"],
@@ -117,6 +120,8 @@ export class EditarMesEmpleadoComponent implements OnInit {
 
       this.$sub.add(this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (resp.status.toString() === '200') {
+          console.log(resp.container);
+
           this.dialogRef.close(await resp.container);
           this.contenedor_carga.style.display = "none";
 

@@ -39,6 +39,7 @@ import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/auto
 import { EditarAutocapacComponent } from './popup/editar-autocapac/editar-autocapac.component';
 import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 import { HistorialVisitasComponent } from './opcion-config/historial-visitas/historial-visitas.component';
+import { TodoNoticiasComponent } from './opcion-config/galeria-multi-config/componentes/todo-noticias/todo-noticias.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { HistorialVisitasComponent } from './opcion-config/historial-visitas/his
     AutoCapacConfigComponente,
     EditarAutocapacComponent,
     EmpleadoMesComponent,
-    HistorialVisitasComponent
+    HistorialVisitasComponent,
+    TodoNoticiasComponent
   ],
   imports: [
     HttpClientModule,

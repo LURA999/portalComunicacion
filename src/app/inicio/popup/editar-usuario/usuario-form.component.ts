@@ -50,7 +50,6 @@ export class UsuarioFormComponent implements OnInit {
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
   private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private changeDetectorRef: ChangeDetectorRef
   ) {
-
     if (data !== undefined) {
       this.formUsuario = this.fb.group({
         usuario : [this.data!.usuario, Validators.required],
@@ -135,9 +134,15 @@ export class UsuarioFormComponent implements OnInit {
 
       let gimg = this.data!.img;
       let cveLocal = this.data?.cveLocal //cvelocal anterior
+      let usuario = Number(this.data?.usuario) //cvelocal anterior
+      let idUsuario  = this.data!.idUsuario //protegiendo id
       this.data = this.formUsuario.value
+      this.data!.idUsuario = idUsuario;
       this.data!.imgn = gimg; //Foto anterior
       this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+gimg?.split(".")[gimg?.split(".").length - 1] //Foto nueva
+      this.data!.usuarion = usuario;
+
+      console.log(this.data);
 
     //Se eliminara la anterior imagen, si esque se remplazo el actual
       if (this.insertarImagen === true) {
@@ -156,6 +161,7 @@ export class UsuarioFormComponent implements OnInit {
       if(this.data!.imgn === this.data!.img){
         this.data!.img = '';
       }
+
 
       await lastValueFrom(this.usService.updateUser(this.data!, this.modalidad))
 
@@ -186,11 +192,11 @@ export class UsuarioFormComponent implements OnInit {
   seleccionandoHotel(){
     if (Number(this.formUsuario.value["cveLocal"]) == 0) {
       this.formUsuario.patchValue({
-        cveRol: "1"
+        cveRol: 1
       })
     }else{
       this.formUsuario.patchValue({
-        cveRol: "2"
+        cveRol: 2
       })
     }
   }
@@ -198,11 +204,11 @@ export class UsuarioFormComponent implements OnInit {
   seleccionandoRol(){
     if (Number(this.formUsuario.value["cveRol"]) == 1) {
       this.formUsuario.patchValue({
-        cveLocal: "0"
+        cveLocal: 0
       })
     }else{
       this.formUsuario.patchValue({
-        cveLocal: "1"
+        cveLocal: 1
       })
     }
   }

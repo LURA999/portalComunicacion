@@ -92,6 +92,8 @@ export class ImagenVideoComponent implements OnInit {
     if (this.formImgVideo.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
+      this.contenedor_carga.style.display = "block";
+
       this.activar = true
       this.url()
       let intfz : imgVideoModel  = this.formImgVideo.value
@@ -105,7 +107,6 @@ export class ImagenVideoComponent implements OnInit {
         } else {
           intfz.imgVideo = this.nombreNuevo
         }
-        this.contenedor_carga.style.display = "block";
 
         await lastValueFrom(this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar)).then( async (res : ResponseInterfaceTs)=>{
           if (Number(res.container[0]["pos"]) == 1) {

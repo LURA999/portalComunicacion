@@ -24,10 +24,12 @@ export interface usuarios {
   usuario : number;
   nombres: string;
   apellidoPaterno:string;
+  idUsuario: number;
   apellidoMaterno: string;
   correo: string;
   local: string;
   cveLocal:string;
+  usuarion:number;
   cveRol:string;
   opciones : string;
   contrasena? : string;
@@ -60,8 +62,8 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   formBuscar : FormGroup = this.fb.group({
-    seccion : ["", Validators.required],
-    buscador : ["", Validators.required],
+    seccion : [""],
+    buscador : [""],
 
   })
 
@@ -188,7 +190,7 @@ export class UsuariosComponent implements OnInit {
 
   buscador(){
 
-    this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
+    this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]===null || this.formBuscar.value["seccion"]===undefined || this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"],1).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
         this.cargando = false;
