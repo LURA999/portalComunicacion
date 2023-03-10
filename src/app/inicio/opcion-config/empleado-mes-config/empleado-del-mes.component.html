@@ -48,16 +48,24 @@
       <td mat-cell *matCellDef="let element"> {{element.local}} </td>
     </ng-container>
     <ng-container matColumnDef="fecha">
-      <th mat-header-cell *matHeaderCellDef> Fecha de despliegue </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha === null? "N/A": element.fecha}} </td>
+      <th mat-header-cell *matHeaderCellDef> Mes asignado </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha === null || element.fecha === ""? "N/A": obtenerMes(element.fecha)}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fechaInicio">
+      <th mat-header-cell *matHeaderCellDef> Fecha inicio </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha === null || element.fechaInicio === ""? "N/A": element.fechaInicio}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fechaFinal">
+      <th mat-header-cell *matHeaderCellDef> Fecha final </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha === null || element.fechaFinal === ""? "N/A": element.fechaFinal}} </td>
     </ng-container>
     <ng-container matColumnDef="posicion">
       <th mat-header-cell *matHeaderCellDef> Posicion </th>
-      <td mat-cell *matCellDef="let element"> {{element.posicion === null? "N/A": element.posicion}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.posicion === null ? "N/A": element.posicion}} </td>
     </ng-container>
     <ng-container matColumnDef="contrato">
       <th mat-header-cell *matHeaderCellDef> Tipo </th>
-      <td mat-cell *matCellDef="let element"> {{element.contrato==1? 'Sindicalizado':'No sindicalizado'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.contratoNombre}} </td>
     </ng-container>
     <ng-container matColumnDef="opciones">
       <th mat-header-cell *matHeaderCellDef> Opciones </th>

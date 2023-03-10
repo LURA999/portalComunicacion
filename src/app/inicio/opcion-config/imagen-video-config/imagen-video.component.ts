@@ -79,6 +79,8 @@ export class ImagenVideoComponent implements OnInit {
 
   async subirImg(evt : any){
     this.target = <DataTransfer>(evt.target).files[0];
+
+    if( ((this.target.size/1024)<=2048 && this.target.type.split("/")[0] === "image") || ((this.target.size/1024)<=51200 && this.target.type.split("/")[0] === "video")){
     this.url()
     this.formatoVideo = this.target.type
     this.formData.forEach((file :any)=> {
@@ -86,6 +88,16 @@ export class ImagenVideoComponent implements OnInit {
         imgVideo : file.name
       })
     });
+  }else{
+      if (this.target.type.split("/")[0] === "image") {
+        alert("Solo se permiten imagenes menores o igual a 2MB");
+      } else {
+        alert("Solo se permiten videos menores o igual a 50MB");
+      }
+      this.target  = new DataTransfer()
+      let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+      inpimg2.value="";
+  }
   }
 
   async enviandoDatos(){

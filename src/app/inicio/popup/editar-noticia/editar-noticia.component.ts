@@ -80,15 +80,26 @@ export class EditarNoticiaComponent implements OnInit{
   subirImg(evt : any){
     this.nombreActualizadoImgVid = true
 
-    const target : any = <DataTransfer>(evt.target).files[0];
+    let target : any = <DataTransfer>(evt.target).files[0];
+
+    if( ((target.size/1024)<=2048 && target.type.split("/")[0] === "image") || ((target.size/1024)<=51200 && target.type.split("/")[0] === "video")){
     const reader= new FileReader()
     reader.readAsDataURL(target)
     reader.onload = () => {
       this.formImgVideo.patchValue({
         imgVideo : reader.result
       })
+      this.formData.append('info', target, target.name);
+    }}else{
+      if (target.type.split("/")[0] === "image") {
+        alert("Solo se permiten imagenes menores o igual a 2MB");
+      } else {
+        alert("Solo se permiten videos menores o igual a 50MB");
+      }
+      target  = new DataTransfer()
+      let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+      inpimg2.value="";
     }
-    this.formData.append('info', target, target.name);
   }
  async enviandoDatos() {
     if (this.formImgVideo.valid == false) {

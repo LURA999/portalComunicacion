@@ -77,7 +77,7 @@ export class UsuarioFormComponent implements OnInit {
     this.insertarImagen = true
     this.targetFile = <DataTransfer>(evt.target).files[0];
 
-    if (this.targetFile.type.split("/")[0] === "image") {
+    if (this.targetFile.type.split("/")[0] === "image" && (this.targetFile.size/1024)<=2048) {
       const reader= new FileReader()
       reader.readAsDataURL(this.targetFile )
       reader.onload = () => {
@@ -87,10 +87,15 @@ export class UsuarioFormComponent implements OnInit {
       }
       this.formData.append('info', this.targetFile, this.targetFile.name);
     }else{
+      if (this.targetFile.type.split("/")[0] !== "image") {
+        alert("Solo se permiten subir imagenes");
+      } else {
+        alert("Solo se permiten subir imagenes menores o igual a 2MB");
+      }
       this.targetFile  = new DataTransfer()
       let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
       inpimg2.value="";
-      alert("Solo se permiten subir imagenes");
+
     }
 
   }
@@ -142,7 +147,6 @@ export class UsuarioFormComponent implements OnInit {
       this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+gimg?.split(".")[gimg?.split(".").length - 1] //Foto nueva
       this.data!.usuarion = usuario;
 
-      console.log(this.data);
 
     //Se eliminara la anterior imagen, si esque se remplazo el actual
       if (this.insertarImagen === true) {

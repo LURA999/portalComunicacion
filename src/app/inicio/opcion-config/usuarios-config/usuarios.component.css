@@ -99,3 +99,35 @@ div#matform-c {
   text-align: center;
   font-family: 'gotham-bold';
 }
+
+@media (max-width:1375px) {
+  mat-form-field {
+    width: 10vw;
+  }
+}
+
+@media (max-width:1010px) {
+  .cabecera {
+    display: table;
+    width: 100%;
+  }
+  .mat-form-field-flex {
+    width: 100%;
+  }
+
+  mat-form-field{
+    width: 100%;
+  }
+  div#matform-c {
+    margin-bottom: 10px;
+  }
+
+  #botonc {
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+

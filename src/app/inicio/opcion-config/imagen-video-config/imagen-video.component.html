@@ -2,7 +2,7 @@
   <form [formGroup]="formImgVideo"  enctype="multipart/form-data">
 
     <h1>{{titulo}}</h1>
-      <span *ngIf="cveSeccion==1">Medida de imagen: 2550px × 800px</span>
+      <span *ngIf="cveSeccion==1">Medida de imagen: 2550px × 800px, limite: 2MB</span>
       <mat-form-field appearance="outline" >
         <mat-label>Fecha inicial de la noticia</mat-label>
         <input  autocomplete="off" formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [min]="date" [max]="rango2" matInput [matDatepicker]="picker">

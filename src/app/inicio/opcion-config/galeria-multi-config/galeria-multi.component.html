@@ -133,9 +133,13 @@
       </mat-tab>
 
       <mat-tab label="Noticias Activas">
-        <app-todo-noticias [tipoNoticias]="-1"></app-todo-noticias>
+        <ng-template matTabContent>
+          <app-todo-noticias [tipoNoticias]="-1"></app-todo-noticias>
+        </ng-template>
       </mat-tab>
       <mat-tab label="Noticias Desactivas">
-        <app-todo-noticias [tipoNoticias]="-2"></app-todo-noticias>
+        <ng-template matTabContent>
+          <app-todo-noticias [tipoNoticias]="-2"></app-todo-noticias>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>

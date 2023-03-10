@@ -13,6 +13,7 @@ import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
 import { EditarMesEmpleadoComponent } from '../../popup/editar-mes-empleado/editar-mes-empleado.component';
 import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
+import { formBuscadorUsuario } from '../usuarios-config/usuarios.component';
 
 export interface local {
   idLocal : number;
@@ -30,12 +31,17 @@ export interface usuariosDelMes {
   cveLocal:number;
   opciones : string;
   fecha : string;
+  fechaInicio : string;
+  fechaFinal : string;
   posicion : number;
+  contratoNombre: string;
 }
 
 export interface fechaCambio {
   idUsuario:number;
   fecha:Date;
+  fechaInicio:Date;
+  fechaFinal:Date;
   cveLocal:number;
   posicion:number;
   contrato:number;
@@ -55,17 +61,17 @@ export class EmpleadoDelMesComponent implements OnInit {
   paramUrl : string = this.route.url.split("/")[2];
   ELEMENT_DATA: usuariosDelMes[] = [ ];
   $sub : Subscription = new Subscription()
-
-  displayedColumns: string[] = ['no', 'nombre', 'hotel', 'fecha','contrato', 'posicion', 'opciones'];
+   meses : string []= ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  displayedColumns: string[] = ['no', 'nombre', 'hotel', 'fecha','fechaInicio','fechaFinal','contrato', 'posicion', 'opciones'];
   dataSource = new MatTableDataSource<usuariosDelMes>(this.ELEMENT_DATA);
   locales : local [] = []
   cargando : boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  formBuscar : FormGroup = this.fb.group({
-    seccion : ["", Validators.required],
-    buscador : ["", Validators.required],
+  formBuscar : FormGroup = this.fb.group<formBuscadorUsuario>({
+    seccion : "",
+    buscador : "",
 
   })
 
@@ -148,7 +154,9 @@ export class EmpleadoDelMesComponent implements OnInit {
 
      })
   }
-
+  obtenerMes(mes : number) : string{
+    return this.meses[mes-1]
+  }
   borrar(usuario : usuariosDelMes){
     let dialogRef = this.dialog.open(EliminarComponent, {
       height: 'auto',
@@ -180,11 +188,7 @@ export class EmpleadoDelMesComponent implements OnInit {
   }
 
   buscador(){
-    console.log(this.formBuscar.value["buscador"]+"<->"+(this.formBuscar.value["seccion"]===null || this.formBuscar.value["seccion"]===undefined || this.formBuscar.value["seccion"]==="" ||
-    this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"])+"<->"+2);
-
-    this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]===null || this.formBuscar.value["seccion"]===undefined || this.formBuscar.value["seccion"]==="" ||
-    this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"],2).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.usService.selectUser(this.formBuscar.value,2).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
         this.cargando = false;
         this.ELEMENT_DATA = [];

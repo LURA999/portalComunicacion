@@ -78,13 +78,24 @@ export class NoticiaComponent implements OnInit {
   }
 
   subirImg(evt : any){
-    const target : any = <DataTransfer>(evt.target).files[0];
-    this.formData.append('info', target, target.name);
-    this.formatoVideo = target.type
-    this.formImgVideo.patchValue({
-      imgVideo : target.name
-    })
+    let target : any = <DataTransfer>(evt.target).files[0];
 
+    if( ((target.size/1024)<=2048 && target.type.split("/")[0] === "image") || ((target.size/1024)<=51200 && target.type.split("/")[0] === "video")){
+      this.formData.append('info', target, target.name);
+      this.formatoVideo = target.type
+      this.formImgVideo.patchValue({
+        imgVideo : target.name
+      })
+    }else{
+      if (target.type.split("/")[0] === "image") {
+        alert("Solo se permiten imagenes menores o igual a 2MB");
+      } else {
+        alert("Solo se permiten videos menores o igual a 50MB");
+      }
+      target  = new DataTransfer()
+      let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+      inpimg2.value="";
+    }
   }
 
  async enviandoDatos() {

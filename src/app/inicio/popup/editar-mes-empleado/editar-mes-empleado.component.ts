@@ -21,8 +21,10 @@ export class EditarMesEmpleadoComponent implements OnInit {
   fechaMes : FormGroup = this.fb.group({
     fecha : ["", Validators.required ],
     posicion : ["", Validators.required ],
-
+    fechaInicio : ["", Validators.required],
+    fechaFinal : ["", Validators.required]
   })
+
   $sub : Subscription = new Subscription()
   localInterfaz :locales[] = []
   modalidad : boolean = false;
@@ -38,6 +40,8 @@ export class EditarMesEmpleadoComponent implements OnInit {
       this.fechaMes = this.fb.group({
         fecha : [ '' , Validators.required],
         posicion : [ '' , Validators.required],
+        fechaInicio : ["", Validators.required],
+        fechaFinal : ["", Validators.required]
       })
 
   }
@@ -47,8 +51,10 @@ export class EditarMesEmpleadoComponent implements OnInit {
 
     if (this.data.fecha !== undefined) {
       this.fechaMes = this.fb.group({
-        fecha : [new Date(this.data.fecha+"T00:00:00"), Validators.required],
-        posicion : [this.data.posicion, Validators.required]
+        fecha : [Number(this.data.fecha), Validators.required],
+        posicion : [this.data.posicion, Validators.required],
+        fechaInicio : [new Date(this.data.fechaInicio+"T00:00:00"), Validators.required],
+        fechaFinal : [new Date(this.data.fechaFinal+"T00:00:00"), Validators.required]
       })
 
 
@@ -109,6 +115,8 @@ export class EditarMesEmpleadoComponent implements OnInit {
         */
         let actUsuario : fechaServ = ({
           fecha : this.fechaMes.value["fecha"],
+          fechaInicio : this.fechaMes.value["fechaInicio"],
+          fechaFinal : this.fechaMes.value["fechaFinal"],
           posicion : this.fechaMes.value["posicion"],
           posicionAnt : posAnt,
           cveLocal : cveLocal,

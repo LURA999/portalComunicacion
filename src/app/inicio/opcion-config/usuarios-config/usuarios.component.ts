@@ -41,6 +41,14 @@ export interface usuarios {
   contrato : number;
   fecha : number;
 }
+
+export interface formBuscadorUsuario {
+  seccion : number | string;
+  buscador : string;
+  fechaInicial? : Date | string;
+  fechaFinal? : Date | string;
+}
+
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -61,10 +69,11 @@ export class UsuariosComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  formBuscar : FormGroup = this.fb.group({
-    seccion : [""],
-    buscador : [""],
-
+  formBuscar : FormGroup = this.fb.group<formBuscadorUsuario>({
+    seccion : "",
+    buscador : "",
+    fechaInicial : "",
+    fechaFinal : ""
   })
 
   ngOnInit(): void {
@@ -190,8 +199,7 @@ export class UsuariosComponent implements OnInit {
 
   buscador(){
 
-    this.$sub.add(this.usService.selectUser(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]===null || this.formBuscar.value["seccion"]===undefined || this.formBuscar.value["seccion"]==="" ||
-    this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"],1).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.usService.selectUser(this.formBuscar.value,1).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
         this.cargando = false;
         this.ELEMENT_DATA = [];

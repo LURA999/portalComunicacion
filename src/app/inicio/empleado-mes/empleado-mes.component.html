@@ -17,7 +17,7 @@
           <table >
             <tr >
               <td class="num negrito" [width]="'5%'">
-                <ng-container *ngIf="i.posicion === '1'; else elseTemplate">
+                <ng-container *ngIf="i.posicion === '1' || i.posicion === 1; else elseTemplate">
                   <div><img [src]="link+'assets/img/img-seccion-hotel/corona.png'" alt="corona" class="corona"></div>
                   <div>1</div>
                 </ng-container>
@@ -34,10 +34,10 @@
                 <span class="negrito">{{i.nombres+" "+i.apellidoPaterno}}</span><br>
                 {{i.departamento}}
               </td>
-              <td class="ud">
-                {{i.contrato == 1?'Sindicalizado':'No sindicalizado'}}
+              <td class="udc">
+                {{i.contratoNombre}}
               </td>
-              <td class="ud">
+              <td class="udm">
                 {{i.mes}}
               </td>
             </tr>

@@ -10,6 +10,8 @@ import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 export interface fechaServ {
   idUsuario:number;
   fecha:Date;
+  fechaInicio:Date;
+  fechaFinal:Date;
   posicion:number;
   cveLocal : number;
   posicionAnt?:number;

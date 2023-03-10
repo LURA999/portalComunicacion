@@ -267,6 +267,10 @@ a.mat-list-item:active {
   background: transparent !important;
 }
 
+#logo_nav {
+  width: 200px;
+}
+
   @media(max-width:700px){
 
     #section_3 img {

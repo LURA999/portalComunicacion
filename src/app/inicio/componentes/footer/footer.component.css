@@ -32,7 +32,13 @@ footer {
     margin-right: 50px;
   }
 
+  .imgs{
+    cursor: pointer;
+  }
 
+  .imgs:active{
+    cursor: normal;
+  }
 
   @media(max-width:1000px){
 

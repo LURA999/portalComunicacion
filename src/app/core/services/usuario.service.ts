@@ -1,7 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { usuarios } from 'src/app/inicio/opcion-config/usuarios-config/usuarios.component';
+import { formBuscadorUsuario, usuarios } from 'src/app/inicio/opcion-config/usuarios-config/usuarios.component';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { usuarioModel } from 'src/app/interfaces_modelos/usuario.model';
 import { environment } from 'src/environments/environment';
@@ -18,8 +19,10 @@ export class UsuarioService {
       return this.http.delete<ResponseInterfaceTs>(this.api+'Users/userLogin.php?id='+id);
   }
 
-  selectUser(palabra:string, hotel:number, op:number):Observable<ResponseInterfaceTs>{
-    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?palabra='+palabra+'&hotel='+hotel+'&op='+op);
+  selectUser(obj: formBuscadorUsuario, op:number):Observable<ResponseInterfaceTs>{
+    const datePipe = new DatePipe('en-US');
+    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?palabra='+obj.buscador+'&hotel='+(obj.seccion===null || obj.seccion===undefined || obj.seccion==="" ||
+    obj.seccion===-1 ?-1:obj.seccion)+'&fechaInicial='+(datePipe.transform(obj.fechaInicial, 'yyyy-MM-dd', 'UTC'))+'&fechaFinal='+(datePipe.transform(obj.fechaFinal, 'yyyy-MM-dd', 'UTC'))+'&op='+op);
   }
 
   selectAllusers(op : number):Observable<ResponseInterfaceTs>{

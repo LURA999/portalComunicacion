@@ -85,10 +85,15 @@ td.img {
   text-align: center;
 }
 
-td.ud {
-  text-align: center;
+
+td.udc {
+  text-align: left;
 }
 
+td.udm {
+  text-align: center;
+  width: 200px;
+}
 
 .nombre{
   font-size: .8vw;
