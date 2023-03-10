@@ -115,8 +115,9 @@ div#matform-c {
   mat-form-field{
     width: 100%;
   }
-
+  
+  div#matform-c {
+    margin-bottom: 0px;
+  }
  }
- div#matform-c {
-  margin-bottom: 0px;
- }
+ 

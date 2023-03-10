@@ -58,6 +58,12 @@ export class UsuarioService {
     return this.http.post<ResponseInterfaceTs>(this.api+'Users/userLogin.php', us, {headers})
   }
 
+/**CONSULTAS ANTES DE INSERTAR A UN NUEVO USUARIO O ACTUALIZARLO */
+  buscarRepetidoUpdate(user : number,cve : number,id : number):Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?RepetidoUpdate=true&user='+user+'&cve='+cve+'&id='+id);
+  }
 
-
+  buscarRepetidoInsert(user : number, cve : number):Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?RepetidoInsert=true&user='+user+'&cve='+cve);
+  }
 }

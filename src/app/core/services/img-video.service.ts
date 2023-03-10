@@ -1,10 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { actNomImgVideo } from 'src/app/inicio/popup/editar-usuario/usuario-form.component';
 import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -106,5 +109,10 @@ export class SubirImgVideoService {
     return this.http.patch<ResponseInterfaceTs>(this.local+"Users/img.php?id="+id, {headers});
   }
 
-
+  renombrarImgUsuario(obj :actNomImgVideo) : Observable <ResponseInterfaceTs>{
+    let headers = new HttpHeaders();
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Content-Type', 'application/json');
+    return this.http.patch<ResponseInterfaceTs>(this.local+"Users/img.php?imgn=true",{obj},{headers});
+  }
 }

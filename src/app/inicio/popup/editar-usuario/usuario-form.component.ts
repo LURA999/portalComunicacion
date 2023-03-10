@@ -11,6 +11,12 @@ import { environment } from 'src/environments/environment';
 import { local, usuarios } from '../../opcion-config/usuarios-config/usuarios.component';
 import { EditarSliderComponent } from '../editar-slider/editar-slider.component';
 
+export interface actNomImgVideo {
+  imgn : string;
+  img : string;
+  idUsuario : number;
+}
+
 @Component({
   selector: 'app-usuario-form',
   templateUrl: './usuario-form.component.html',
@@ -74,10 +80,11 @@ export class UsuarioFormComponent implements OnInit {
    }
 
   subirImg(evt : any){
-    this.insertarImagen = true
     this.targetFile = <DataTransfer>(evt.target).files[0];
 
     if (this.targetFile.type.split("/")[0] === "image" && (this.targetFile.size/1024)<=2048) {
+      this.insertarImagen = true
+
       const reader= new FileReader()
       reader.readAsDataURL(this.targetFile )
       reader.onload = () => {
@@ -123,6 +130,8 @@ export class UsuarioFormComponent implements OnInit {
 
 
     if (this.modalidad === true) {
+      let y : number = await (await lastValueFrom(this.usService.buscarRepetidoInsert(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"])))).container[0].total;
+      if(y == 0){
       this.data = this.formUsuario.value
       //no es obligatorio insertar img, pero es necesario comprobar si se inserto una imagen
       if (this.insertarImagen === true) {
@@ -134,7 +143,13 @@ export class UsuarioFormComponent implements OnInit {
       this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
         this.dialogRef.close(await resp1.container);
       }))
+    }else{
+      alert("El usuario no se debe de repetir")
+    }
     } else {
+      let y : number = await (await lastValueFrom(this.usService.buscarRepetidoUpdate(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"]), this.data!.idUsuario))).container[0].total;
+      
+      if(y == 0){
       this.contenedor_carga.style.display = "block";
 
       let gimg = this.data!.img;
@@ -144,9 +159,19 @@ export class UsuarioFormComponent implements OnInit {
       this.data = this.formUsuario.value
       this.data!.idUsuario = idUsuario;
       this.data!.imgn = gimg; //Foto anterior
-      this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+gimg?.split(".")[gimg?.split(".").length - 1] //Foto nueva
+      this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+(gimg!.split(".")[gimg!.split(".").length - 1]) //Foto nueva
       this.data!.usuarion = usuario;
 
+
+      if( usuario !==  this.formUsuario.value["usuario"] && this.insertarImagen === false) {
+       let obj : actNomImgVideo ={
+         idUsuario : this.data!.idUsuario,
+         imgn: this.data!.imgn!,
+         img: this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+(gimg!.split(".")[gimg!.split(".").length - 1])
+       }
+        await lastValueFrom(this.serviceImgVideo.renombrarImgUsuario(obj));
+
+      }
 
     //Se eliminara la anterior imagen, si esque se remplazo el actual
       if (this.insertarImagen === true) {
@@ -159,33 +184,22 @@ export class UsuarioFormComponent implements OnInit {
         this.data!.img = datos;
       }
 
-      // this.data!.usuario = id
       // a continuación se actualizara los demas datos del usuario
 
       if(this.data!.imgn === this.data!.img){
         this.data!.img = '';
       }
 
-
       await lastValueFrom(this.usService.updateUser(this.data!, this.modalidad))
-
-      /*   if (this.modalidad === false) {
-          console.log(this.modalidad);
-
-          console.log("cambiando imagen");
-
-          if(Number(cveLocal) != Number(this.formUsuario.value["cveLocal"])) {
-          this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]);
-          await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData));
-        }
-      } */
 
       this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
         this.dialogRef.close(await resp1.container);
         this.contenedor_carga.style.display = "none";
 
       }))
-
+    }else{
+      alert("El numero de usuario que desea actualizar, no se encuentra disponible")
+    }
     }
   }
 
