@@ -35,26 +35,35 @@
             </article>
         </div>
         <br>
-        <!-- <div *ngIf="$data | async as res">
-            <div  *ngFor="let r of res">
-                <img src="{{r.logo}}" alt="{{r.logo}}"> 
-            </div>
-        </div> -->
-
-        <!-- <img width = "300px" src="https://www.araizahoteles.com/alianzas/images/YADHIRA%20PINZON.png"/> -->
-    <div class="container">
+    <div class="container"  >
         <img class="control prev" [src]="this.link+'assets/img/araiza-diamante/img1.png'" alt="img1">
-        <div class="slider" >
-            <img [src]="this.link+'assets/img/pruebas/banner3.jpg'" alt="img2">
-            <img [src]="this.link+'assets/img/pruebas/banner4.jpg'" alt="img3">
-            <img [src]="this.link+'assets/img/pruebas/banner2.jpg'" alt="img4">
-            <img [src]="this.link+'assets/img/pruebas/banner2.jpg'" alt="img5">
-            <img [src]="this.link+'assets/img/pruebas/banner1.jpg'" alt="img6">
-            <img [src]="this.link+'assets/img/pruebas/banner1.jpg'" alt="img7">
+        <div class="slider">
+            <img *ngFor="let r of carrusel_mini" class="imgMiniSlider" src="{{r.logo}}" alt="{{r.logo}}">
         </div>
         <img class="control next" [src]="this.link+'assets/img/araiza-diamante/img2.png'" alt="img8">
     </div>
-    <br><br>
+    <br>
+    </div>
+    <div id="seccion5">
+      <div id="partSupSec5">
+      <h1>{{resp.puntos ===""?0: (+resp.puntos).toLocaleString('es-MX', opciones)}}</h1>
+      <article>
+        <span>Consulta tu puntaje actual</span> <br>
+        <span > <a href="https://araizahoteles.com/solicitud-de-recompensa?lang=es" class="color_primario"> ¿Deseas canjear los puntos?</a></span>
+      </article>
+      <form>
+        <mat-form-field class="example-full-width" id="search">
+          <mat-label>Ingresa tu número de socio</mat-label>
+          <input #inputTarj autocomplete="off" type="text"  name="search" matInput>
+        </mat-form-field>
+        <button mat-raised-button (submit)="submitForm(+inputTarj.value)" id="btnSearch" color="primary">Enviar</button>
+      </form>
+      </div>
+        <span id="aux">
+          <article>
+            Para más información o consulta de tu número de socio, envía un correo a <br> <span class="color_primario">araizadiamante@araizahoteles.com</span>
+          </article>
+        </span>
     </div>
 </div>
 <app-footer></app-footer>

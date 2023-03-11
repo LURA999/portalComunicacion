@@ -62,15 +62,15 @@ export class UsuarioFormComponent implements OnInit {
         apellidoPaterno : [this.data!.apellidoPaterno, Validators.required],
         apellidoMaterno : [this.data!.apellidoMaterno, Validators.required],
         correo : [this.data!.correo, Validators.required],
-        cveLocal : [this.data!.cveLocal, Validators.required],
-        cveRol: [ this.data!.cveRol , Validators.required],
+        cveLocal : [Number(this.data!.cveLocal), Validators.required],
+        cveRol: [ Number(this.data!.cveRol) , Validators.required],
         nombres: [ this.data!.nombres, Validators.required],
         contrasena: [ '' ],
         img : [ this.data!.img ],
         fechaNacimiento: [ new Date(this.data!.fechaNacimiento+"T00:00:00"), Validators.required],
         fechaIngreso: [  new Date(this.data!.fechaIngreso+"T00:00:00") , Validators.required ],
         departamento: [ this.data!.departamento , Validators.required ],
-        contrato: [ this.data?.contrato , Validators.required ]
+        contrato: [ Number(this.data?.contrato) , Validators.required ]
       })
       this.guardHotel = Number(this.data!.cveLocal)
       this.modalidad = false;
@@ -148,7 +148,7 @@ export class UsuarioFormComponent implements OnInit {
     }
     } else {
       let y : number = await (await lastValueFrom(this.usService.buscarRepetidoUpdate(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"]), this.data!.idUsuario))).container[0].total;
-      
+
       if(y == 0){
       this.contenedor_carga.style.display = "block";
 

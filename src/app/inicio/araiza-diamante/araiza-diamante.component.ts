@@ -1,12 +1,30 @@
-import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { localService } from 'src/app/core/services/local.service';
-import { count, lastValueFrom, Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { araizaDiamante } from 'src/app/core/services/araizaDiamante.service';
+
+export interface respTarjeta {
+  apellido_p : string;
+  apellidom : string;
+  nombre : string;
+  puntos : number | string;
+}
+
+interface formData {
+  search : string
+}
+
+export interface carrusel_mini {
+  logo : string;
+  nombre : string;
+  descuento : string;
+}
 
 @Component({
   selector: 'app-araiza-diamante',
@@ -22,6 +40,20 @@ export class AraizaDiamanteComponent implements OnInit {
   _mobileQueryListener!: () => void;
   width : number =0
   $data: Observable<any> | undefined ;
+  @ViewChild("inputTarj") form! :HTMLInputElement
+   opciones = { useGrouping: true  };
+
+  formData : formData= {
+    search: ''
+  };
+
+  resp : respTarjeta =  {
+    apellido_p :"",
+    apellidom :"",
+    nombre : "",
+    puntos : ""
+  }
+
 
   imgCollection: Array<any> = [
     {
@@ -45,21 +77,7 @@ export class AraizaDiamanteComponent implements OnInit {
     }
   ];
 
-  carrusel_mini: Array<any> = [
-    {
-      path: this.link+'assets/img/celular-araiza.png'
-    }, {
-      path: this.link+'assets/img/celular-araiza.png'
-    }, {
-      path: this.link+'assets/img/aniversario.png'
-    }, {
-      path: this.link+'assets/img/aniversario.png'
-    }, {
-      path: this.link+'assets/img/pruebas/banner1.jpg'
-    }, {
-      path: this.link+'assets/img/pruebas/banner1.jpg'
-    }
-  ];
+  carrusel_mini: Array<carrusel_mini> = [ ];
 
   window: number = Number(window.innerWidth);
 
@@ -71,7 +89,8 @@ export class AraizaDiamanteComponent implements OnInit {
     private local : localService,
     public route : Router,
     private DataService : DataNavbarService,
-    private sanitizer : DomSanitizer) { }
+    private sanitizer : DomSanitizer,
+    private dimService: araizaDiamante) { }
 
   ngOnInit(): void {
     this.cargandoAlianzas()
@@ -119,13 +138,25 @@ export class AraizaDiamanteComponent implements OnInit {
   }
 
   async cargandoAlianzas() {
-    this.$data =  this.local.getAlianzas()
-    
+    this.local.getAlianzas().subscribe((resp:carrusel_mini[]) =>{
+      this.carrusel_mini = resp;
+      this.changeDetectorRef.detectChanges();
+    })
+
   }
 
-  encodeURI(str : string){
-    let re = / /gi;
-    return str.replace(re, "%20");
+
+  async submitForm(value : number) {
+    await lastValueFrom(this.dimService.araizaTarjeta(value.toString().padStart(10, '0'))).then((resp: respTarjeta[])=>{
+      if (resp != null) {
+        if (resp.length == 1) {
+          this.resp = resp[0]
+        }
+      }else{
+        this.resp.puntos = 0;
+      }
+      this.changeDetectorRef.detectChanges();
+    })
   }
 
 }

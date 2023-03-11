@@ -15,7 +15,7 @@ import { UsuarioFormComponent } from '../../popup/editar-usuario/usuario-form.co
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
 
 export interface local {
-  idLocal : number;
+  idLocal : Number;
   local : string;
 }
 

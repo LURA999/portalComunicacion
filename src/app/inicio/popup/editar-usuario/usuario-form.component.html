@@ -51,7 +51,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Hotel</mat-label>
       <mat-select formControlName="cveLocal" (selectionChange)="seleccionandoHotel()">
-        <mat-option *ngFor="let i of locales" [value]="i.idLocal"> {{i.local}} </mat-option>
+        <mat-option *ngFor="let i of locales" [value]="+i.idLocal"> {{i.local}} </mat-option>
       </mat-select>
     </mat-form-field>
     </div>
