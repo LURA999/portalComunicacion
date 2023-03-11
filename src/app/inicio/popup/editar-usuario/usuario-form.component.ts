@@ -130,6 +130,8 @@ export class UsuarioFormComponent implements OnInit {
 
 
     if (this.modalidad === true) {
+      this.contenedor_carga.style.display = "block";
+
       let y : number = await (await lastValueFrom(this.usService.buscarRepetidoInsert(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"])))).container[0].total;
       if(y == 0){
       this.data = this.formUsuario.value
@@ -142,15 +144,18 @@ export class UsuarioFormComponent implements OnInit {
       await lastValueFrom(this.usService.createuser(this.data!))
       this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
         this.dialogRef.close(await resp1.container);
+        this.contenedor_carga.style.display = "none";
+
       }))
     }else{
       alert("El usuario no se debe de repetir")
     }
     } else {
+      this.contenedor_carga.style.display = "block";
+
       let y : number = await (await lastValueFrom(this.usService.buscarRepetidoUpdate(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"]), this.data!.idUsuario))).container[0].total;
 
       if(y == 0){
-      this.contenedor_carga.style.display = "block";
 
       let gimg = this.data!.img;
       let cveLocal = this.data?.cveLocal //cvelocal anterior
