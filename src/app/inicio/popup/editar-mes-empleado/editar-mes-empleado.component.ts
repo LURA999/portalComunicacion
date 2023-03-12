@@ -47,7 +47,6 @@ export class EditarMesEmpleadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
 
     if (this.data.fecha !== undefined) {
       this.fechaMes = this.fb.group({
@@ -98,7 +97,6 @@ export class EditarMesEmpleadoComponent implements OnInit {
           // }
         });
       } else {
-        console.log("paso aqui");
 
         /* let actPos : fechaServ = ({
           fecha : this.fechaMes.value["fecha"],
@@ -128,8 +126,6 @@ export class EditarMesEmpleadoComponent implements OnInit {
 
       this.$sub.add(this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (resp.status.toString() === '200') {
-          console.log(resp.container);
-
           this.dialogRef.close(await resp.container);
           this.contenedor_carga.style.display = "none";
 

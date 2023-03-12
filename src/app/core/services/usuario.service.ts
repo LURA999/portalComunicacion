@@ -26,7 +26,10 @@ export class UsuarioService {
   }
 
   selectAllusers(op : number):Observable<ResponseInterfaceTs>{
-    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?us_op='+op);
+    const timestamp = Date.now();
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+
+    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?us_op='+op+'&timestamp='+timestamp, { headers });
   }
 
 /**Todos los empleados que cumplen años - 1 */

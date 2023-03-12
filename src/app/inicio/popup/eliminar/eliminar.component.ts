@@ -2,7 +2,7 @@ import { Component, Inject, OnInit,  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { concatMap, lastValueFrom, Subscription } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -61,11 +61,14 @@ export class EliminarComponent implements OnInit {
           }
           break;
         case "usuario":
-            await lastValueFrom(this.servImgVideo.eliminarDirImgUsuario(this.data.id));
-            await lastValueFrom(this.usService.deleteUser(Number(this.data.id)))
-            this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.servImgVideo.eliminarDirImgUsuario(this.data.id).pipe(
+              concatMap(()=> this.usService.deleteUser(Number(this.data.id.split("_")[0])).pipe(
+                concatMap(()=> this.usService.selectAllusers(1))
+              ))
+            ).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);
-            }))
+            })      
+            
           break;
         case 'Comida':
           await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)))

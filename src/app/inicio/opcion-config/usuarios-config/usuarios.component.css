@@ -42,7 +42,7 @@ button {
 }
 
 #botonc {
-  margin-top: auto;
+  align-self: center;
 }
 
 .container-user {

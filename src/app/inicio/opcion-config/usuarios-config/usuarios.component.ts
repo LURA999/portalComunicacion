@@ -167,7 +167,7 @@ export class UsuariosComponent implements OnInit {
      })
   }
 
-  borrar(usuario : string){
+  borrar(usuario : string){    
     let dialogRef = this.dialog.open(EliminarComponent, {
       height: 'auto',
       width: 'auto',

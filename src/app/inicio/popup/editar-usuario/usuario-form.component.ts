@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { lastValueFrom, forkJoin, mergeMap, Subscription, concatMap, switchMap,Observable } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -131,32 +130,44 @@ export class UsuarioFormComponent implements OnInit {
 
     if (this.modalidad === true) {
       this.contenedor_carga.style.display = "block";
-
       let y : number = await (await lastValueFrom(this.usService.buscarRepetidoInsert(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"])))).container[0].total;
-      if(y == 0){
+      this.contenedor_carga.style.display = "none";
+
+      if(y == 0 && this.insertarImagen === true && this.formUsuario.valid === true){
+      this.contenedor_carga.style.display = "block";
+
       this.data = this.formUsuario.value
       //no es obligatorio insertar img, pero es necesario comprobar si se inserto una imagen
-      if (this.insertarImagen === true) {
         this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]);
-        nombre = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
-      }
-      this.data!.img = nombre
-      await lastValueFrom(this.usService.createuser(this.data!))
-      this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
-        this.dialogRef.close(await resp1.container);
-        this.contenedor_carga.style.display = "none";
+        this.serviceImgVideo.subirImgUsuario(this.formData).pipe(
+          concatMap((res1:ResponseInterfaceTs) => {
+              this.data!.img = res1.container.nombre
+              return this.usService.createuser(this.data!).pipe(
+              concatMap(() =>   this.usService.selectAllusers(1)))
+          })).subscribe(async (res: ResponseInterfaceTs) => {
+          this.dialogRef.close(await res.container);
+          this.contenedor_carga.style.display = "none";
+        });
 
-      }))
     }else{
-      alert("El usuario no se debe de repetir")
+      if(this.formUsuario.valid === false){
+        alert("Por favor acomplete todos los campos")
+      } else if (this.insertarImagen === false) {
+        alert("Por favor inserte la imagen")
+      } else {
+        alert("El usuario no se debe de repetir")
+      }
     }
     } else {
       this.contenedor_carga.style.display = "block";
-
       let y : number = await (await lastValueFrom(this.usService.buscarRepetidoUpdate(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"]), this.data!.idUsuario))).container[0].total;
+      this.contenedor_carga.style.display = "none";
 
       if(y == 0){
 
+      let Observable : Observable<ResponseInterfaceTs>[] = [];
+
+      this.contenedor_carga.style.display = "block";
       let gimg = this.data!.img;
       let cveLocal = this.data?.cveLocal //cvelocal anterior
       let usuario = Number(this.data?.usuario) //cvelocal anterior
@@ -168,40 +179,90 @@ export class UsuarioFormComponent implements OnInit {
       this.data!.usuarion = usuario;
 
 
-      if( usuario !==  this.formUsuario.value["usuario"] && this.insertarImagen === false) {
+      if( Number(usuario) !==  Number(this.formUsuario.value["usuario"]) && this.insertarImagen === false) {
        let obj : actNomImgVideo ={
          idUsuario : this.data!.idUsuario,
          imgn: this.data!.imgn!,
          img: this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+(gimg!.split(".")[gimg!.split(".").length - 1])
        }
-        await lastValueFrom(this.serviceImgVideo.renombrarImgUsuario(obj));
-
+       Observable.push(this.serviceImgVideo.renombrarImgUsuario(obj));
       }
 
     //Se eliminara la anterior imagen, si esque se remplazo el actual
       if (this.insertarImagen === true) {
         this.modalidad = true;
         this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]);
-        await lastValueFrom(this.serviceImgVideo.eliminarDirImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]));
-        await lastValueFrom(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]));
+        Observable.push(this.serviceImgVideo.eliminarDirImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]));
+        Observable.push(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]));
         //despues se actualizara la imagen nueva que eligio
-        let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
-        this.data!.img = datos;
+        Observable.push(this.serviceImgVideo.subirImgUsuario(this.formData))
+        // let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
+        // this.data!.img = datos;
       }
 
       // a continuación se actualizara los demas datos del usuario
 
-      if(this.data!.imgn === this.data!.img){
-        this.data!.img = '';
+      // if(this.data!.imgn === this.data!.img){
+      //   this.data!.img = '';
+      // }
+
+
+      Observable.push(this.usService.updateUser(this.data!, this.modalidad))
+
+      Observable.push(this.usService.selectAllusers(1))
+
+
+      if (Observable.length === 3) {        
+        Observable[0].pipe(
+        concatMap(() => Observable[1].pipe(
+              concatMap(() => Observable[2])
+        ))).subscribe(async (resp:ResponseInterfaceTs)=>{
+          this.dialogRef.close(await resp.container);
+          this.contenedor_carga.style.display = "none";
+        })
       }
 
-      await lastValueFrom(this.usService.updateUser(this.data!, this.modalidad))
+      if( Observable.length === 5) {        
+        Observable[0].pipe(
+          concatMap(()=> Observable[1]),
+          concatMap(() => Observable[2].pipe(
+            concatMap((r2:ResponseInterfaceTs)=>{
+              this.data!.img = r2.container.nombre              
+              return Observable[3]
+            }),
+            concatMap(() => {
+              if(this.data!.imgn === this.data!.img){
+                this.data!.img = '';
+              }
+              return Observable[4]
+            })
+          ))
+        ).subscribe(async(resp:ResponseInterfaceTs)=>{
+          this.dialogRef.close(await resp.container);
+          this.contenedor_carga.style.display = "none";
 
-      this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
-        this.dialogRef.close(await resp1.container);
-        this.contenedor_carga.style.display = "none";
+        })
+      }
 
-      }))
+       if (Observable.length === 2) {
+        if(this.data!.imgn === this.data!.img){
+          this.data!.img = '';
+        }
+        Observable[0].pipe(
+          concatMap(() => Observable[1]) 
+          ).subscribe(async (resp:ResponseInterfaceTs)=>{
+            this.dialogRef.close(await resp.container);
+            this.contenedor_carga.style.display = "none";
+          })
+        }
+      
+
+
+      // this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+      //   this.dialogRef.close(await resp1.container);
+      //   this.contenedor_carga.style.display = "none";
+
+      // }))
     }else{
       alert("El numero de usuario que desea actualizar, no se encuentra disponible")
     }
