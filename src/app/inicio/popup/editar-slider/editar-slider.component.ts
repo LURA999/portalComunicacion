@@ -182,93 +182,54 @@ export class EditarSliderComponent implements OnInit {
                   //(A)
                   if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
                   Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
-                  return Observable[2].pipe(
-                      concatMap(()=>{
-                        if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
-                          return Observable[3].pipe(concatMap(() =>{
-                            return Observable[4].pipe(concatMap(() =>{
-                              return Observable[5]
-                            }))
-                          }))
-                        }
-                        return Observable[3]
-                      }
-                    ))
+                    return Observable[2].pipe(
+                      concatMap(() => Observable[3])
+                    )
                   }
                   //(B)
                   if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
                   && Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
                     return Observable[2].pipe(
-                      concatMap(() => Observable[3].pipe(
-                      concatMap(()=>{
-                        if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
-                          return Observable[4].pipe(
-                            concatMap(() =>{
-                            return Observable[5].pipe(
-                              concatMap(() =>{
-                              return Observable[6]
-                            }))
-                          }))
-                        }
-                        return Observable[4]
-                      }))
+                    concatMap(() => Observable[3].pipe(
+                      concatMap(() => Observable[4])
+                    )
                     ))
+                  }
+                  
+                  if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
+                    return Observable[2].pipe(concatMap(() =>
+                     Observable[3].pipe(concatMap(() => Observable[4]))))
                   }
                   return Observable[2]                  
                 }))
               }))
             }
-
             //(A)
             if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
             Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
-            return Observable[0].pipe(
-                concatMap(()=>{
-                  if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
-                    return Observable[1].pipe(concatMap(() =>{
-                      return Observable[2].pipe(concatMap(() =>{
-                        return Observable[3]
-                      }))
-                    }))
-                  }
-                  return Observable[1]
-                })
+              return Observable[0].pipe(
+                concatMap(() => Observable[1])
               )
             }
 
             //(B)
             if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
             && Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
-            return Observable[0].pipe(
+              return Observable[0].pipe(
               concatMap(() => Observable[1].pipe(
-              concatMap(()=>{
-                if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
-                  return Observable[2].pipe(
-                    concatMap(() =>{
-                    return Observable[3].pipe(
-                      concatMap(() =>{
-                      return Observable[4]
-                    }))
-                  }))
-                }
-                return Observable[2]
-              }))
+                concatMap(() => Observable[2])
+              )
             ))
             }
 
             if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
               return Observable[0].pipe(
-                concatMap(() =>{
-                return Observable[1].pipe(
-                  concatMap(() =>{
-                  return Observable[2].pipe(
-                    concatMap(() =>{
-                      return Observable[3]
-                    })
+                concatMap(() =>Observable[1].pipe(
+                  concatMap(() => Observable[2].pipe(
+                    concatMap(() => Observable[3])
                   )
-                }))
-              }))
-            }
+                  ))))
+            }            
             return Observable[0]
           })
         ).subscribe((resp:ResponseInterfaceTs)=>{
