@@ -196,16 +196,7 @@ export class UsuarioFormComponent implements OnInit {
         Observable.push(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]));
         //despues se actualizara la imagen nueva que eligio
         Observable.push(this.serviceImgVideo.subirImgUsuario(this.formData))
-        // let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgUsuario(this.formData))).container.nombre;
-        // this.data!.img = datos;
       }
-
-      // a continuación se actualizara los demas datos del usuario
-
-      // if(this.data!.imgn === this.data!.img){
-      //   this.data!.img = '';
-      // }
-
 
       Observable.push(this.usService.updateUser(this.data!, this.modalidad))
 
@@ -213,17 +204,17 @@ export class UsuarioFormComponent implements OnInit {
 
 
       if (Observable.length === 3) {        
-        Observable[0].pipe(
+        this.$sub.add(Observable[0].pipe(
         concatMap(() => Observable[1].pipe(
-              concatMap(() => Observable[2])
+          concatMap(() => Observable[2])
         ))).subscribe(async (resp:ResponseInterfaceTs)=>{
           this.dialogRef.close(await resp.container);
           this.contenedor_carga.style.display = "none";
-        })
+        }))
       }
 
       if( Observable.length === 5) {        
-        Observable[0].pipe(
+        this.$sub.add(Observable[0].pipe(
           concatMap(()=> Observable[1]),
           concatMap(() => Observable[2].pipe(
             concatMap((r2:ResponseInterfaceTs)=>{
@@ -241,28 +232,21 @@ export class UsuarioFormComponent implements OnInit {
           this.dialogRef.close(await resp.container);
           this.contenedor_carga.style.display = "none";
 
-        })
+        }))
       }
 
        if (Observable.length === 2) {
         if(this.data!.imgn === this.data!.img){
           this.data!.img = '';
         }
-        Observable[0].pipe(
+        this.$sub.add(Observable[0].pipe(
           concatMap(() => Observable[1]) 
           ).subscribe(async (resp:ResponseInterfaceTs)=>{
             this.dialogRef.close(await resp.container);
             this.contenedor_carga.style.display = "none";
-          })
+          }))
         }
       
-
-
-      // this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
-      //   this.dialogRef.close(await resp1.container);
-      //   this.contenedor_carga.style.display = "none";
-
-      // }))
     }else{
       alert("El numero de usuario que desea actualizar, no se encuentra disponible")
     }

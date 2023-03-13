@@ -1,10 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { lastValueFrom, Subscription,Observable, concatMap, of, concat } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
-import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 
 export interface locales {
@@ -120,66 +119,162 @@ export class EditarSliderComponent implements OnInit {
       this.data.obj.cveLocal2 = cveLocal2;
       this.data.obj.formato = formato;
 
+      let Observable : Observable<ResponseInterfaceTs>[] = [];
+      let dosParamInt : any
+      let dosParamInt2 : any
 
-      if (this.nombreActualizadoImgVid === true) {
+      //actualizacion de archivo
+       if (this.nombreActualizadoImgVid === true) {
         //Se eliminara la anterior imagen, si esque se remplazo el actual
-        await lastValueFrom(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
+        Observable.push(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
         //despues se actualizara la imagen nueva que eligio
-        let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideo"))).container;
-        this.data.obj.imgVideo = datos.nombre
-        this.data.obj.formato = datos.tipo
+        Observable.push(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideo"))
+        // this.data.obj.imgVideo = datos.nombre
+        // this.data.obj.formato = datos.tipo
       }
-
+      
+      //(A)
       if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
-      Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)
-      && Number(this.data.obj.cveLocal2) == Number(this.data.obj.cveLocal)) {
-
-        await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
+      Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)) {
+        Observable.push(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
       }
 
+      //(B)
       //Esto nomas se hizo unicamente para el cambio de posiciones entre un mismo hotel
-      if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) && Number(this.data.obj.cveLocal2) == Number(this.data.obj.cveLocal)) {
-
-        await lastValueFrom(this.serviceImgVideo.actualizarPosicionUCSlide({cveLocal: this.formImgVideo.value['cveLocal'],cveSeccion: this.data.obj.cveSeccion,idP:this.formImgVideo.value["posicion"],idS:this.data.obj.posicion2}))
-        await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
+      if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
+      && Number(this.data.obj.cveLocal2) == Number(this.data.obj.cveLocal)) {
+        Observable.push(this.serviceImgVideo.actualizarPosicionUCSlide({cveLocal: this.formImgVideo.value['cveLocal'],cveSeccion: this.data.obj.cveSeccion,idP:this.formImgVideo.value["posicion"],idS:this.data.obj.posicion2}))
+        Observable.push(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
       }
 
       //Esto se encargara de cambiar de hoteles correctamente
       if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
-
-        await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
-
-        let dosParamInt : any = {
+        Observable.push(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
+        dosParamInt  = {
           idP1 : Number(this.data.obj.posicion),
           idP2 : Number(this.data.obj.idImgVideo),
           cveLocal : Number(this.data.obj.cveLocal),
           cveSeccion : 1
         }
-
-        await lastValueFrom(this.serviceImgVideo.actualizarPosicionTUVSlide(dosParamInt));
-
-
-        dosParamInt = {
+        Observable.push(this.serviceImgVideo.actualizarPosicionTUVSlide(dosParamInt));
+        dosParamInt2 = {
           idP : Number(this.data.obj.posicion2),
           idS : 0,
           cveLocal : Number(this.data.obj.cveLocal2),
           cveSeccion : 1
         }
-
-        await lastValueFrom(this.serviceImgVideo.eliminarPosicionTDSlide(dosParamInt));
-
-
-
+        Observable.push(this.serviceImgVideo.eliminarPosicionTDSlide(dosParamInt2));
       }
 
-      //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
+      Observable.push(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1))
 
+      
+        this.$sub.add(of('').pipe(
+          concatMap(()=> {  
+            if(this.nombreActualizadoImgVid === true ){
+              return Observable[0].pipe(
+                concatMap(()=> {
+                return Observable[1].pipe(
+                  concatMap((resp2:ResponseInterfaceTs) => {
+                  this.data.obj.imgVideo = resp2.container.nombre
+                  this.data.obj.formato = resp2.container.tipo
 
-      //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
-      this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
-        this.dialogRef.close(resp.container)
-        this.contenedor_carga.style.display = "none";
-      }))
+                  //(A)
+                  if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
+                  Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
+                  return Observable[2].pipe(
+                      concatMap(()=>{
+                        if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
+                          return Observable[3].pipe(concatMap(() =>{
+                            return Observable[4].pipe(concatMap(() =>{
+                              return Observable[5]
+                            }))
+                          }))
+                        }
+                        return Observable[3]
+                      }
+                    ))
+                  }
+                  //(B)
+                  if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
+                  && Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
+                    return Observable[2].pipe(
+                      concatMap(() => Observable[3].pipe(
+                      concatMap(()=>{
+                        if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
+                          return Observable[4].pipe(
+                            concatMap(() =>{
+                            return Observable[5].pipe(
+                              concatMap(() =>{
+                              return Observable[6]
+                            }))
+                          }))
+                        }
+                        return Observable[4]
+                      }))
+                    ))
+                  }
+                  return Observable[2]                  
+                }))
+              }))
+            }
+
+            //(A)
+            if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
+            Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
+            return Observable[0].pipe(
+                concatMap(()=>{
+                  if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
+                    return Observable[1].pipe(concatMap(() =>{
+                      return Observable[2].pipe(concatMap(() =>{
+                        return Observable[3]
+                      }))
+                    }))
+                  }
+                  return Observable[1]
+                })
+              )
+            }
+
+            //(B)
+            if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
+            && Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
+            return Observable[0].pipe(
+              concatMap(() => Observable[1].pipe(
+              concatMap(()=>{
+                if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
+                  return Observable[2].pipe(
+                    concatMap(() =>{
+                    return Observable[3].pipe(
+                      concatMap(() =>{
+                      return Observable[4]
+                    }))
+                  }))
+                }
+                return Observable[2]
+              }))
+            ))
+            }
+
+            if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
+              return Observable[0].pipe(
+                concatMap(() =>{
+                return Observable[1].pipe(
+                  concatMap(() =>{
+                  return Observable[2].pipe(
+                    concatMap(() =>{
+                      return Observable[3]
+                    })
+                  )
+                }))
+              }))
+            }
+            return Observable[0]
+          })
+        ).subscribe((resp:ResponseInterfaceTs)=>{
+          this.dialogRef.close(resp.container)
+          this.contenedor_carga.style.display = "none";
+        }))
     }
   }
 
@@ -188,16 +283,3 @@ export class EditarSliderComponent implements OnInit {
   }
 
 }
-
-
-/* array(9) {
-  ["fechaInicial"]=> string(24) "2023-02-20T08:00:00.000Z"
-  ["fechaFinal"]=> string(24) "2023-03-30T07:00:00.000Z"
-  ["imgVideo"]=> string(7) "mug.png"
-  ["cveLocal"]=> string(1) "2"
-  ["link"]=> string(3) "www"
-  ["posicion"]=> int(3)
-  ["idImgVideo"]=> string(3) "136"
-  ["posicion2"]=> string(1) "3"
-  ["formato"]=> string(5) "image"
-} */

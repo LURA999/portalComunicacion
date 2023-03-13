@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgNoticiaService } from 'src/app/core/services/subirImgvideo.service';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { concatMap, lastValueFrom, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { localService } from 'src/app/core/services/local.service';
@@ -34,11 +34,6 @@ export class NoticiaComponent implements OnInit {
     private serviceImgVideo : SubirImgNoticiaService,
     public route : Router,private local : localService,
     ) {
-     /* window.addEventListener("keypress", function(event){
-        if (event.keyCode == 13){
-            event.preventDefault();
-        }
-    }, false);*/
       this.$sub.add(this.local.todoLocal(2).subscribe(async (resp:ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
           this.localInterfaz.push({
@@ -107,16 +102,17 @@ export class NoticiaComponent implements OnInit {
       this.activar = true
       let intfz : imgVideoModel  = this.formImgVideo.value
       intfz.formato = this.formatoVideo
-      this.$sub.add(this.serviceImgVideo.subirImgVideo2(this.formData).subscribe(async (resp:ResponseInterfaceTs)=>{
-        intfz.dir = resp.container.directorio;
-        intfz.imgVideo = resp.container.nombre;
-        await lastValueFrom(this.serviceImgVideo.subirImgVideo(intfz,"imgVideoNoticia")).then(()=>{
-          this.route.navigate(['general/galeriaMulti-config'])
-          this.contenedor_carga.style.display = "none";
 
+      this.$sub.add(this.serviceImgVideo.subirImgVideo2(this.formData).pipe(
+        concatMap((resp:ResponseInterfaceTs) => {
+          intfz.dir = resp.container.directorio;
+          intfz.imgVideo = resp.container.nombre;
+          return this.serviceImgVideo.subirImgVideo(intfz,"imgVideoNoticia")
         })
+      ).subscribe(()=>{
+        this.route.navigate(['general/galeriaMulti-config'])
+          this.contenedor_carga.style.display = "none";
       }))
-
     }
   }
 

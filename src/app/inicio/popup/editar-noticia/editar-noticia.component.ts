@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { lastValueFrom, Subscription, Observable, concatMap, concat } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
@@ -57,9 +57,7 @@ export class EditarNoticiaComponent implements OnInit{
         }
       }))
      }
-
-
-
+     
   fecha1(fecha : Date){
     this.rango = fecha
   }
@@ -113,24 +111,48 @@ export class EditarNoticiaComponent implements OnInit{
     this.data.obj = this.formImgVideo.value;
     this.data.obj.idNoticia = id;
     this.data.obj.formato = formato;
+    let Observable : Observable<ResponseInterfaceTs>[] = [];
 
      //Se eliminara la anterior imagen, si esque se remplazo el actual
     if (this.nombreActualizadoImgVid === true) {
-      await lastValueFrom(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idNoticia),"imgVideoNoticia"))
-      //despues se actualizara la imagen nueva que eligio
-      let datos = await (await lastValueFrom(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideoNoticia"))).container;
-      this.data.obj.imgVideo = datos.nombre
-      this.data.obj.formato = datos.tipo
+
+      Observable.push(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idNoticia),"imgVideoNoticia"))
+      Observable.push(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideoNoticia"))
     }
 
-    //Si o si, se actualizaran los datos, aunque no se tenga una nueva imagen
-    await lastValueFrom(this.serviceImgVideo.actualizarImgVideo(this.data.obj,"imgVideoNoticia"))
+    Observable.push(this.serviceImgVideo.actualizarImgVideo(this.data.obj,"imgVideoNoticia"))
+    Observable.push(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",this.data.tipoNoticias,1,0,-1))
 
-    //al final se llaman todos los datos para llenar nuevamente la lista de imagenes
-    this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",this.data.tipoNoticias,1,0,-1).subscribe((resp:ResponseInterfaceTs) =>{
-      this.dialogRef.close(resp.container)
-      this.contenedor_carga.style.display = "none";
-    }))
+    if (Observable.length == 4) {
+      Observable[0].pipe(
+        concatMap(()=>{
+          return Observable[1].pipe(
+            concatMap((resp:ResponseInterfaceTs)=>{
+            this.data.obj.imgVideo = resp.container.nombre
+            this.data.obj.formato = resp.container.tipo
+            return Observable[2].pipe(
+              concatMap(() =>{
+                return Observable[3]
+              })
+            )
+          }))
+        })
+      ).subscribe((resp:ResponseInterfaceTs) =>{
+          this.dialogRef.close(resp.container)
+          this.contenedor_carga.style.display = "none";
+        })
+    }
+
+    if (Observable.length == 2) {
+      Observable[0].pipe(
+        concatMap(() =>{
+          return Observable[1]
+        })
+      ).subscribe((resp:ResponseInterfaceTs) =>{
+        this.dialogRef.close(resp.container)
+        this.contenedor_carga.style.display = "none";
+      })
+    }
     }
   }
 
