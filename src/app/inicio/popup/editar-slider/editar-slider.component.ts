@@ -198,7 +198,9 @@ export class EditarSliderComponent implements OnInit {
                   
                   if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
                     return Observable[2].pipe(concatMap(() =>
-                     Observable[3].pipe(concatMap(() => Observable[4]))))
+                     Observable[3].pipe(concatMap(() => Observable[4].pipe(
+                      concatMap(()=> Observable[5])
+                    )))))
                   }
                   return Observable[2]                  
                 }))
@@ -226,7 +228,8 @@ export class EditarSliderComponent implements OnInit {
               return Observable[0].pipe(
                 concatMap(() =>Observable[1].pipe(
                   concatMap(() => Observable[2].pipe(
-                    concatMap(() => Observable[3])
+                    concatMap(() => Observable[3]
+                    )
                   )
                   ))))
             }            

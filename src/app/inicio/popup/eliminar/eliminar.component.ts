@@ -40,7 +40,6 @@ export class EliminarComponent implements OnInit {
 
       switch (this.data.seccion.toString()) {
         case "foto/imagen":
-          this.contenedor_carga.style.display = "block";
 
           /*if (this.data.opc === true) {
             await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
@@ -121,6 +120,8 @@ export class EliminarComponent implements OnInit {
               ))
             ).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);
+              this.contenedor_carga.style.display = "none";
+
             })      
             
           break;
@@ -145,7 +146,6 @@ export class EliminarComponent implements OnInit {
           }))
           break;
         }
-        this.contenedor_carga.style.display = "none";
       }
   }
 
