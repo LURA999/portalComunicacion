@@ -66,7 +66,7 @@ h1 {
 
 #seccion3 {
     margin-top: 10%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
 }
 
 .alianza {
@@ -145,6 +145,10 @@ button {
     article {
         font-size: 2vw;
     }
+
+    #partSupSec5 article span {
+      font-size: 3vw;
+    }
 }
 
 @media (max-width: 600px){
@@ -160,6 +164,17 @@ button {
     .h1-s{
         font-size: 3.5vw;
     }
+
+    #letraspeques{
+      font-size: 95% !important;
+    }
+}
+
+@media (max-width: 500px){
+  #letraspeques {
+    font-size:  2vw !important;
+    line-height: normal;
+  }
 }
 
 @media (max-width: 300px){
@@ -185,7 +200,7 @@ button {
 .container {
     position: relative;
     max-width: max-content;
-    width: 100%;
+    width: 90%;
     display: inline-flex;
 }
 
@@ -245,7 +260,7 @@ button {
   background-color: #F4F4F4;
   height: 100%;
   position: relative;
-  height: 500px;
+  height: 380px;
   padding-top: 8%;
   padding-bottom: 7%;
 }
@@ -279,9 +294,13 @@ button {
 
 #aux {
   position: absolute;
-  bottom: 5%;
+  bottom: 10%;
   left: 0;
   right: 0;
+}
+
+#aux article {
+  font-size: 95%;
 }
 
 #partSupSec5 h1 {
@@ -289,6 +308,9 @@ button {
   line-height: 1;
 }
 
+#puntajeAraiza{
+  font-size: 450%;
+}
 
 @media(max-width:1790px){
     .container {
@@ -403,7 +425,10 @@ button {
 @media(max-width:450px){
   #partSupSec5 h1 {
     color: #3B5363;
-    line-height: 0;
+  }
+
+  #puntajeAraiza {
+    font-size: 300%;
   }
 
   button{
@@ -430,7 +455,6 @@ button {
 
   #partSupSec5 h1 {
       color: #3B5363;
-      line-height: 0;
       position: absolute;
       left: 0;
       right: 0;

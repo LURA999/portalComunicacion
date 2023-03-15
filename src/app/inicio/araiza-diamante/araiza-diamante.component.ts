@@ -147,6 +147,7 @@ export class AraizaDiamanteComponent implements OnInit {
 
 
   async submitForm(value : number) {
+    console.log(value)
     await lastValueFrom(this.dimService.araizaTarjeta(value.toString().padStart(10, '0'))).then((resp: respTarjeta[])=>{
       if (resp != null) {
         if (resp.length == 1) {

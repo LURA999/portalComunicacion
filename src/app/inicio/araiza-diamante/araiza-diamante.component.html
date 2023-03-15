@@ -46,7 +46,7 @@
     </div>
     <div id="seccion5">
       <div id="partSupSec5">
-      <h1>{{resp.puntos ===""?0: (+resp.puntos).toLocaleString('es-MX', opciones)}}</h1>
+      <h1 id="puntajeAraiza">{{resp.puntos ===""?0: (+resp.puntos).toLocaleString('es-MX', opciones)}}</h1>
       <article>
         <span>Consulta tu puntaje actual</span> <br>
         <span > <a href="https://araizahoteles.com/solicitud-de-recompensa?lang=es" class="color_primario"> ¿Deseas canjear los puntos?</a></span>
@@ -56,11 +56,12 @@
           <mat-label>Ingresa tu número de socio</mat-label>
           <input #inputTarj autocomplete="off" type="text"  name="search" matInput>
         </mat-form-field>
-        <button mat-raised-button (submit)="submitForm(+inputTarj.value)" id="btnSearch" color="primary">Enviar</button>
+        <button mat-raised-button (click)="submitForm(+inputTarj.value)" id="btnSearch" color="primary">Enviar</button>
       </form>
+      <br><br><br>
       </div>
         <span id="aux">
-          <article>
+          <article id="letraspeques">
             Para más información o consulta de tu número de socio, envía un correo a <br> <span class="color_primario">araizadiamante@araizahoteles.com</span>
           </article>
         </span>
