@@ -89,13 +89,13 @@ export class EliminarComponent implements OnInit {
               this.contenedor_carga.style.display = "none";
 
             })
-            
+
             /*  await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
               this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
                 this.dialogRef.close(await resp.container===undefined?[]:resp.container);
               }))
             } else {
-  
+
               await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
               let deleteSlide : dosParamInt = {
                 cveLocal: Number(this.data.obj.cveLocal),
@@ -104,8 +104,8 @@ export class EliminarComponent implements OnInit {
                 idS:0
               }
               await lastValueFrom(this.servImgVideo.eliminarPosicionTDSlide(deleteSlide));
-  
-  
+
+
               this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
                 this.dialogRef.close(await resp.container===undefined?[]:resp.container);
               }))
@@ -114,16 +114,16 @@ export class EliminarComponent implements OnInit {
 
           break;
         case "usuario":
-            this.servImgVideo.eliminarDirImgUsuario(this.data.id).pipe(
-              concatMap(()=> this.usService.deleteUser(Number(this.data.id.split("_")[0])).pipe(
+            this.servImgVideo.eliminarDirImgUsuario(this.data.img).pipe(
+              concatMap(()=> this.usService.deleteUser(Number(this.data.id)).pipe(
                 concatMap(()=> this.usService.selectAllusers(1))
               ))
             ).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);
               this.contenedor_carga.style.display = "none";
 
-            })      
-            
+            })
+
           break;
         case 'Comida':
           await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)))

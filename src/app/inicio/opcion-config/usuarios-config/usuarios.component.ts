@@ -167,11 +167,11 @@ export class UsuariosComponent implements OnInit {
      })
   }
 
-  borrar(usuario : string){    
+  borrar(idUsuario : string, img : string){
     let dialogRef = this.dialog.open(EliminarComponent, {
       height: 'auto',
       width: 'auto',
-      data: {id: usuario,seccion: "usuario"}
+      data: {id: idUsuario, img: img,seccion: "usuario"}
     });
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
