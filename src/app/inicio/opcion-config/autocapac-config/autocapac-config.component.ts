@@ -180,16 +180,16 @@ export class AutoCapacConfigComponente implements OnInit {
       width: 'auto',
       data: {id: usuario,seccion: "autocapacitacion"}
     });
-    dialogRef.afterClosed().subscribe(async (resp:any)=>{
-      if (resp !== undefined) {
-        if (resp.length > 0) {
+    dialogRef.afterClosed().subscribe(async (resp:ResponseInterfaceTs)=>{
+      if (Number(resp.status) == 200) {
+        if (resp.container.length > 0) {
           this.formBuscar.reset();
           this.formBuscar.patchValue({
             buscador : ""
           })
           this.cargando = false;
           this.ELEMENT_DATA = []
-          for await (const c of resp) {
+          for await (const c of resp.container) {
             this.ELEMENT_DATA.push({
               idAutoCap:c.idAutoCap,
               nombre:c.nombre,
@@ -205,6 +205,10 @@ export class AutoCapacConfigComponente implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.cargando = true;
         }
+      }else{
+        this.ELEMENT_DATA = []
+        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+
       }
      })
   }

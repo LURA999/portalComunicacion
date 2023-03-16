@@ -51,7 +51,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
     if (this.data.fecha !== undefined) {
       this.fechaMes = this.fb.group({
         fecha : [Number(this.data.fecha), Validators.required],
-        posicion : [this.data.posicion, Validators.required],
+        posicion : [Number(this.data.posicion), Validators.required],
         fechaInicio : [new Date(this.data.fechaInicio+"T00:00:00"), Validators.required],
         fechaFinal : [new Date(this.data.fechaFinal+"T00:00:00"), Validators.required]
       })

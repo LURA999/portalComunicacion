@@ -147,20 +147,26 @@ export class MenuConfigComponent implements OnInit {
       width: 'auto',
       data: {id: usuario,seccion: "Comida"}
     });
-    dialogRef.afterClosed().subscribe(async (resp:any)=>{
-      if (resp !== undefined) {
+    dialogRef.afterClosed().subscribe(async (resp:ResponseInterfaceTs)=>{
+      console.log(resp);
+
+      if (Number(resp.status) == 200) {
         this.paginator.firstPage();
-        if (resp.length > 0) {
+        if (resp.container.length > 0) {
           this.formBuscar.reset();
           this.cargando = false;
           this.ELEMENT_DATA = []
-          for await (const c of resp) {
+          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          for await (const c of resp.container) {
             this.ELEMENT_DATA.push(c)
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator = this.paginator;
           this.cargando = true;
         }
+      }else{
+        this.ELEMENT_DATA = []
+        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       }
      })
   }

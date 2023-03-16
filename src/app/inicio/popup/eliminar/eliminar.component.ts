@@ -129,14 +129,14 @@ export class EliminarComponent implements OnInit {
           break;
         case 'Comida':
           await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)))
-          this.$sub.add(this.usService.selectAllusers(1).subscribe(async (resp1:ResponseInterfaceTs) =>{
-            this.dialogRef.close(await resp1.container);
+          this.$sub.add(this.comidaServ.todoComida(0,1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.dialogRef.close(await resp1);
           }))
           break;
         case 'autocapacitacion':
             await lastValueFrom(this.autocap.eliminarAutocapacitacion(Number(this.data.id)))
             this.$sub.add(this.autocap.mostrarTodoAutocapacitacion(0).subscribe(async (resp1:ResponseInterfaceTs) =>{
-              this.dialogRef.close(await resp1.container);
+              this.dialogRef.close(await resp1);
             }))
           break;
         case 'fecha':
