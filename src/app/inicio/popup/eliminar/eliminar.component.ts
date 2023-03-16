@@ -36,10 +36,10 @@ export class EliminarComponent implements OnInit {
     if (eliminar === false) {
       this.dialogRef.close(eliminar);
     } else {
-      this.contenedor_carga.style.display = "block";
 
       switch (this.data.seccion.toString()) {
         case "foto/imagen":
+          this.contenedor_carga.style.display = "block";
 
           /*if (this.data.opc === true) {
             await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
@@ -114,6 +114,8 @@ export class EliminarComponent implements OnInit {
 
           break;
         case "usuario":
+          this.contenedor_carga.style.display = "block";
+
             this.servImgVideo.eliminarDirImgUsuario(this.data.img).pipe(
               concatMap(()=> this.usService.deleteUser(Number(this.data.id)).pipe(
                 concatMap(()=> this.usService.selectAllusers(1))

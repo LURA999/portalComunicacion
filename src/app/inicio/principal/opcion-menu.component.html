@@ -172,7 +172,7 @@
           </div>
 
           <div id="bt-autoc" *ngIf="$autoCapacObs  |  async as res  ">
-            <ng-container *ngIf="res.container != undefined  ; else elseTemplate">
+            <ng-container *ngIf="res.container != undefined && res.container.length >0 ; else elseTemplate">
               <button mat-raised-button class="bAuto" *ngFor="let i of res.container" (click)="enviarPagina(i.link)" color="primary">{{i.nombre}}</button>
             </ng-container>
             <ng-template #elseTemplate>
