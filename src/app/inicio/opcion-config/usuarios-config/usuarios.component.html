@@ -15,18 +15,18 @@
       </div>
       </form>
       <div id="matform-c">
-      <form class="cabecera" [formGroup]="formBuscar">
 
+      <form class="cabecera" [formGroup]="formBuscar">
       <mat-form-field appearance="outline">
         <mat-label>Seleccione la fecha inicial</mat-label>
-        <input matInput formControlName="fechaInicial" [matDatepicker]="picker" (dateChange)="buscador()">
+        <input matInput formControlName="fechaInicial" [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Seleccione la fecha final</mat-label>
-        <input matInput formControlName="fechaFinal" [matDatepicker]="picker2" (dateChange)="buscador()">
+        <input matInput formControlName="fechaFinal" [matDatepicker]="picker2">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
@@ -34,17 +34,37 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Seleccione la seccion</mat-label>
-        <mat-select formControlName="seccion" (selectionChange)="buscador()">
+        <mat-select formControlName="seccion">
           <mat-option *ngFor="let i of locales"  [value]="i.idLocal"> {{i.local}} </mat-option>
           <mat-option value="-1">Ninguno</mat-option>
         </mat-select>
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Visitantes</mat-label>
+        <mat-select formControlName="tipoVisita" >
+          <mat-option [value]="0"> Sin visitas </mat-option>
+          <mat-option [value]="1"> Con visitas </mat-option>
+          <mat-option [value]="2"> Todo </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="botonc">
+        <button  mat-raised-button color="primary" (click)="buscador()">
+          Aplicar
+        </button>
+      </div>
+      <div class="botonc">
+        <button  mat-raised-button color="primary" (click)="clear()">
+          Clear
+        </button>
+      </div>
+
       </form>
 
 
+
       </div>
-      <div id="botonc">
+      <div class="botonc">
         <button  mat-raised-button color="primary" (click)="agregar()">
           Agregar usuario
         </button>

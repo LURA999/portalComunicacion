@@ -22,7 +22,8 @@ export class UsuarioService {
   selectUser(obj: formBuscadorUsuario, op:number):Observable<ResponseInterfaceTs>{
     const datePipe = new DatePipe('en-US');
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?palabra='+obj.buscador+'&hotel='+(obj.seccion===null || obj.seccion===undefined || obj.seccion==="" ||
-    obj.seccion===-1 ?-1:obj.seccion)+'&fechaInicial='+(datePipe.transform(obj.fechaInicial, 'yyyy-MM-dd', 'UTC'))+'&fechaFinal='+(datePipe.transform(obj.fechaFinal, 'yyyy-MM-dd', 'UTC'))+'&op='+op);
+    obj.seccion===-1 ?-1:obj.seccion)+'&fechaInicial='+(datePipe.transform(obj.fechaInicial, 'yyyy-MM-dd', 'UTC'))+'&fechaFinal='+(datePipe.transform(obj.fechaFinal, 'yyyy-MM-dd', 'UTC'))+'&op='+op+
+    '&tipoVista='+obj.tipoVisita);
   }
 
   selectAllusers(op : number):Observable<ResponseInterfaceTs>{

@@ -21,8 +21,9 @@ mat-form-field, input {
 }
 
 mat-form-field {
-  width: 200px;
-  margin: 5px;
+  width: 144px;
+  margin: 9px;
+  font-size: 11px;
 }
 
 ::ng-deep span.mat-select-min-line {
@@ -33,16 +34,18 @@ mat-form-field {
   margin-top: auto;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 45px;
+}
+
+.cabecera .botonc {
+  margin-top: 8px;
 }
 
 button {
   margin: 5px;
   border-radius: 0;
   font-family: 'gotham-medium';
-}
-
-#botonc {
-  align-self: center;
+  font-size: 11px;
 }
 
 .container-user {
@@ -107,17 +110,18 @@ div#matform-c {
   }
 }
 
-@media(max-width:960px) {
+@media(max-width:1610px) {
   .cabecera{
     display: grid;
+    margin-bottom: 0px;
   }
 
   mat-form-field{
     width: 100%;
   }
-  
+
   div#matform-c {
     margin-bottom: 0px;
   }
  }
- 
+

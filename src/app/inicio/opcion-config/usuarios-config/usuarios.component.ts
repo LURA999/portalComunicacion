@@ -45,8 +45,10 @@ export interface usuarios {
 export interface formBuscadorUsuario {
   seccion : number | string;
   buscador : string;
+  tipoVisita? : number;
   fechaInicial? : Date | string;
   fechaFinal? : Date | string;
+
 }
 
 @Component({
@@ -73,7 +75,8 @@ export class UsuariosComponent implements OnInit {
     seccion : "",
     buscador : "",
     fechaInicial : "",
-    fechaFinal : ""
+    fechaFinal : "",
+    tipoVisita : -1
   })
 
   ngOnInit(): void {
@@ -215,6 +218,10 @@ export class UsuariosComponent implements OnInit {
       }
     }))
 
+  }
+
+  async clear(){
+    this.formBuscar.reset();
   }
 
   hayElementos() : boolean{
