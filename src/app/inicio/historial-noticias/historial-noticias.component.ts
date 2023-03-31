@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs';
 
 @Component({
   selector: 'app-historial-noticias',
@@ -115,6 +115,19 @@ export class HistorialNoticiasComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(src);
 
   }
+
+  recursoUrlStr(src : string, categ : number, n : number, sec :boolean) : Observable<string> {
+    if (n > 0 ) {
+      if (categ == 1) {
+        return from([this.api+'imgVideo/galeria-noticia/fotos/'+src]);
+      } else {
+        return from([this.api+'imgVideo/galeria-noticia/videos/'+src]);
+      }
+    }
+    return from([src]);
+
+  }
+
 
   routerLink(){
     this.route.navigate(["/general/"+this.luaStr]);

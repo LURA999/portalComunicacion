@@ -20,7 +20,7 @@ export class ComidaFormComponent implements OnInit {
     formComida : FormGroup = this.fb.group({
       fecha : ['', Validators.required],
       nombre : ['', Validators.required],
-      descripcion : [ '' , Validators.required],
+      descripcion : [ ''],
       cveLocal : [ '' , Validators.required]
     })
     contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
@@ -40,7 +40,7 @@ export class ComidaFormComponent implements OnInit {
       this.formComida = this.fb.group({
         fecha : [new Date(this.data.fecha+"T00:00:00"), Validators.required],
         nombre : [this.data.nombre, Validators.required],
-        descripcion : [ this.data.descripcion , Validators.required],
+        descripcion : [ this.data.descripcion],
         cveLocal : [ this.data.cveLocal , Validators.required]
       })
       this.modalidad = false;

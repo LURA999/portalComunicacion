@@ -163,15 +163,15 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.render.setStyle(document.getElementsByClassName("opc")[1],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
             break;
-          case "palmira":
+          case "hermosillo":
             this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
             this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
             break;
-          case "hermosillo":
+          case "palmira":
             this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
             this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[8],"color","#ffba60")
             break;
           case "slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
@@ -216,12 +216,12 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.render.setStyle(document.getElementsByClassName("opc")[1],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
             break;
-          case "/general/palmira":
+          case "/general/hermosillo":
             this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
             this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
             break;
-          case "/general/hermosillo":
+          case "/general/palmira":
             this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
             this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")

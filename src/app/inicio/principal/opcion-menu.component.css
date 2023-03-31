@@ -84,6 +84,7 @@ h3 {
   font-size: 15px  ;
   word-break: break-word;
 }
+
 .container-autoc {
   display: flex;
   padding-left: 10%;
@@ -195,11 +196,6 @@ border-bottom: 1px solid black;
 user-select: none;
 }
 
-#container-not2 {
-margin-left:10%;
-margin-right:10%;
-}
-
 
 .leerMas {
 color: #DC994D;
@@ -246,8 +242,12 @@ margin-top: 20px;
 overflow-x: auto;
 }
 
-#container-notice{
+#container-notice2{
 width: fit-content;
+}
+
+#container-notice{
+  width: 80%;
 }
 
 /*Beneficios*/
@@ -330,6 +330,7 @@ margin-top: 0px;
 overflow-y: auto;
 height: 100px;
 word-break: break-word;
+font-family: 'gotham-medium';
 }
 
 
@@ -395,7 +396,8 @@ word-break: break-word;
 
 
 @media(max-width:1285px){
-#container-notice {
+#container-notice2 {
+  width: auto;
   margin-left: 30px;
   margin-right: 30px;
 }
@@ -593,7 +595,7 @@ mat-card  {
     display: block;
   }
 
-  .container-autoc #texto {
+  .container-autoc .texto {
     text-align: justify;
 
     width: auto;

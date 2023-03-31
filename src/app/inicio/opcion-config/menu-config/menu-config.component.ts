@@ -194,10 +194,13 @@ export class MenuConfigComponent implements OnInit {
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
+          this.dataSource.paginator.firstPage();
           this.cargando = true;
         }else{
           this.ELEMENT_DATA = [];
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          this.dataSource.paginator =  this.paginator;
+          this.dataSource.paginator.firstPage();
         }
       }))
     }else {
@@ -210,10 +213,14 @@ export class MenuConfigComponent implements OnInit {
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.dataSource.paginator =  this.paginator;
+          this.dataSource.paginator =  this.paginator;
+          this.dataSource.paginator.firstPage();
           this.cargando = true;
         }else{
           this.ELEMENT_DATA = [];
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          this.dataSource.paginator =  this.paginator;
+          this.dataSource.paginator.firstPage();
         }
       }))
     }

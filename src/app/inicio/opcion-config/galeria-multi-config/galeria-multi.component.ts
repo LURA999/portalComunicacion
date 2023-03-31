@@ -11,7 +11,7 @@ import { EditarNoticiaComponent } from '../../popup/editar-noticia/editar-notici
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs';
 
 
 @Component({
@@ -429,6 +429,25 @@ export class GaleriaMultiComponent implements OnInit {
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-slide/fotos/"+src);
       } else {
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-slide/videos/"+src);
+      }
+    }
+  }
+
+
+  recursoUrlStr(src : string, categoria:boolean, tipo:boolean) : Observable<string> {
+
+    if(categoria === false){
+      /* if (tipo === false) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-noticia/fotos/"+src);
+      } else {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-noticia/videos/"+src);
+      } */
+      return from([''])
+    }else{
+      if (tipo === false) {
+        return from([this.api+"imgVideo/galeria-slide/fotos/"+src]);
+      } else {
+        return from([this.api+"imgVideo/galeria-slide/videos/"+src]);
       }
     }
   }

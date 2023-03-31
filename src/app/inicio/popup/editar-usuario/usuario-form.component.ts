@@ -35,15 +35,15 @@ export class UsuarioFormComponent implements OnInit {
   formUsuario : FormGroup = this.fb.group({
     usuario : ["", Validators.required ],
     apellidoPaterno : ["", Validators.required ],
-    apellidoMaterno : ["", Validators.required ],
+    apellidoMaterno : ["" ],
     correo : ["", Validators.required ],
     cveLocal : ["", Validators.required ],
     cveRol: [ "" , Validators.required ],
     nombres: [ "", Validators.required ],
     contrasena: [ '' ],
     img : [ '' ],
-    fechaNacimiento: [ '' , Validators.required],
-    fechaIngreso: [ '' , Validators.required ],
+    fechaNacimiento: [ '' ],
+    fechaIngreso: [ ''  ],
     departamento: [ '' , Validators.required ],
     contrato: [ '' , Validators.required ]
   })
@@ -59,15 +59,15 @@ export class UsuarioFormComponent implements OnInit {
       this.formUsuario = this.fb.group({
         usuario : [this.data!.usuario, Validators.required],
         apellidoPaterno : [this.data!.apellidoPaterno, Validators.required],
-        apellidoMaterno : [this.data!.apellidoMaterno, Validators.required],
+        apellidoMaterno : [this.data!.apellidoMaterno],
         correo : [this.data!.correo, Validators.required],
         cveLocal : [Number(this.data!.cveLocal), Validators.required],
         cveRol: [ Number(this.data!.cveRol) , Validators.required],
         nombres: [ this.data!.nombres, Validators.required],
         contrasena: [ '' ],
         img : [ this.data!.img ],
-        fechaNacimiento: [ new Date(this.data!.fechaNacimiento+"T00:00:00"), Validators.required],
-        fechaIngreso: [  new Date(this.data!.fechaIngreso+"T00:00:00") , Validators.required ],
+        fechaNacimiento: [ new Date(this.data!.fechaNacimiento+"T00:00:00") ],
+        fechaIngreso: [  new Date(this.data!.fechaIngreso+"T00:00:00") ],
         departamento: [ this.data!.departamento , Validators.required ],
         contrato: [ Number(this.data?.contrato) , Validators.required ]
       })
@@ -203,7 +203,7 @@ export class UsuarioFormComponent implements OnInit {
       Observable.push(this.usService.selectAllusers(1))
 
 
-      if (Observable.length === 3) {        
+      if (Observable.length === 3) {
         this.$sub.add(Observable[0].pipe(
         concatMap(() => Observable[1].pipe(
           concatMap(() => Observable[2])
@@ -213,12 +213,12 @@ export class UsuarioFormComponent implements OnInit {
         }))
       }
 
-      if( Observable.length === 5) {        
+      if( Observable.length === 5) {
         this.$sub.add(Observable[0].pipe(
           concatMap(()=> Observable[1]),
           concatMap(() => Observable[2].pipe(
             concatMap((r2:ResponseInterfaceTs)=>{
-              this.data!.img = r2.container.nombre              
+              this.data!.img = r2.container.nombre
               return Observable[3]
             }),
             concatMap(() => {
@@ -240,13 +240,13 @@ export class UsuarioFormComponent implements OnInit {
           this.data!.img = '';
         }
         this.$sub.add(Observable[0].pipe(
-          concatMap(() => Observable[1]) 
+          concatMap(() => Observable[1])
           ).subscribe(async (resp:ResponseInterfaceTs)=>{
             this.dialogRef.close(await resp.container);
             this.contenedor_carga.style.display = "none";
           }))
         }
-      
+
     }else{
       alert("El numero de usuario que desea actualizar, no se encuentra disponible")
     }

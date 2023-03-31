@@ -37,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
-    NgbModule,
+    NgbModule
+
   ],
   exports: [ ],
   bootstrap: [ AppComponent ],

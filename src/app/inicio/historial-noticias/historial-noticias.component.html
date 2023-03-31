@@ -43,13 +43,16 @@
         <div class="img-card">
           <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
             <img
-            [src]=" recursoUrl( noticias.length == 0?  i.imgVideo : i.imgVideo,1,1,false)"
+            [lazyLoad]=" (recursoUrlStr( noticias.length == 0?  i.imgVideo : i.imgVideo,1,1,false) | async)!.toString()"
+            src="../../../assets/img/pruebas/loading-noticia.gif"
             class="d-block w-100"
             loading="lazy" />
           </ng-container>
           <ng-template  #elseTemplate>
               <video height="100%" width="100%" loop  controls  >
-                <source [src]="recursoUrl(i.imgVideo,2,1,false)">
+                <source
+                 [lazyLoad]=" (recursoUrlStr( i.imgVideo,2,1,false) | async)!.toString()"
+                 src="../../../assets/img/pruebas/loading-noticia.gif">
               </video>
           </ng-template>
         </div>

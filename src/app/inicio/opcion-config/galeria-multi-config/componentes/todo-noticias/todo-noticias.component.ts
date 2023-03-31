@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { EditarNoticiaComponent } from 'src/app/inicio/popup/editar-noticia/editar-noticia.component';
 import { EliminarComponent } from 'src/app/inicio/popup/eliminar/eliminar.component';
@@ -160,4 +160,14 @@ export class TodoNoticiasComponent implements OnInit {
       })
     }
   }
+
+
+  recursoUrlStr(src : string, categoria:boolean, tipo:boolean) : Observable<string> {
+    if (tipo === false) {
+      return from([this.api+"imgVideo/galeria-noticia/fotos/"+src]);
+    } else {
+      return  from([this.api+"imgVideo/galeria-noticia/videos/"+src]);
+    }
+  }
+
 }

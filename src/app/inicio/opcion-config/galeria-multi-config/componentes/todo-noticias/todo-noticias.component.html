@@ -7,12 +7,14 @@
                 <div *ngFor="let i of arrayVidImgGeneralN">
                 <div class="limite">
                   <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
-                    <img
-                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                    <img [alt]="i.imgVideo"
+                  [lazyLoad]=" (recursoUrlStr(i.imgVideo,false,false) | async)!.toString()"
+                    src="../../../../../../assets/img/pruebas/loading-noticia.gif">
                   </ng-container>
                   <ng-template #elseTemplate>
                     <video [currentTime]="1"  controls  >
-                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                      <source
+                      [src]="recursoUrlStr(i.imgVideo,false,true)" >
                     </video>
                   </ng-template>
                     <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -28,11 +30,12 @@
                 <div class="limite">
                   <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                     <img
-                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                    [lazyLoad]=" (recursoUrlStr(i.imgVideo,false,false) | async)!.toString()"
+                    src="../../../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
                   </ng-container>
                   <ng-template #elseTemplate>
                     <video [currentTime]="1"  controls  >
-                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                      <source  [src]="recursoUrl(i.imgVideo,false,true)" >
                     </video>
                   </ng-template>
                   <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -48,7 +51,8 @@
                 <div class="limite">
                   <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                     <img
-                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                    [lazyLoad]=" (recursoUrlStr(i.imgVideo,false,false) | async)!.toString()"
+                    src="../../../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
                   </ng-container>
                   <ng-template #elseTemplate>
                     <video [currentTime]="1"  controls  >
@@ -68,11 +72,12 @@
                 <div class="limite">
                   <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                     <img
-                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                    [lazyLoad]=" (recursoUrlStr(i.imgVideo,false,false) | async)!.toString()"
+                    src="../../../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
                   </ng-container>
                   <ng-template #elseTemplate>
                     <video [currentTime]="1"  controls  >
-                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                      <source [src]="recursoUrlStr(i.imgVideo,false,true)">
                     </video>
                   </ng-template>
                     <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -89,11 +94,12 @@
                 <div class="limite">
                   <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                     <img
-                  [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                    [lazyLoad]=" (recursoUrlStr(i.imgVideo,false,false) | async)!.toString()"
+                    src="../../../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
                   </ng-container>
                   <ng-template #elseTemplate>
                     <video [currentTime]="1"  controls  >
-                      <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                      <source [src]="recursoUrlStr(i.imgVideo,false,true)" >
                     </video>
                   </ng-template>
                     <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -110,11 +116,12 @@
                     <div class="limite">
                       <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                         <img
-                      [src]="recursoUrl(i.imgVideo,false,false)" [alt]="i.imgVideo">
+                        [lazyLoad]=" (recursoUrlStr(i.imgVideo,false,false) | async)!.toString()"
+                        src="../../../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
                       </ng-container>
                       <ng-template #elseTemplate>
                         <video [currentTime]="1"  controls  >
-                          <source [src]="recursoUrl(i.imgVideo,false,true)" >
+                          <source [src]="recursoUrlStr(i.imgVideo,false,true)" >
                         </video>
                       </ng-template>
                         <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>

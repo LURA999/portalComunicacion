@@ -14,12 +14,10 @@ import { SliderComponent } from './componentes/slider/slider.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { AraizaDiamanteComponent } from './araiza-diamante/araiza-diamante.component';
 import { RecargarDirective } from '../directives/recargar.directive';
-import { CarouselModule } from '@coreui/angular';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { EliminarComponent } from './popup/eliminar/eliminar.component';
 import { EditarSliderComponent } from './popup/editar-slider/editar-slider.component';
 import { EditarNoticiaComponent }from './popup/editar-noticia/editar-noticia.component';
-import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { HttpClientModule } from '@angular/common/http';
 import { ImageComponent } from './image/image.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -39,7 +37,8 @@ import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/auto
 import { EditarAutocapacComponent } from './popup/editar-autocapac/editar-autocapac.component';
 import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 import { TodoNoticiasComponent } from './opcion-config/galeria-multi-config/componentes/todo-noticias/todo-noticias.component';
-
+import { LazyLoadImageModule } from "ng-lazyload-image";
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -79,12 +78,11 @@ import { TodoNoticiasComponent } from './opcion-config/galeria-multi-config/comp
     SharedModule,
     InicioRoutingModule,
     NgImageSliderModule,
-    CarouselModule,
     NgImageSliderModule,
-    IvyCarouselModule,
     NgbModule,
     CustomMaterialModule,
-
+    LazyLoadImageModule,
+    SlickCarouselModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}

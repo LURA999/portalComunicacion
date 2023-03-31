@@ -168,10 +168,6 @@ img {
   user-select: none;
   }
 
-  #container-not2 {
-  margin-left:10%;
-  margin-right:10%;
-  }
 
   #seccion4-notice h2 {
     letter-spacing: 0px;
@@ -210,10 +206,13 @@ img {
   overflow-x: auto;
   }
 
-  #container-notice{
-  width: fit-content;
-  }
+  #container-notice2{
+    width: fit-content;
+    }
 
+  #container-notice{
+    width: 80%;
+  }
 
   @media(max-width:820px){
   .noticia{
@@ -267,9 +266,13 @@ img {
   }
 
 
+  .lista-noticias span {
+    font-family: 'gotham-bold';
+}
 
 @media(max-width:1285px){
-  #container-notice {
+  #container-notice2 {
+    width: auto;
     margin-left: 30px;
     margin-right: 30px;
   }

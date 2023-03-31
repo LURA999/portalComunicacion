@@ -5,7 +5,7 @@ import { SubirImgVideoService } from '../core/services/img-video.service';
 import { imgVideoModel } from '../interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from '../interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class InicioComponent implements OnInit {
   gInterval : any
   gTimeOut : any
   posicionOrg : number =1;
-  imageObject: imageObject[] = [];
+  imageObject: imageObject []| undefined  = undefined;
   imageObjectRemplazo: imageObject[] = [];
   cortar : boolean [] = [false,false,false,false]
   $sub : Subscription = new Subscription()
@@ -114,6 +114,25 @@ export class InicioComponent implements OnInit {
   }
 
 
+  recursoUrlStr(src : string, categ : number, n : number, sec :boolean) : Observable<string>{
+    if (n > 0 ) {
+      if (sec === false ) {
+        if (categ == 1) {
+          return from([this.api+'imgVideo/galeria-noticia/fotos/'+src]);
+        } else {
+          return from([this.api+'imgVideo/galeria-noticia/videos/'+src]);
+        }
+      } else {
+        if (categ == 1) {
+          return  from([this.api+'imgVideo/galeria-slide/fotos/'+src]);
+        } else {
+          return from([this.api+'imgVideo/galeria-slide/videos/'+src]);
+        }
+      }
+    }
+    return from([src]);
+
+  }
 
   recursoUrl(src : string, categ : number, n : number, sec :boolean) : SafeResourceUrl {
     if (n > 0 ) {

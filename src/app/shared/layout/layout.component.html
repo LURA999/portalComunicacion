@@ -50,16 +50,6 @@
               </ul>
             </div>
             <div class="btn-group">
-              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
-                  Palmira
-              </div>
-              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','palmira')">
-                  <li>
-                      Reservar
-                  </li>
-              </ul>
-            </div>
-            <div class="btn-group">
               <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
                   Hermosillo
               </div>
@@ -69,6 +59,17 @@
                   </li>
               </ul>
           </div>
+            <div class="btn-group">
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
+                  Palmira
+              </div>
+              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','palmira')">
+                  <li>
+                      Reservar
+                  </li>
+              </ul>
+            </div>
+
           <div class="opc logout" [hidden]="isAdminPortal" (click)="portal('/general/slider-config')">
             <mat-icon>settings</mat-icon>
           </div>
@@ -117,24 +118,27 @@
                 <a mat-list-item class="menu-opc"(click)="navegarNavH('/general/bookings','sanLuis')" routerLinkActive="active" mat-line>
                   Reservar</a>
                 </mat-expansion-panel>
-                <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(4)">
-                <mat-expansion-panel-header #panelH4>
-                <a mat-list-item class="menu-opc"  (click)="panelH4._toggle()" (click)="navegarNavH('/general/palmira')">
+
+                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(4)">
+                  <mat-expansion-panel-header #panelH4 >
+                  <a mat-list-item class="menu-opc"  (click)="panelH4._toggle()" (click)="navegarNavH('/general/hermosillo')">
+                    Hermosillo
+                  </a>
+                  </mat-expansion-panel-header>
+                  <a mat-list-item (click)="navegarNavH('/general/bookings','hermosillo')" routerLinkActive="active" mat-line>
+                    Reservar</a>
+                  </mat-expansion-panel>
+
+                <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(5)">
+                <mat-expansion-panel-header #panelH5>
+                <a mat-list-item class="menu-opc"  (click)="panelH5._toggle()" (click)="navegarNavH('/general/palmira')">
                    Palmira
                 </a>
                 </mat-expansion-panel-header>
                 <a mat-list-item class="menu-opc" (click)="navegarNavH('/general/bookings','palmira')" routerLinkActive="active" mat-line>
                   Reservar</a>
                 </mat-expansion-panel>
-                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(5)">
-                <mat-expansion-panel-header #panelH5 >
-                <a mat-list-item class="menu-opc"  (click)="panelH5._toggle()" (click)="navegarNavH('/general/hermosillo')">
-                  Hermosillo
-                </a>
-                </mat-expansion-panel-header>
-                <a mat-list-item (click)="navegarNavH('/general/bookings','hermosillo')" routerLinkActive="active" mat-line>
-                  Reservar</a>
-                </mat-expansion-panel>
+
                 <a mat-list-item class="logout"  (click)="salir()" routerLinkActive="active">
                   <mat-icon mat-list-icon>
                   exit_to_app

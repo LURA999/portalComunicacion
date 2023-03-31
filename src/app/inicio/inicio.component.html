@@ -1,21 +1,25 @@
 
 <div class="container-p">
-  <ngb-carousel *ngIf="imageObject.length == 0? imageObjectRemplazo : imageObject">
-    <ng-template ngbSlide *ngFor="let slide of imageObject.length == 0? imageObjectRemplazo : imageObject">
+  <ngb-carousel *ngIf="imageObject == undefined? imageObjectRemplazo : imageObject">
+    <ng-template ngbSlide *ngFor="let slide of imageObject == undefined? imageObjectRemplazo : imageObject">
       <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
-        <img width="100%" [style.cursor]="slide.link==='' || slide.link=== null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
-        [src]=" recursoUrl( imageObject.length == 0?  slide.src : slide.src, 1,imageObject.length,true)"/>
+        <img
+        [src]="link+'assets/img/pruebas/loading-banner.png'"
+        [lazyLoad]="(recursoUrlStr( slide.src, 1, 1,true) | async)!.toString()"
+        width="100%"  [style.cursor]="slide.link==='' || slide.link=== null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
+        />
       </ng-container>
       <ng-template  #elseTemplate>
         <div style="background-color: rgb(184, 184, 184);">
           <video loop muted autoplay oncanplay="this.play()"
           onloadedmetadata="this.muted = true"  width="100%"  >
-            <source [src]="recursoUrl(slide.src, 2,imageObject.length,true)" >
+            <source [src]="recursoUrl(slide.src, 2,imageObject == undefined? 0: 1,true)" >
           </video>
         </div>
       </ng-template>
     </ng-template>
   </ngb-carousel>
+
 
     <div class="container-article">
         <div class="article">
@@ -37,42 +41,31 @@
             <img id="imgHidden2" [src]="this.link+'assets/img/img-general/estudiante1.png'" alt="imagen estudiante">
           </div>
           <article>
-          ¿Te interesa crecer de manera profesional? No te piedas los tutoriales que Hotel Araiza ha preparado para ti con enfoque a distantas áreas.
+          ¿Te interesa crecer de manera profesional? No te pierdas los tutoriales que Hotel Araiza ha preparado para ti con enfoque a distintas áreas.
           </article>
           <br><button id="botonTuto" mat-raised-button disabled="true" color="primary">Próximamente</button>
         </div>
       </div>
       <div id="seccion4-notice">
         <h2 >NOTICIAS</h2>
-        <article>¡No te pierdas las novedades de lo que sucede en el hotel!</article>
-          <!-- Esto es para las diferentes cabeceras posibles de noticias -->
-          <div id="container-not2" *ngIf="noticias.length < 4 && noticias.length > 0">
+      <article>¡No te pierdas las novedades de lo que sucede en el hotel!</article>
+        <!-- Esto es para las diferentes cabeceras posibles de noticias -->
+        <ng-container *ngIf="noticias.length > 0; else elseTemplate">
+          <ng-container *ngIf="noticias.length == 4">
+            <div id="container-notice2" >
 
-            <div id="opciones-not">
-              <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
-            </div>
-            <hr>
-          </div>
-
-          <div id="container-notice" >
-              <div id="container-not1" *ngIf="noticias.length == 4" >
                 <div id="opciones-not">
                   <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
                 </div>
                 <hr>
-              </div>
-            <ng-container *ngIf="noticias.length > 0; else elseTemplate">
               <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
                 <mat-card [style.margin-left]="(x<cortar.length && x>0?'55px':'0px')" class="noticia">
-                  <mat-card-header>
-                    <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
-                  </mat-card-header>
-                  <div class="container-matCard">
+                 <div class="container-matCard">
                   <div class="img-card">
-                    <!-- <img mat-card-image [src]="recursoUrl('http://localhost/portalComunicacion/API/imgVideo/galeria-noticia/fotos/'+i.imgVideo)" [alt]="i.imgVideo">-->
                     <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                       <img
-                      [src]=" recursoUrl( imageObject.length == 0?  i.imgVideo : i.imgVideo,1,1,false)"
+                      [lazyLoad]=" (recursoUrlStr( imageObject == undefined?  i.imgVideo : i.imgVideo,1,1,false) | async)!.toString()"
+                      [src]="link+'assets/img/pruebas/loading-noticia.gif'"
                       class="d-block w-100"
                       loading="lazy" />
                     </ng-container>
@@ -87,50 +80,73 @@
                     <h3>{{i.titulo}}</h3>
                       <div class="texto">
                         {{i.descripcion!}}
-                        <!-- {{cortarTexto(i.descripcion!.toString(), cortar[x], x)}} -->
                         <br>
                         <br>
-                        <!-- <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="leerMas">Leer mas... </span>
-                        <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="leerMas">Leer menos... </span> -->
+                         <span (click)="irLink(i.link)" class="leerMas">Leer mas... </span>
+                      </div>
+                  </mat-card-content>
+                  </div>
+                  </mat-card>
+            </div>
+          </div>
+          </ng-container>
+          <ng-container *ngIf="noticias.length < 4">
+
+            <div id="container-notice" >
+
+              <div id="container-not2" *ngIf="noticias.length < 4 && noticias.length > 0">
+                <div id="opciones-not">
+                  <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+                </div>
+                <hr>
+              </div>
+              <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
+                <mat-card [style.margin-left]="(x<cortar.length && x>0?'55px':'0px')" class="noticia">
+
+                  <div class="container-matCard">
+                  <div class="img-card">
+                    <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
+                      <img
+                      [lazyLoad]=" (recursoUrlStr( imageObject == undefined?  i.imgVideo : i.imgVideo,1,1,false) | async)!.toString()"
+                      [src]="link+'assets/img/pruebas/loading-noticia.gif'"
+                      class="d-block w-100"
+                      loading="lazy" />
+                    </ng-container>
+                    <ng-template  #elseTemplate>
+                        <video height="100%" width="100%" loop  controls  >
+                          <source [src]="recursoUrl(i.imgVideo,2,1,false)">
+                        </video>
+                    </ng-template>
+                  </div>
+                  <mat-card-content>
+                    <span class="fecha">{{dateNormal(i.fechaInicial)}}</span>
+                    <h3>{{i.titulo}}</h3>
+                      <div class="texto">
+                        {{i.descripcion!}}
+                        <br>
+                        <br>
                         <span (click)="irLink(i.link)" class="leerMas">Leer mas... </span>
                       </div>
                   </mat-card-content>
                   </div>
                   </mat-card>
             </div>
-            </ng-container>
-            <ng-template #elseTemplate>
-              <div >
-                <div id="opciones-not">
-                  <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
-                </div>
-                <hr>
-              </div>
-                <div class="lista-noticias" *ngFor="let item of cortar;  let x=index">
-
-                  <mat-card [style.margin-left]="(x<cortar.length && x>0?'55px':'0px')" class='noticia'>
-                    <mat-card-header>
-                     <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
-                    </mat-card-header>
-                    <div class="container-matCard">
-                    <div class="img-card">
-                      <img mat-card-image [src]="this.link+'assets/img/pruebas/image.png'" alt="Photo of a Shiba Inu">
-                    </div>
-                    <mat-card-content>
-                      <span class="fecha">oct 4. 2020</span>
-                      <h3>Mes del cancer de mama</h3>
-                      <div>
-                        Este mes de octubre Hotel Araiza se une a la lucha contra el cáncer de mama, no olvides portar tu listón rosa durante todo el mes.
-                        <br>
-                        <br>
-                        <span class="leerMas">Leer mas... </span>
-                      </div>
-                    </mat-card-content>
-                    </div>
-                   </mat-card>
-                </div>
-            </ng-template>
           </div>
+          </ng-container>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <div id="container-notice" >
+            <div >
+              <div id="opciones-not">
+                <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+              </div>
+              <hr>
+            </div>
+              <div class="lista-noticias">
+                <span>No Hay noticias</span>
+              </div>
+            </div>
+          </ng-template>
         </div>
     </div>
 

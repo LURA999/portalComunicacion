@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  api: "http://localhost/portalComunicacion/API/",
+  //api: "http://localhost/portalComunicacion/API/",
+  api: "https://www.comunicadosaraiza.com/portal_api/API/",
   production: false
 };
 

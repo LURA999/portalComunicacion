@@ -24,14 +24,12 @@ export class SubirImgVideoService {
 
   subirImgVideo(obj : imgVideoModel,arch : string, actualizar:boolean) : Observable <ResponseInterfaceTs> {
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    headers.append('Access-Control-Allow-Origin', '*');
     return this.http.post<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?act="+actualizar,obj, {headers} );
   }
 
   subirImgVideo2(obj : FormData, arch : string, x? : number) : Observable <ResponseInterfaceTs> {
       let headers = new HttpHeaders()
-      headers.append('Access-Control-Allow-Origin', '*');
-      headers.append('Content-Type', 'application/json');
+        headers.append('Content-Type', 'application/json');
       headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       headers.append('Content-Type', 'video/mp4');
       headers.append('Content-Type', 'video/avi');
@@ -47,7 +45,6 @@ export class SubirImgVideoService {
 
   actualizarImgVideo(obj : any,arch : string) : Observable <ResponseInterfaceTs>{
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    headers.append('Access-Control-Allow-Origin', '*');
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php",obj, {headers} );
   }
 
@@ -61,13 +58,11 @@ export class SubirImgVideoService {
 
   actualizarPosicionTUSlide(obj:dosParamInt){
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    headers.append('Access-Control-Allow-Origin', '*');
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posTU=true",obj, {headers} );
   }
 
   actualizarPosicionTUVSlide(obj:any){
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    headers.append('Access-Control-Allow-Origin', '*');
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?postTUV=true",obj, {headers} );
   }
 
@@ -77,20 +72,17 @@ export class SubirImgVideoService {
 
   actualizarPosicionUSlide(obj:dosParamInt){
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    headers.append('Access-Control-Allow-Origin', '*');
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posU=true",obj, {headers} );
   }
 
   actualizarPosicionUCSlide(obj:dosParamInt){
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    headers.append('Access-Control-Allow-Origin', '*');
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?posUC=true",obj, {headers} );
   }
 
   //fotos de usuarios
   subirImgUsuario(obj : FormData) :Observable <ResponseInterfaceTs> {
     let headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
   return this.http.post<ResponseInterfaceTs>(this.local+"Users/img.php", obj, {headers})
@@ -102,7 +94,6 @@ export class SubirImgVideoService {
 
   actualizarImgUsuario(id: string) : Observable <ResponseInterfaceTs>{
     let headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
@@ -111,7 +102,6 @@ export class SubirImgVideoService {
 
   renombrarImgUsuario(obj :actNomImgVideo) : Observable <ResponseInterfaceTs>{
     let headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
     return this.http.patch<ResponseInterfaceTs>(this.local+"Users/img.php?imgn=true",{obj},{headers});
   }

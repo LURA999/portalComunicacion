@@ -24,7 +24,6 @@ export class SubirImgNoticiaService {
 
   subirImgVideo2(obj : FormData) :Observable <ResponseInterfaceTs> {
     let headers = new HttpHeaders()
-    headers.append('Access-Control-Allow-Origin', '*');
       headers.append('Content-Type', 'application/json');
       headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       headers.append('Content-Type', 'video/mp4');

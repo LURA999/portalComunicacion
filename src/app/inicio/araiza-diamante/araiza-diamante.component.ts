@@ -5,7 +5,7 @@ import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { localService } from 'src/app/core/services/local.service';
-import { Observable, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { araizaDiamante } from 'src/app/core/services/araizaDiamante.service';
 
@@ -22,9 +22,11 @@ interface formData {
 
 export interface carrusel_mini {
   logo : string;
-  nombre : string;
-  descuento : string;
+  nombre? : string;
+  descuento? : string;
 }
+
+
 
 @Component({
   selector: 'app-araiza-diamante',
@@ -35,14 +37,12 @@ export interface carrusel_mini {
 export class AraizaDiamanteComponent implements OnInit {
    link : string =  environment.production === true ? "": "../../../";
    private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
-   alianzas : boolean = false;
    alianzasArray : any[] = [];
   _mobileQueryListener!: () => void;
   width : number =0
-  $data: Observable<any> | undefined ;
   @ViewChild("inputTarj") form! :HTMLInputElement
    opciones = { useGrouping: true  };
-
+   carrusel_mini : Array<string> = []
   formData : formData= {
     search: ''
   };
@@ -55,33 +55,22 @@ export class AraizaDiamanteComponent implements OnInit {
   }
 
 
-  imgCollection: Array<any> = [
-    {
-      thumbImage: this.link+'assets/img/celular-araiza.png',
-      title: 'Image title'
-    }, {
-      thumbImage: this.link+'assets/img/celular-araiza.png',
-      title: 'Image title'
-    }, {
-      thumbImage: this.link+'assets/img/aniversario.png',
-      title: 'Image title'
-    }, {
-      thumbImage: this.link+'assets/img/aniversario.png',
-      title: 'Image title'
-    }, {
-      thumbImage: this.link+'assets/img/pruebas/banner1.jpg',
-      title: 'Image title'
-    }, {
-      thumbImage: this.link+'assets/img/pruebas/banner1.jpg',
-      title: 'Image title'
-    }
-  ];
+  items: carrusel_mini [] = [ ];
+  // items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 
-  carrusel_mini: Array<carrusel_mini> = [ ];
+  // carrusel_mini: Array<carrusel_mini> = [ ];
 
   window: number = Number(window.innerWidth);
 
-
+  carouselConfig = {
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+    nextArrow: '<button type="button" class="slick-next">Next</button>',
+    arrows: true,
+    dots: false,
+    infinite: true,
+  };
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -90,28 +79,69 @@ export class AraizaDiamanteComponent implements OnInit {
     public route : Router,
     private DataService : DataNavbarService,
     private sanitizer : DomSanitizer,
-    private dimService: araizaDiamante) { }
+    private dimService: araizaDiamante) {
+    }
 
   ngOnInit(): void {
-    this.cargandoAlianzas()
+    this.cargandoAlianzas();
 
     this.DataService.open.emit(this.luaStr);
-    const prev = document.querySelector('.prev')
+
+    // this.swiper = new Swiper('.swiper-container', {
+    //   // Configuración para móviles y web
+    //   slidesPerView: 'auto',
+    //   spaceBetween: 20,
+    //   centeredSlides: true,
+    //   loop: true,
+    //   // Configuración para móviles
+    //   breakpoints: {
+    //     768: {
+    //       slidesPerView: 2,
+    //       spaceBetween: 40,
+    //     },
+    //     1024: {
+    //       slidesPerView: 3,
+    //       spaceBetween: 50,
+    //     },
+    //   },
+    //   // Configuración para web
+    //   navigation: {
+    //     nextEl: '.swiper-button-next',
+    //     prevEl: '.swiper-button-prev',
+    //   },
+    // });
+
+    // let nextButton = document.querySelector('.swiper-button-next');
+    // nextButton!.addEventListener('click', () => {
+    //   this.swiper!.slideNext();
+    // });
+
+    // // Evento de clic para el botón Anterior
+    // let  prevButton = document.querySelector('.swiper-button-prev');
+    // prevButton!.addEventListener('click', () => {
+    //   this.swiper!.slidePrev();
+    // });
+
+    /*const prev = document.querySelector('.prev')
     const next = document.querySelector('.next')
     const slider = document.querySelector('.slider')
 
 
 
-    prev!.addEventListener('click', () => {
+     prev!.addEventListener('click', () => {
         slider!.scrollLeft -= 300
     })
 
     next!.addEventListener('click', () => {
         slider!.scrollLeft += 300
     })
-    this.resonsiveCarrusel()
+    this.resonsiveCarrusel() */
 
   }
+
+  handleCarouselEvents(event:any) {
+		console.log(event);
+	}
 
   resonsiveCarrusel(){
     if ( Number(window.innerWidth) >=1200 ) {
@@ -134,20 +164,20 @@ export class AraizaDiamanteComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(src);
   }
 
-  ngAfterViewChecked(): void {
-  }
 
   async cargandoAlianzas() {
-    this.local.getAlianzas().subscribe((resp:carrusel_mini[]) =>{
-      this.carrusel_mini = resp;
+    this.local.getAlianzas().subscribe(async (resp:carrusel_mini[]) =>{
+      for await (const i of resp) {
+        this.items.push(i);
+      }
       this.changeDetectorRef.detectChanges();
-    })
-
+    });
   }
 
+  ngAfterContentInit(): void {
+  }
 
   async submitForm(value : number) {
-    console.log(value)
     await lastValueFrom(this.dimService.araizaTarjeta(value.toString().padStart(10, '0'))).then((resp: respTarjeta[])=>{
       if (resp != null) {
         if (resp.length == 1) {

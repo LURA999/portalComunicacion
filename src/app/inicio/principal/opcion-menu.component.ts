@@ -8,7 +8,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import * as CryptoJS from 'crypto-js';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 
@@ -39,9 +39,11 @@ export class OpcionMenuComponent implements OnInit {
   opc : number = 0
   api : string = environment.api
   $sub : Subscription = new Subscription()
-
+  linkFacebook : string = "";
+  linkBasePlanta : string = "";
+  linkNuevoIngreso : string = "";
   cargar : boolean = false;
-  imageObject: imageObject[] = [];
+  imageObject: imageObject[] | undefined = undefined;
   imageObjectRemplazo: imageObject[] = [];
   noticias: imgVideoModel[] = [];
   texto : string = ""
@@ -114,28 +116,43 @@ export class OpcionMenuComponent implements OnInit {
 
     switch (this.paramUrl) {
       case 'mexicali':
-        this.rellenarSlider("imgVideo",1)
-        this.rellenarSlider("imgVideoNoticia",1)
+        this.rellenarSlider("imgVideo",1);
+        this.rellenarSlider("imgVideoNoticia",1);
+        this.linkFacebook = "https://www.facebook.com/AraizaHotelReclutamiento";
+        this.linkBasePlanta = "https://view.genial.ly/622f7d8050e05f0018d0eccc";
+        this.linkNuevoIngreso = "https://view.genial.ly/639ca8e63aab6600195ecc29/presentation-mxl-curso-de-induccion";
         this.auxObsCveHotel = 1
         break;
       case 'calafia':
-        this.rellenarSlider("imgVideo",2)
-        this.rellenarSlider("imgVideoNoticia",2)
+        this.rellenarSlider("imgVideo",2);
+        this.rellenarSlider("imgVideoNoticia",2);
+        this.linkFacebook = "https://www.facebook.com/profile.php?id=100063793260568";
+        this.linkBasePlanta = "https://view.genial.ly/6296612bf9744a0018e318c5";
+        this.linkNuevoIngreso = "https://view.genial.ly/63a3908d0e544d00181a1fd3/presentation-cal-curso-de-induccion";
         this.auxObsCveHotel = 2
         break;
       case 'sanLuis':
-        this.rellenarSlider("imgVideo",3)
-        this.rellenarSlider("imgVideoNoticia",3)
+        this.rellenarSlider("imgVideo",3);
+        this.rellenarSlider("imgVideoNoticia",3);
+        this.linkFacebook = "https://www.facebook.com/RHSLRC";
+        this.linkBasePlanta = "https://view.genial.ly/6296614ed1f8420018e921c7";
+        this.linkNuevoIngreso = "https://view.genial.ly/63bc6bd5ad38b4001384f60f/presentation-slrc-curso-de-induccion";
         this.auxObsCveHotel = 3
       break;
       case 'palmira':
-        this.rellenarSlider("imgVideo",4)
-        this.rellenarSlider("imgVideoNoticia",4)
+        this.rellenarSlider("imgVideo",4);
+        this.rellenarSlider("imgVideoNoticia",4);
+        this.linkFacebook = "https://www.facebook.com/profile.php?id=100087183365285";
+        this.linkBasePlanta = "https://view.genial.ly/62f556d07e4cf70012f1cbf4";
+        this.linkNuevoIngreso = "https://view.genial.ly/63bde62ec061d100196228a9";
         this.auxObsCveHotel = 4
         break;
         case 'hermosillo':
-        this.rellenarSlider("imgVideo",5)
-        this.rellenarSlider("imgVideoNoticia",5)
+        this.rellenarSlider("imgVideo",5);
+        this.rellenarSlider("imgVideoNoticia",5);
+        this.linkFacebook = "https://www.facebook.com/profile.php?id=100086885388266";
+        this.linkBasePlanta = "https://view.genial.ly/62966166f9744a0018e3195f";
+        this.linkNuevoIngreso = "https://view.genial.ly/63bc987bc007900010b9f71b/presentation-hmo-curso-de-induccion";
         this.auxObsCveHotel = 5
       break;
     }
@@ -158,6 +175,7 @@ export class OpcionMenuComponent implements OnInit {
               link:r.link
             })
           }
+
         }else{
 
           //En este se llenan las noticias que remplazaran a los de default
@@ -209,6 +227,26 @@ export class OpcionMenuComponent implements OnInit {
       }
     }
     return this.sanitizer.bypassSecurityTrustResourceUrl(src);
+
+  }
+
+  recursoUrlStr(src : string, categ : number, n : number, sec :boolean) : Observable<string>{
+    if (n > 0 ) {
+      if (sec === false ) {
+        if (categ == 1) {
+          return from([this.api+'imgVideo/galeria-noticia/fotos/'+src]);
+        } else {
+          return from([this.api+'imgVideo/galeria-noticia/videos/'+src]);
+        }
+      } else {
+        if (categ == 1) {
+          return  from([this.api+'imgVideo/galeria-slide/fotos/'+src]);
+        } else {
+          return from([this.api+'imgVideo/galeria-slide/videos/'+src]);
+        }
+      }
+    }
+    return from([src]);
 
   }
 
