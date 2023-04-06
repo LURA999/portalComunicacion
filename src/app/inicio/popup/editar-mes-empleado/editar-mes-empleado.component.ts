@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subscription, lastValueFrom } from 'rxjs';
+import { Subscription, catchError, lastValueFrom } from 'rxjs';
 import { EmpleadoMesService, fechaServ } from 'src/app/core/services/empleado-mes.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
@@ -124,7 +124,11 @@ export class EditarMesEmpleadoComponent implements OnInit {
         await lastValueFrom(this.mesService.actualizarFecha(actUsuario));
       }
 
-      this.$sub.add(this.users.selectAllusers(2).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.users.selectAllusers(2).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (resp.status.toString() === '200') {
           this.dialogRef.close(await resp.container);
           this.contenedor_carga.style.display = "none";

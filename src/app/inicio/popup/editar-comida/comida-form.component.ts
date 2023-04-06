@@ -6,7 +6,7 @@ import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { comida } from '../../opcion-config/menu-config/menu-config.component';
 import { local } from '../../opcion-config/usuarios-config/usuarios.component';
-import {lastValueFrom,Subscription } from 'rxjs';
+import {catchError, lastValueFrom,Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comida-form',
@@ -48,7 +48,11 @@ export class ComidaFormComponent implements OnInit {
       this.modalidad = true;
     }
 
-    this.$sub.add(this.local.todoLocal(-1).subscribe(async(resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.local.todoLocal(-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async(resp:ResponseInterfaceTs) =>{
       for await (const i of resp.container) {
         this.localesArray.push({idLocal:i.idLocal, local:i.nombre})
       }
@@ -64,7 +68,11 @@ export class ComidaFormComponent implements OnInit {
     } else {
       if (this.modalidad == true) {
         await lastValueFrom(this.comidaService.insertarComida(this.formComida.value));
-        this.$sub.add(this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
+        this.$sub.add(this.comidaService.todoComida(0,1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
            this.dialogRef.close(await resp.container);
         }))
       } else {
@@ -72,7 +80,11 @@ export class ComidaFormComponent implements OnInit {
         this.data = this.formComida.value;
         this.data.idMenu = idMenu;
         await lastValueFrom(this.comidaService.actualizarComida(this.formComida.value));
-        this.$sub.add(this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
+        this.$sub.add(this.comidaService.todoComida(0,1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
            this.dialogRef.close(await resp.container);
         }))
       }

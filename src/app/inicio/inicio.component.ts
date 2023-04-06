@@ -5,7 +5,7 @@ import { SubirImgVideoService } from '../core/services/img-video.service';
 import { imgVideoModel } from '../interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from '../interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
-import { Observable, Subscription, from } from 'rxjs';
+import { Observable, Subscription, catchError, from } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -52,22 +52,7 @@ export class InicioComponent implements OnInit {
       config.keyboard = true;
       config.pauseOnHover = true;
 
-      this.imageObjectRemplazo.push( {
-        src: this.link+'assets/img/pruebas/banner1.jpg',
-        formato: "image"
-      })
-      this.imageObjectRemplazo.push( {
-        src: this.link+'assets/img/pruebas/banner2.jpg',
-        formato: "image"
-      })
-      this.imageObjectRemplazo.push( {
-        src: this.link+'assets/img/pruebas/banner3.jpg',
-        formato: "image"
-      })
-      this.imageObjectRemplazo.push( {
-        src: this.link+'assets/img/pruebas/banner4.jpg',
-        formato: "image"
-      })
+
   }
 
   ngOnInit(): void {
@@ -78,7 +63,11 @@ export class InicioComponent implements OnInit {
   }
 
   rellenarSlider(dir:string ,number : number){
-    this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
+    this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{
       if(resp.status.toString() === "200" ){
         if(dir === "imgVideo"){
           this.imageObject = []

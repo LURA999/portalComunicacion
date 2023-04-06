@@ -17,12 +17,14 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { LoginAdminComponent } from './auth/login-admin/login-admin.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LoginAdminComponent
+    LoginAdminComponent,
+    ErrorComponent
   ],
   imports: [
     CustomMaterialModule,

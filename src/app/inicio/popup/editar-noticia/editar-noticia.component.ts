@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, Subscription, Observable, concatMap, concat } from 'rxjs';
+import { lastValueFrom, Subscription, Observable, concatMap, concat, catchError } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
@@ -47,7 +47,11 @@ export class EditarNoticiaComponent implements OnInit{
   constructor( private fb : FormBuilder,public dialogRef: MatDialogRef<EditarNoticiaComponent>,
     @Inject(MAT_DIALOG_DATA) private data: dataForm ,private serviceImgVideo : SubirImgVideoService, private local : localService) {
 
-      this.$sub.add(this.local.todoLocal(2).subscribe(async(resp: ResponseInterfaceTs)=>{
+      this.$sub.add(this.local.todoLocal(2).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async(resp: ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
           this.localInterfaz.push({
             idLocal : i.idLocal,
@@ -57,7 +61,7 @@ export class EditarNoticiaComponent implements OnInit{
         }
       }))
      }
-     
+
   fecha1(fecha : Date){
     this.rango = fecha
   }
@@ -137,7 +141,11 @@ export class EditarNoticiaComponent implements OnInit{
             )
           }))
         })
-      ).subscribe((resp:ResponseInterfaceTs) =>{
+      ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe((resp:ResponseInterfaceTs) =>{
           this.dialogRef.close(resp.container)
           this.contenedor_carga.style.display = "none";
         })
@@ -148,7 +156,11 @@ export class EditarNoticiaComponent implements OnInit{
         concatMap(() =>{
           return Observable[1]
         })
-      ).subscribe((resp:ResponseInterfaceTs) =>{
+      ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe((resp:ResponseInterfaceTs) =>{
         this.dialogRef.close(resp.container)
         this.contenedor_carga.style.display = "none";
       })

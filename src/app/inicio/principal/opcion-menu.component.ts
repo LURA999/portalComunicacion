@@ -8,7 +8,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import * as CryptoJS from 'crypto-js';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
-import { Observable, Subscription, from } from 'rxjs';
+import { Observable, Subscription, catchError, from } from 'rxjs';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 
@@ -61,22 +61,7 @@ export class OpcionMenuComponent implements OnInit {
     private config: NgbCarouselConfig,
     private autoCapacService : AutocapacitacionService
     ) {
-    this.imageObjectRemplazo.push( {
-      src: this.link+'assets/img/pruebas/banner1.jpg',
-      formato: "image"
-    })
-    this.imageObjectRemplazo.push( {
-      src: this.link+'assets/img/pruebas/banner2.jpg',
-      formato: "image"
-    })
-    this.imageObjectRemplazo.push( {
-      src: this.link+'assets/img/pruebas/banner3.jpg',
-      formato: "image"
-    })
-    this.imageObjectRemplazo.push( {
-      src: this.link+'assets/img/pruebas/banner4.jpg',
-      formato: "image"
-    })
+
     this.config.interval = 9000;
     this.config.keyboard = true;
     this.config.pauseOnHover = true;
@@ -161,7 +146,11 @@ export class OpcionMenuComponent implements OnInit {
   }
 
   rellenarSlider(dir : string, number : number){
-    this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
+    this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{
 
       if(resp.status.toString() === "200" ){
 

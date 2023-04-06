@@ -64,3 +64,12 @@ button {
 div#matform-c {
   margin-bottom: -10px;
 }
+
+td.cdk-column-nombre {
+  width: 25%;
+}
+
+td.cdk-column-no {
+  width: 6%;
+  padding: 10px;
+}

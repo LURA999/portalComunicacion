@@ -6,7 +6,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-empleado-mes',
@@ -37,7 +37,11 @@ export class EmpleadoMesComponent implements OnInit {
     this.mes = this.date.toLocaleDateString('es',opciones).split(" ")[2].toUpperCase();
     this.DataService.open.emit(this.luaStr);
     this.cargando = false;
-    this.$sub.add(this.usServ.selectAllusersMesi(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
+    this.$sub.add(this.usServ.selectAllusersMesi(this.lua).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp: ResponseInterfaceTs) =>{
       if (Number(resp.status) == 200) {
         this.usuarios = resp.container;
       }

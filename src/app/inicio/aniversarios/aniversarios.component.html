@@ -15,7 +15,7 @@
            <span [style.color]="color_primary" class="depa">{{i.departamento.toUpperCase()}}</span>
           <br>
           <div class="fechaNac" [style.background]="color_secundary">
-            {{i.anos_transcurridos+' años'}}
+            {{i.anos_transcurridos+' '+palabraAnos(i.anos_transcurridos)}}
           </div>
         </div>
       </div>

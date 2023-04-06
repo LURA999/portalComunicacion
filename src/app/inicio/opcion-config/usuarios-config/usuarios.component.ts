@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ButtonType } from '@coreui/angular';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -80,15 +79,22 @@ export class UsuariosComponent implements OnInit {
   })
 
   ngOnInit(): void {
-
-    this.$sub.add(this.loc.todoLocal(-1).subscribe( async (resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.loc.todoLocal(-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe( async (resp:ResponseInterfaceTs) =>{
       for await (const i of resp.container) {
         this.locales.push({idLocal:i.idLocal, local:i.nombre})
       }
     }))
     this.cargando = false;
 
-    this.$sub.add(this.users.selectAllusers(1).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.users.selectAllusers(1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push( c )
       }
@@ -202,7 +208,11 @@ export class UsuariosComponent implements OnInit {
 
   buscador(){
 
-    this.$sub.add(this.usService.selectUser(this.formBuscar.value,1).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.usService.selectUser(this.formBuscar.value,1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
         this.cargando = false;
         this.ELEMENT_DATA = [];

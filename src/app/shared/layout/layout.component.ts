@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Renderer2, Input, Output } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import {Subscription } from 'rxjs';
+import {Subscription, catchError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MatDrawerMode } from '@angular/material/sidenav';
@@ -252,7 +252,11 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterContentInit(): void {
-      this.DataService.open.subscribe(res => {
+      this.DataService.open.pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(res => {
         if (Number(this.auth.getCveRol()) == 1) {
           this.isAdminPortal = false;
           //en estas paginas el navabar  no aparecera del lado izquierdo desplazando estos componentes:

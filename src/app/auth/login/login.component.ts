@@ -4,8 +4,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/core/services/login.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Buffer } from 'buffer';
+
 //import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -40,7 +42,11 @@ export class LoginComponent implements OnInit {
 
   form(){
     if(this.formSesion.valid){
-      this.$sub.add(this.usuarioServicio.login(btoa(this.formSesion.controls['usuario'].value),btoa(this.formSesion.controls['contrasena'].value)).subscribe((response:any) =>{
+      this.$sub.add(this.usuarioServicio.login(btoa(this.formSesion.controls['usuario'].value),btoa(this.formSesion.controls['contrasena'].value)).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe((response:any) =>{
       if(response.status === "ok"){
        this.auth.crearSesion(response.container);
        this.router.navigateByUrl('/general')

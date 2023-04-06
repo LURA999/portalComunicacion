@@ -4,7 +4,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -51,19 +51,27 @@ export class AutoCapacConfigComponente implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   formBuscar : FormGroup = this.fb.group({
-    seccion : ["", Validators.required],
-    buscador : ["", Validators.required],
+    seccion : [""],
+    buscador : [""],
 
   })
 
   ngOnInit(): void {
-    this.$sub.add(this.loc.todoLocal(-1).subscribe( async (resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.loc.todoLocal(-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe( async (resp:ResponseInterfaceTs) =>{
       for await (const i of resp.container) {
         this.locales.push({idLocal:i.idLocal, local:i.nombre})
       }
     }))
     this.cargando = false;
-    this.$sub.add(this.autoCap.mostrarTodoAutocapacitacion(0).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.autoCap.mostrarTodoAutocapacitacion(0).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
     if (resp.status === '200') {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push({
@@ -109,7 +117,11 @@ export class AutoCapacConfigComponente implements OnInit {
       width: '450px',
       data: undefined
     });
-    dialogRef.afterClosed().subscribe(async (resp:any)=>{
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
@@ -144,7 +156,11 @@ export class AutoCapacConfigComponente implements OnInit {
       width: '450px',
       data: usuario
     });
-    dialogRef.afterClosed().subscribe(async (resp:any)=>{
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.formBuscar.reset();
@@ -180,7 +196,11 @@ export class AutoCapacConfigComponente implements OnInit {
       width: 'auto',
       data: {id: usuario,seccion: "autocapacitacion"}
     });
-    dialogRef.afterClosed().subscribe(async (resp:ResponseInterfaceTs)=>{
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
         if (resp.container.length > 0) {
           this.formBuscar.reset();
@@ -219,7 +239,11 @@ export class AutoCapacConfigComponente implements OnInit {
 
   buscador(){
     this.$sub.add(this.autoCap.mostrarAutocapacitacion(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
-    this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"]).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"]).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
         this.cargando = false;
         this.ELEMENT_DATA = [];

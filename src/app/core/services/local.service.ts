@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { carrusel_mini } from 'src/app/inicio/araiza-diamante/araiza-diamante.component';
@@ -14,7 +14,7 @@ export class localService {
   constructor(private http : HttpClient) { }
 
   todoLocal(opc : number)  : Observable <ResponseInterfaceTs>{
-    return this.http.get<ResponseInterfaceTs>(this.local+"local.php?opc="+opc);
+      return this.http.get<ResponseInterfaceTs>(this.local+"local.php?opc="+opc);
   }
 
   getAlianzas() :Observable<carrusel_mini[]> {

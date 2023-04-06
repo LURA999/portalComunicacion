@@ -10,22 +10,17 @@
       <span class="descrip">Esperamos que los platillos sean de tu agrado.</span>
     </div>
     <div id="comida-container">
-    <div  *ngFor="let i of menu; let idx = index">
-      <div class="cuadro">
+      <div  *ngFor="let i of menu; let idx = index" class="cuadro">
 
         <h3 class="nombre">{{i.nombre}}</h3>
         <article class="texto">
-          <div >
             {{i.descripcion}}
-           <br>
-           <div class="fecha" [style.background] = "color_primary">
-             {{dateNormal(i.fecha)}}
-           </div>
-         </div>
         </article>
-
-      </div>
-
+        <div class="containerFecha">
+          <div class="fecha" [style.background] = "color_primary">
+            {{dateNormal(i.fecha)}}
+          </div>
+        </div>
     </div>
 
     </div>

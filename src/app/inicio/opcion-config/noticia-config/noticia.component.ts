@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgNoticiaService } from 'src/app/core/services/subirImgvideo.service';
-import { concatMap, lastValueFrom, Subscription } from 'rxjs';
+import { catchError, concatMap, lastValueFrom, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { localService } from 'src/app/core/services/local.service';
@@ -34,7 +34,11 @@ export class NoticiaComponent implements OnInit {
     private serviceImgVideo : SubirImgNoticiaService,
     public route : Router,private local : localService,
     ) {
-      this.$sub.add(this.local.todoLocal(2).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.local.todoLocal(2).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
           this.localInterfaz.push({
             idLocal : i.idLocal,
@@ -109,7 +113,11 @@ export class NoticiaComponent implements OnInit {
           intfz.imgVideo = resp.container.nombre;
           return this.serviceImgVideo.subirImgVideo(intfz,"imgVideoNoticia")
         })
-      ).subscribe(()=>{
+      ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(()=>{
         this.route.navigate(['general/galeriaMulti-config'])
           this.contenedor_carga.style.display = "none";
       }))

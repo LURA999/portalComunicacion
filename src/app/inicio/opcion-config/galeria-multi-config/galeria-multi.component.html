@@ -14,7 +14,7 @@
               <div class="limite">
                   <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                     <img  [lazyLoad]=" (recursoUrlStr(i.imgVideo,true,false) | async)!.toString()"
-                    src="../../../../assets/img/pruebas/loading-noticia.gif"
+                    src="../../../../assets/img/pruebas/loading-noticia.gif" loading="lazy"
                     [alt]="i.imgVideo">
                   </ng-container>
                   <ng-template #elseTemplate>
@@ -36,7 +36,7 @@
                 <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                   <img
                   [lazyLoad]=" (recursoUrlStr(i.imgVideo,true,false) | async)!.toString()"
-                  src="../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
+                  src="../../../../assets/img/pruebas/loading-noticia.gif" loading="lazy"  [alt]="i.imgVideo">
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1" controls >
@@ -58,7 +58,7 @@
                 <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                   <img
                   [lazyLoad]=" (recursoUrlStr(i.imgVideo,true,false) | async)!.toString()"
-                  src="../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
+                  src="../../../../assets/img/pruebas/loading-noticia.gif" loading="lazy"  [alt]="i.imgVideo">
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1"  controls>
@@ -79,7 +79,7 @@
                 <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                   <img
                   [lazyLoad]=" (recursoUrlStr(i.imgVideo,true,false) | async)!.toString()"
-                    src="../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
+                    src="../../../../assets/img/pruebas/loading-noticia.gif" loading="lazy"  [alt]="i.imgVideo">
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1"  controls  >
@@ -101,7 +101,7 @@
                 <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                   <img
                   [lazyLoad]=" (recursoUrlStr(i.imgVideo,true,false) | async)!.toString()"
-                    src="../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
+                    src="../../../../assets/img/pruebas/loading-noticia.gif"  loading="lazy"  [alt]="i.imgVideo">
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1"  controls  >
@@ -123,7 +123,7 @@
                     <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
                       <img
                       [lazyLoad]=" (recursoUrlStr(i.imgVideo,true,false) | async)!.toString()"
-                      src="../../../../assets/img/pruebas/loading-noticia.gif" [alt]="i.imgVideo">
+                      src="../../../../assets/img/pruebas/loading-noticia.gif" loading="lazy"  [alt]="i.imgVideo">
                     </ng-container>
                     <ng-template #elseTemplate>
                       <video [currentTime]="1"  controls  >

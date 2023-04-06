@@ -27,7 +27,7 @@ html, body {
 }
 
 @font-face {
-  font-family: 'gotham-medium', sans-serif;
+  font-family: 'gotham-medium';
   src: url('./assets/fonts/Gotham-Font/Gotham-Font/GothamBook.ttf');
 }
 

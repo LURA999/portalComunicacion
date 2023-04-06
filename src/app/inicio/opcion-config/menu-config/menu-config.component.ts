@@ -4,7 +4,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { ComidaService } from 'src/app/core/services/comida.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { localService } from 'src/app/core/services/local.service';
@@ -46,13 +46,17 @@ export class MenuConfigComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   formBuscar : FormGroup = this.fb.group({
-    seccion : ["", Validators.required],
-    buscador : ["", Validators.required],
+    seccion : [""],
+    buscador : [""],
 
   })
 
   ngOnInit(): void {
-    this.$sub.add(this.loc.todoLocal(-1).subscribe( async (resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.loc.todoLocal(-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe( async (resp:ResponseInterfaceTs) =>{
       for await (const i of resp.container) {
         this.locales.push({idLocal:i.idLocal, local:i.nombre})
       }
@@ -60,7 +64,11 @@ export class MenuConfigComponent implements OnInit {
     }))
     this.cargando = false;
 
-    this.comidaService.todoComida(0,1).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.comidaService.todoComida(0,1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
       if (Number(resp.status) == 200) {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push(c)
@@ -98,7 +106,11 @@ export class MenuConfigComponent implements OnInit {
       width: '450px',
       data: undefined
     });
-    dialogRef.afterClosed().subscribe(async (resp:any)=>{
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
           this.paginator.firstPage();
@@ -122,7 +134,11 @@ export class MenuConfigComponent implements OnInit {
       width: '450px',
       data: com
     });
-    dialogRef.afterClosed().subscribe(async (resp:any)=>{
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         this.paginator.firstPage();
         if (resp.length > 0) {
@@ -147,7 +163,11 @@ export class MenuConfigComponent implements OnInit {
       width: 'auto',
       data: {id: usuario,seccion: "Comida"}
     });
-    dialogRef.afterClosed().subscribe(async (resp:ResponseInterfaceTs)=>{
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
       console.log(resp);
 
       if (Number(resp.status) == 200) {
@@ -185,7 +205,11 @@ export class MenuConfigComponent implements OnInit {
   buscador(){
 
     if(this.formBuscar.value["buscador"] === "" || this.formBuscar.value["buscador"] === undefined || this.formBuscar.value["buscador"] === null){
-      this.$sub.add(this.comidaService.todoComida(this.ifSeccion(),1).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.comidaService.todoComida(this.ifSeccion(),1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (Number(resp.status) == 200) {
           this.cargando = false;
           this.ELEMENT_DATA = [];
@@ -204,7 +228,11 @@ export class MenuConfigComponent implements OnInit {
         }
       }))
     }else {
-      this.$sub.add(this.comidaService.buscarComida(this.ifSeccion(),this.formBuscar.value["buscador"]).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.comidaService.buscarComida(this.ifSeccion(),this.formBuscar.value["buscador"]).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
         if (Number(resp.status) == 200) {
           this.cargando = false;
           this.ELEMENT_DATA = [];

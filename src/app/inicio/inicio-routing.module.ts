@@ -50,7 +50,7 @@ const routes: Routes = [
       { path: 'empleado-mes-config',canActivate: [LogSesionAdminGuard], component: EmpleadoDelMesComponent},
       { path: 'galeriaMulti-config',canActivate: [LogSesionAdminGuard], component: GaleriaMultiComponent},
       { path: 'usuarios-config',canActivate: [LogSesionAdminGuard], component: UsuariosComponent },
-      { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente }
+      { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente },
 
     ]
   }

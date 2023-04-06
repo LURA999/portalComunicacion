@@ -1,7 +1,7 @@
 import { Component,Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { catchError, lastValueFrom, Subscription } from 'rxjs';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -24,7 +24,11 @@ export class EditarAutocapacComponent implements OnInit {
 
   constructor(private fb : FormBuilder,public dialogRef: MatDialogRef<EditarAutocapacComponent>, private autoService : AutocapacitacionService,
     @Inject(MAT_DIALOG_DATA) private data: autocapacitacionInt,private local : localService) {
-      this.$sub.add(this.local.todoLocal(1).subscribe(async(resp: ResponseInterfaceTs)=>{
+      this.$sub.add(this.local.todoLocal(1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async(resp: ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
           this.localInterfaz.push({
             idLocal : i.idLocal,
@@ -80,7 +84,11 @@ export class EditarAutocapacComponent implements OnInit {
         this.data.idAutoCap = idAutoCap;
         await lastValueFrom(this.autoService.actualizarAutocapacitacion(this.formAutoCapac.value));
       }
-      this.$sub.add(this.autoService.mostrarTodoAutocapacitacion(0).subscribe(async (resp:ResponseInterfaceTs)=>{
+      this.$sub.add(this.autoService.mostrarTodoAutocapacitacion(0).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
         this.dialogRef.close(await resp.container);
      }))
     }

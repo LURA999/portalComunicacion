@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
-import { concatMap, forkJoin, lastValueFrom, of, Subscription } from 'rxjs';
+import { catchError, concatMap, forkJoin, lastValueFrom, of, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -153,7 +153,11 @@ export class ImagenVideoComponent implements OnInit {
             })
           )
         })
-      ).subscribe(()=>{
+      ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(()=>{
         this.route.navigate(['general/galeriaMulti-config'])
         this.contenedor_carga.style.display = "none";
       }))
@@ -162,7 +166,11 @@ export class ImagenVideoComponent implements OnInit {
 
   secciones_local(opc : number){
     this.url()
-    this.$sub.add(this.local.todoLocal(opc).subscribe(async (resp:ResponseInterfaceTs)=>{
+    this.$sub.add(this.local.todoLocal(opc).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
       for await (const i of resp.container) {
         if( (this.cveSeccion == 1 ||  this.cveSeccion == -1) && Number(i.idLocal) >= 0 ||
           this.cveSeccion > 1 && Number(i.idLocal) > 0){

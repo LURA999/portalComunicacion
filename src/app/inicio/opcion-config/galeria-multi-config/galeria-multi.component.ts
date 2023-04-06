@@ -11,7 +11,7 @@ import { EditarNoticiaComponent } from '../../popup/editar-noticia/editar-notici
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { Observable, Subscription, from } from 'rxjs';
+import { Observable, Subscription, catchError, from } from 'rxjs';
 
 
 @Component({
@@ -69,7 +69,11 @@ export class GaleriaMultiComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargando2 = false;
-    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
+    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideo",-1,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{
       if (resp.status.toString() === "200") {
         for await (const i of resp.container) {
           switch (Number(i.cveLocal)) {
@@ -104,7 +108,11 @@ export class GaleriaMultiComponent implements OnInit {
     }))
 
     this.cargando = false;
-    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe(async (resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideoNoticia",-1,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs) =>{
       if (resp.status.toString() === "200") {
         for await (const i of resp.container) {
           switch (Number(i.cveLocal)) {
@@ -261,7 +269,11 @@ export class GaleriaMultiComponent implements OnInit {
         width: '450px',
         data:{obj:model, opc:noticiaSlider, seccion: "foto/imagen"}
       });
-      dialogRef.afterClosed().subscribe(async (resp:any)=>{
+      dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
         if(typeof resp !== 'boolean' && resp !== undefined ){
           this.cargando2 = false;
         this.arrayVidImgGeneralS = []
@@ -319,7 +331,11 @@ export class GaleriaMultiComponent implements OnInit {
         data: obj,
       });
 
-      dialogRef.afterClosed().subscribe(async (resp:any)=>{
+      dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
         if (resp !== "" && resp !== undefined) {
         this.cargando = false;
         this.arrayVidImgGeneralN = []
@@ -362,7 +378,11 @@ export class GaleriaMultiComponent implements OnInit {
         width: '450px',
         data: {obj,arrNumPos}
       });
-      dialogRef.afterClosed().subscribe(async (resp:any)=>{
+      dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
         if (resp !== "" && resp !== undefined) {
         this.cargando2 = false;
         this.arrayVidImgGeneralS = []

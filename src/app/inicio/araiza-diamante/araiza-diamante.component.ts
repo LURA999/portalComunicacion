@@ -5,7 +5,7 @@ import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { localService } from 'src/app/core/services/local.service';
-import { lastValueFrom } from 'rxjs';
+import { catchError, lastValueFrom } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { araizaDiamante } from 'src/app/core/services/araizaDiamante.service';
 
@@ -166,7 +166,11 @@ export class AraizaDiamanteComponent implements OnInit {
 
 
   async cargandoAlianzas() {
-    this.local.getAlianzas().subscribe(async (resp:carrusel_mini[]) =>{
+    this.local.getAlianzas().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:carrusel_mini[]) =>{
       for await (const i of resp) {
         this.items.push(i);
       }

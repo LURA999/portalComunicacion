@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, Subscription,Observable, concatMap, of, concat } from 'rxjs';
+import { lastValueFrom, Subscription,Observable, concatMap, of, concat, catchError } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -44,7 +44,11 @@ export class EditarSliderComponent implements OnInit {
     private serviceImgVideo : SubirImgVideoService,
     private local : localService,
     ) {
-      this.$sub.add(this.local.todoLocal(1).subscribe(async(resp: ResponseInterfaceTs)=>{
+      this.$sub.add(this.local.todoLocal(1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async(resp: ResponseInterfaceTs)=>{
         for await (const i of resp.container) {
           this.localInterfaz.push({
             idLocal : i.idLocal,
@@ -132,7 +136,7 @@ export class EditarSliderComponent implements OnInit {
         // this.data.obj.imgVideo = datos.nombre
         // this.data.obj.formato = datos.tipo
       }
-      
+
       //(A)
       if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
       Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)) {
@@ -141,7 +145,7 @@ export class EditarSliderComponent implements OnInit {
 
       //(B)
       //Esto nomas se hizo unicamente para el cambio de posiciones entre un mismo hotel
-      if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
+      if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2)
       && Number(this.data.obj.cveLocal2) == Number(this.data.obj.cveLocal)) {
         Observable.push(this.serviceImgVideo.actualizarPosicionUCSlide({cveLocal: this.formImgVideo.value['cveLocal'],cveSeccion: this.data.obj.cveSeccion,idP:this.formImgVideo.value["posicion"],idS:this.data.obj.posicion2}))
         Observable.push(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
@@ -168,9 +172,9 @@ export class EditarSliderComponent implements OnInit {
 
       Observable.push(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1))
 
-      
+
         this.$sub.add(of('').pipe(
-          concatMap(()=> {  
+          concatMap(()=> {
             if(this.nombreActualizadoImgVid === true ){
               return Observable[0].pipe(
                 concatMap(()=> {
@@ -187,7 +191,7 @@ export class EditarSliderComponent implements OnInit {
                     )
                   }
                   //(B)
-                  if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
+                  if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2)
                   && Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
                     return Observable[2].pipe(
                     concatMap(() => Observable[3].pipe(
@@ -195,14 +199,14 @@ export class EditarSliderComponent implements OnInit {
                     )
                     ))
                   }
-                  
+
                   if( Number(this.data.obj.cveLocal) != Number(this.data.obj.cveLocal2)) {
                     return Observable[2].pipe(concatMap(() =>
                      Observable[3].pipe(concatMap(() => Observable[4].pipe(
                       concatMap(()=> Observable[5])
                     )))))
                   }
-                  return Observable[2]                  
+                  return Observable[2]
                 }))
               }))
             }
@@ -215,7 +219,7 @@ export class EditarSliderComponent implements OnInit {
             }
 
             //(B)
-            if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2) 
+            if(Number(this.data.obj.posicion) !== Number(this.data.obj.posicion2)
             && Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)){
               return Observable[0].pipe(
               concatMap(() => Observable[1].pipe(
@@ -232,10 +236,14 @@ export class EditarSliderComponent implements OnInit {
                     )
                   )
                   ))))
-            }            
+            }
             return Observable[0]
           })
-        ).subscribe((resp:ResponseInterfaceTs)=>{
+        ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe((resp:ResponseInterfaceTs)=>{
           this.dialogRef.close(resp.container)
           this.contenedor_carga.style.display = "none";
         }))

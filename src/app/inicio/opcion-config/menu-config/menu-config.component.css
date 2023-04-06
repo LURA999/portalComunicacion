@@ -11,6 +11,18 @@ table td {
   font-family: 'gotham-book';
 }
 
+td.cdk-column-descripcion {
+  width: 40%;
+  word-break: break-word;
+  padding: 10px;
+}
+
+td.cdk-column-nombre {
+  width: 25%;
+  word-break: break-word;
+  padding: 10px;
+}
+
 mat-option {
   font-family: 'gotham-book';
 }

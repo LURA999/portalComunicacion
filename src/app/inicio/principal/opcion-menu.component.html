@@ -61,7 +61,7 @@
             <div id="container-notice2" >
 
                 <div id="opciones-not">
-                  <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+                  <div class="tab t1">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
                 </div>
                 <hr>
               <div class="lista-noticias" *ngFor="let i of noticias; let x=index">
@@ -101,7 +101,7 @@
             <div id="container-notice" >
               <div id="container-not2" *ngIf="noticias.length < 4 && noticias.length > 0">
                 <div id="opciones-not">
-                  <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+                  <div class="tab t1">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
                 </div>
                 <hr>
               </div>
@@ -143,7 +143,7 @@
             <div id="container-notice" >
             <div >
               <div id="opciones-not">
-                <div class="tab t1" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
+                <div class="tab t1">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink('historial-noticias')">TODOS</div>
               </div>
               <hr>
             </div>
@@ -158,22 +158,22 @@
           <span><label id="conoce">CONOCE</label> TUS BENEFICIOS</span>
             <div (click)="enviarPagina(linkBasePlanta)" class="cBfcios">
               <div class="muestra" >
-                <img [src]="this.link+'assets/img/beneficios/base-planta.png'" alt="" >
+                <img [src]="this.link+'assets/img/beneficios/base-planta.png'" alt="img-planta" >
               </div>
             </div>
             <div (click)="enviarPagina(linkNuevoIngreso)" class="cBfcios" >
               <div  class="muestra">
-                  <img [src]="this.link+'assets/img/beneficios/nuevo-ingreso.png'" alt="">
+                  <img [src]="this.link+'assets/img/beneficios/nuevo-ingreso.png'" alt="img-ingreso">
               </div>
             </div>
             <div class="cBfcios" (click)="routerLink('empleado-mes')">
               <div  class="muestra">
-                <img [src]="this.link+'assets/img/beneficios/empleado-mes.png'" alt="">
+                <img [src]="this.link+'assets/img/beneficios/empleado-mes.png'" alt="img-mes">
               </div>
             </div>
-            <div class="cBfcios">
+            <div (click)="routerLink('araiza-diamante')" class="cBfcios">
               <div class="muestra">
-                <img [src]="this.link+'assets/img/beneficios/araiza-diamante.png'" (click)="routerLink('araiza-diamante')" alt="">
+                <img [src]="this.link+'assets/img/beneficios/araiza-diamante.png'" alt="img-diamante">
               </div>
             </div>
         </div>
@@ -198,7 +198,7 @@
           </div>
 
         </div>
-        <img [src]="this.link+'assets/img/img-seccion-hotel/morra-like.png'" alt="">
+        <img [src]="this.link+'assets/img/img-seccion-hotel/morra-like.png'" alt="img-like">
       </div>
     <app-footer></app-footer>
 </div>

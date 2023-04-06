@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, forkJoin, mergeMap, Subscription, concatMap, switchMap,Observable } from 'rxjs';
+import { lastValueFrom, catchError, Subscription, concatMap, switchMap,Observable } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -108,7 +108,11 @@ export class UsuarioFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.$sub.add(this.loc.todoLocal(-1).subscribe( async (resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.loc.todoLocal(-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe( async (resp:ResponseInterfaceTs) =>{
       for await (const i of resp.container) {
         this.locales.push({idLocal:i.idLocal, local:i.nombre})
       }
@@ -144,7 +148,11 @@ export class UsuarioFormComponent implements OnInit {
               this.data!.img = res1.container.nombre
               return this.usService.createuser(this.data!).pipe(
               concatMap(() =>   this.usService.selectAllusers(1)))
-          })).subscribe(async (res: ResponseInterfaceTs) => {
+          })).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (res: ResponseInterfaceTs) => {
           this.dialogRef.close(await res.container);
           this.contenedor_carga.style.display = "none";
         });
@@ -207,7 +215,11 @@ export class UsuarioFormComponent implements OnInit {
         this.$sub.add(Observable[0].pipe(
         concatMap(() => Observable[1].pipe(
           concatMap(() => Observable[2])
-        ))).subscribe(async (resp:ResponseInterfaceTs)=>{
+        ))).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
           this.dialogRef.close(await resp.container);
           this.contenedor_carga.style.display = "none";
         }))
@@ -228,7 +240,11 @@ export class UsuarioFormComponent implements OnInit {
               return Observable[4]
             })
           ))
-        ).subscribe(async(resp:ResponseInterfaceTs)=>{
+        ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async(resp:ResponseInterfaceTs)=>{
           this.dialogRef.close(await resp.container);
           this.contenedor_carga.style.display = "none";
 
@@ -241,7 +257,11 @@ export class UsuarioFormComponent implements OnInit {
         }
         this.$sub.add(Observable[0].pipe(
           concatMap(() => Observable[1])
-          ).subscribe(async (resp:ResponseInterfaceTs)=>{
+          ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
             this.dialogRef.close(await resp.container);
             this.contenedor_carga.style.display = "none";
           }))

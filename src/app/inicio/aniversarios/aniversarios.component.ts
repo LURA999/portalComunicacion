@@ -5,7 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-aniversarios',
@@ -34,7 +34,11 @@ export class AniversariosComponent implements OnInit {
     this.mes = this.date.toLocaleDateString('es',opciones).split(" ")[2].toUpperCase();
     this.DataService.open.emit(this.luaStr);
     this.cargando = false;
-    this.$sub.add(this.usServ.selectAllusersAniv(this.lua).subscribe(async (resp: ResponseInterfaceTs) =>{
+    this.$sub.add(this.usServ.selectAllusersAniv(this.lua).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp: ResponseInterfaceTs) =>{
       if (Number(resp.status) == 200) {
         this.usuarios = resp.container;
       }
@@ -77,5 +81,13 @@ export class AniversariosComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.$sub.unsubscribe()
+  }
+
+  palabraAnos(anos_transcurridos:number) : string{
+    if(anos_transcurridos > 1){
+      return 'años'
+    }
+
+    return 'año'
   }
 }

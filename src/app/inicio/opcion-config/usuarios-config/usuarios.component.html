@@ -75,7 +75,8 @@
       <!-- Position Column -->
       <ng-container matColumnDef="no">
         <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+        <td mat-cell *matCellDef="let element" [attr.title]="element.usuario.toString().length > 6 ? element.usuario.toString() : null" >
+          {{ element.usuario.toString().length > 6 ? element.usuario.toString().slice(0, 6) + '...' : element.usuario.toString() }} </td>
       </ng-container>
       <!-- Name Column -->
       <ng-container matColumnDef="nombre">

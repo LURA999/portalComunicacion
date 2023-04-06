@@ -1,11 +1,9 @@
 import { Component, Inject, OnInit,  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
-import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
-import { concatMap, lastValueFrom, of, Subscription } from 'rxjs';
+import { concatMap, lastValueFrom, of, Subscription,catchError } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { ComidaService } from 'src/app/core/services/comida.service';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
@@ -43,7 +41,11 @@ export class EliminarComponent implements OnInit {
 
           /*if (this.data.opc === true) {
             await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
-            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
+            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{
               this.dialogRef.close(await resp.container===undefined?[]:resp.container);
             }))
           } else {
@@ -58,7 +60,11 @@ export class EliminarComponent implements OnInit {
             await lastValueFrom(this.servImgVideo.eliminarPosicionTDSlide(deleteSlide));
 
 
-            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
+            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{
               this.dialogRef.close(await resp.container===undefined?[]:resp.container);
             }))
           }*/
@@ -84,14 +90,22 @@ export class EliminarComponent implements OnInit {
               }))
               }
 
-            })).subscribe((resp : ResponseInterfaceTs)=>{
+            })).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe((resp : ResponseInterfaceTs)=>{
               this.dialogRef.close( resp.container===undefined?[]:resp.container)
               this.contenedor_carga.style.display = "none";
 
             })
 
             /*  await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
-              this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
+              this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{
                 this.dialogRef.close(await resp.container===undefined?[]:resp.container);
               }))
             } else {
@@ -106,7 +120,11 @@ export class EliminarComponent implements OnInit {
               await lastValueFrom(this.servImgVideo.eliminarPosicionTDSlide(deleteSlide));
 
 
-              this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).subscribe(async (resp : ResponseInterfaceTs)=>{
+              this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{
                 this.dialogRef.close(await resp.container===undefined?[]:resp.container);
               }))
             }
@@ -120,7 +138,11 @@ export class EliminarComponent implements OnInit {
               concatMap(()=> this.usService.deleteUser(Number(this.data.id)).pipe(
                 concatMap(()=> this.usService.selectAllusers(1))
               ))
-            ).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            ).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1.container);
               this.contenedor_carga.style.display = "none";
 
@@ -129,13 +151,21 @@ export class EliminarComponent implements OnInit {
           break;
         case 'Comida':
           await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)))
-          this.$sub.add(this.comidaServ.todoComida(0,1).subscribe(async (resp1:ResponseInterfaceTs) =>{
+          this.$sub.add(this.comidaServ.todoComida(0,1).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp1:ResponseInterfaceTs) =>{
             this.dialogRef.close(await resp1);
           }))
           break;
         case 'autocapacitacion':
             await lastValueFrom(this.autocap.eliminarAutocapacitacion(Number(this.data.id)))
-            this.$sub.add(this.autocap.mostrarTodoAutocapacitacion(0).subscribe(async (resp1:ResponseInterfaceTs) =>{
+            this.$sub.add(this.autocap.mostrarTodoAutocapacitacion(0).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp1:ResponseInterfaceTs) =>{
               this.dialogRef.close(await resp1);
             }))
           break;
@@ -143,7 +173,11 @@ export class EliminarComponent implements OnInit {
 
           await lastValueFrom(this.mesService.eliminarFecha(Number(this.data.obj.idUsuario)))
           await lastValueFrom(this.mesService.actualizarDFechaCambio(this.data.obj))
-          this.$sub.add(this.usService.selectAllusers(2).subscribe(async (resp1:ResponseInterfaceTs) =>{
+          this.$sub.add(this.usService.selectAllusers(2).pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp1:ResponseInterfaceTs) =>{
             this.dialogRef.close(await resp1.container);
           }))
           break;
