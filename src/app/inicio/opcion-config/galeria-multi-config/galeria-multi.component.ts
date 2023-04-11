@@ -456,7 +456,9 @@ export class GaleriaMultiComponent implements OnInit {
 
   recursoUrlStr(src : string, categoria:boolean, tipo:boolean) : Observable<string> {
 
+
     if(categoria === false){
+
       /* if (tipo === false) {
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-noticia/fotos/"+src);
       } else {
@@ -464,9 +466,12 @@ export class GaleriaMultiComponent implements OnInit {
       } */
       return from([''])
     }else{
+
       if (tipo === false) {
+
         return from([this.api+"imgVideo/galeria-slide/fotos/"+src]);
       } else {
+
         return from([this.api+"imgVideo/galeria-slide/videos/"+src]);
       }
     }

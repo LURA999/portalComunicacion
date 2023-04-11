@@ -29,7 +29,7 @@ export class SubirImgVideoService {
 
   subirImgVideo2(obj : FormData, arch : string, x? : number) : Observable <ResponseInterfaceTs> {
       let headers = new HttpHeaders()
-        headers.append('Content-Type', 'application/json');
+      headers.append('Content-Type', 'application/json');
       headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       headers.append('Content-Type', 'video/mp4');
       headers.append('Content-Type', 'video/avi');

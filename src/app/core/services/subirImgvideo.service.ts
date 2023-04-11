@@ -23,7 +23,7 @@ export class SubirImgNoticiaService {
   }
 
   subirImgVideo2(obj : FormData) :Observable <ResponseInterfaceTs> {
-    let headers = new HttpHeaders()
+      let headers = new HttpHeaders()
       headers.append('Content-Type', 'application/json');
       headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       headers.append('Content-Type', 'video/mp4');
@@ -35,7 +35,6 @@ export class SubirImgNoticiaService {
       headers.append('Content-Type', 'video/MP2T');
       headers.append('Content-Type', 'application/x-mpegURL');
       headers.append('Content-Type', 'video/x-flv');
-
   return this.http.post<ResponseInterfaceTs>(this.local+"imgVideo/imgVideoNoticia.php", obj, {headers})
   }
 

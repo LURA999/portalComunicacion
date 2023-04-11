@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgNoticiaService } from 'src/app/core/services/subirImgvideo.service';
 import { catchError, concatMap, lastValueFrom, Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { localService } from 'src/app/core/services/local.service';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
+import { MatButton } from '@angular/material/button';
 
 export interface locales {
   idLocal : number
@@ -29,6 +30,8 @@ export class NoticiaComponent implements OnInit {
   $sub : Subscription = new Subscription()
   activar : boolean = false
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+  @ViewChild('miBoton2') miBoton!: MatButton;
+  sliderNoticia :boolean = false;
 
   constructor(private DataService : DataNavbarService, private fb : FormBuilder,
     private serviceImgVideo : SubirImgNoticiaService,
@@ -53,9 +56,9 @@ export class NoticiaComponent implements OnInit {
   formImgVideo : FormGroup = this.fb.group({
     fechaInicial : ["", Validators.required],
     fechaFinal : ["", Validators.required],
-    imgVideo : ["", Validators.required],
     cveLocal : ["", Validators.required],
     titulo : ["", Validators.required],
+    input : ["", Validators.required],
     descripcion : ["", Validators.required],
     link : ["", Validators.required]
   })
@@ -76,28 +79,60 @@ export class NoticiaComponent implements OnInit {
     this.rango2 = fecha
   }
 
-  subirImg(evt : any){
+  async subirImg(evt : any){
     let target : any = <DataTransfer>(evt.target).files[0];
+    const image = new Image();
 
-    if( ((target.size/1024)<=2048 && target.type.split("/")[0] === "image") || ((target.size/1024)<=51200 && target.type.split("/")[0] === "video")){
-      this.formData.append('info', target, target.name);
-      this.formatoVideo = target.type
-      this.formImgVideo.patchValue({
-        imgVideo : target.name
-      })
-    }else{
-      if (target.type.split("/")[0] === "image") {
+    image.onload = () => {
+      if( ((target.size/1024)<=2048 )){
+        this.formData.append('info', target, target.name);
+        this.formatoVideo = target.type
+        this.formData.forEach((file :any)=> {
+          this.formImgVideo.patchValue({
+            imgVideo : file.name
+          })
+        });
+        this.sliderNoticia = true;
+        this.activarBut();
+      }else{
+        this.sliderNoticia = false;
+        this.activarBut();
         alert("Solo se permiten imagenes menores o igual a 2MB");
+        target  = new DataTransfer()
+        let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+        inpimg2.value="";
+
+        }
+    }
+    if (target.type.split("/")[0] === "video") {
+      if ((target.size/1024)<=51200) {
+        this.formData.append('info', target, target.name);
+        this.formatoVideo = target.type
+        this.formData.forEach((file :any)=> {
+          this.formImgVideo.patchValue({
+            imgVideo : file.name
+          })
+        });
+        this.sliderNoticia = true;
+        this.activarBut();
       } else {
+        this.sliderNoticia = false;
+        this.activarBut();
         alert("Solo se permiten videos menores o igual a 50MB");
+       target  = new DataTransfer()
+        let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+        inpimg2.value="";
       }
-      target  = new DataTransfer()
-      let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
-      inpimg2.value="";
+    } else {
+      image.src = URL.createObjectURL(target);
+
     }
   }
 
  async enviandoDatos() {
+  this.activarBut();
+
+    if(this.miBoton.disabled === false){
     if (this.formImgVideo.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
@@ -114,7 +149,7 @@ export class NoticiaComponent implements OnInit {
           return this.serviceImgVideo.subirImgVideo(intfz,"imgVideoNoticia")
         })
       ).pipe(
-      catchError( _ => {
+       catchError( _ => {
         throw "Error in source."
     })
     ).subscribe(()=>{
@@ -123,20 +158,24 @@ export class NoticiaComponent implements OnInit {
       }))
     }
   }
+  }
 
   ngAfterContentInit(): void {
     this.DataService.open.emit(this.paramUrl);
+    this.miBoton.disabled = true;
+
   }
 
   ngOnDestroy(): void {
     this.$sub.unsubscribe()
   }
 
+
   activarBut(){
-    if(this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true){
-      return true
+    if((this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true) || this.sliderNoticia === false){
+      this.miBoton.disabled = true;
     }else{
-      return false
+      this.miBoton.disabled = false;
     }
   }
 }

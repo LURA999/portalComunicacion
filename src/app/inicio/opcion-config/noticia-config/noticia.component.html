@@ -3,7 +3,7 @@
         <h2>NOTICIAS</h2>
         <mat-form-field appearance="outline">
           <mat-label>Fecha inicial de la noticia</mat-label>
-          <input autocomplete="off" formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [min]="date" [max]="rango2" matInput [matDatepicker]="picker">
+          <input autocomplete="off" formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [min]="date" [max]="rango2" matInput [matDatepicker]="picker" (ngModelChange)="activarBut()">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -11,7 +11,7 @@
             <br><br>
             <mat-form-field appearance="outline">
               <mat-label>Fecha final de la noticia</mat-label>
-              <input autocomplete="off" formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango" matInput [matDatepicker]="picker2">
+              <input autocomplete="off" formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango" matInput [matDatepicker]="picker2" (ngModelChange)="activarBut()">
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
@@ -19,28 +19,27 @@
             <br><br>
             <mat-form-field appearance="outline">
               <mat-label>Seleccione la seccion</mat-label>
-              <mat-select formControlName="cveLocal">
+              <mat-select formControlName="cveLocal" (ngModelChange)="activarBut()">
                 <mat-option [value]="i.idLocal" *ngFor="let i of localInterfaz" [disabled]="i.cantidad==4"> {{i.local}} </mat-option>
               </mat-select>
             </mat-form-field>
             <br>
             <mat-form-field appearance="outline">
               <mat-label>Titulo</mat-label>
-              <input autocomplete="off"  matInput formControlName="titulo" type="text" class="ing-txt">
+              <input autocomplete="off"  matInput formControlName="titulo" type="text" class="ing-txt" (ngModelChange)="activarBut()">
             </mat-form-field>
             <br>
             <mat-form-field appearance="outline">
               <mat-label>Descripcion</mat-label>
-              <input autocomplete="off" matInput formControlName="descripcion" type="text" class="ing-txt">
+              <input autocomplete="off" matInput formControlName="descripcion" type="text" class="ing-txt" (ngModelChange)="activarBut()">
             </mat-form-field>
             <br>
             <mat-form-field class="example-ripple-form-field" appearance="outline">
               <mat-label>Ingrese link del slider</mat-label>
-              <input autocomplete="off" matInput formControlName="link" >
+              <input autocomplete="off" matInput formControlName="link" (ngModelChange)="activarBut()">
             </mat-form-field>
             <br>
-          <input mat-input  type="file" name="subir-imagen" (change)="subirImg($event)" id="subir-imagen" class="ing-txt"><br><br>
-
-          <button type="submit" mat-raised-button id="submit" [disabled]="activarBut()" color="primary" (click)="enviandoDatos()">Enviar</button>
+          <input mat-input  type="file"  formControlName="input" name="subir-imagen" (change)="subirImg($event)" id="subir-imagen" class="ing-txt"><br><br>
+          <button type="submit" mat-raised-button id="submit" color="primary" (click)="enviandoDatos()"  #miBoton2>Enviar</button>
       </form>
   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { catchError, concatMap, forkJoin, lastValueFrom, of, Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { localService } from 'src/app/core/services/local.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
+import { MatButton } from '@angular/material/button';
 
 export interface locales {
   idLocal : number
@@ -46,7 +47,9 @@ export class ImagenVideoComponent implements OnInit {
   $sub : Subscription = new Subscription()
   titulo : string = ""
   activar : boolean = false
+  sliderListo :boolean = false;
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+  @ViewChild('miBoton') miBoton!: MatButton;
 
   constructor(private DataService : DataNavbarService,
     private fb : FormBuilder,
@@ -68,7 +71,6 @@ export class ImagenVideoComponent implements OnInit {
     this.url()
   }
 
-
   fecha1(fecha : Date){
     this.rango = fecha
   }
@@ -77,30 +79,73 @@ export class ImagenVideoComponent implements OnInit {
     this.rango2 = fecha
   }
 
-  async subirImg(evt : any){
+   async subirImg(evt : any){
     this.target = <DataTransfer>(evt.target).files[0];
+    const image = new Image();
 
-    if( ((this.target.size/1024)<=2048 && this.target.type.split("/")[0] === "image") || ((this.target.size/1024)<=51200 && this.target.type.split("/")[0] === "video")){
-    this.url()
-    this.formatoVideo = this.target.type
-    this.formData.forEach((file :any)=> {
-      this.formImgVideo.patchValue({
-        imgVideo : file.name
-      })
-    });
-  }else{
-      if (this.target.type.split("/")[0] === "image") {
+    image.onload = () => {
+    if (Number(image.naturalWidth) == 2550 && Number(image.naturalHeight) == 800) {
+      if( ((this.target.size/1024)<=2048 )){
+        this.url()
+        this.formatoVideo = this.target.type
+        this.formData.forEach((file :any)=> {
+          this.formImgVideo.patchValue({
+            imgVideo : file.name
+          })
+        });
+        this.sliderListo = true;
+        this.activarBut();
+      }else{
+        this.sliderListo = false;
+        this.activarBut();
         alert("Solo se permiten imagenes menores o igual a 2MB");
-      } else {
-        alert("Solo se permiten videos menores o igual a 50MB");
-      }
+        this.target  = new DataTransfer()
+        let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+        inpimg2.value="";
+
+        }
+    }else{
+      this.sliderListo = false;
+      this.activarBut();
+      alert("La imagen debe de cumplir con el ancho y la altura especificada");
       this.target  = new DataTransfer()
       let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
       inpimg2.value="";
-  }
+    }
+    }
+
+    if (this.target.type.split("/")[0] === "video") {
+      if ((this.target.size/1024)<=51200) {
+        this.url()
+        this.formatoVideo = this.target.type
+        this.formData.forEach((file :any)=> {
+          this.formImgVideo.patchValue({
+            imgVideo : file.name
+          })
+        });
+        this.sliderListo = true;
+        this.activarBut();
+      } else {
+        this.sliderListo = false;
+        this.activarBut();
+        alert("Solo se permiten videos menores o igual a 50MB");
+        this.target  = new DataTransfer()
+        let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+        inpimg2.value="";
+      }
+    } else {
+      image.src = URL.createObjectURL(this.target);
+
+    }
+
+
   }
 
   async enviandoDatos(){
+    this.activarBut();
+
+    if(this.miBoton.disabled === false){
+
     if (this.formImgVideo.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
@@ -121,6 +166,7 @@ export class ImagenVideoComponent implements OnInit {
           } else {
             intfz.imgVideo = this.nombreNuevo
           }
+
           return this.serviceImgVid.subirImgVideo(intfz,"imgVideo",this.actualizar).pipe(
             concatMap((resp2:ResponseInterfaceTs) =>{
               if (Number(resp2.container[0]["pos"]) == 1) {
@@ -154,14 +200,15 @@ export class ImagenVideoComponent implements OnInit {
           )
         })
       ).pipe(
-      catchError( _ => {
+       catchError( _ => {
         throw "Error in source."
-    })
+      })
     ).subscribe(()=>{
         this.route.navigate(['general/galeriaMulti-config'])
         this.contenedor_carga.style.display = "none";
       }))
     }
+  }
   }
 
   secciones_local(opc : number){
@@ -187,6 +234,8 @@ export class ImagenVideoComponent implements OnInit {
 
   ngAfterContentInit(): void {
     this.DataService.open.emit(this.paramUrl);
+    this.miBoton.disabled = true;
+
   }
 
   private url(){
@@ -202,30 +251,7 @@ export class ImagenVideoComponent implements OnInit {
         this.cveSeccion = 1;
         this.actualizar = false;
         break;
-      /*case "menu-config":
-        this.titulo = "MENÚ";
-        this.cveSeccion = 2;
-        this.actualizar = true;
-        this.nombreNuevo = "menu_"+this.formImgVideo.value.cveLocal+"."+extension;
-        break;
-      case "cumpleanos-config":
-        this.titulo = "CUMPLEAÑOS";
-        this.cveSeccion = 3;
-        this.actualizar = true;
-        this.nombreNuevo = "cumpleanos_"+this.formImgVideo.value.cveLocal+"."+extension;
-        break;
-      case "aniversario-config":
-        this.titulo = "ANIVERSARIO";
-        this.cveSeccion = 4;
-        this.actualizar = true;
-        this.nombreNuevo = "aniversario_"+this.formImgVideo.value.cveLocal+"."+extension;
-        break;
-      case "empleado-mes-config":
-        this.titulo = "EMPLEADO DEL MES";
-        this.cveSeccion = 5;
-        this.actualizar = true;
-        this.nombreNuevo = "empleado_mes_"+this.formImgVideo.value.cveLocal+"."+extension;
-        break;*/
+
       }
 
     try {
@@ -247,10 +273,11 @@ export class ImagenVideoComponent implements OnInit {
   }
 
   activarBut(){
-    if(this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true){
-      return true
+
+    if((this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true) || this.sliderListo === false){
+      this.miBoton.disabled = true;
     }else{
-      return false
+      this.miBoton.disabled = false;
     }
   }
 }

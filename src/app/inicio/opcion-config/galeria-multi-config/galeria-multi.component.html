@@ -19,7 +19,7 @@
                   </ng-container>
                   <ng-template #elseTemplate>
                     <video [currentTime]="1"  controls  >
-                      <source [src]="recursoUrlStr(i.imgVideo,false,true)" >
+                      <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                     </video>
                   </ng-template>
                   <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -40,7 +40,7 @@
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1" controls >
-                    <source [src]="recursoUrlStr(i.imgVideo,false,true)" >
+                    <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                     No se puede reproducir en este navegador
                    </video>
                 </ng-template>
@@ -62,7 +62,7 @@
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1"  controls>
-                    <source [src]="recursoUrlStr(i.imgVideo,false,true)" >
+                    <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                   </video>
                 </ng-template>
                 <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -83,7 +83,7 @@
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1"  controls  >
-                    <source [src]="recursoUrlStr(i.imgVideo,false,true)" >
+                    <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                   </video>
                 </ng-template>
                 <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -105,7 +105,7 @@
                 </ng-container>
                 <ng-template #elseTemplate>
                   <video [currentTime]="1"  controls  >
-                    <source [src]="recursoUrlStr(i.imgVideo,false,true)" >
+                    <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                   </video>
                 </ng-template>
                   <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
@@ -127,7 +127,7 @@
                     </ng-container>
                     <ng-template #elseTemplate>
                       <video [currentTime]="1"  controls  >
-                        <source  [src]="recursoUrlStr(i.imgVideo,false,true)"
+                        <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                         >
                       </video>
                     </ng-template>
@@ -144,7 +144,7 @@
           <app-todo-noticias [tipoNoticias]="-1"></app-todo-noticias>
         </ng-template>
       </mat-tab>
-      <mat-tab label="Noticias Desactivas">
+      <mat-tab label="Noticias Desactivadas">
         <ng-template matTabContent>
           <app-todo-noticias [tipoNoticias]="-2"></app-todo-noticias>
         </ng-template>
