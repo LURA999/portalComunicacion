@@ -1,9 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { respTarjeta } from 'src/app/inicio/araiza-diamante/araiza-diamante.component';
-import { comida } from 'src/app/inicio/opcion-config/menu-config/menu-config.component';
-import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 
 

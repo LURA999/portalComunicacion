@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import * as CryptoJS from 'crypto-js';
+
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',

@@ -25,9 +25,9 @@
                   {{i.posicion}}
                 </ng-template>
               </td>
-              <td class="img" [width]="'15%'">
+              <td class="img" [style.width]="'15%'">
                 <div class="img-card">
-                  <img [src]=" recursoUrl( i.img )" />
+                  <img [src]=" recursoUrl( i.img )"  />
                 </div>
               </td>
               <td  [width]="'40%'">
@@ -41,11 +41,8 @@
                 {{i.mes}}
               </td>
             </tr>
-
           </table>
-          &nbsp;
           <hr>
-          &nbsp;
     </div>
 
   </div>
