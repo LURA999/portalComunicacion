@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
-import { catchError, concatMap, forkJoin, lastValueFrom, of, Subscription } from 'rxjs';
+import { catchError, concatMap, of, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { imgVideoModel } from 'src/app/interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -273,7 +273,6 @@ export class ImagenVideoComponent implements OnInit {
   }
 
   activarBut(){
-
     if((this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true) || this.sliderListo === false){
       this.miBoton.disabled = true;
     }else{

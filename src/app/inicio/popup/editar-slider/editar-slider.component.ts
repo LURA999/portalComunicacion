@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, Subscription,Observable, concatMap, of, concat, catchError } from 'rxjs';
+import { Subscription,Observable, concatMap, of, catchError } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
+import { ChangeDetectorRef } from '@angular/core';
 
 export interface locales {
   idLocal : number
@@ -22,7 +24,8 @@ export class EditarSliderComponent implements OnInit {
   localInterfaz :locales[] = []
   nombreActualizadoImgVid : boolean = false
   $sub : Subscription = new Subscription()
-
+  @ViewChild('miBoton') miBoton!: MatButton;
+  target! : any
   date : Date = new Date()
   rango : Date | undefined
   rango2 : Date | undefined
@@ -36,6 +39,7 @@ export class EditarSliderComponent implements OnInit {
     posicion : [Number(this.data.obj.posicion), Validators.required]
   })
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+  activar : boolean = false;
 
   constructor(
     private fb : FormBuilder,
@@ -43,6 +47,7 @@ export class EditarSliderComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private serviceImgVideo : SubirImgVideoService,
     private local : localService,
+    private cdRef: ChangeDetectorRef
     ) {
       this.$sub.add(this.local.todoLocal(1).pipe(
       catchError( _ => {
@@ -79,28 +84,57 @@ export class EditarSliderComponent implements OnInit {
   }
 
   subirImg(evt : any){
-    let target : any = <DataTransfer>(evt.target).files[0];
-    if( ((target.size/1024)<=2048 && target.type.split("/")[0] === "image") || ((target.size/1024)<=51200 && target.type.split("/")[0] === "video")){
-      this.nombreActualizadoImgVid = true
+    this.target  = <DataTransfer>(evt.target).files[0];
+    const image = new Image();
 
-    const reader= new FileReader()
-    reader.readAsDataURL(target)
-    reader.onload = () => {
-      this.formImgVideo.patchValue({
-        imgVideo : reader.result
-      })
+    image.onload = () => {
+    if (Number(image.naturalWidth) == 2550 && Number(image.naturalHeight) == 800) {
+      if( ((this.target.size/1024)<=2048 )){
+        this.nombreActualizadoImgVid = true
+        const reader= new FileReader()
+        reader.readAsDataURL(this.target)
+        reader.onload = () => {
+          this.formImgVideo.patchValue({
+            imgVideo : reader.result
+          })
+        }
+        this.formData.append('info', this.target, this.target.name);
+      }else{
+        alert("Solo se permiten imagenes menores o igual a 2MB");
+        this.target  = new DataTransfer()
+        let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+        inpimg2.value="";
+
+        }
+    }else{
+      alert("La imagen debe de cumplir con el ancho y la altura especificada");
+      this.target  = new DataTransfer()
+      let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+      inpimg2.value="";
     }
-    this.formData.append('info', target, target.name);
-  }else{
-    if (target.type.split("/")[0] === "image") {
-      alert("Solo se permiten imagenes menores o igual a 2MB");
+    }
+
+    if (this.target.type.split("/")[0] === "video") {
+      if ((this.target.size/1024)<=51200) {
+        this.nombreActualizadoImgVid = true
+        const reader= new FileReader()
+        reader.readAsDataURL(this.target)
+        reader.onload = () => {
+          this.formImgVideo.patchValue({
+            imgVideo : reader.result
+          })
+        }
+        this.formData.append('info', this.target, this.target.name);
+      } else {
+        alert("Solo se permiten videos menores o igual a 50MB");
+        this.target  = new DataTransfer()
+        let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+        inpimg2.value="";
+      }
     } else {
-      alert("Solo se permiten videos menores o igual a 50MB");
+      image.src = URL.createObjectURL(this.target);
+
     }
-    target  = new DataTransfer()
-    let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
-    inpimg2.value="";
-  }
   }
 
  async enviandoDatos() {
@@ -109,6 +143,7 @@ export class EditarSliderComponent implements OnInit {
     } else {
 
       this.contenedor_carga.style.display = "block";
+      this.activar = true
 
       // viejos valores
       const posicion2 =  this.data.obj.posicion;
@@ -249,7 +284,6 @@ export class EditarSliderComponent implements OnInit {
         }))
     }
   }
-
   ngOnDestroy(): void {
     this.$sub.unsubscribe()
   }
