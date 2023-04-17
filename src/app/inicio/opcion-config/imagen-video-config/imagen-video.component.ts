@@ -84,7 +84,7 @@ export class ImagenVideoComponent implements OnInit {
     const image = new Image();
 
     image.onload = () => {
-    if (Number(image.naturalWidth) == 2550 && Number(image.naturalHeight) == 800) {
+    // if (Number(image.naturalWidth) == 2550 && Number(image.naturalHeight) == 800) {
       if( ((this.target.size/1024)<=2048 )){
         this.url()
         this.formatoVideo = this.target.type
@@ -104,14 +104,14 @@ export class ImagenVideoComponent implements OnInit {
         inpimg2.value="";
 
         }
-    }else{
+/*     }else{
       this.sliderListo = false;
       this.activarBut();
       alert("La imagen debe de cumplir con el ancho y la altura especificada");
       this.target  = new DataTransfer()
       let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
       inpimg2.value="";
-    }
+    } */
     }
 
     if (this.target.type.split("/")[0] === "video") {
