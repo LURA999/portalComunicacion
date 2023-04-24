@@ -15,7 +15,7 @@ article#mensaje-alianzas {
 }
 
 /*texto del celular con circulos*/
-.texto article {
+.textoDiamante article {
     font-size: 2vw;
 }
 
@@ -44,7 +44,7 @@ h1 {
     background-color: #F4F4F4;
 }
 
-.araizaDiam .texto {
+.araizaDiam .textoDiamante {
     margin-left: 15%;
 }
 
@@ -163,7 +163,7 @@ button {
         font-size: 3.5vw;
     }
 
-    .texto article {
+    .textoDiamante article {
         font-size: 2.5vw;
     }
 
@@ -184,10 +184,10 @@ button {
     article {
         font-size: 3vw !important;
     }
-    .texto h1 {
+    .textoDiamante h1 {
         font-size: 4vw;
     }
-    .texto article {
+    .textoDiamante article {
         font-size: 3.5vw !important;
     }
 
@@ -214,7 +214,7 @@ button {
     .h1-s {
         font-size: 5vw;
     }
-    .texto h1 {
+    .textoDiamante h1 {
         font-size: 5.5vw;
     }
     article {
@@ -227,7 +227,7 @@ button {
 }
 
 @media (max-width: 900px){
-    .araizaDiam .texto{
+    .araizaDiam .textoDiamante{
         padding-left: 20px;
         padding-top: 20px;
         padding-bottom: 20px;

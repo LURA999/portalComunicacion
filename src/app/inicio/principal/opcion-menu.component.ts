@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -27,7 +27,8 @@ export interface imageObject {
   selector: 'app-menu-opcion',
   templateUrl: './opcion-menu.component.html',
   providers: [NgbCarouselConfig],
-  styleUrls: ["./opcion-menu.component.css"]
+  styleUrls: ["./opcion-menu.component.css"],
+  encapsulation: ViewEncapsulation.None
 })
 export class OpcionMenuComponent implements OnInit {
   link : string =  environment.production === true ? "": "../../../";

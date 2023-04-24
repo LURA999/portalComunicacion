@@ -115,6 +115,34 @@ h2 {
   color: #DC994D;
 
 }
+
+/*Cambios globales*/
+
+
+.img-carousel {
+  width: 100%;
+  height: auto;
+}
+
+.mat-card {
+  padding: 0px !important;
+}
+
+.tituloNoticia {
+  font-family: 'gotham-bold' !important;
+  font-size: 15px  !important;
+  word-break: break-word;
+}
+
+.noticia {
+  width: 310px;
+  height: auto;
+  padding: 0;
+  overflow: auto;
+  box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.15) !important;
+  }
+
+
 /*
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

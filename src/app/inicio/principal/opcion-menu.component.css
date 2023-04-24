@@ -79,11 +79,6 @@
 }
 
 /*SECCION Autocapacitaciones*/
-h3 {
-  font-family: 'gotham-bold';
-  font-size: 15px  ;
-  word-break: break-word;
-}
 
 .container-autoc {
   display: flex;
@@ -97,7 +92,7 @@ h3 {
 
 .container-autoc #texto {
   font-family: 'gotham-medium';
-  width: 70%;
+  text-align: justify;
   margin-bottom: 30px;
 }
 
@@ -211,13 +206,7 @@ text-align: center;
 
 }
 
-.noticia {
-width: 310px;
-height: auto;
-padding: 0;
-overflow: auto;
-box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.15);
-}
+
 
 .noticia img {
 height: 200px;
@@ -330,7 +319,7 @@ margin-top: 0px;
 overflow-y: auto;
 height: 100px;
 word-break: break-word;
-font-family: 'gotham-medium';
+font-family: 'gotham-book';
 }
 
 
@@ -576,11 +565,6 @@ mat-card  {
 
 }
 
-@media(max-width:900px) {
-  .carousel-item img {
-    height: 400px;
-  }
-}
 
 @media(max-width:851px){
   .menu {
@@ -597,7 +581,6 @@ mat-card  {
 
   .container-autoc .texto {
     text-align: justify;
-
     width: auto;
   }
 
@@ -650,7 +633,6 @@ mat-card  {
   }
 
   #bt-autoc button {
-    font-size: 2.5vw;
     width: 100%;
   }
   .container-autoc{
@@ -661,16 +643,17 @@ mat-card  {
 }
 
 @media(max-width:470px) {
-  .carousel-item img {
-    height: 300px;
-  }
 
   #cuerpo-bt h1 {
     font-size: 100%;
   }
 
+  #cuerpo-bt #texto {
+    font-size: 13px;
+  }
+
   #bt-autoc button {
-    font-size: 3vw;
+    font-size: 12px;
   }
 
 }
@@ -694,4 +677,14 @@ mat-card  {
 margin: auto;
 overflow: hidden;
 position: relative;
+}
+.carousel-indicators {
+  margin-bottom: 0rem !important;
+}
+
+@media(max-width:605px){
+   .carousel-indicators [data-bs-target] {
+    border-bottom: 2px solid transparent;
+    height: 2px;
+  }
 }

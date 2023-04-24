@@ -77,7 +77,7 @@ h2 span {
   align-self: self-end;
 }
 
-.fecha {
+.fechaMenu {
   margin-top: 3%;
   color: white;
   padding: 10px;
@@ -112,11 +112,11 @@ h2 span {
     font-size: 16px;
   }
 
-  .texto{
+  .textoMenu{
     font-size: 14px;
   }
 
-  .fecha {
+  .fechaMenu {
     font-size: 16px;
   }
 
@@ -145,10 +145,10 @@ h2 span {
   .nombre{
     font-size: 13px;
   }
-  .texto{
+  .textoMenu{
     font-size: 11px;
   }
-  .fecha {
+  .fechaMenu {
     font-size: 13px;
   }
 
@@ -200,10 +200,10 @@ h2 span {
   .nombre{
     font-size: 11px;
   }
-  .texto{
+  .textoMenu{
     font-size: 9px ;
   }
-  .fecha {
+  .fechaMenu {
     font-size: 11px;
   }
 }

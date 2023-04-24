@@ -23,7 +23,7 @@
       </mat-form-field>
     </form>
   </div>
-  <div id="opciones-not">
+  <div id="opciones-notHisto">
     <div class="tab t1"  (click)="routerLink()" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" >TODOS</div>
 
   </div>
@@ -31,11 +31,11 @@
   <div id="tercer-nivel">
   <ng-container *ngIf="noticias.length > 0; else elseTemplate">
 
-    <div class="lista-noticias" *ngFor="let i of noticias | paginate: { itemsPerPage: 10, currentPage: p2 } ; let x=index ">
+    <div class="lista-noticiasHisto" *ngFor="let i of noticias | paginate: { itemsPerPage: 10, currentPage: p2 } ; let x=index ">
       <!--div id="opciones-not">
         <div class="tab t1"  alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink()">TODOS</div>
       </div>-->
-      <div class="noticia">
+      <div class="noticiaHisto">
         <mat-card-header>
 
         </mat-card-header>
@@ -57,9 +57,9 @@
           </ng-template>
         </div>
         <mat-card-content>
-          <span class="fecha">{{dateNormal(i.fechaInicial)}}</span>
+          <span class="fechaHisto">{{dateNormal(i.fechaInicial)}}</span>
           <h3>{{i.titulo}}</h3>
-            <div class="texto">
+            <div class="textoHisto">
               {{i.descripcion}}
               <br>
               <br>

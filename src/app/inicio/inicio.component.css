@@ -16,10 +16,6 @@ h2 {
 }
 
 /*ULTIMA SECCION*/
-h3 {
-  font-family: 'gotham-bold';
-  font-size: 15px  ;
-}
 
 
 .fecha {
@@ -429,18 +425,14 @@ img {
   position: relative;
 }
 
-.carousel-indicators li {
-  box-sizing: content-box;
-  flex: 0 1 auto;
-  width: 15px;
-  height: 15px;
-  margin-right: 3px;
-  margin-left: 5px;
-  border-radius: 100%;
-  text-indent: -999px;
-  cursor: pointer;
-  background-color: #fff;
-  border-bottom: 10px solid transparent;
-  opacity: .5;
-  transition: opacity .5s ease;
+ .carousel-indicators {
+  margin-bottom: 0rem !important;
 }
+
+@media(max-width:605px){
+   .carousel-indicators [data-bs-target] {
+    border-bottom: 2px solid transparent;
+    height: 2px;
+  }
+}
+

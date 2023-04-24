@@ -13,11 +13,11 @@
       <div  *ngFor="let i of menu; let idx = index" class="cuadro">
 
         <h3 class="nombre">{{i.nombre}}</h3>
-        <article class="texto">
+        <article class="textoMenu">
             {{i.descripcion}}
         </article>
         <div class="containerFecha">
-          <div class="fecha" [style.background] = "color_primary">
+          <div class="fechaMenu" [style.background] = "color_primary">
             {{dateNormal(i.fecha)}}
           </div>
         </div>
