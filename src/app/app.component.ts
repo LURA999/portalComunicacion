@@ -21,8 +21,8 @@ export class AppComponent {
 
   async registrarVisita(){
     if (this.auth.getrElm('user') != "" && this.auth.getrElm('user') !=undefined && this.auth.getrElm('user') !=null) {
-      await lastValueFrom(this.log.registrarLogin(this.auth.getId())) 
-    } 
+      await lastValueFrom(this.log.registrarLogin(this.auth.getId()))
+    }
   }
 
 }

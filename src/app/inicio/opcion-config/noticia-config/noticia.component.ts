@@ -27,7 +27,9 @@ export class NoticiaComponent implements OnInit {
   formData : FormData = new FormData();
   formatoVideo : string = ""
   paramUrl : string = this.route.url.split("/")[2];
+
   $sub : Subscription = new Subscription()
+
   activar : boolean = false
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
   @ViewChild('miBoton2') miBoton!: MatButton;
@@ -37,6 +39,7 @@ export class NoticiaComponent implements OnInit {
     private serviceImgVideo : SubirImgNoticiaService,
     public route : Router,private local : localService,
     ) {
+      //subscribe
       this.$sub.add(this.local.todoLocal(2).pipe(
       catchError( _ => {
         throw "Error in source."
