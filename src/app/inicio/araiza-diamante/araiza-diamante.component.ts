@@ -27,7 +27,6 @@ export interface carrusel_mini {
 }
 
 
-
 @Component({
   selector: 'app-araiza-diamante',
   templateUrl: './araiza-diamante.component.html',
@@ -42,6 +41,7 @@ export class AraizaDiamanteComponent implements OnInit {
   width : number =0
   @ViewChild("inputTarj") form! :HTMLInputElement
    opciones = { useGrouping: true  };
+   c : number = 0;
    carrusel_mini : Array<string> = []
   formData : formData= {
     search: ''
@@ -70,6 +70,32 @@ export class AraizaDiamanteComponent implements OnInit {
     arrows: true,
     dots: false,
     infinite: true,
+    centerMode:true,
+    lazyLoad: 'ondemand',
+    lazyLoadBuffer: 3,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+        }
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 200,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
 
   constructor(
@@ -80,68 +106,42 @@ export class AraizaDiamanteComponent implements OnInit {
     private DataService : DataNavbarService,
     private sanitizer : DomSanitizer,
     private dimService: araizaDiamante) {
+      console.log(this.carouselConfig);
+
     }
 
   ngOnInit(): void {
     this.cargandoAlianzas();
-
     this.DataService.open.emit(this.luaStr);
-
-    // this.swiper = new Swiper('.swiper-container', {
-    //   // Configuración para móviles y web
-    //   slidesPerView: 'auto',
-    //   spaceBetween: 20,
-    //   centeredSlides: true,
-    //   loop: true,
-    //   // Configuración para móviles
-    //   breakpoints: {
-    //     768: {
-    //       slidesPerView: 2,
-    //       spaceBetween: 40,
-    //     },
-    //     1024: {
-    //       slidesPerView: 3,
-    //       spaceBetween: 50,
-    //     },
-    //   },
-    //   // Configuración para web
-    //   navigation: {
-    //     nextEl: '.swiper-button-next',
-    //     prevEl: '.swiper-button-prev',
-    //   },
-    // });
-
-    // let nextButton = document.querySelector('.swiper-button-next');
-    // nextButton!.addEventListener('click', () => {
-    //   this.swiper!.slideNext();
-    // });
-
-    // // Evento de clic para el botón Anterior
-    // let  prevButton = document.querySelector('.swiper-button-prev');
-    // prevButton!.addEventListener('click', () => {
-    //   this.swiper!.slidePrev();
-    // });
-
-    /*const prev = document.querySelector('.prev')
-    const next = document.querySelector('.next')
-    const slider = document.querySelector('.slider')
-
-
-
-     prev!.addEventListener('click', () => {
-        slider!.scrollLeft -= 300
-    })
-
-    next!.addEventListener('click', () => {
-        slider!.scrollLeft += 300
-    })
-    this.resonsiveCarrusel() */
-
   }
 
   handleCarouselEvents(event:any) {
 		console.log(event);
 	}
+
+  cambiarSlider(event:any){
+   this. c = event.nextSlide;
+  }
+
+  next() {
+   /*  if(this.c < this.items.length-2){
+      this.c +=2;
+    } */
+    this.c +=2;
+    return this.c;
+  }
+
+  prev() {
+    /* if(this.c >=2){
+      this.c -=2;
+    } */
+    if(this.c == 0){
+      this.c = this.items.length-1;
+    }
+
+    this.c -=2;
+    return this.c;
+  }
 
   resonsiveCarrusel(){
     if ( Number(window.innerWidth) >=1200 ) {
@@ -176,9 +176,6 @@ export class AraizaDiamanteComponent implements OnInit {
       }
       this.changeDetectorRef.detectChanges();
     });
-  }
-
-  ngAfterContentInit(): void {
   }
 
   async submitForm(value : number) {

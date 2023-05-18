@@ -18,7 +18,7 @@ export class localService {
   }
 
   getAlianzas() :Observable<carrusel_mini[]> {
-    return this.http.get<carrusel_mini[]>("https://www.araizahoteles.com/alianzas/datos2.php");
+    return this.http.get<carrusel_mini[]>("https://www.araizadiamante.com/alianzas/datos2.php");
   }
 
 }

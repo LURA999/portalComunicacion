@@ -25,7 +25,7 @@
         <article>
             Revisa las Recompensas que puedes adquirir con tus puntos de Araiza Diamante
         </article>
-        <button id="recompensas"  (click)="irLink('https://form.jotform.com/araizadiamante/solicitud-de-recompensas')" color ="primary" mat-raised-button >Recompensas</button>
+        <button id="recompensas"  (click)="irLink('https://document-tc.galaxy.tf/wdpdf-4aoe1tqwocl05vok14mejan4y/araiza-diamante_cms-document.pdf')" color ="primary" mat-raised-button >Recompensas</button>
     </div>
     <div id="seccion3" class="seccion">
         <div id="alianzas">
@@ -39,12 +39,14 @@
         <div class="container" >
 
           <article id="mensaje-alianzas">Para saber las alianzas por favor comuníquese con araiza diamante</article>
-          <!-- *ngIf="items.length > 0"
-          <ngx-slick-carousel  class="carousel" [config]="carouselConfig">
+           <!-- *ngIf="items.length > 0" -->
+          <ngx-slick-carousel #slickModal="slick-carousel" (beforeChange)="cambiarSlider($event)" class="carousel" [config]="carouselConfig">
             <div ngxSlickItem *ngFor="let item of items">
-              <img [lazyLoad]="item.logo" [src]="link+'assets/img/pruebas/loading-noticia.gif'" [alt]="item.nombre">
+              <img [src]="item.logo" [alt]="item.nombre">
             </div>
-          </ngx-slick-carousel> -->
+          </ngx-slick-carousel>
+          <button (click)="slickModal.slickGoTo(prev())">Prev</button>
+          <button (click)="slickModal.slickGoTo(next())">Next</button>
 
           <!-- <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -76,7 +78,7 @@
       <h1 id="puntajeAraiza">{{resp.puntos ===""?0: (+resp.puntos).toLocaleString('es-MX', opciones)}}</h1>
       <article>
         <span>Consulta tu puntaje actual</span> <br>
-        <span > <a href="https://araizahoteles.com/solicitud-de-recompensa?lang=es" class="color_primario"> ¿Deseas canjear los puntos?</a></span>
+        <span > <a href="https://form.jotform.com/araizadiamante/solicitud-de-recompensas" class="color_primario"> ¿Deseas canjear los puntos?</a></span>
       </article>
       <form>
         <mat-form-field class="example-full-width" id="search">
