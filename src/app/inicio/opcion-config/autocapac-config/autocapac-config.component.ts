@@ -213,6 +213,8 @@ export class AutoCapacConfigComponente implements OnInit {
         throw "Error in source."
     })
     ).subscribe(async (resp:ResponseInterfaceTs)=>{
+      console.log(Number(resp.status));
+
       if (Number(resp.status) == 200) {
         if (resp.container.length > 0) {
           this.formBuscar.reset();
@@ -237,10 +239,6 @@ export class AutoCapacConfigComponente implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.cargando = true;
         }
-      }else{
-        this.ELEMENT_DATA = []
-        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-
       }
      })
   }

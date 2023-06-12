@@ -181,8 +181,6 @@ export class MenuConfigComponent implements OnInit {
         throw "Error in source."
     })
     ).subscribe(async (resp:ResponseInterfaceTs)=>{
-      console.log(resp);
-
       if (Number(resp.status) == 200) {
         this.paginator.firstPage();
         if (resp.container.length > 0) {
@@ -197,9 +195,6 @@ export class MenuConfigComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.cargando = true;
         }
-      }else{
-        this.ELEMENT_DATA = []
-        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       }
      })
   }
