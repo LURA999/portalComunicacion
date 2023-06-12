@@ -146,7 +146,7 @@ h2 {
 /*Pagina araizadiamante*/
   #carousel-diamante .slick-prev,
   #carousel-diamante .slick-next  {
-    background: #FFFFFF;
+    background: transparent;
   }
 
   #carousel-diamante .slick-prev:hover,
@@ -154,7 +154,7 @@ h2 {
   #carousel-diamante .slick-next:hover,
   #carousel-diamante .slick-next:focus {
     outline: none;
-    background: #FFFFFF;
+    background: transparent;
   }
 
   #carousel-diamante .slick-next:before {
