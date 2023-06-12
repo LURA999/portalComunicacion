@@ -38,6 +38,18 @@ export interface autocapacitacionInt {
 
 })
 export class AutoCapacConfigComponente implements OnInit {
+/**
+   * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual
+   *  @ELEMENT_DATA : almacena el array que se utilizara para la atabla
+   *  @displayedColumns : se define las columnas que se usan en la tabla
+   *  @dataSource : variable importante que ayuda a imprimir el array element_Data en la tabla
+   *  @locales : array que llama a llamar todos los locales del araiza
+   *  @paginator : variable ayudante para realizar cualquier cambio que este relacionado con el contenido
+   *  de la tabla
+   *  @cargando : variable que ayuda a finalizar e iniciar un "loading".
+   *  @$sub : variable que almacena los observables para despues liberarlos al terminar la pagina
+   *  @formBuscar : en esta variable se asignan todas las variables que deben de existir en el formulario
+  */
 
   paramUrl : string = this.route.url.split("/")[2];
   ELEMENT_DATA: autocapacitacionInt[] = [ ];
@@ -237,6 +249,7 @@ export class AutoCapacConfigComponente implements OnInit {
     this.$sub.unsubscribe();
   }
 
+  //envia la peticion y despues guarda el resutado en su respectivo element_Data
   buscador(){
     this.$sub.add(this.autoCap.mostrarAutocapacitacion(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"]).pipe(

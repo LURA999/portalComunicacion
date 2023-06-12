@@ -23,6 +23,23 @@ export interface actNomImgVideo {
 })
 
 export class UsuarioFormComponent implements OnInit {
+
+  /**
+   * @insertarImagen : esta variable te ayuda a asignar una imagen si o si, en el formulario
+   * @hide : esta variable es un auxiliar para el "ojito" del input en la contraseña
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @locales : array que llama a llamar todos los locales del araiza
+   * @formData :  Guarda el video o imagen que se envia en el input
+   * @modalidad : con esta variable se puede identificar si estas actualizando o insertando
+   * a un usuario
+   * @target : Como se desconoce el tipo de variable con el cual enviamos el archivo en el input
+   * inicialemnte se guarda como tipo any en esta variable
+   * @contenedor_carga : variable ayudante para activar el loading
+   * @formUsuario : en esta variable se asignan todas las variables que deben de existir en el formulario
+   * @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   * pero este sirve para ubicar un archivo que se encuentra en el mismo proyecto.
+   * @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+   */
   insertarImagen : boolean = false
   hide = true;
   $sub : Subscription = new Subscription()
@@ -47,10 +64,8 @@ export class UsuarioFormComponent implements OnInit {
     departamento: [ '' , Validators.required ],
     contrato: [ '' , Validators.required ]
   })
-  guardHotel : number | undefined
   link : string =  environment.production === true ? "": "../../../";
   api : string = environment.api;
-  @ViewChild("subirImagen") inpImg : HTMLInputElement | undefined
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
   private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private changeDetectorRef: ChangeDetectorRef
@@ -71,7 +86,6 @@ export class UsuarioFormComponent implements OnInit {
         departamento: [ this.data!.departamento , Validators.required ],
         contrato: [ Number(this.data?.contrato) , Validators.required ]
       })
-      this.guardHotel = Number(this.data!.cveLocal)
       this.modalidad = false;
     }else{
       this.modalidad = true;
@@ -134,7 +148,11 @@ export class UsuarioFormComponent implements OnInit {
 
     if (this.modalidad === true) {
       this.contenedor_carga.style.display = "block";
-      let y : number = await (await lastValueFrom(this.usService.buscarRepetidoInsert(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"])))).container[0].total;
+      let y : number = await (await lastValueFrom(this.usService.buscarRepetidoInsert(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"])).pipe(
+        catchError(_ =>{
+          throw 'Error in source.'
+       })
+      ))).container[0].total;
       this.contenedor_carga.style.display = "none";
 
       if(y == 0 && this.insertarImagen === true && this.formUsuario.valid === true){
@@ -168,7 +186,11 @@ export class UsuarioFormComponent implements OnInit {
     }
     } else {
       this.contenedor_carga.style.display = "block";
-      let y : number = await (await lastValueFrom(this.usService.buscarRepetidoUpdate(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"]), this.data!.idUsuario))).container[0].total;
+      let y : number = await (await lastValueFrom(this.usService.buscarRepetidoUpdate(this.formUsuario.value["usuario"],Number(this.formUsuario.value["cveLocal"]), this.data!.idUsuario).pipe(
+        catchError(_ =>{
+          throw 'Error in source.'
+       })
+      ))).container[0].total;
       this.contenedor_carga.style.display = "none";
 
       if(y == 0){

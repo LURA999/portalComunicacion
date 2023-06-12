@@ -19,7 +19,6 @@ import { EliminarComponent } from './popup/eliminar/eliminar.component';
 import { EditarSliderComponent } from './popup/editar-slider/editar-slider.component';
 import { EditarNoticiaComponent }from './popup/editar-noticia/editar-noticia.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ImageComponent } from './image/image.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UsuariosComponent } from './opcion-config/usuarios-config/usuarios.component';
 import { UsuarioFormComponent } from './popup/editar-usuario/usuario-form.component';
@@ -55,7 +54,6 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     EliminarComponent,
     EditarSliderComponent,
     EditarNoticiaComponent,
-    ImageComponent,
     UsuariosComponent,
     UsuarioFormComponent,
     EmpleadoDelMesComponent,

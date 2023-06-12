@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
-import { Observable, Subscription, from } from 'rxjs';
+import { Observable, Subscription, catchError, from } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { EditarNoticiaComponent } from 'src/app/inicio/popup/editar-noticia/editar-noticia.component';
 import { EliminarComponent } from 'src/app/inicio/popup/eliminar/eliminar.component';
@@ -15,6 +15,20 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./todo-noticias.component.css']
 })
 export class TodoNoticiasComponent implements OnInit {
+
+  /** //Este componente se izo para imprimir las noticias
+  *  @arrayVidImgGeneralN : array que almacena el nombre del archivo (imagen o video) del general
+  *  @arrayVidImgMexicaliN : array que almacena el nombre del archivo (imagen o video) del mexicali
+  *  @arrayVidImgCalafiaN : array que almacena el nombre del archivo (imagen o video) del calafia
+  *  @arrayVidImgPalmiraN : array que almacena el nombre del archivo (imagen o video) del palmira
+  *  @arrayVidImgHermosilloN : array que almacena el nombre del archivo (imagen o video) del hermosillo
+  *  @arrayVidImgsanLuisN : array que almacena el nombre del archivo (imagen o video) del san luis
+  *  @cargando : ayudante booleano para el loading
+  *  @$sub : variable ayudante para guardar observables, esta variable funciona para despues liberar todas las peticiones al cerrar la pagina
+  *  @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+  *  @tipoNoticias : variable que se pide desde el componente del "galera-multi", que imprima las noticias caducados y los vigentes
+  */
+
   arrayVidImgGeneralN : imgVideoModel [] =  []
   arrayVidImgMexicaliN : imgVideoModel [] =  []
   arrayVidImgCalafiaN : imgVideoModel [] =  []
@@ -29,9 +43,14 @@ export class TodoNoticiasComponent implements OnInit {
     private sanitizer : DomSanitizer,
     private dialog:NgDialogAnimationService,) { }
 
+
   ngOnInit(): void {
     this.cargando = false;
-    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideoNoticia",this.tipoNoticias,1,0,-1).subscribe(async (resp:ResponseInterfaceTs) =>{
+    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideoNoticia",this.tipoNoticias,1,0,-1).pipe(
+      catchError(_ =>{
+        throw 'Error in source.'
+     })
+    ).subscribe(async (resp:ResponseInterfaceTs) =>{
       if (resp.status.toString() === "200") {
         for await (const i of resp.container) {
           switch (Number(i.cveLocal)) {
@@ -68,7 +87,11 @@ export class TodoNoticiasComponent implements OnInit {
         data: {obj,tipoNoticias : this.tipoNoticias},
       });
 
-      dialogRef.afterClosed().subscribe(async (resp:any)=>{
+      dialogRef.afterClosed().pipe(
+        catchError(_ =>{
+          throw 'Error in source.'
+       })
+      ).subscribe(async (resp:any)=>{
         if (resp !== "" && resp !== undefined) {
         this.cargando = false;
         this.arrayVidImgGeneralN = []
@@ -140,7 +163,11 @@ export class TodoNoticiasComponent implements OnInit {
         data:{id:Number(id), opc:noticiaSlider, seccion: "foto/imagen",tipoNoticias : this.tipoNoticias}
       });
 
-      dialogRef.afterClosed().subscribe(async (resp:any)=>{
+      dialogRef.afterClosed().pipe(
+        catchError(_ =>{
+          throw 'Error in source.'
+       })
+      ).subscribe(async (resp:any)=>{
         //OPCION 2 PARA ELIMINAR UN ELEMENTO
         if(typeof resp !== 'boolean' && resp !== undefined ){
           if(this.arrayVidImgGeneralN.indexOf(model) > -1) {

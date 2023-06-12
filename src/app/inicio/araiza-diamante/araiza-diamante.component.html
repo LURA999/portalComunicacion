@@ -31,46 +31,19 @@
         <div id="alianzas">
             <h1 class="h1-s">ALIANZAS</h1>
             <article>
-                Conoce los descuentos de las alianzas a los que puedes ser acreedor con tu tarjeta de Araiza Diamante.
+                Conoce los descuentos de las alianzas a los que puedes ser acreedor con tu tarjeta de Araiza Diamante. Si deseas conocer más sobre el convenio ingresa al <a href="https://araizadiamante.com/alianzas/catalogo/index.php?id=Mg==" class="color_primario">catalogo de alianzas.</a>
             </article>
         </div>
         <br>
 
-        <div class="container" >
-
-          <article id="mensaje-alianzas">Para saber las alianzas por favor comuníquese con araiza diamante</article>
-           <!-- *ngIf="items.length > 0" -->
-          <ngx-slick-carousel #slickModal="slick-carousel" (beforeChange)="cambiarSlider($event)" class="carousel" [config]="carouselConfig">
-            <div ngxSlickItem *ngFor="let item of items">
-              <img [src]="item.logo" [alt]="item.nombre">
+        <div class="container" id="carousel-diamante">
+          <!-- <article id="mensaje-alianzas">Para saber las alianzas por favor comuníquese con araiza diamante</article> -->
+          <ngx-slick-carousel #slickModal="slick-carousel"  [config]="carouselConfig">
+            <div ngxSlickItem *ngFor="let item of items; let idx = index">
+              <img [src]="'https://www.comunicadosaraiza.com/portal_api/API/araiza_diam_img/'+item" [alt]="idx+'image'">
             </div>
           </ngx-slick-carousel>
-          <button (click)="slickModal.slickGoTo(prev())">Prev</button>
-          <button (click)="slickModal.slickGoTo(next())">Next</button>
-
-          <!-- <div class="swiper-container">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide" *ngFor="let item of items">
-                <img [lazyLoad]="item.logo" [alt]="item.nombre">
-              </div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div> -->
-
-
-          <!-- <owl-carousel [options]="carouselOptions">
-            <ng-container *ngFor="let item of items">
-              <img [lazyLoad]="item.logo" [src]="link+'assets/img/pruebas/loading-noticia.gif'" [alt]="item.nombre">
-            </ng-container>
-          </owl-carousel> -->
         </div>
-        <!-- img class="control prev" [src]="this.link+'assets/img/araiza-diamante/img1.png'" alt="img1">
-        <div class="slider">
-            <img *ngFor="let r of carrusel_mini" class="imgMiniSlider" src="{{r.logo}}" alt="{{r.logo}}">
-        </div>
-        <img class="control next" [src]="this.link+'assets/img/araiza-diamante/img2.png'" alt="img8">-->
     <br>
     </div>
     <div id="seccion5">

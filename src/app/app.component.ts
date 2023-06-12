@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { catchError, lastValueFrom } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 import { LoginService } from './core/services/login.service';
 
@@ -21,7 +21,11 @@ export class AppComponent {
 
   async registrarVisita(){
     if (this.auth.getrElm('user') != "" && this.auth.getrElm('user') !=undefined && this.auth.getrElm('user') !=null) {
-      await lastValueFrom(this.log.registrarLogin(this.auth.getId()))
+      await lastValueFrom(this.log.registrarLogin(this.auth.getId()).pipe(
+       catchError(_ =>{
+          throw 'Error in source.'
+       })
+      ))
     }
   }
 

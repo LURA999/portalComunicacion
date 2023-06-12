@@ -17,8 +17,8 @@ export class localService {
       return this.http.get<ResponseInterfaceTs>(this.local+"local.php?opc="+opc);
   }
 
-  getAlianzas() :Observable<carrusel_mini[]> {
-    return this.http.get<carrusel_mini[]>("https://www.araizadiamante.com/alianzas/datos2.php");
+  getAlianzas(num:Number): Observable<ResponseInterfaceTs> {
+    return this.http.get<ResponseInterfaceTs>(this.local+"alianzas.php?hotel="+num)
   }
 
 }

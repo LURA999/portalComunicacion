@@ -5,7 +5,7 @@
 
 //En este archivo va por default el localhost, pero se cambio para ver los cambios de la BD Online
 export const environment = {
-  // api: "http://localhost/portalComunicacion/API/",
+ //  api: "http://localhost/portalComunicacion/API/",
   api: "https://www.comunicadosaraiza.com/portal_api/API/",
   production: false
 };

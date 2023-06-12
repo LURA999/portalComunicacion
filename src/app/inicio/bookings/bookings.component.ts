@@ -9,7 +9,13 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./bookings.component.css']
 })
 export class BookingsComponent implements OnInit {
+  /**
+   * @src : ayduante para poder reubicar que bookings le pertenece a cada hotel
+   * @local : este va de la mano con el local del mismo usuario
+   */
+
   src : string = ""
+
   constructor(private auth : AuthService, private sanitizer : DomSanitizer) { }
 
   ngOnInit(): void {
@@ -35,6 +41,7 @@ export class BookingsComponent implements OnInit {
     }
   }
 
+  //lo convierte en una recurso seguro
   recursoUrl() : SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.src);
   }

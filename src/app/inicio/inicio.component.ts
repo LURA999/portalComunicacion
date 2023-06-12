@@ -28,17 +28,25 @@ export interface imageObject {
 
 })
 export class InicioComponent implements OnInit {
+  /**
+   * @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+   * @imageObject : en esta variable se guardaran los sliders que estan guardados en la bd
+   * @imageObjectRemplazo : en esta variable se guardaran la imagen de loading
+   * @cortar : mas que nada se usa esto como responsive en el html para intercambiarse en 55px y 0px
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual
+   * @cargar :  con esta variable especificamos cuando el slider este lleno
+   * @noticias : en este array se guardaran las noticias
+   * @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   *  pero este sirve para ubicar un archivo que se encuentra en el mismo proyecto.
+   */
+
   api : string = environment.api
-  desplazar : number = 0;
-  gInterval : any
-  gTimeOut : any
-  posicionOrg : number =1;
   imageObject: imageObject []| undefined  = undefined;
   imageObjectRemplazo: imageObject[] = [];
   cortar : boolean [] = [false,false,false,false]
   $sub : Subscription = new Subscription()
   paramUrl : string = this.route.url.split("/")[2];
-
   cargar : boolean = false;
   noticias: imgVideoModel[] = [];
   texto : string = ""

@@ -8,7 +8,6 @@ import { AraizaDiamanteComponent } from './araiza-diamante/araiza-diamante.compo
 import { BookingsComponent } from './bookings/bookings.component';
 import { CumpleanerosComponent } from './cumpleaneros/cumpleaneros.component';
 import { HistorialNoticiasComponent } from './historial-noticias/historial-noticias.component';
-import { ImageComponent } from './image/image.component';
 import { InicioComponent } from './inicio.component';
 import { MenuComponent } from './menu/menu.component';
 import { EmpleadoDelMesComponent } from './opcion-config/empleado-mes-config/empleado-del-mes.component';
@@ -36,7 +35,6 @@ const routes: Routes = [
       { path: 'palmira', canActivate: [SesionGuard], component: OpcionMenuComponent },
       { path: 'hermosillo', canActivate: [SesionGuard], component: OpcionMenuComponent },
       { path: 'bookings', canActivate: [SesionGuard], component: BookingsComponent },
-      { path: 'imagen-compartida', canActivate: [SesionGuard], component: ImageComponent },
       { path: 'araiza-diamante', canActivate: [SesionGuard], component: AraizaDiamanteComponent },
       { path: 'cumpleaneros',canActivate: [SesionGuard], component: CumpleanerosComponent},
       { path: 'aniversarios',canActivate: [SesionGuard], component: AniversariosComponent},

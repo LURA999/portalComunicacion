@@ -20,6 +20,31 @@ import { Observable, Subscription, catchError, from } from 'rxjs';
   styleUrls: ['./galeria-multi.component.css']
 })
 export class GaleriaMultiComponent implements OnInit {
+
+  /**
+   *  @_mobileQueryListener : variable que ayuda con los responsives de la pagina
+   *  @mobileQuery : variable ayudante del _mobileQueryListener
+   *  @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   *
+   *  //Variables para las sliders
+   *  @arrayVidImgGeneralS : array que almacena el nombre del archivo (imagen o video) del general
+   *  @arrPosicionGeneralS : array que almacena la posicion para imprimirlo en el banner (imagen o video) del general
+   *  @arrayVidImgMexicaliS : array que almacena el nombre del archivo (imagen o video) del general
+   *  @arrPosicionMexicaliS : array que almacena la posicion para imprimirlo en el banner (imagen o video) del mexicali
+   *  @arrayVidImgCalafiaS : array que almacena el nombre del archivo (imagen o video) del general
+   *  @arrPosicionCalafiaS : array que almacena la posicion para imprimirlo en el banner (imagen o video) de calafia
+   *  @arrayVidImgPalmiraS : array que almacena el nombre del archivo (imagen o video) del general
+   *  @arrPosicionPalmiraS : array que almacena la posicion para imprimirlo en el banner (imagen o video) de palmira
+   *  @arrayVidImgHermosilloS : array que almacena el nombre del archivo (imagen o video) del general
+   *  @arrPosicionHermosilloS : array que almacena la posicion para imprimirlo en el banner (imagen o video) de hermosillo
+   *  @arrayVidImgsanLuisS : array que almacena el nombre del archivo (imagen o video) del general
+   *  @arrPosicionsanLuisS : array que almacena la posicion para imprimirlo en el banner (imagen o video) de sanluis
+   *
+   * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual
+   *  @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+   *  @cargando : variable para saber si ya caragaron las noticias
+   *  @cargando2 : variable para saber si ya caragaron los sliders
+   */
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
   $sub : Subscription = new Subscription()
@@ -37,18 +62,10 @@ export class GaleriaMultiComponent implements OnInit {
   arrayVidImgsanLuisS : imgVideoModel [] =  []
   arrPosicionsanLuisS : Number [] = []
 
-  ////////
-  arrayVidImgGeneralN : imgVideoModel [] =  []
-  arrayVidImgMexicaliN : imgVideoModel [] =  []
-  arrayVidImgCalafiaN : imgVideoModel [] =  []
-  arrayVidImgPalmiraN : imgVideoModel [] =  []
-  arrayVidImgHermosilloN : imgVideoModel [] =  []
-  arrayVidImgsanLuisN : imgVideoModel [] =  []
   paramUrl : string = this.route.url.split("/")[2];
   api : string = environment.api
 
 
-  cargando : boolean = false;
   cargando2 : boolean = false;
 
  constructor(
@@ -107,162 +124,9 @@ export class GaleriaMultiComponent implements OnInit {
       this.cargando2 = true;
     }))
 
-    this.cargando = false;
-    this.$sub.add(this.servicioMulti.todoImgVideo("imgVideoNoticia",-1,1,0,-1).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async (resp:ResponseInterfaceTs) =>{
-      if (resp.status.toString() === "200") {
-        for await (const i of resp.container) {
-          switch (Number(i.cveLocal)) {
-            case 0:
-              this.arrayVidImgGeneralN.push(i)
-              break;
-            case 1:
-              this.arrayVidImgMexicaliN.push(i)
-              break;
-            case 2:
-              this.arrayVidImgCalafiaN.push(i)
-              break;
-            case 3:
-              this.arrayVidImgsanLuisN.push(i)
-              break;
-            case 4:
-              this.arrayVidImgPalmiraN.push(i)
-              break;
-            case 5:
-              this.arrayVidImgHermosilloN.push(i)
-              break;
-          }
-        }
-      }
-      this.cargando = true;
-    }))
-
   }
 
   eliminar(id :any, noticiaSlider : Boolean, model : imgVideoModel){
-
-    // if (noticiaSlider === true) {
-    //   //abriendo noticia
-    //   let dialogRef = this.dialog.open(EliminarComponent, {
-    //     height: 'auto',
-    //     width: 'auto',
-    //     data:{id:Number(id), opc:noticiaSlider, seccion: "foto/imagen"}
-    //   });
-
-    //   dialogRef.afterClosed().subscribe(async (resp:any)=>{
-    //     //OPCION 2 PARA ELIMINAR UN ELEMENTO
-
-    //     if(typeof resp !== 'boolean' && resp !== undefined ){
-    //       if(this.arrayVidImgGeneralN.indexOf(model) > -1) {
-    //         this.arrayVidImgGeneralN.splice(this.arrayVidImgGeneralN.indexOf(model),1)
-    //       }else if(this.arrayVidImgMexicaliN.indexOf(model) > -1) {
-    //         this.arrayVidImgMexicaliN.splice(this.arrayVidImgMexicaliN.indexOf(model),1)
-    //       }else if(this.arrayVidImgCalafiaN.indexOf(model) > -1) {
-    //         this.arrayVidImgCalafiaN.splice(this.arrayVidImgCalafiaN.indexOf(model),1)
-    //       }else if(this.arrayVidImgPalmiraN.indexOf(model) > -1) {
-    //         this.arrayVidImgPalmiraN.splice(this.arrayVidImgPalmiraN.indexOf(model),1)
-    //       }else if(this.arrayVidImgHermosilloN.indexOf(model) > -1) {
-    //         this.arrayVidImgHermosilloN.splice(this.arrayVidImgHermosilloN.indexOf(model),1)
-    //       }else if(this.arrayVidImgsanLuisN.indexOf(model) >-1) {
-    //         this.arrayVidImgsanLuisN.splice(this.arrayVidImgsanLuisN.indexOf(model),1)
-    //       }
-    //     }
-    //     //OPCION 1 PARA ELIMINAR UN ELEMENTO (RECARGANDO LA TABLA, PERO YA TENIENDO PRECARGADO LOS DATOS, PARA CARGARLOS)
-    //     /*
-    //     //
-    //     if(typeof resp !== 'boolean'){
-    //       if(resp !== "" && resp !== undefined){
-    //       this.arrayVidImgGeneralN = []
-    //       this.arrayVidImgMexicaliN = []
-    //       this.arrayVidImgCalafiaN = []
-    //       this.arrayVidImgPalmiraN = []
-    //       this.arrayVidImgHermosilloN = []
-    //       this.arrayVidImgsanLuisN = []
-    //       for await (const i of resp) {
-    //         switch (Number(i.cveLocal)) {
-    //           case 0:
-    //             this.arrayVidImgGeneralN.push(i)
-    //             break;
-    //           case 1:
-    //             this.arrayVidImgMexicaliN.push(i)
-    //             break;
-    //           case 2:
-    //             this.arrayVidImgCalafiaN.push(i)
-    //             break;
-    //           case 3:
-    //             this.arrayVidImgsanLuisN.push(i)
-    //             break;
-    //           case 4:
-    //             this.arrayVidImgPalmiraN.push(i)
-    //             break;
-    //           case 5:
-    //             this.arrayVidImgHermosilloN.push(i)
-    //             break;
-    //         }
-    //       }
-    //       }else{
-    //         this.arrayVidImgGeneralN = []
-    //         this.arrayVidImgMexicaliN = []
-    //         this.arrayVidImgCalafiaN = []
-    //         this.arrayVidImgPalmiraN = []
-    //         this.arrayVidImgHermosilloN = []
-    //         this.arrayVidImgsanLuisN = []
-    //       }
-    //     }
-    //   })
-
-    // } else {
-    //   //abriendo slider
-    //   let dialogRef = this.dialog.open(EliminarComponent, {
-    //     height: 'auto',
-    //     width: 'auto',
-    //     data:{id:Number(id), opc:noticiaSlider}
-    //   });
-    //   dialogRef.afterClosed().subscribe(async (resp:any)=>{
-    //     if(typeof resp !== 'boolean'){
-    //       if (resp !== "" && resp !== undefined) {
-    //         this.arrayVidImgGeneralS = []
-    //         this.arrayVidImgMexicaliS = []
-    //         this.arrayVidImgCalafiaS = []
-    //         this.arrayVidImgPalmiraS= []
-    //         this.arrayVidImgHermosilloS = []
-    //         this.arrayVidImgsanLuisS = []
-    //             for await (const i of resp) {
-    //               switch (Number(i.cveLocal)) {
-    //                 case 0:
-    //                   this.arrayVidImgGeneralS.push(i)
-    //                   break;
-    //                 case 1:
-    //                   this.arrayVidImgMexicaliS.push(i)
-    //                   break;
-    //                 case 2:
-    //                   this.arrayVidImgCalafiaS.push(i)
-    //                   break;
-    //                 case 3:
-    //                   this.arrayVidImgsanLuisS.push(i)
-    //                   break;
-    //                 case 4:
-    //                   this.arrayVidImgPalmiraS.push(i)
-    //                   break;
-    //                 case 5:
-    //                   this.arrayVidImgHermosilloS.push(i)
-    //                   break;
-    //               }
-    //           }
-    //       }else{
-    //         this.arrayVidImgGeneralS = []
-    //         this.arrayVidImgMexicaliS = []
-    //         this.arrayVidImgCalafiaS = []
-    //         this.arrayVidImgPalmiraS= []
-    //         this.arrayVidImgHermosilloS = []
-    //         this.arrayVidImgsanLuisS = []
-    //       }
-    //     }*/
-    //   })
-    // } else {
       //abriendo slider
       let dialogRef = this.dialog.open(EliminarComponent, {
         height: 'auto',
@@ -323,55 +187,6 @@ export class GaleriaMultiComponent implements OnInit {
   }
 
   modificar( obj : imgVideoModel, noticiaSlider : Boolean, arrNumPos? : Number []){
-   /*  if (noticiaSlider === true) {
-      //abriendo noticia
-     let dialogRef = this.dialog.open(EditarNoticiaComponent, {
-        height: 'auto',
-        width: '450px',
-        data: obj,
-      });
-
-      dialogRef.afterClosed().pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async (resp:any)=>{
-        if (resp !== "" && resp !== undefined) {
-        this.cargando = false;
-        this.arrayVidImgGeneralN = []
-        this.arrayVidImgMexicaliN = []
-        this.arrayVidImgCalafiaN = []
-        this.arrayVidImgPalmiraN = []
-        this.arrayVidImgHermosilloN = []
-        this.arrayVidImgsanLuisN = []
-
-            for await (const i of resp) {
-              switch (Number(i.cveLocal)) {
-                case 0:
-                  this.arrayVidImgGeneralN.push(i)
-                  break;
-                case 1:
-                  this.arrayVidImgMexicaliN.push(i)
-                  break;
-                case 2:
-                  this.arrayVidImgCalafiaN.push(i)
-                  break;
-                case 3:
-                  this.arrayVidImgsanLuisN.push(i)
-                  break;
-                case 4:
-                  this.arrayVidImgPalmiraN.push(i)
-                  break;
-                case 5:
-                  this.arrayVidImgHermosilloN.push(i)
-                  break;
-              }
-          }
-          this.cargando = true;
-        }
-      })
-
-    } else { */
       //abriendo slider
       let dialogRef = this.dialog.open(EditarSliderComponent, {
         height: 'auto',
@@ -458,12 +273,6 @@ export class GaleriaMultiComponent implements OnInit {
 
 
     if(categoria === false){
-
-      /* if (tipo === false) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-noticia/fotos/"+src);
-      } else {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-noticia/videos/"+src);
-      } */
       return from([''])
     }else{
 
@@ -485,18 +294,6 @@ export class GaleriaMultiComponent implements OnInit {
     this.$sub.unsubscribe()
   }
 
-  hayElementos() : boolean{
-    if((this.arrayVidImgGeneralN.length != 0 ||
-      this.arrayVidImgMexicaliN.length != 0 ||
-      this.arrayVidImgCalafiaN.length != 0 ||
-      this.arrayVidImgsanLuisN.length != 0 ||
-      this.arrayVidImgPalmiraN.length != 0 ||
-      this.arrayVidImgHermosilloN.length != 0)  || this.cargando ===false){
-      return true;
-    }else{
-      return false;
-    }
-  }
 
   hayElementos2() : boolean{
     if((this.arrayVidImgGeneralS.length != 0 ||

@@ -13,6 +13,20 @@ import { Subscription, catchError } from 'rxjs';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+/**
+   *  @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   *  pero este sirve para ubicar un archivo que se encuentra en el mismo proyecto.
+   *  @date : variable que se utiliza para obtener el mes actual.
+   *  @menu : variable que se usa para guardar todas las comidas, para despues desplegarlo
+   *  @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+   *  @mes : variable que almacena el mes actual.
+   *  @lua : obtiene el id del hotel del usuario que inicio sesion.
+   *  @color_primary : se establece un color primario global para esta clase.
+   *  @luaStr : obtiene el nombre del lugar del hotel que inicio sesion.
+   *  @cargando : variable que ayuda a finalizar e iniciar un "loading".
+   *  @$sub : variable que ayuda a guardar todos los observables.
+  */
+
 
   link : string =  environment.production === true ? "": "../../../";
   date : Date  = new Date();
@@ -20,7 +34,6 @@ export class MenuComponent implements OnInit {
   menu : any [] = []
   api : string = environment.api
   $sub : Subscription = new Subscription()
-
   color_primary : string =  "#DC994D";
   private lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
@@ -72,6 +85,7 @@ export class MenuComponent implements OnInit {
     return date2[0].charAt(0).toUpperCase() + date2[0].slice(1).split(",")[0]+" "+date2[1];
   }
 
+  //controla el loading
   hayElementos() : boolean{
     if(this.menu.length != 0 || this.cargando ===false){
       return true;

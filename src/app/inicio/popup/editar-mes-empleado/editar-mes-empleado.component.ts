@@ -16,9 +16,16 @@ import { locales } from '../editar-slider/editar-slider.component';
   styleUrls: ['./editar-mes-empleado.component.css']
 })
 export class EditarMesEmpleadoComponent implements OnInit {
+  /**
+   * @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   * @formFechaMes : en esta variable se asignan todas las variables que deben de existir en el formulario
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @modalidad : con esta variable se puede identificar si estas actualizando o insertando
+   * a un empleado, para convertirlo o no, al empleado del mes
+   * @contenedor_carga : variable ayudante para activar el loading
+   */
   link : string =  environment.production === true ? "": "../../../";
-  @ViewChild("picker2") abrirCalendario : any
-  fechaMes : FormGroup = this.fb.group({
+  formFechaMes : FormGroup = this.fb.group({
     fecha : ["", Validators.required ],
     posicion : ["", Validators.required ],
     fechaInicio : ["", Validators.required],
@@ -26,9 +33,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
   })
 
   $sub : Subscription = new Subscription()
-  localInterfaz :locales[] = []
   modalidad : boolean = false;
-  cant : number = 0
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
   constructor(
@@ -37,7 +42,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarMesEmpleadoComponent>,
     private mesService : EmpleadoMesService,
     private users : UsuarioService) {
-      this.fechaMes = this.fb.group({
+      this.formFechaMes = this.fb.group({
         fecha : [ '' , Validators.required],
         posicion : [ '' , Validators.required],
         fechaInicio : ["", Validators.required],
@@ -49,7 +54,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.data.fecha !== undefined) {
-      this.fechaMes = this.fb.group({
+      this.formFechaMes = this.fb.group({
         fecha : [Number(this.data.fecha), Validators.required],
         posicion : [Number(this.data.posicion), Validators.required],
         fechaInicio : [new Date(this.data.fechaInicio+"T00:00:00"), Validators.required],
@@ -65,7 +70,7 @@ export class EditarMesEmpleadoComponent implements OnInit {
 
 
   async enviandoDatos(){
-    if (this.fechaMes.valid == false) {
+    if (this.formFechaMes.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
       this.contenedor_carga.style.display = "block";
@@ -73,55 +78,35 @@ export class EditarMesEmpleadoComponent implements OnInit {
       const posAnt = this.data.posicion;
       const cveLocal = this.data.cveLocal;
       const idUsuario = this.data.idUsuario;
-      this.data = this.fechaMes.value;
+      this.data = this.formFechaMes.value;
       this.data["cveLocal"] = cveLocal;
       this.data.idUsuario = idUsuario;
       if (this.modalidad == true) {
         //insertando a un empleado con una posicion NUEVA
-       await lastValueFrom(this.mesService.insertarFecha(this.data)).then(async (res:ResponseInterfaceTs) =>{
-          // if (Number(res.container[0]["pos"]) == 1) {
+       await lastValueFrom(this.mesService.insertarFecha(this.data).pipe(
+        catchError(_ =>{
+          throw 'Error in source.'
+       })
+       )).then(async (res:ResponseInterfaceTs) =>{
 
-          //   let dosParamInt : dosParamInt = {
-          //     idP : Number(this.data.posicion),
-          //     idS : 0,
-          //     cveLocal : cveLocal
-          //   }
-
-          //   await lastValueFrom(this.mesService.actualizarTUFechaCambio(dosParamInt));
-          //   dosParamInt = {
-          //     idP : Number(this.data.idUsuario),
-          //     idS : Number(this.data.posicion),
-          //     cveLocal : cveLocal
-          //   }
-          //  await lastValueFrom(this.mesService.actualizarUFechaCambio(dosParamInt));
-          // }
         });
       } else {
 
-        /* let actPos : fechaServ = ({
-          fecha : this.fechaMes.value["fecha"],
-          idUsuario : this.data.idUsuario,
-          posicion : this.fechaMes.value["posicion"],
-          posicionAnt : posAnt,
-          cveLocal : cveLocal,
-          update:true
-        })
-        //actualizando un empleado con una posicion ya existe
-        if(Number(posAnt) != this.data.posicion ){
-          await lastValueFrom(this.mesService.actualizarFecha(actPos))
-        }
-        */
         let actUsuario : fechaServ = ({
-          fecha : this.fechaMes.value["fecha"],
-          fechaInicio : this.fechaMes.value["fechaInicio"],
-          fechaFinal : this.fechaMes.value["fechaFinal"],
-          posicion : this.fechaMes.value["posicion"],
+          fecha : this.formFechaMes.value["fecha"],
+          fechaInicio : this.formFechaMes.value["fechaInicio"],
+          fechaFinal : this.formFechaMes.value["fechaFinal"],
+          posicion : this.formFechaMes.value["posicion"],
           posicionAnt : posAnt,
           cveLocal : cveLocal,
           idUsuario :  this.data.idUsuario,
           update: false
         })
-        await lastValueFrom(this.mesService.actualizarFecha(actUsuario));
+        await lastValueFrom(this.mesService.actualizarFecha(actUsuario).pipe(
+          catchError(_ =>{
+            throw 'Error in source.'
+         })
+        ));
       }
 
       this.$sub.add(this.users.selectAllusers(2).pipe(

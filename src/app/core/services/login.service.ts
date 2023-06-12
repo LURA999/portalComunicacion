@@ -7,7 +7,7 @@ import { ResponseInterfaceTs } from '../../interfaces_modelos/response.interface
 
 
 export interface registrar {
-  usuario:number;
+  resg:number;
 }
 
 @Injectable({
@@ -25,7 +25,7 @@ export class LoginService {
 
   registrarLogin(resg : registrar){
     let headers = new HttpHeaders().set('Content-type','Application/json')
-    return this.http.post<ResponseInterfaceTs>(this.local+'Users/userLogin.php?visita=true', {resg} ,{headers})
+    return this.http.post<ResponseInterfaceTs>(this.local+'Users/userLogin.php?visita=true', {'resg':resg} ,{headers})
   }
 
 }

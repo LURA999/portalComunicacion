@@ -15,6 +15,12 @@ import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
   styleUrls: ['./eliminar.component.css']
 })
 export class EliminarComponent implements OnInit {
+
+  /**
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @contenedor_carga : variable ayudante para activar el loading
+   */
+
   $sub : Subscription = new Subscription()
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
@@ -38,36 +44,6 @@ export class EliminarComponent implements OnInit {
       switch (this.data.seccion.toString()) {
         case "foto/imagen":
           this.contenedor_carga.style.display = "block";
-
-          /*if (this.data.opc === true) {
-            await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
-            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async (resp : ResponseInterfaceTs)=>{
-              this.dialogRef.close(await resp.container===undefined?[]:resp.container);
-            }))
-          } else {
-
-            await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
-            let deleteSlide : dosParamInt = {
-              cveLocal: Number(this.data.obj.cveLocal),
-              cveSeccion: Number(this.data.obj.cveSeccion),
-              idP: Number(this.data.obj.posicion),
-              idS:0
-            }
-            await lastValueFrom(this.servImgVideo.eliminarPosicionTDSlide(deleteSlide));
-
-
-            this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async (resp : ResponseInterfaceTs)=>{
-              this.dialogRef.close(await resp.container===undefined?[]:resp.container);
-            }))
-          }*/
 
           of('').pipe(
             concatMap(()=>{
@@ -99,37 +75,6 @@ export class EliminarComponent implements OnInit {
               this.contenedor_carga.style.display = "none";
 
             })
-
-            /*  await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.id),"imgVideoNoticia"))
-              this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",-1,1,0,-1).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async (resp : ResponseInterfaceTs)=>{
-                this.dialogRef.close(await resp.container===undefined?[]:resp.container);
-              }))
-            } else {
-
-              await lastValueFrom(this.serviceImgVideo.eliminarImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
-              let deleteSlide : dosParamInt = {
-                cveLocal: Number(this.data.obj.cveLocal),
-                cveSeccion: Number(this.data.obj.cveSeccion),
-                idP: Number(this.data.obj.posicion),
-                idS:0
-              }
-              await lastValueFrom(this.servImgVideo.eliminarPosicionTDSlide(deleteSlide));
-
-
-              this.$sub.add(this.serviceImgVideo.todoImgVideo("imgVideo",-1,1,0,-1).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async (resp : ResponseInterfaceTs)=>{
-                this.dialogRef.close(await resp.container===undefined?[]:resp.container);
-              }))
-            }
-          */
-
           break;
         case "usuario":
           this.contenedor_carga.style.display = "block";
@@ -150,7 +95,11 @@ export class EliminarComponent implements OnInit {
 
           break;
         case 'Comida':
-          await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)))
+          await lastValueFrom(this.comidaServ.eliminarComida(Number(this.data.id)).pipe(
+            catchError(_ =>{
+              throw 'Error in source.'
+           })
+          ))
           this.$sub.add(this.comidaServ.todoComida(0,1).pipe(
       catchError( _ => {
         throw "Error in source."
@@ -160,7 +109,11 @@ export class EliminarComponent implements OnInit {
           }))
           break;
         case 'autocapacitacion':
-            await lastValueFrom(this.autocap.eliminarAutocapacitacion(Number(this.data.id)))
+            await lastValueFrom(this.autocap.eliminarAutocapacitacion(Number(this.data.id)).pipe(
+              catchError(_ =>{
+                throw 'Error in source.'
+             })
+            ))
             this.$sub.add(this.autocap.mostrarTodoAutocapacitacion(0).pipe(
       catchError( _ => {
         throw "Error in source."
@@ -171,8 +124,16 @@ export class EliminarComponent implements OnInit {
           break;
         case 'fecha':
 
-          await lastValueFrom(this.mesService.eliminarFecha(Number(this.data.obj.idUsuario)))
-          await lastValueFrom(this.mesService.actualizarDFechaCambio(this.data.obj))
+          await lastValueFrom(this.mesService.eliminarFecha(Number(this.data.obj.idUsuario)).pipe(
+            catchError(_ =>{
+              throw 'Error in source.'
+           })
+          ))
+          await lastValueFrom(this.mesService.actualizarDFechaCambio(this.data.obj).pipe(
+            catchError(_ =>{
+              throw 'Error in source.'
+           })
+          ))
           this.$sub.add(this.usService.selectAllusers(2).pipe(
       catchError( _ => {
         throw "Error in source."

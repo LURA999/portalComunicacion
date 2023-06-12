@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
@@ -8,6 +8,8 @@ import { localService } from 'src/app/core/services/local.service';
 import { catchError, lastValueFrom } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { araizaDiamante } from 'src/app/core/services/araizaDiamante.service';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
+import { metodosRepetidos } from 'src/app/metodos-repetidos';
 
 export interface respTarjeta {
   apellido_p : string;
@@ -31,21 +33,25 @@ export interface carrusel_mini {
   selector: 'app-araiza-diamante',
   templateUrl: './araiza-diamante.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated, // Valor predeterminado, asegura estilos encapsulados
   styleUrls: ['./araiza-diamante.component.css'],
 })
 export class AraizaDiamanteComponent implements OnInit {
+
+  /**
+   *  @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   *  pero este sirve para ubicar un archivo que se encuentra en el mismo proyecto.
+   *  @luaStr : obtiene el nombre del lugar del hotel que inicio sesion.
+   *  @_mobileQueryListener : metodo que ayuda a detectar responsives
+   *  @metodos : objeto que ayuda no repetir metodos que anteriormente fueron usados
+   *  @resp : se creo una variable para traer los puntos de araiza diamante
+  */
+
    link : string =  environment.production === true ? "": "../../../";
    private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
-   alianzasArray : any[] = [];
   _mobileQueryListener!: () => void;
-  width : number =0
-  @ViewChild("inputTarj") form! :HTMLInputElement
-   opciones = { useGrouping: true  };
-   c : number = 0;
-   carrusel_mini : Array<string> = []
-  formData : formData= {
-    search: ''
-  };
+  metodos = new metodosRepetidos();
+  opciones = { useGrouping: true  };
 
   resp : respTarjeta =  {
     apellido_p :"",
@@ -56,46 +62,56 @@ export class AraizaDiamanteComponent implements OnInit {
 
 
   items: carrusel_mini [] = [ ];
-  // items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
-
-  // carrusel_mini: Array<carrusel_mini> = [ ];
-
   window: number = Number(window.innerWidth);
 
   carouselConfig = {
-    slidesToShow: 3,
-    slidesToScroll: 2,
-    prevArrow: '<button type="button" class="slick-prev">Previous</button>',
-    nextArrow: '<button type="button" class="slick-next">Next</button>',
+    slidesToShow: 4,
     arrows: true,
-    dots: false,
+    centerMode: false,
+    swipe: false,
     infinite: true,
-    centerMode:true,
-    lazyLoad: 'ondemand',
-    lazyLoadBuffer: 3,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 2,
-        }
-      },
-      {
-        breakpoint: 400,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      },
-      {
-        breakpoint: 200,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
+    /* "interval": 3000,
+    "loop": true,
+    "showControls": true,
+    "showIndicators": true,
+    "autoplay": true,
+    "autoplaySpeed": 2000,
+    "itemWidth": "200px",
+    "itemHeight": "150px",
+    "itemsToShow": 3,
+    "pauseOnHover": true,
+    "enableSwipe": true,
+    "swipeToSlide": true,
+    "swipe": true,
+    "enableKeyboard": true,
+    "transitionDuration": 500,
+    "transitionTimingFunction": "ease-in-out",
+    "adaptiveHeight": false,
+    "rtl": false
+    "customStyle": {
+    "item": {
+      "display": "flex",
+      "justify-content": "center"
+    },
+
+  "infinite": true,
+  "centerMode": true,
+  "centerPadding": "50px",
+  "variableWidth": false
+  }*/
+  responsive: [
+    {
+      breakpoint: 620,
+      settings: {
+        slidesToShow: 3,
+        swipeToSlide: true,
+        swipe:true,
+        arrows: false,
+        centerMode: false,
+        infinite:false
       }
-    ]
+    },
+  ]
   };
 
   constructor(
@@ -106,12 +122,10 @@ export class AraizaDiamanteComponent implements OnInit {
     private DataService : DataNavbarService,
     private sanitizer : DomSanitizer,
     private dimService: araizaDiamante) {
-      console.log(this.carouselConfig);
-
     }
 
   ngOnInit(): void {
-    this.cargandoAlianzas();
+    this.cargandoAlianzas(this.metodos.localNumero(this.luaStr));
     this.DataService.open.emit(this.luaStr);
   }
 
@@ -119,42 +133,7 @@ export class AraizaDiamanteComponent implements OnInit {
 		console.log(event);
 	}
 
-  cambiarSlider(event:any){
-   this. c = event.nextSlide;
-  }
 
-  next() {
-   /*  if(this.c < this.items.length-2){
-      this.c +=2;
-    } */
-    this.c +=2;
-    return this.c;
-  }
-
-  prev() {
-    /* if(this.c >=2){
-      this.c -=2;
-    } */
-    if(this.c == 0){
-      this.c = this.items.length-1;
-    }
-
-    this.c -=2;
-    return this.c;
-  }
-
-  resonsiveCarrusel(){
-    if ( Number(window.innerWidth) >=1200 ) {
-      this.width = 4
-    } else  if ( Number(window.innerWidth) >=900  &&  Number(window.innerWidth) <1200 ){
-      this.width = 3
-    } else  if ( Number(window.innerWidth) >=700  &&  Number(window.innerWidth) <900 ){
-      this.width = 2
-    }else{
-      this.width = 1
-    }
-    this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
-  }
 
   irLink(link: string){
     window.open(link, "_blank");
@@ -165,13 +144,13 @@ export class AraizaDiamanteComponent implements OnInit {
   }
 
 
-  async cargandoAlianzas() {
-    this.local.getAlianzas().pipe(
+  async cargandoAlianzas(num:Number) {
+    this.local.getAlianzas(num).pipe(
       catchError( _ => {
         throw "Error in source."
     })
-    ).subscribe(async (resp:carrusel_mini[]) =>{
-      for await (const i of resp) {
+    ).subscribe(async (resp:ResponseInterfaceTs) =>{
+      for await (const i of resp.container) {
         this.items.push(i);
       }
       this.changeDetectorRef.detectChanges();
@@ -179,7 +158,11 @@ export class AraizaDiamanteComponent implements OnInit {
   }
 
   async submitForm(value : number) {
-    await lastValueFrom(this.dimService.araizaTarjeta(value.toString().padStart(10, '0'))).then((resp: respTarjeta[])=>{
+    await lastValueFrom(this.dimService.araizaTarjeta(value.toString().padStart(10, '0')).pipe(
+      catchError(_ =>{
+        throw 'Error in source.'
+     })
+    )).then((resp: respTarjeta[])=>{
       if (resp != null) {
         if (resp.length == 1) {
           this.resp = resp[0]

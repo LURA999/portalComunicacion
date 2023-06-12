@@ -15,7 +15,14 @@ import {catchError, lastValueFrom,Subscription } from 'rxjs';
 })
 export class ComidaFormComponent implements OnInit {
 
-    hoyDate :Date = new Date()
+    /**
+   * @modalidad : con esta variable se puede identificar si estas actualizando o insertando
+   * una autocapacitacion
+   * @formComida : en esta variable se asignan todas las variables que deben de existir en el formulario
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @contenedor_carga : variable ayudante para activar el loading
+   */
+
     modalidad : boolean = false;
     formComida : FormGroup = this.fb.group({
       fecha : ['', Validators.required],
@@ -25,6 +32,7 @@ export class ComidaFormComponent implements OnInit {
     })
     contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
     $sub : Subscription = new Subscription()
+
 
   constructor(private fb : FormBuilder,public dialogRef: MatDialogRef<ComidaFormComponent>,
     @Inject(MAT_DIALOG_DATA) private data: comida, private local : localService, private comidaService : ComidaService) {

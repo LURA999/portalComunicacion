@@ -21,6 +21,24 @@ export interface locales {
 })
 export class EditarSliderComponent implements OnInit {
 
+  /**
+   * @localInterfaz : se usa para imprimir las ciudades, pero aparte tambien se imprime el total
+   * de sliders que hay en ese hotel
+   * @nombreActualizadoImgVid : esta variable se pone en true cuando capta que hay un cambio de imagenes,
+   * aunque tengan el mismo nombre
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @miBoton : esta variable se creo para controlar el disabled y el enabled desde el backend
+   * @target : Como se desconoce el tipo de variable con el cual enviamos el archivo en el input
+   * inicialemnte se guarda como tipo any en esta variable
+   * @date : variable que se usa para identificar en que fechas estas actualmente en el calendario
+   * @rango : variable que se usa cuando eliges la fecha inicial y con esto se respalda con el rango2
+   * @rango2 : variable que se usa cuando eliges la fecha final y con esto se respalda con el rango
+   * @formData :  Guarda el video o imagen que se envia en el input
+   * @formImgVideo :  en esta variable se asignan todas las variables que deben de existir en el formulario
+   * @contenedor_carga : variable ayudante para activar el loading
+   */
+
+
   localInterfaz :locales[] = []
   nombreActualizadoImgVid : boolean = false
   $sub : Subscription = new Subscription()
@@ -39,7 +57,6 @@ export class EditarSliderComponent implements OnInit {
     posicion : [Number(this.data.obj.posicion), Validators.required]
   })
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
-  activar : boolean = false;
 
   constructor(
     private fb : FormBuilder,
@@ -143,7 +160,6 @@ export class EditarSliderComponent implements OnInit {
     } else {
 
       this.contenedor_carga.style.display = "block";
-      this.activar = true
 
       // viejos valores
       const posicion2 =  this.data.obj.posicion;
@@ -167,7 +183,7 @@ export class EditarSliderComponent implements OnInit {
         //Se eliminara la anterior imagen, si esque se remplazo el actual
         Observable.push(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idImgVideo),"imgVideo"))
         //despues se actualizara la imagen nueva que eligio
-        Observable.push(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideo"))
+        Observable.push(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideo",-1))
         // this.data.obj.imgVideo = datos.nombre
         // this.data.obj.formato = datos.tipo
       }
@@ -217,6 +233,7 @@ export class EditarSliderComponent implements OnInit {
                   concatMap((resp2:ResponseInterfaceTs) => {
                   this.data.obj.imgVideo = resp2.container.nombre
                   this.data.obj.formato = resp2.container.tipo
+                  console.log(this.data);
 
                   //(A)
                   if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
@@ -284,6 +301,7 @@ export class EditarSliderComponent implements OnInit {
         }))
     }
   }
+
   ngOnDestroy(): void {
     this.$sub.unsubscribe()
   }

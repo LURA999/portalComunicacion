@@ -14,6 +14,19 @@ import { Subscription, catchError } from 'rxjs';
   styleUrls: ['./empleado-mes.component.css']
 })
 export class EmpleadoMesComponent implements OnInit {
+/**
+   *  @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   *  pero este sirve para ubicar un archivo que se encuentra en el mismo proyecto.
+   *  @date : variable que se utiliza para obtener el mes actual.
+   *  @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+   *  @mes : variable que almacena el mes actual.
+   *  @lua : obtiene el id del hotel del usuario que inicio sesion.
+   *  @color_primary : se establece un color primario global para esta clase.
+   *  @color_secundary : se establece un color secundario global para esta clase.
+   *  @luaStr : obtiene el nombre del lugar del hotel que inicio sesion.
+   *  @cargando : variable que ayuda a finalizar e iniciar un "loading".
+   *  @$sub : variable que ayuda a guardar todos los observables.
+  */
 
   link : string =  environment.production === true ? "": "../../../";
   date : Date  = new Date();
@@ -80,6 +93,7 @@ export class EmpleadoMesComponent implements OnInit {
 
   }
 
+  //controla el loading
   hayElementos() : boolean{
     if(this.usuarios.length != 0 || this.cargando ===false){
       return true;

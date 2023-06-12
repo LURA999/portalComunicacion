@@ -7,6 +7,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
+
+  /**
+   * @link : variable que ayuda a poder ubicar el recurso que es en una carpeta interna del proyecto
+   */
   link : string =  environment.production === true ? "": "../../";
 
   constructor() { }

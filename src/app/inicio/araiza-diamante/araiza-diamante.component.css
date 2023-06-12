@@ -76,11 +76,9 @@ h1 {
 }
 
 #alianzas {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10%;
+  padding-right: 10%;
 }
-
-
 
 /*seccion 2*/
 #seccion2 {
@@ -129,40 +127,14 @@ button {
 }
 
 /**seccion 4*/
-#seccion4 {
-    margin-top: 8%;
-    margin-bottom: 7%;
-}
-.swiper-container {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
 
-.swiper-slide {
-  width: auto;
-  margin-right: 20px;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
- .slick-prev {
-  width: 500px;
-  background-color: red;
-}
-
-
-
-@media (max-width: 1100px){
+@media (max-width: 1190px){
     h1 {
         font-size: 3vw;
     }
 }
 
-@media (max-width: 650px){
+@media (max-width: 950px){
     h1 {
         font-size: 3.5vw;
     }
@@ -236,34 +208,6 @@ button {
         padding-top: 20px;
         padding-bottom: 20px;
     }
-}
-
-/*SLIDER DE ABAJO**/
-.slick-prev:before,
-.slick-next:before {
-  color: #000; /* color de las flechas */
-  font-size: 20px; /* tamaño de las flechas */
-}
-
-.slick-prev:before {
-  content: '\2190'; /* símbolo de flecha izquierda */
-}
-
-.slick-next:before {
-  content: '\2192'; /* símbolo de flecha derecha */
-}
-
-.slick-prev,
-.slick-next {
-  z-index: 1;
-}
-
-.slick-prev {
-  left: 10px; /* distancia de la flecha izquierda desde el borde del slider */
-}
-
-.slick-next {
-  right: 10px; /* distancia de la flecha derecha desde el borde del slider */
 }
 
 

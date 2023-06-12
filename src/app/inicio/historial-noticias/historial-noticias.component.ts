@@ -17,27 +17,40 @@ import { Observable, Subscription, catchError, from } from 'rxjs';
   styleUrls: ['./historial-noticias.component.css'],
 })
 export class HistorialNoticiasComponent implements OnInit {
-  texto : string = "";
+
+  /**
+   *  @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   *  pero este sirve para ubicar un archivo que se encuentra en el mismo proyecto.
+   *  @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+   *  @mesForm : variable que almacena la informacion del input para el cambio de informacion en los filtros.
+   *  @$sub : variable que ayuda a guardar todos los observables.
+   *  @noticias : variable que almacena las noticas para mostrrlas en el php.
+   *  @p2 :  variable que se ayuda para guardar el evento emitido en el pagination-template.
+   *  @ant : variable que ayuda compaginar al historial de noticias para regresar a la anterior pagina.
+   *  @sig : variable que ayuda compaginar al historial de noticias para regresar a la anterior siguiente.
+   *  @pageChange : variable que se usa en el compaginator, para  los cambios de adelantar y atrasar.
+   *  @pageBoundsCorrection : variable que se usa en el compaginator para emitir los eventos, para  los cambios de adelantar y atrasar.
+  */
+
+  // texto : string = ""
+  // cortar : Array<boolean> = [];
+
   api : string = environment.api;
   noticias: imgVideoModel[] = [];
-  cortar : Array<boolean> = [];
   link : string =  environment.production === true ? "": "../../../";
   p2 : number = 1;
   $sub : Subscription = new Subscription()
-
   ant : boolean = true;
   sig : boolean = true;
-  pGuard : number = 1;
-
   mesForm : FormGroup = this.fb.group({
     mes: [""]
   });
 
-  @Input() id!: string;
-  @Input() maxSize!: number;
+  //@Input() id!: string;
+  //@Input() maxSize!: number;
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
   @Output() pageBoundsCorrection: EventEmitter<number> = new EventEmitter();
-  @ViewChild('p') childPagination: any
+  //@ViewChild('p') childPagination: any
 
   constructor(private snoticia : SubirImgVideoService,
     private DataService : DataNavbarService,
@@ -61,7 +74,7 @@ export class HistorialNoticiasComponent implements OnInit {
         for await (const c of resp.container) {
           this.noticias.push(c)
         }
-        this. cortar = new Array(this.noticias.length).fill(false);
+        // this.cortar = new Array(this.noticias.length).fill(false);
       }
     }))
   }
@@ -92,7 +105,7 @@ export class HistorialNoticiasComponent implements OnInit {
     }
   }
 
-  cortarTexto(texto:string,cortar: boolean, i : number){
+  /* cortarTexto(texto:string,cortar: boolean, i : number){
     if(cortar === false){
      if(texto.toString().length > 80){
        this.texto = texto.toString().substring(0,79)+"..."
@@ -105,7 +118,7 @@ export class HistorialNoticiasComponent implements OnInit {
        this.cortar[i] = true
      }
      return this.texto
-   }
+   } */
 
 
    recursoUrl(src : string, categ : number, n : number, sec :boolean) : SafeResourceUrl {
@@ -120,6 +133,7 @@ export class HistorialNoticiasComponent implements OnInit {
 
   }
 
+  //vuelve seguro el link
   recursoUrlStr(src : string, categ : number, n : number, sec :boolean) : Observable<string> {
     if (n > 0 ) {
       if (categ == 1) {
@@ -148,7 +162,7 @@ export class HistorialNoticiasComponent implements OnInit {
         for await (const c of resp.container) {
           this.noticias.push(c)
         }
-        this. cortar = new Array(this.noticias.length).fill(false);
+        // this.cortar = new Array(this.noticias.length).fill(false);
       }
     }))
 

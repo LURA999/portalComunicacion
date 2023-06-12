@@ -22,7 +22,28 @@ export interface locales {
   styleUrls: ['./imagen-video.component.css']
 })
 export class ImagenVideoComponent implements OnInit {
-
+/**
+ * @formData :  Guarda el video o imagen que se envia en el input
+ * @cveSeccion :  este componente fue creado para multiples vistas,
+ * pero realmente su funcion es indicar que estas en la configuracion del slider
+ * @nombreNuevo : se sua para crear el nombre nuevo de la imagen
+ * @date : variable que se usa para identificar en que fechas estas actualmente en el calendario
+ * @rango : variable que se usa cuando eliges la fecha inicial y con esto se respalda con el rango2
+ * @rango2 : variable que se usa cuando eliges la fecha final y con esto se respalda con el rango
+ * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual
+ * @localInterfaz : se usa para imprimir las ciudades, pero aparte tambien se imprime el total
+ * de sliders que hay en ese hotel
+ * @formatoVideo : en esta variable se asignan todas las variables que deben de existir en el formulario
+ * @target : Como se desconoce el tipo de variable con el cual enviamos el archivo en el input
+ * inicialemnte se guarda como tipo any en esta variable
+ * @actualizar : variable ayudante para indiciar si se quiere actualizar o no (esta variable se usa en la api *php)
+ * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+ * @titulo : variable que almacena el nombre de la pagina
+ * @activar : es una variable que ayuda en la activacion del boton para activar el boton de enviar en el form
+ * @sliderListo : variable que indica si se subio el video o imagen
+ * @contenedor_carga : variable ayudante para activar el loading
+ * @miBoton : esta variable se creo para controlar el disabled y el enabled desde el backend
+ */
   formImgVideo : FormGroup = this.fb.group({
     fechaInicial : ["", Validators.required],
     fechaFinal : ["", Validators.required],

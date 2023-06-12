@@ -25,6 +25,19 @@ interface dataForm {
 })
 export class EditarNoticiaComponent implements OnInit{
 
+  /**
+   * @localInterfaz : se usa para imprimir las ciudades, pero aparte tambien se imprime el total
+   * de noticias que hay en ese hotel
+   * @nombreActualizadoImgVid : esta variable se pone en true cuando capta que hay un cambio de imagenes,
+   * aunque tengan el mismo nombre
+   * @date : variable que se usa para identificar en que fechas estas actualmente en el calendario
+   * @rango : variable que se usa cuando eliges la fecha inicial y con esto se respalda con el rango2
+   * @rango2 : variable que se usa cuando eliges la fecha final y con esto se respalda con el rango
+   * @formData :  Guarda el video o imagen que se envia en el input
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @contenedor_carga : variable ayudante para activar el loading
+   * @formImgVideo :  en esta variable se asignan todas las variables que deben de existir en el formulario
+   */
   localInterfaz :locales[] = []
   nombreActualizadoImgVid : boolean = false
   date : Date = new Date()

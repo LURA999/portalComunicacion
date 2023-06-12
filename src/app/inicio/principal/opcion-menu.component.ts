@@ -31,13 +31,26 @@ export interface imageObject {
   encapsulation: ViewEncapsulation.None
 })
 export class OpcionMenuComponent implements OnInit {
+
+  /**
+   * @link : variable que obtiene el link si el proyecto esta en produccion o no,
+   *  pero este sirve para ubicar un archivo que se encuentra en el mismo proyecto.
+   * @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @linkFacebook : en esta variable guardo el link del fb
+   * @linkBasePlanta : en esta variable guardo el link del baseplanta
+   * @linkNuevoIngreso : en esta variable guardo el link de los del nuevo ingreso
+   * @cargar :  con esta variable especificamos cuando el slider este lleno
+   * @imageObject : en esta variable se guardaran los sliders que estan guardados en la bd
+   * @imageObjectRemplazo : en esta variable se guardaran la imagen de loading
+   * @noticias : en este array se guardaran las noticias
+   * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual
+   * @$autoCapacObs :  este es un observable "express" lo denomino asi, porque se ejecuta
+   * cuando esta en el html como un async
+   * @auxObsCveHotel  : en esta variable guardo el numero del hotel
+   */
+
   link : string =  environment.production === true ? "": "../../../";
-  desplazar : number = 0;
-  gInterval : any
-  gInterval2 : any
-  gTimeOut : any
-  posicionOrg : number =1;
-  opc : number = 0
   api : string = environment.api
   $sub : Subscription = new Subscription()
   linkFacebook : string = "";
@@ -47,7 +60,7 @@ export class OpcionMenuComponent implements OnInit {
   imageObject: imageObject[] | undefined = undefined;
   imageObjectRemplazo: imageObject[] = [];
   noticias: imgVideoModel[] = [];
-  texto : string = ""
+  //texto : string = ""
   paramUrl : string = this.route.url.split("/")[2];
   cortar : boolean [] = [false,false,false,false];
 
@@ -70,7 +83,7 @@ export class OpcionMenuComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    //estoy obteniendo la clave local del usuario, en que hotel pertence
     switch(Number(this.auth.getCveLocal())){
       case 1:
         if (this.paramUrl !== "mexicali") {
@@ -240,7 +253,7 @@ export class OpcionMenuComponent implements OnInit {
 
   }
 
-  cortarTexto(texto:string,cortar: boolean, i : number){
+  /*cortarTexto(texto:string,cortar: boolean, i : number){
    if(cortar === false){
     if(texto.toString().length > 80){
       this.texto = texto.toString().substring(0,79)+"..."
@@ -253,7 +266,7 @@ export class OpcionMenuComponent implements OnInit {
       this.cortar[i] = true
     }
     return this.texto
-  }
+  }*/
 
   enviarPagina(link : string){
     if (link !== null && link !== undefined && link !== '') {

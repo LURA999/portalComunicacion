@@ -143,6 +143,29 @@ h2 {
   }
 
 
+/*Pagina araizadiamante*/
+  #carousel-diamante .slick-prev,
+  #carousel-diamante .slick-next  {
+    background: #FFFFFF;
+  }
+
+  #carousel-diamante .slick-prev:hover,
+  #carousel-diamante .slick-prev:focus,
+  #carousel-diamante .slick-next:hover,
+  #carousel-diamante .slick-next:focus {
+    outline: none;
+    background: #FFFFFF;
+  }
+
+  #carousel-diamante .slick-next:before {
+    content: url('./assets/img/pruebas/right.svg');
+  }
+
+  #carousel-diamante .slick-prev:before {
+    content: url('./assets/img/pruebas/left.svg');
+  }
+
+
 /*
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -23,17 +23,28 @@ export interface locales {
 })
 export class NoticiaComponent implements OnInit {
 
+  /**
+   * @localInterfaz : guarda los locales, junto con la cantidad de noticias que hay en cada local
+   * @formData : guarda la imagen que se envia desde el input
+   * @formatoVideo : en esta variable se asignan todas las variables que deben de existir en el formulario
+   * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual
+   * @$sub : variable que almacena los observables para despues liberarlos al terminar la pagina
+   * @activar : es una variable que ayuda en la activacion del boton para activar el boton de enviar en el form
+   * @contenedor_carga : variable ayudante para activar el loading
+   * @miBoton : se uso para controlar mejor el estado del boton.
+   * @sliderNoticia : esta variable controla si se subio una imagen o no.
+   */
+
   localInterfaz : locales[] = []
   formData : FormData = new FormData();
   formatoVideo : string = ""
   paramUrl : string = this.route.url.split("/")[2];
-
   $sub : Subscription = new Subscription()
-
   activar : boolean = false
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
   @ViewChild('miBoton2') miBoton!: MatButton;
   sliderNoticia :boolean = false;
+
 
   constructor(private DataService : DataNavbarService, private fb : FormBuilder,
     private serviceImgVideo : SubirImgNoticiaService,

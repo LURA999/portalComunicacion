@@ -15,12 +15,31 @@ import { locales } from '../editar-slider/editar-slider.component';
   styleUrls: ['./editar-autocapac.component.css']
 })
 export class EditarAutocapacComponent implements OnInit {
+
+  /**
+   * @modalidad : con esta variable se puede identificar si estas actualizando o insertando
+   * una autocapacitacion
+   * @localInterfaz : este array se llena de todos las ciudades con sus respectiva cantidad de autocapacitaciones
+   * @date : variable que se usa para identificar en que fechas estas actualmente en el calendario
+   * @rango : variable que se usa cuando eliges la fecha inicial y con esto se respalda con el rango2
+   * @rango2 : variable que se usa cuando eliges la fecha final y con esto se respalda con el rango
+   * @$sub : variable que almacena a todos los observables para despues liberarlos cuando se cierra este componente
+   * @formAutoCapac : en esta variable se asignan todas las variables que deben de existir en el formulario
+   */
+
   modalidad : boolean = false;
   localInterfaz :locales[] = []
   date : Date = new Date()
   rango : Date | undefined
   rango2 : Date | undefined
   $sub : Subscription = new Subscription()
+  formAutoCapac : FormGroup = this.fb.group({
+    fechaFinal : ['', Validators.required],
+    fechaInicial : ['', Validators.required],
+    nombre : [ '' , Validators.required],
+    cveLocal : [ '' , Validators.required],
+    link : [ '' , Validators.required]
+  })
 
   constructor(private fb : FormBuilder,public dialogRef: MatDialogRef<EditarAutocapacComponent>, private autoService : AutocapacitacionService,
     @Inject(MAT_DIALOG_DATA) private data: autocapacitacionInt,private local : localService) {
@@ -39,13 +58,7 @@ export class EditarAutocapacComponent implements OnInit {
         this.localInterfaz.shift()
       }))
      }
-  formAutoCapac : FormGroup = this.fb.group({
-    fechaFinal : ['', Validators.required],
-    fechaInicial : ['', Validators.required],
-    nombre : [ '' , Validators.required],
-    cveLocal : [ '' , Validators.required],
-    link : [ '' , Validators.required]
-  })
+
 
   fecha1(fecha : Date){
     this.rango = fecha
@@ -77,12 +90,20 @@ export class EditarAutocapacComponent implements OnInit {
       alert("Por favor llene todos los campos");
     } else {
       if (this.modalidad == true) {
-        await lastValueFrom(this.autoService.insertarAutocapacitacion(this.formAutoCapac.value));
+        await lastValueFrom(this.autoService.insertarAutocapacitacion(this.formAutoCapac.value).pipe(
+          catchError(_ =>{
+            throw 'Error in source.'
+         })
+        ));
       } else {
         let idAutoCap = this.data.idAutoCap;
         this.data = this.formAutoCapac.value;
         this.data.idAutoCap = idAutoCap;
-        await lastValueFrom(this.autoService.actualizarAutocapacitacion(this.formAutoCapac.value));
+        await lastValueFrom(this.autoService.actualizarAutocapacitacion(this.formAutoCapac.value).pipe(
+          catchError(_ =>{
+            throw 'Error in source.'
+         })
+        ));
       }
       this.$sub.add(this.autoService.mostrarTodoAutocapacitacion(0).pipe(
       catchError( _ => {
