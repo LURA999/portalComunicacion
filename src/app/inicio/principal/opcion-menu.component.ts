@@ -155,7 +155,6 @@ export class OpcionMenuComponent implements OnInit {
         this.auxObsCveHotel = 5
       break;
     }
-
     this.$autoCapacObs = this.autoCapacService.mostrarTodoAutocapacitacion(this.auxObsCveHotel!);
   }
 

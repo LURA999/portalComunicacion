@@ -49,27 +49,29 @@
                   </li>
               </ul>
             </div>
-            <div class="btn-group">
-              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
-                  Hermosillo
-              </div>
-              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','hermosillo')">
-                  <li>
-                      Reservar
-                  </li>
-              </ul>
-          </div>
-            <div class="btn-group">
-              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
-                  Palmira
-              </div>
-              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','palmira')">
-                  <li>
-                      Reservar
-                  </li>
-              </ul>
-            </div>
 
+
+
+          <div class="btn-group">
+            <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
+                Palmira
+            </div>
+            <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','palmira')">
+                <li>
+                    Reservar
+                </li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
+                Hermosillo
+            </div>
+            <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','hermosillo')">
+                <li>
+                    Reservar
+                </li>
+            </ul>
+        </div>
           <div class="opc logout" [hidden]="isAdminPortal" (click)="portal('/general/slider-config')">
             <mat-icon>settings</mat-icon>
           </div>

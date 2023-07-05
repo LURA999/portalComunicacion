@@ -9,13 +9,6 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
 
 
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
-
-
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
@@ -72,9 +65,11 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             for (var i = 0; i < opcNav.length; i++) {
                 this.rend2.setStyle(opcNav.item(i),"display","none")
             }
+
             //navbar horizontal
             this.rend2.setStyle(opcNav.item(7),"display","block")
             this.rend2.setStyle(opcNav.item(0),"display","block")
+
             this.rend2.setStyle(opcNav.item(this.auth.getCveLocal()),"display","block")
             //navbar vertical
             this.rend2.setStyle(opcNav.item(8 + Number(this.auth.getCveLocal())),"display","block")
@@ -129,8 +124,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
       this.render.setStyle(document.getElementsByClassName("opc")[16],"color","#FFFFFF")
 
-
+      //aqui se imprimen las opciones del navbar horizontal
       for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
+        console.log(i+'.- '+document.getElementsByClassName("opcM")[i].innerHTML);
         this.render.setStyle(document.getElementsByClassName("opcM")[i],"background-image","url("+this.link+"assets/img/pruebas/vector2.png)")
       }
 
@@ -141,6 +137,8 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       for (let i = 0; i < document.getElementsByClassName("verticalN-opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("verticalN-opc")[i],"color","#FFFFFF")
       }
+
+      console.log(nombre);
 
       if (nombre !==undefined ) {
         switch (nombre) {
@@ -164,14 +162,14 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
             break;
           case "hermosillo":
-            this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
-            break;
-          case "palmira":
             this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
             this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[8],"color","#ffba60")
+            break;
+          case "palmira":
+            this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
             break;
           case "slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
@@ -195,7 +193,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
             break;
         }
-      }else{
+      } else {
         switch (link) {
           case "/general":
             this.render.setStyle(document.getElementsByClassName("opc")[0],"color","#ffba60")

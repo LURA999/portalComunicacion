@@ -14,6 +14,6 @@ export class araizaDiamante {
   api = environment.api;
 
   araizaTarjeta(num:string): Observable<respTarjeta[]>{
-    return this.http.get<respTarjeta[]>("https://encuestas.araizahoteles.com/araizadiamante/araizadiamante.php?search="+num)
+    return this.http.get<respTarjeta[]>("https://encuestas.araizahoteles.com:11443/araizadiamante/araizadiamante.php?search="+num)
   }
 }
