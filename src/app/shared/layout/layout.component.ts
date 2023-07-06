@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Renderer2, Input, Output } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import {Subscription, catchError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MatDrawerMode } from '@angular/material/sidenav';
@@ -69,9 +69,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             //navbar horizontal
             this.rend2.setStyle(opcNav.item(7),"display","block")
             this.rend2.setStyle(opcNav.item(0),"display","block")
-
             this.rend2.setStyle(opcNav.item(this.auth.getCveLocal()),"display","block")
-            //navbar vertical
+
+            //navbar vertical para administradores
             this.rend2.setStyle(opcNav.item(8 + Number(this.auth.getCveLocal())),"display","block")
             this.rend2.setStyle(opcNav.item(14),"display","block")
         }
@@ -95,7 +95,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     navegarNavH(link : string, nombre? : string){
-
       this.activarSeccion(link,nombre);
         this.route.navigateByUrl(link)
         if (nombre !== undefined && this.auth.getCveRol() == 1) {
@@ -107,7 +106,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       if (paramUrl === undefined) {
         return "general"
       }
-
       if (paramUrl === "bookings") {
         return CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
       }else{
@@ -126,7 +124,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
       //aqui se imprimen las opciones del navbar horizontal
       for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
-        console.log(i+'.- '+document.getElementsByClassName("opcM")[i].innerHTML);
         this.render.setStyle(document.getElementsByClassName("opcM")[i],"background-image","url("+this.link+"assets/img/pruebas/vector2.png)")
       }
 
@@ -137,8 +134,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       for (let i = 0; i < document.getElementsByClassName("verticalN-opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("verticalN-opc")[i],"color","#FFFFFF")
       }
-
-      console.log(nombre);
 
       if (nombre !==undefined ) {
         switch (nombre) {
@@ -164,7 +159,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "hermosillo":
             this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
             this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[8],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
             break;
           case "palmira":
             this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
@@ -316,11 +311,5 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             return this.link+'assets/img/logos/logo.svg';
         }
       }
-
-
-    }
-
-    ngAfterViewChecked(): void {
-
     }
 }
