@@ -18,13 +18,15 @@ import { LoginAdminComponent } from './auth/login-admin/login-admin.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorComponent } from './error/error.component';
+import { ComponenteComponent } from './componente/componente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LoginAdminComponent,
-    ErrorComponent
+    ErrorComponent,
+    ComponenteComponent
   ],
   imports: [
     CustomMaterialModule,

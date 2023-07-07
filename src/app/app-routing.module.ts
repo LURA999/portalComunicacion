@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'login',canActivate: [InicioGuard], component: LoginComponent },
   { path: 'login_admin',canActivate: [InicioGuard], component: LoginAdminComponent },
   { path: 'error', component: ErrorComponent },
+  { path: 'vista-usuario', loadChildren: () => import('./vista-usuario/vista-usuario.module').then(m => m.VistaUsuarioModule) },
   { path: '**',canActivate: [InicioGuard], component: LoginComponent },      //
 ];
 
