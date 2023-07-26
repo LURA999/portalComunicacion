@@ -18,7 +18,8 @@ import { LoginAdminComponent } from './auth/login-admin/login-admin.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorComponent } from './error/error.component';
-import { ComponenteComponent } from './componente/componente.component';
+import { ComentarComidaComponent } from './comentar-comida/comentar-comida.component';
+import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { ComponenteComponent } from './componente/componente.component';
     LoginComponent,
     LoginAdminComponent,
     ErrorComponent,
-    ComponenteComponent
+    ComentarComidaComponent,
+    ThanksComponent
+
   ],
   imports: [
     CustomMaterialModule,

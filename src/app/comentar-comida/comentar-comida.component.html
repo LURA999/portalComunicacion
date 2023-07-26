@@ -1,0 +1,32 @@
+<div class="container">
+  <h2 class="title">Sugerencias</h2>
+  <p class="description">En Hotel Araiza nos preocupamos por ti. Califícala comida y servicio del día para poder brindarte una mejor experiencia.</p>
+
+  <form [formGroup]="formComment" >
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Número de empleado</mat-label>
+      <input matInput autocomplete="off" formControlName="employee_num" placeholder="Número de empleado">
+    </mat-form-field>
+
+    <div class="input-field" >
+      <mat-label>¿Qué te pareció el platillo?</mat-label>
+      <br/><br/>
+      <span class="star" *ngFor="let star of stars" (click)="rate(star)">
+        <mat-icon color="primary">{{ starFilled(star) ? 'star' : 'star_border' }}</mat-icon>
+      </span>
+    </div>
+
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>¿Qué platillo te gustaría ver en el menú?</mat-label>
+      <input matInput autocomplete="off" formControlName="suggestion" placeholder="Platillo">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Comentarios</mat-label>
+      <textarea matInput autocomplete="off" formControlName="comment" placeholder="Escribe tus comentarios"></textarea>
+    </mat-form-field>
+  <div id="enviar">
+    <button mat-raised-button (click)="answers()" color="primary" class="submit-button" #btnEnv>Enviar</button>
+  </div>
+  </form>
+  <div>
