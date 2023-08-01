@@ -1,0 +1,38 @@
+.container-perso {
+  justify-content: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 70px;
+}
+
+h1 {
+  font-family: 'gotham-bold';
+}
+
+form {
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+
+span {
+  font-family: 'gotham-book';
+}
+
+.select-catema {
+  display: flex;
+}
+
+.btn-add-rest {
+  display: inline-flex;
+  height: max-content;
+  padding: 2%;
+  justify-content: space-around;
+}
+
+.btn-add-rest img {
+  margin-left: 30%;
+}

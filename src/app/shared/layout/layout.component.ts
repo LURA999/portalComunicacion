@@ -120,7 +120,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
-      this.render.setStyle(document.getElementsByClassName("opc")[16],"color","#FFFFFF")
+      this.render.setStyle(document.getElementsByClassName("opc")[17],"color","#FFFFFF")
 
       //aqui se imprimen las opciones del navbar horizontal
       for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
@@ -169,23 +169,26 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
             break;
-          case "noticias-config":
+          case "araiza-aprende-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
-            break;
-          case "menu-config":
+          break;
+          case "noticias-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
             break;
-          case "empleado-mes-config":
+          case "menu-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
-          case "galeriaMulti-config":
+          case "empleado-mes-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
             break;
-          case "usuarios-config":
+          case "galeriaMulti-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
             break;
-          case "autocapac-config":
+          case "usuarios-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
+            break;
+          case "autocapac-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
             break;
         }
       } else {
@@ -222,23 +225,26 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "/general/slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
             break;
-          case "/general/noticias-config":
+          case "/general/araiza-aprende-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
             break;
-         case "/general/menu-config":
+          case "/general/noticias-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
             break;
-          case "/general/empleado-mes-config":
+         case "/general/menu-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
             break;
-          case "/general/galeriaMulti-config":
+          case "/general/empleado-mes-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
             break;
-          case "/general/usuarios-config":
+          case "/general/galeriaMulti-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
             break;
-          case "/general/autocapac-config":
+          case "/general/usuarios-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
+            break;
+          case "/general/autocapac-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
             break;
         }
       }

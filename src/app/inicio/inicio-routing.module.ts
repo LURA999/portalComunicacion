@@ -19,6 +19,8 @@ import { OpcionMenuComponent } from './principal/opcion-menu.component';
 import { UsuariosComponent } from './opcion-config/usuarios-config/usuarios.component';
 import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/autocapac-config.component';
 import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
+import { AraizaAprendeComponent } from './araiza-aprende/araiza-aprende.component';
+import { AraizaAprendeConfigComponent } from './opcion-config/araiza-aprende-config/araiza-aprende-config.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,7 @@ const routes: Routes = [
       { path: 'menu',canActivate: [SesionGuard], component: MenuComponent},
       { path: 'historial-noticias',canActivate: [SesionGuard], component: HistorialNoticiasComponent},
       { path: 'empleado-mes',canActivate: [SesionGuard], component: EmpleadoMesComponent},
+      { path: 'araiza-aprende',canActivate: [SesionGuard], component: AraizaAprendeComponent},
       //Sesion para el admin
       { path: 'slider-config',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
       { path: 'noticias-config',canActivate: [LogSesionAdminGuard], component: NoticiaComponent},
@@ -49,6 +52,7 @@ const routes: Routes = [
       { path: 'galeriaMulti-config',canActivate: [LogSesionAdminGuard], component: GaleriaMultiComponent},
       { path: 'usuarios-config',canActivate: [LogSesionAdminGuard], component: UsuariosComponent },
       { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente },
+      { path: 'araiza-aprende-config',canActivate: [LogSesionAdminGuard], component: AraizaAprendeConfigComponent },
 
     ]
   }

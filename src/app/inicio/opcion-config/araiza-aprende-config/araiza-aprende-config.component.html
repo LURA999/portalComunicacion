@@ -1,0 +1,57 @@
+<div class="container-perso">
+  <form [formGroup]="formAraizaAprende"  enctype="multipart/form-data">
+
+    <h1>Video</h1>
+    <div  class="select-catema">
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <mat-select formControlName="categoria">
+          <mat-option [value]="1"> 1 </mat-option>
+          <mat-option [value]="2"> 2 </mat-option>
+          <mat-option [value]="3"> 3 </mat-option>
+          <mat-option [value]="4"> 4 </mat-option>
+          <mat-option [value]="5"> 5 </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="btn-add-rest">
+        <img src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add()" alt="add">
+      <img src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest()" alt="rest">
+      </div>
+    </div>
+
+    <div class="select-catema"  >
+      <mat-form-field appearance="outline">
+        <mat-label>Tema</mat-label>
+        <mat-select formControlName="tema">
+          <mat-option [value]="1"> 1 </mat-option>
+          <mat-option [value]="2"> 2 </mat-option>
+          <mat-option [value]="3"> 3 </mat-option>
+          <mat-option [value]="4"> 4 </mat-option>
+          <mat-option [value]="5"> 5 </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="btn-add-rest">
+      <img src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add()" alt="add">
+    <img src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest()" alt="rest">
+    </div>
+    </div>
+
+
+      <mat-form-field class="example-ripple-form-field" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input autocomplete="off"  matInput formControlName="nombre" >
+      </mat-form-field>
+
+      <input autocomplete="off" mat-input name="info[]" formControlName="input"  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt" ><br><br>
+
+      <mat-form-field class="example-ripple-form-field" appearance="outline">
+        <mat-label>Ingrese link del slider</mat-label>
+        <input autocomplete="off" matInput formControlName="link" >
+      </mat-form-field><br>
+
+        <button type="submit" mat-raised-button id="submit" color="primary"   (click)="enviandoDatos()" #miBoton>Enviar</button>
+
+
+
+    </form>
+</div>

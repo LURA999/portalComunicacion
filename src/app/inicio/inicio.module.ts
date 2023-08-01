@@ -38,6 +38,11 @@ import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 import { TodoNoticiasComponent } from './opcion-config/galeria-multi-config/componentes/todo-noticias/todo-noticias.component';
 import { LazyLoadImageModule } from "ng-lazyload-image";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { AraizaAprendeComponent } from './araiza-aprende/araiza-aprende.component';
+import { AraizaAprendeConfigComponent } from './opcion-config/araiza-aprende-config/araiza-aprende-config.component';
+import { AraizaAprendeGaleriaComponent } from './opcion-config/araiza-aprende-galeria/araiza-aprende-galeria.component';
+import { AddAraizaAprendeComponent } from './popup/add-araiza-aprende/add-araiza-aprende.component';
+import { RestAraizaAprendeComponent } from './popup/rest-araiza-aprende/rest-araiza-aprende.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     AutoCapacConfigComponente,
     EditarAutocapacComponent,
     EmpleadoMesComponent,
-    TodoNoticiasComponent
+    TodoNoticiasComponent,
+    AraizaAprendeComponent,
+    AraizaAprendeConfigComponent,
+    AraizaAprendeGaleriaComponent,
+    AddAraizaAprendeComponent,
+    RestAraizaAprendeComponent
   ],
   imports: [
     HttpClientModule,
