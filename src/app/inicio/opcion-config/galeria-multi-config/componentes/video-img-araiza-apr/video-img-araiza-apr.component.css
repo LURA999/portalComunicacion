@@ -1,0 +1,109 @@
+h1, h3 {
+  font-family: 'gotham-bold';
+}
+
+h2 {
+  font-family: 'gotham-medium';
+}
+
+.arrayVacio {
+  display: flex;
+  justify-content: center;
+}
+
+.container-mult {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 70px;
+    align-self: center;
+}
+
+.caja {
+    height: 200px;
+}
+
+img {
+    width: auto;
+    height: 200px;
+    max-width: 100% !important;
+    object-fit: contain;
+}
+
+.seccion {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+}
+
+
+.fecha {
+    width: 100%;
+    font-weight: 700;
+    color: grey;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.limite {
+    padding: 10px;
+    text-align: center;
+}
+
+button {
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.modify {
+    border-color: green;
+}
+
+.delete {
+    border-color: red;
+}
+
+video{
+  height:200px;
+  width:auto;
+}
+
+/**Loading para componentes*/
+.preloader {
+  width: 60px;
+  height: 60px;
+  border: 10px solid #eee;
+  border-top: 10px solid rgb(255, 186, 96) ;
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  cursor:wait;
+}
+
+
+mat-tab {
+  overflow-x: none;
+}
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@media (max-width: 1080px){
+    .seccion{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 880px){
+    .seccion{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

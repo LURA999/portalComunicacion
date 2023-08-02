@@ -1,0 +1,120 @@
+#cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+img {
+  width: 16vw;
+  height: 14vw;
+  object-fit: contain;
+  cursor:pointer;
+}
+
+
+.slide {
+  padding: 0%;
+  text-align: start;
+  font-family: 'gotham-book';
+
+}
+#titulo2 {
+  font-family: 'gotham-bold';
+
+}
+
+#titulo1 {
+  font-family: 'gotham-bold';
+}
+
+h2 {
+  font-family: 'gotham-bold';
+  text-align: start;
+}
+
+
+.nohaydatos {
+  font-family: 'gotham-bold';
+  width: 100%;
+  text-align: center;
+}
+
+
+@media(max-width:1050px){
+  img {
+    width: 22vw;
+    height: 20vw;
+    object-fit: contain;
+  }
+}
+
+@media(max-width:700px){
+  #cabecera {
+    display: contents;
+    justify-content: center;
+    align-items: center;
+  }
+  #buscarCat {
+    margin-top: 20px;
+  }
+}
+
+@media(max-width:620px){
+  img {
+    margin: 5px;
+    width: 30vw;
+    height: 20vw;
+    object-fit: contain;
+  }
+
+}
+
+@media(max-width:740px){
+  h1 {
+    font-size: 18px;
+    line-height: normal;
+  }
+
+  h2 {
+    font-size: 15px;
+    line-height: normal;
+  }
+
+  .slide {
+    font-size: 12px;
+  }
+}
+
+.slide{
+  display: block;
+
+}
+
+
+/*select*/
+
+mat-select {
+  background-image:url('../../../assets/img/icon/flecha.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  transform: translateY(-20%);
+  font-family: 'gotham-book';
+
+}
+
+::ng-deep .mat-select-arrow {
+  display: none;
+}
+
+::ng-deep .mat-form-field-infix {
+  font-family: 'gotham-book';
+}
+
+mat-option {
+  font-family: 'gotham-book';
+}
+
+mat-form-field {
+  width: 200px;
+}

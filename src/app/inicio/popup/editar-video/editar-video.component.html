@@ -1,0 +1,57 @@
+<div cdkDragRootElement=".cdk-overlay-pane" class="example-box"  cdkDrag>
+  <div class="example-handle" cdkDragHandle>
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div>
+<h2 mat-dialog-title>Modificando video</h2>
+<form [formGroup]="formAraizaAprende">
+<mat-dialog-content>
+  <div  class="select-catema" >
+    <mat-form-field appearance="outline">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoria" >
+        <mat-option *ngFor="let i of categorias;"  [value]="i.idCatArApr"> {{i.categoria}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="btn-add-rest">
+      <img src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add(1)" alt="add">
+    <img src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest(11)" alt="rest">
+    </div>
+  </div>
+  <div class="select-catema"  >
+    <mat-form-field appearance="outline">
+      <mat-label>Tema</mat-label>
+      <mat-select formControlName="tema">
+        <mat-option *ngFor="let i of temas;"  [value]="i.idTemaArApr"> {{i.tema}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="btn-add-rest">
+    <img src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add(2)" alt="add">
+  <img src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest(22)" alt="rest">
+  </div>
+  </div>
+  <div class="otro-input">
+    <mat-form-field class="example-ripple-form-field" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input autocomplete="off"  matInput formControlName="nombre" >
+    </mat-form-field>
+  </div>
+    <div class="otro-input">
+      <mat-form-field class="example-ripple-form-field" appearance="outline">
+        <mat-label>Ingrese link del slider</mat-label>
+        <input autocomplete="off" matInput formControlName="link" >
+      </mat-form-field>
+    </div>
+      <div>
+        <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" #subirImagen (change)="subirImg($event)" class="ing-txt"><br><br>
+      </div>
+  </mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="enviandoDatos()">Guardar</button>
+</mat-dialog-actions>
+</form>
+</div>
+

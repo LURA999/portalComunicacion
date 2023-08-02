@@ -120,7 +120,7 @@ div#matform-c {
 
 @media(max-width:1610px) {
   .cabecera{
-    display: grid;
+    display: contents;
     margin-bottom: 0px;
   }
 
@@ -130,6 +130,9 @@ div#matform-c {
 
   div#matform-c {
     margin-bottom: 0px;
+  }
+  button {
+    width: 100%;
   }
  }
 

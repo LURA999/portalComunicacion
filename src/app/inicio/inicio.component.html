@@ -23,7 +23,7 @@
 
     <div class="container-article">
         <div class="article">
-          <h2>¡BIENVENIDO A <span>GRUPO ARAIZA!</span></h2>
+          <h2 id="bienvenido">¡BIENVENIDO A <span>GRUPO ARAIZA!</span></h2>
             <article>
                 Estamos muy contentos de que formes parte del equipo, te presentamos el portal de comunicación de Araiza Hoteles,
                 un espacio dedicado para ti y una herramienta valiosa con la que podrás mantenerte informado.
@@ -43,7 +43,7 @@
           <article>
           ¿Te interesa crecer de manera profesional? No te pierdas los tutoriales que Hotel Araiza ha preparado para ti con enfoque a distintas áreas.
           </article>
-          <br><button id="botonTuto" mat-raised-button color="primary">Próximamente</button>
+          <br><button id="botonTuto" mat-raised-button color="primary" (click)="routerLink('araiza-aprende')">Comenzar</button>
         </div>
       </div>
       <div id="seccion4-notice">

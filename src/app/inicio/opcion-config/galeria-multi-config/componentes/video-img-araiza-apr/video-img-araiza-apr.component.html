@@ -1,0 +1,17 @@
+<div class="preloader" style="position: relative; left:45%; margin-top:5%; margin-bottom: 5%;" [hidden]="cargando"></div>
+  <div class="existe" [hidden]="hayElementos()"> <h3 class="arrayVacio">No hay videos registrados... </h3></div>
+  <div *ngIf="videoAraiza.length >0">
+    <h3>Araiza aprende</h3>
+    <div class="seccion" >
+      <div *ngFor="let i of videoAraiza">
+      <div class="limite">
+          <img [alt]="i.img"
+          [lazyLoad]=" (recursoUrlStr(i.img) | async)!.toString()"
+          src="../../../../../../assets/img/pruebas/loading-noticia.gif">
+          <div class="fecha"> {{i.nombre}} </div>
+          <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i)" >Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idArApr)">Eliminar</button>
+      </div >
+  </div>
+</div>
+
+

@@ -122,6 +122,7 @@ export class NoticiaComponent implements OnInit {
       if ((target.size/1024)<=51200) {
         this.formData.append('info', target, target.name);
         this.formatoVideo = target.type
+
         this.formData.forEach((file :any)=> {
           this.formImgVideo.patchValue({
             imgVideo : file.name
@@ -186,7 +187,9 @@ export class NoticiaComponent implements OnInit {
 
 
   activarBut(){
-    if((this.formImgVideo.valid ===false && this.activar === false || this.formImgVideo.valid ===true && this.activar === true) || this.sliderNoticia === false){
+    if((this.formImgVideo.valid ===false && this.activar === false
+      || this.formImgVideo.valid ===true && this.activar === true)
+    || this.sliderNoticia === false){
       this.miBoton.disabled = true;
     }else{
       this.miBoton.disabled = false;

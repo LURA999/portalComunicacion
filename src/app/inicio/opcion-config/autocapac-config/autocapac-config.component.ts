@@ -39,7 +39,8 @@ export interface autocapacitacionInt {
 })
 export class AutoCapacConfigComponente implements OnInit {
 /**
-   * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual
+   * @paramUrl : obtiene el link de la pagina, o mas bien el segmento de la pagina actual, para verifcar si esadmin
+   *
    *  @ELEMENT_DATA : almacena el array que se utilizara para la atabla
    *  @displayedColumns : se define las columnas que se usan en la tabla
    *  @dataSource : variable importante que ayuda a imprimir el array element_Data en la tabla

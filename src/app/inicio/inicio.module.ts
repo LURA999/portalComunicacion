@@ -40,9 +40,10 @@ import { LazyLoadImageModule } from "ng-lazyload-image";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AraizaAprendeComponent } from './araiza-aprende/araiza-aprende.component';
 import { AraizaAprendeConfigComponent } from './opcion-config/araiza-aprende-config/araiza-aprende-config.component';
-import { AraizaAprendeGaleriaComponent } from './opcion-config/araiza-aprende-galeria/araiza-aprende-galeria.component';
 import { AddAraizaAprendeComponent } from './popup/add-araiza-aprende/add-araiza-aprende.component';
 import { RestAraizaAprendeComponent } from './popup/rest-araiza-aprende/rest-araiza-aprende.component';
+import { VideoImgAraizaAprComponent } from './opcion-config/galeria-multi-config/componentes/video-img-araiza-apr/video-img-araiza-apr.component';
+import { EditarVideoComponent } from './popup/editar-video/editar-video.component';
 
 @NgModule({
   declarations: [
@@ -75,9 +76,10 @@ import { RestAraizaAprendeComponent } from './popup/rest-araiza-aprende/rest-ara
     TodoNoticiasComponent,
     AraizaAprendeComponent,
     AraizaAprendeConfigComponent,
-    AraizaAprendeGaleriaComponent,
     AddAraizaAprendeComponent,
-    RestAraizaAprendeComponent
+    RestAraizaAprendeComponent,
+    VideoImgAraizaAprComponent,
+    EditarVideoComponent
   ],
   imports: [
     HttpClientModule,

@@ -128,6 +128,10 @@ button {
 
 /**seccion 4*/
 
+
+#seccion4 {
+  margin-top: 5%;
+}
 @media (max-width: 1190px){
     h1 {
         font-size: 3vw;
@@ -213,7 +217,7 @@ button {
 
 .container img {
   margin: 5px;
-  width: 10vw;
+  width: 20vw;
   height: 10vw;
   background-color: white;
   object-fit: contain;
@@ -335,4 +339,14 @@ button {
   }
 }
 
+@media(max-width:620px){
+  .container img {
+    margin: 5px;
+    width: 30vw;
+    height: 20vw;
+    background-color: white;
+    object-fit: contain;
+  }
+
+}
 

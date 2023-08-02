@@ -1,3 +1,37 @@
-<div class="container">
+<div style="margin: 5% 10% 0 10%;">
+  <!-- Cabecera -->
+  <div id="cabecera">
+    <h1> <span id="titulo1"> Araiza Aprende </span><span id="titulo2" class="color_primario">| {{titulop2}}</span> </h1>
+    <mat-form-field appearance="outline" id="buscarCat">
+      <mat-label>Categoría</mat-label>
+      <mat-select [value]="'1'" (selectionChange)="onSelected($event)">
+        <mat-option *ngFor="let i of categorias" [value]="i.idCatArApr.toString()">{{i.categoria}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
+  <!-- Línea separadora -->
+  <hr style="margin-top: 10px;">
+
+  <!-- Contenido con temas dinámicos -->
+  <div style="margin-top: 20px;">
+
+    <ng-container *ngIf="nomTemas.length > 0; else elseTemplate">
+      <ul *ngFor="let titulo of nomTemas; let idx = index">
+        <h2>{{titulo}}</h2>
+        <ngx-slick-carousel #slickModal="slick-carousel"  [config]="carouselConfig">
+          <div ngxSlickItem *ngFor="let t of arrTemas[idx]; let idx = index">
+            <div class="slide">
+              <img [src]="'https://www.comunicadosaraiza.com/portal_api/API/imgVideo/galeria-video-araiza-aprende/fotos/'+t.img"  (click)="irLink(t.link)" [alt]="idx+'image'">
+              <span>{{t.nombre}}</span>
+
+            </div>
+          </div>
+        </ngx-slick-carousel>
+      </ul>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="nohaydatos">No hay videos registrados</div>
+    </ng-template>
+  </div>
 </div>

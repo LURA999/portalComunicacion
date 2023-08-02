@@ -13,8 +13,13 @@ h2 {
   text-align: center;
   padding: 10px;
   font-size: 22px  ;
+
 }
 
+#bienvenido {
+    font-family: 'gotham-bold';
+    font-size: 22px;
+}
 /*ULTIMA SECCION*/
 
 
@@ -351,6 +356,10 @@ img {
 
   .article h2 span{
     color: #DC994D;
+    font-size: 16px;
+  }
+
+  #bienvenido {
     font-size: 16px;
   }
 

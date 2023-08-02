@@ -12,6 +12,9 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
 import { UsuarioFormComponent } from '../../popup/editar-usuario/usuario-form.component';
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
+import { format } from 'date-fns';
 
 export interface local {
   idLocal : Number;
@@ -75,6 +78,7 @@ export class UsuariosComponent implements OnInit {
   paramUrl : string = this.route.url.split("/")[2];
   ELEMENT_DATA: usuarios[] = [ ];
   $sub : Subscription = new Subscription()
+  contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
 
   displayedColumns: string[] = ['no', 'nombre', 'correo', 'hotel', 'visita', 'opciones'];
   dataSource = new MatTableDataSource<usuarios>(this.ELEMENT_DATA);
@@ -256,6 +260,67 @@ export class UsuariosComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+
+  async exportar(){
+    if (this.ELEMENT_DATA.length > 0) {
+      const today = new Date();
+    const formattedDate = format(today, 'MM-dd-yyyy');
+
+    this.contenedor_carga.style.display = "block";
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet("Employee Data");
+    worksheet.addRow(['', '', '', '', 'Fecha:', formattedDate]);
+    worksheet.addRow(['', '', '', '', '']);
+    let header : string[]= ['No.', 'Nombre completo', 'Correo', 'Hotel', 'Visita'];
+    worksheet.addRow(header);
+
+    for  (let x1=0; x1<this.ELEMENT_DATA.length; x1++ ) {
+      let temp : any=[]
+        temp.push(this.ELEMENT_DATA[x1].usuario)
+        temp.push(this.ELEMENT_DATA[x1].apellidoPaterno+" "+this.ELEMENT_DATA[x1].apellidoMaterno+", "+this.ELEMENT_DATA[x1].nombres)
+        temp.push(this.ELEMENT_DATA[x1].correo)
+        temp.push(this.ELEMENT_DATA[x1].local)
+        temp.push(this.ELEMENT_DATA[x1].fecha)
+        worksheet.addRow(temp)
+    }
+    // Aplicar estilos para la palabra "Fecha" (celda A1)
+    worksheet.getCell('E1').alignment = { vertical: 'middle', horizontal: 'center' };
+    worksheet.getCell('E1').font = { bold: true };
+
+    //establecer medidas manualmente
+    /* worksheet.columns.forEach((column) => {
+      column.eachCell!({ includeEmpty: true }, (cell) => {
+        const desiredWidth = 30; // Tamaño deseado para la columna (puedes ajustarlo según tus necesidades)
+        const cellWidth = (cell.value && cell.value.toString().length) || 10; // Ancho actual de la celda (con un valor predeterminado de 10)
+        column.width = Math.max(desiredWidth, cellWidth);
+      });
+    }); */
+
+    worksheet.columns.forEach((column) => {
+      let maxLength = 0;
+      column.eachCell!({ includeEmpty: true }, (cell) => {
+        const cellValue = cell.text || '';
+        const cellLength = cellValue.length;
+        if (cellLength > maxLength) {
+          maxLength = cellLength;
+        }
+      });
+      column.width = maxLength + 2; // Agregar un poco de espacio adicional para mejorar la visualización
+    });
+    let fname="ExcelClientes"
+
+    workbook.xlsx.writeBuffer().then((data : any) => {
+    let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    fs.saveAs(blob, fname+'-'+new Date().valueOf()+'.xlsx');
+    });
+    this.contenedor_carga.style.display = "none";
+
+    }else{
+      alert("No hay empleados en la tabla");
+    }
+
   }
 
 }

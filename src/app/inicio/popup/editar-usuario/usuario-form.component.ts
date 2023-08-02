@@ -68,8 +68,7 @@ export class UsuarioFormComponent implements OnInit {
   api : string = environment.api;
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
-  private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private changeDetectorRef: ChangeDetectorRef
-  ) {
+  private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService ) {
     if (data !== undefined) {
       this.formUsuario = this.fb.group({
         usuario : [this.data!.usuario, Validators.required],

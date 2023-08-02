@@ -1,4 +1,3 @@
-<p>rest-araiza-aprende works!</p>
 <div cdkDragRootElement=".cdk-overlay-pane" class="example-box"  cdkDrag>
   <div class="example-handle" cdkDragHandle>
     <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
@@ -6,36 +5,28 @@
       <path d="M0 0h24v24H0z" fill="none"></path>
     </svg>
   </div>
-<h2 mat-dialog-title>Agregando nueva comida</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<h2 mat-dialog-title>{{data == 11? 'Eliminar categoría': 'Eliminar Tema'}}</h2>
+<form [formGroup]="formRest">
+  <ng-container *ngIf="data == 11; else elseTemplate">
+    <mat-form-field appearance="outline">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoria" >
+        <mat-option *ngFor="let i of categorias;"  [value]="i.idCatArApr"> {{i.categoria}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <mat-form-field appearance="outline">
+      <mat-label>Tema</mat-label>
+      <mat-select formControlName="tema">
+        <mat-option *ngFor="let i of temas;"  [value]="i.idTemaArApr"> {{i.tema}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close #cancelarBtn>Cancelar</button>
+    <button mat-button (click)="enviandoDatos()" #agregarBtn>Eliminar</button>
+  </mat-dialog-actions>
+</form>
 </div>
 

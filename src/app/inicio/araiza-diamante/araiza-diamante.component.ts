@@ -103,7 +103,7 @@ export class AraizaDiamanteComponent implements OnInit {
     {
       breakpoint: 620,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 2,
         swipeToSlide: true,
         swipe:true,
         arrows: false,

@@ -5,7 +5,7 @@
       <path d="M0 0h24v24H0z" fill="none"></path>
     </svg>
   </div>
-<h2 mat-dialog-title>Agregando nueva comida</h2>
+<h2 mat-dialog-title>{{data == 1? 'Agregar categoría': 'Agregar Tema'}}</h2>
 <form [formGroup]="formAdd">
   <mat-dialog-content>
   <div>
@@ -16,8 +16,8 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button (click)="enviandoDatos()">Agregar</button>
+  <button mat-button mat-dialog-close #cancelarBtn>Cancelar</button>
+  <button mat-button (click)="enviandoDatos()" #agregarBtn>Agregar</button>
 </mat-dialog-actions>
 </form>
 </div>

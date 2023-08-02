@@ -68,7 +68,7 @@ h2 span {
 }
 
 .nombre{
-  font-size: .8vw;
+  font-size: .9vw;
   line-height: normal;
   font-weight: bold;
 }
@@ -143,10 +143,10 @@ h2 span {
   }
 
   .nombre{
-    font-size: 13px;
+    font-size: 16px;
   }
   .textoMenu{
-    font-size: 11px;
+    font-size: 14px;
   }
   .fechaMenu {
     font-size: 13px;
@@ -198,10 +198,10 @@ h2 span {
 
 @media (max-width:450px){
   .nombre{
-    font-size: 11px;
+    font-size: 14px;
   }
   .textoMenu{
-    font-size: 9px ;
+    font-size:12px ;
   }
   .fechaMenu {
     font-size: 11px;

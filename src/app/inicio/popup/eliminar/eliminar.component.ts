@@ -8,6 +8,7 @@ import { ComidaService } from 'src/app/core/services/comida.service';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
 import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
+import { AraizaAprendeService } from 'src/app/core/services/araiza_aprende.service';
 
 @Component({
   selector: 'app-eliminar',
@@ -29,7 +30,7 @@ export class EliminarComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,private serviceImgVideo : SubirImgVideoService,
     private usService:UsuarioService, private servImgVideo : SubirImgVideoService,
     private comidaServ : ComidaService, private autocap : AutocapacitacionService,
-    private mesService:EmpleadoMesService) { }
+    private mesService:EmpleadoMesService, private videoAprende : AraizaAprendeService) { }
 
   ngOnInit(): void {
 
@@ -141,6 +142,20 @@ export class EliminarComponent implements OnInit {
     ).subscribe(async (resp1:ResponseInterfaceTs) =>{
             this.dialogRef.close(await resp1.container);
           }))
+          break;
+
+          case 'Video':
+            this.contenedor_carga.style.display = "block";
+
+            this.videoAprende.eliminarVideo(Number(this.data.id)).pipe(
+              concatMap(() =>
+              this.videoAprende.todoVideo()
+
+            )).subscribe((resp : ResponseInterfaceTs)=>{
+              this.dialogRef.close( resp.container===undefined?[]:resp.container)
+              this.contenedor_carga.style.display = "none";
+
+            })
           break;
         }
       }

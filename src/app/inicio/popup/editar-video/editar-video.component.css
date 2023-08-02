@@ -35,12 +35,13 @@ span {
 
 .btn-add-rest img {
   margin-left: 30%;
+
+}
+
+.otro-input{
+  margin-right: 16%;
 }
 
 img {
   cursor: pointer;
-}
-
-.otro-input{
-  padding-right: 8.5%;
 }
