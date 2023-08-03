@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,8 +27,7 @@ import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component
     LoginAdminComponent,
     ErrorComponent,
     ComentarComidaComponent,
-    ThanksComponent
-
+    ThanksComponent,
   ],
   imports: [
     CustomMaterialModule,
@@ -37,9 +35,7 @@ import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,

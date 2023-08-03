@@ -36,6 +36,7 @@ export class EditarVideoComponent implements OnInit {
    $sub : Subscription = new Subscription()
   targetFile : any
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
+  nombreActualizadoImgVid : boolean = false
 
   formAraizaAprende : FormGroup = this.fb.group({
     categoria : [this.data?.idCategoria.toString(), Validators.required],
@@ -48,7 +49,7 @@ export class EditarVideoComponent implements OnInit {
   api : string = environment.api;
 
 
-  constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: videoAraizaAprende | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
+  constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: videoAraizaAprende,public dialogRef: MatDialogRef<EditarSliderComponent>,
   private dialog : NgDialogAnimationService,private service : AraizaAprendeService
   ) {
 
@@ -68,11 +69,14 @@ export class EditarVideoComponent implements OnInit {
   })
   }
 
+
+
   async subirImg(evt : any){
     let target : any = <DataTransfer>(evt.target).files[0];
     const image = new Image();
 
     if (target.type.split("/")[0] == "image") {
+      this.nombreActualizadoImgVid = true
 
     this.formAraizaAprende.patchValue({
       input : target.name
@@ -165,36 +169,37 @@ export class EditarVideoComponent implements OnInit {
   }
 
   async enviandoDatos() {
-   /*  if (this.formImgVideo.valid == false) {
+     if (this.formAraizaAprende.valid == false) {
       alert("Por favor llene todos los campos");
     } else {
       this.contenedor_carga.style.display = "block";
 
     //registrando id y formato
-    let id = this.data.obj.idNoticia;
-    let formato = this.data.obj.formato;
-    this.data.obj = this.formImgVideo.value;
-    this.data.obj.idNoticia = id;
-    this.data.obj.formato = formato;
+    let id = this.data.idArApr;
+    let img = this.data.img;
+    let formato = this.data.formato;
+    this.data = this.formAraizaAprende.value;
+    this.data.idArApr = id;
+    this.data.formato = formato;
+    this.data.img = img;
     let Observable : Observable<ResponseInterfaceTs>[] = [];
 
      //Se eliminara la anterior imagen, si esque se remplazo el actual
     if (this.nombreActualizadoImgVid === true) {
-
-      Observable.push(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idNoticia),"imgVideoNoticia"))
-      Observable.push(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideoNoticia"))
+      /**0*/ Observable.push(this.service.eliminarDirImgVideo(Number(this.data.idArApr)))
+      /**1*/ Observable.push(this.service.subirImagen(this.formData))
     }
 
-    Observable.push(this.serviceImgVideo.actualizarImgVideo(this.data.obj,"imgVideoNoticia"))
-    Observable.push(this.serviceImgVideo.todoImgVideo("imgVideoNoticia",this.data.tipoNoticias,1,0,-1))
+      /**2*/ Observable.push(this.service.editarVideo(this.data))
+      /**3*/ Observable.push(this.service.todoVideo())
 
     if (Observable.length == 4) {
       Observable[0].pipe(
         concatMap(()=>{
           return Observable[1].pipe(
             concatMap((resp:ResponseInterfaceTs)=>{
-            this.data.obj.imgVideo = resp.container.nombre
-            this.data.obj.formato = resp.container.tipo
+            this.data!.img = resp.container.nombre
+            this.data!.formato = resp.container.formato
             return Observable[2].pipe(
               concatMap(() =>{
                 return Observable[3]
@@ -226,7 +231,7 @@ export class EditarVideoComponent implements OnInit {
         this.contenedor_carga.style.display = "none";
       })
     }
-    } */
+    }
   }
 
   ngOnDestroy(): void {

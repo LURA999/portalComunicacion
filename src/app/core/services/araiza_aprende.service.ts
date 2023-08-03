@@ -47,6 +47,10 @@ export class AraizaAprendeService {
     return this.http.delete<ResponseInterfaceTs>(this.api+"araizaAprende.php?idVideo="+idVideo);
   }
 
+  eliminarDirImgVideo(id: number) : Observable <ResponseInterfaceTs>{
+    return this.http.delete<ResponseInterfaceTs>(this.api+"araizaAprende.php?delete2="+id);
+  }
+
   subirImagen(obj : FormData): Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders()
       headers.append('Content-Type', 'application/json');
@@ -68,9 +72,6 @@ export class AraizaAprendeService {
   insertarTema(idTema : String): Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders()
     headers.append('Content-Type', 'application/json');
-
-    console.log(this.api+"araizaAprende.php?insCateg=true");
-    console.log({'tema':idTema});
   return this.http.post<ResponseInterfaceTs>(this.api+"araizaAprende.php?insTema=true",{'tema':idTema},{headers})
   }
 
@@ -83,6 +84,9 @@ export class AraizaAprendeService {
   editarVideo(imgAraizaApr : videoAraizaAprende): Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders()
     headers.append('Content-Type', 'application/json');
+    console.log(this.api+"araizaAprende.php");
+    console.log(imgAraizaApr);
+
     return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprende.php",imgAraizaApr,{headers})
   }
 

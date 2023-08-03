@@ -49,6 +49,8 @@ export class VideoImgAraizaAprComponent implements OnInit {
       this.cargando = true;
     }))
   }
+
+
   modificar( obj : videoAraizaAprende){
       //abriendo noticia
      let dialogRef = this.dialog.open(EditarVideoComponent, {
@@ -64,8 +66,17 @@ export class VideoImgAraizaAprComponent implements OnInit {
       ).subscribe(async (resp:any)=>{
         if (resp !== "" && resp !== undefined) {
         this.cargando = false;
+        this.videoAraiza = [];
           for await (const i of resp) {
-
+          this.videoAraiza.push({
+            idCategoria: i['fk_idCategoria'],
+            idArApr: i['idArApr'],
+            link: i['link'],
+            idTema: i['fk_idTema'],
+            nombre: i['nombre'],
+            img: i['img'],
+            formato: i['formato']
+          })
           }
           this.cargando = true;
         }
@@ -104,10 +115,20 @@ export class VideoImgAraizaAprComponent implements OnInit {
       ).subscribe(async (resp:any)=>{
         //OPCION 2 PARA ELIMINAR UN ELEMENTO
         if(typeof resp !== 'boolean' && resp !== undefined ){
+          this.cargando = false;
           this.videoAraiza = [];
-          for (let i = 0; i < resp.length; i++) {
-            this.videoAraiza.push(resp[i]);
+          for await (const i of resp) {
+            this.videoAraiza.push({
+              idCategoria: i['fk_idCategoria'],
+              idArApr: i['idArApr'],
+              link: i['link'],
+              idTema: i['fk_idTema'],
+              nombre: i['nombre'],
+              img: i['img'],
+              formato: i['formato']
+            })
           }
+          this.cargando = true;
         }
       })
 

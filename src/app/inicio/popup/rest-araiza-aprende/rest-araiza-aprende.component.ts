@@ -20,10 +20,7 @@ export class RestAraizaAprendeComponent {
   @ViewChild('cancelarBtn') cancelarBtn!: MatButton;
   @ViewChild('agregarBtn') agregarBtn!: MatButton;
 
-  formRest : FormGroup = this.fb.group({
-    categoria : ["", Validators.nullValidator],
-    tema : ["", Validators.nullValidator]
-  })
+  formRest! : FormGroup;
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data : Number,
   private service : AraizaAprendeService,
@@ -33,12 +30,18 @@ export class RestAraizaAprendeComponent {
 
   ngOnInit(): void {
     if (this.data == 11) {
+       this.formRest = this.fb.group({
+        categoria : ["", Validators.required]
+      })
       this.service.todoCategorias().subscribe((resp:ResponseInterfaceTs) =>{
         for (let i = 0; i < resp.container.length; i++) {
           this.categorias.push(resp.container[i]);
         }
       })
     } else {
+      this.formRest = this.fb.group({
+        tema : ["", Validators.required]
+      })
       this.service.todoTemas().subscribe((resp:ResponseInterfaceTs) =>{
         for (let i = 0; i < resp.container.length; i++) {
           this.temas.push(resp.container[i]);
@@ -51,6 +54,7 @@ export class RestAraizaAprendeComponent {
   }
 
   async enviandoDatos(){
+    if (this.formRest.valid) {
     this.cancelarBtn.disabled = true;
     this.agregarBtn.disabled = true;
     if(this.data == 11){
@@ -78,14 +82,15 @@ export class RestAraizaAprendeComponent {
           for (let i = 0; i < resp.container.length; i++) {
             this.temas.push(resp.container[i]);
           }
+          this.cancelarBtn.disabled = true;
+          this.agregarBtn.disabled = true;
+          this.dialogRef.close(this.temas);
         })
-        this.cancelarBtn.disabled = true;
-        this.agregarBtn.disabled = true;
-        this.dialogRef.close(this.temas);
       }else{
         this.cancelarBtn.disabled = false;
         this.agregarBtn.disabled = false;
       }
     }
+  }
   }
 }

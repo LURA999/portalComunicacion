@@ -30,7 +30,9 @@ export class AddAraizaAprendeComponent {
   }
 
   async enviandoDatos() {
-    this.cancelarBtn.disabled = true;
+
+    if (this.formAdd.valid) {
+      this.cancelarBtn.disabled = true;
     this.agregarBtn.disabled = true;
     if(this.data == 1){
       let res =Number((await lastValueFrom(this.araizaAprende.insertarCategoria(this.formAdd.value['nombre']))).status)
@@ -50,21 +52,22 @@ export class AddAraizaAprendeComponent {
         this.agregarBtn.disabled = false;
       }
     }else{
-      let res =Number((await lastValueFrom(this.araizaAprende.insertarTema(this.formAdd.value['nombre']))).status)
+        let res =Number((await lastValueFrom(this.araizaAprende.insertarTema(this.formAdd.value['nombre']))).status)
       if(res == 200){
         this.service.todoTemas().subscribe((resp:ResponseInterfaceTs) =>{
           for (let i = 0; i < resp.container.length; i++) {
             this.temas.push(resp.container[i]);
           }
+          this.cancelarBtn.disabled = true;
+          this.agregarBtn.disabled = true;
+          this.dialogRef.close(this.temas);
         })
-        this.cancelarBtn.disabled = true;
-        this.agregarBtn.disabled = true;
-        this.dialogRef.close(this.temas);
       }else{
         this.cancelarBtn.disabled = false;
         this.agregarBtn.disabled = false;
       }
     }
+  }
 
 
   }

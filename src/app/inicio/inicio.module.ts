@@ -13,7 +13,6 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { SliderComponent } from './componentes/slider/slider.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { AraizaDiamanteComponent } from './araiza-diamante/araiza-diamante.component';
-import { RecargarDirective } from '../directives/recargar.directive';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { EliminarComponent } from './popup/eliminar/eliminar.component';
 import { EditarSliderComponent } from './popup/editar-slider/editar-slider.component';
@@ -56,7 +55,6 @@ import { EditarVideoComponent } from './popup/editar-video/editar-video.componen
     SliderComponent,
     BookingsComponent,
     AraizaDiamanteComponent,
-    RecargarDirective,
     EliminarComponent,
     EditarSliderComponent,
     EditarNoticiaComponent,

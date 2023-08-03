@@ -17,12 +17,14 @@
   <div style="margin-top: 20px;">
 
     <ng-container *ngIf="nomTemas.length > 0; else elseTemplate">
-      <ul *ngFor="let titulo of nomTemas; let idx = index">
+      <ul *ngFor="let titulo of nomTemas; let idx = index" class="sliderAraizaAprende">
         <h2>{{titulo}}</h2>
         <ngx-slick-carousel #slickModal="slick-carousel"  [config]="carouselConfig">
           <div ngxSlickItem *ngFor="let t of arrTemas[idx]; let idx = index">
             <div class="slide">
-              <img [src]="'https://www.comunicadosaraiza.com/portal_api/API/imgVideo/galeria-video-araiza-aprende/fotos/'+t.img"  (click)="irLink(t.link)" [alt]="idx+'image'">
+              <img
+              [src]="'https://www.comunicadosaraiza.com/portal_api/API/imgVideo/galeria-video-araiza-aprende/fotos/'+t.img"
+               (click)="irLink(t.link)" [alt]="idx+'image'">
               <span>{{t.nombre}}</span>
 
             </div>

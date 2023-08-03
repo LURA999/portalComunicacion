@@ -127,6 +127,7 @@ async subirImg(evt : any){
       alert("Por favor llene todos los campos");
     } else {
       this.miBoton.disabled = true;
+
       this.contenedor_carga.style.display = "block";
       this.activar = true
 
@@ -165,7 +166,7 @@ async subirImg(evt : any){
     });
     if (opc==1) {
       dialogRef.afterClosed().subscribe(async (resp:categoriaInterfaz[])=>{
-        if (resp != null) {
+        if (resp.length > 0) {
           this.categorias = [];
           for (let i = 0; i < resp.length; i++) {
             this.categorias.push(resp[i])
@@ -174,7 +175,7 @@ async subirImg(evt : any){
       })
     } else {
       dialogRef.afterClosed().subscribe(async (resp:temaInterfaz[])=>{
-        if ( resp != null) {
+        if ( resp.length > 0 ) {
           this.temas = [];
           for (let i = 0; i < resp.length; i++) {
             this.temas.push(resp[i])
@@ -193,7 +194,7 @@ async subirImg(evt : any){
     });
     if (opc==11) {
       dialogRef.afterClosed().subscribe(async (resp:categoriaInterfaz[])=>{
-        if (resp != null) {
+        if (resp.length > 0) {
           this.categorias = [];
           for (let i = 0; i < resp.length; i++) {
             this.categorias.push(resp[i])
@@ -202,7 +203,7 @@ async subirImg(evt : any){
       })
     } else {
       dialogRef.afterClosed().subscribe(async (resp:temaInterfaz[])=>{
-        if ( resp != null) {
+        if ( resp.length > 0) {
           this.temas = [];
           for (let i = 0; i < resp.length; i++) {
             this.temas.push(resp[i])

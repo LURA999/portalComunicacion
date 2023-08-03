@@ -3,6 +3,7 @@ import { AraizaAprendeService, videoAraizaAprende } from 'src/app/core/services/
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { categoriaInterfaz, temaInterfaz } from '../opcion-config/araiza-aprende-config/araiza-aprende-config.component';
 import { concatMap, of } from 'rxjs';
+
 @Component({
   selector: 'app-araiza-aprende',
   templateUrl: './araiza-aprende.component.html',
@@ -18,9 +19,8 @@ export class AraizaAprendeComponent {
   selectedValue: String = "";
 
   carouselConfig = {
-    slidesToShow: 4,
+    slidesToShow: 3,
     arrows: true,
-    centerMode: false,
     swipe: false,
     infinite: true,
     /* "interval": 3000,
@@ -29,7 +29,6 @@ export class AraizaAprendeComponent {
     "showIndicators": true,
     "autoplay": true,
     "autoplaySpeed": 2000,
-    "itemWidth": "200px",
     "itemHeight": "150px",
     "itemsToShow": 3,
     "pauseOnHover": true,
@@ -67,8 +66,7 @@ export class AraizaAprendeComponent {
   ]
   };
 
-  constructor(private serviceAraizaApr : AraizaAprendeService
-    ){
+  constructor(private serviceAraizaApr : AraizaAprendeService  ){
 
     this.serviceAraizaApr.todoCategorias().subscribe((resp:ResponseInterfaceTs) =>{
       for (let i = 0; i < resp.container.length; i++) {

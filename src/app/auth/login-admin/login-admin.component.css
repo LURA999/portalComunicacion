@@ -4,7 +4,7 @@
     top: 50%;
     left: 50%;
     width: 600px;
-    padding: 80px;
+    padding: 80px !important;
     transform: translate(-50%, -50%);
 }
 

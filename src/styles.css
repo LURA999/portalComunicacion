@@ -143,11 +143,7 @@ h2 {
   }
 
 
-/*Pagina araizadiamante*/
-  #carousel-diamante .slick-prev,
-  #carousel-diamante .slick-next  {
-    background: transparent;
-  }
+/*SLIDERS SLICK*/
 
   #carousel-diamante .slick-prev:hover,
   #carousel-diamante .slick-prev:focus,
@@ -164,8 +160,38 @@ h2 {
   #carousel-diamante .slick-prev:before {
     content: url('./assets/img/pruebas/left.svg');
   }
+  #carousel-diamante .slick-prev,
+  #carousel-diamante .slick-next  {
+    background: transparent;
+  }
 
+  .sliderAraizaAprende .slick-prev:hover,
+  .sliderAraizaAprende .slick-prev:focus,
+  .sliderAraizaAprende .slick-next:hover,
+  .sliderAraizaAprende .slick-next:focus {
+    outline: none;
+    background: transparent;
+  }
 
+  .sliderAraizaAprende .slick-next:before {
+    content: url('./assets/img/pruebas/right.svg');
+  }
+
+  .sliderAraizaAprende .slick-prev:before {
+    content: url('./assets/img/pruebas/left.svg');
+  }
+
+  .sliderAraizaAprende .slick-prev,
+  .sliderAraizaAprende .slick-next  {
+    background: transparent;
+  }
+  .sliderAraizaAprende .slick-list {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+    padding: 0 0 0 5%;
+}
 /*
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

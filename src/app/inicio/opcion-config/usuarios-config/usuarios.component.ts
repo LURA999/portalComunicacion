@@ -273,7 +273,7 @@ export class UsuariosComponent implements OnInit {
     let worksheet = workbook.addWorksheet("Employee Data");
     worksheet.addRow(['', '', '', '', 'Fecha:', formattedDate]);
     worksheet.addRow(['', '', '', '', '']);
-    let header : string[]= ['No.', 'Nombre completo', 'Correo', 'Hotel', 'Visita'];
+    let header : string[]= ['No.', 'Nombre completo', 'Correo', 'Hotel', 'Visita', 'Departamento'];
     worksheet.addRow(header);
 
     for  (let x1=0; x1<this.ELEMENT_DATA.length; x1++ ) {
@@ -283,11 +283,19 @@ export class UsuariosComponent implements OnInit {
         temp.push(this.ELEMENT_DATA[x1].correo)
         temp.push(this.ELEMENT_DATA[x1].local)
         temp.push(this.ELEMENT_DATA[x1].fecha)
+        temp.push(this.ELEMENT_DATA[x1].departamento)
         worksheet.addRow(temp)
     }
     // Aplicar estilos para la palabra "Fecha" (celda A1)
     worksheet.getCell('E1').alignment = { vertical: 'middle', horizontal: 'center' };
     worksheet.getCell('E1').font = { bold: true };
+
+    worksheet.getCell('A3').font = { bold: true };
+    worksheet.getCell('B3').font = { bold: true };
+    worksheet.getCell('C3').font = { bold: true };
+    worksheet.getCell('D3').font = { bold: true };
+    worksheet.getCell('E3').font = { bold: true };
+    worksheet.getCell('F3').font = { bold: true };
 
     //establecer medidas manualmente
     /* worksheet.columns.forEach((column) => {
@@ -309,7 +317,7 @@ export class UsuariosComponent implements OnInit {
       });
       column.width = maxLength + 2; // Agregar un poco de espacio adicional para mejorar la visualización
     });
-    let fname="ExcelClientes"
+    let fname="ExcelEmpleados"
 
     workbook.xlsx.writeBuffer().then((data : any) => {
     let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
