@@ -21,8 +21,9 @@ export class AraizaAprendeComponent {
   carouselConfig = {
     slidesToShow: 3,
     arrows: true,
-    swipe: false,
+    swipe: true,
     infinite: true,
+    variableWidth:true,
     /* "interval": 3000,
     "loop": true,
     "showControls": true,
@@ -51,18 +52,26 @@ export class AraizaAprendeComponent {
   "centerPadding": "50px",
   "variableWidth": false
   }*/
+
   responsive: [
+    {
+      breakpoint: 1043,
+      settings:{
+        slidesToShow: 2 ,
+          arrows: true,
+          infinite: true,
+          variableWidth: false
+      }
+    },
     {
       breakpoint: 620,
       settings: {
-        slidesToShow: 2,
-        swipeToSlide: true,
+        slidesToShow: 1 ,
         swipe:true,
         arrows: false,
-        centerMode: false,
-        infinite:false
+        infinite:true
       }
-    },
+    }
   ]
   };
 

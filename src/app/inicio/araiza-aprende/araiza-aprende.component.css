@@ -5,19 +5,34 @@
 }
 
 img {
-  width: 17vw;
-  height: 14vw;
+  width: auto;
+  height: 12vw;
   cursor:pointer;
   object-fit: contain;
+  box-shadow: 2px 2px 10px 2px hsl(0, 0%, 82%);
+  margin-bottom: 3%;
 }
 
+img:hover {
+  scale: 1.05;
+}
 
+.slide {
+  margin-right: 70px; /* Agrega un margen derecho de 10px entre las imágenes */
+}
 .slide {
   padding: 0%;
   text-align: start;
   font-family: 'gotham-book';
-
+  line-height: normal;
 }
+
+.slide span {
+  font-size: 12px;
+  width: max-content;
+}
+
+
 #titulo2 {
   font-family: 'gotham-bold';
 
@@ -50,12 +65,30 @@ h2 {
   #buscarCat {
     margin-top: 20px;
   }
+  .slide span {
+    font-size: 11px;
+    width: max-content;
+  }
 }
 
-@media(max-width:620px){
+@media(max-width:1043px){
   img {
-    width: 25vw;
+    width: auto;
     height: 20vw;
+  }
+}
+
+
+
+@media(max-width:620px){
+
+
+}
+
+@media(max-width:460px){
+  img {
+    width: auto;
+    height: 30vw;
   }
 
 }
@@ -73,6 +106,13 @@ h2 {
 
   .slide {
     font-size: 12px;
+    width: 200px;
+    white-space:break-spaces;
+  }
+
+  img {
+    width: auto;
+    height: 130px;
   }
 }
 

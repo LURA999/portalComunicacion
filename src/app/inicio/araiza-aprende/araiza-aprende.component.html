@@ -17,7 +17,7 @@
   <div style="margin-top: 20px;">
 
     <ng-container *ngIf="nomTemas.length > 0; else elseTemplate">
-      <ul *ngFor="let titulo of nomTemas; let idx = index" class="sliderAraizaAprende">
+      <div *ngFor="let titulo of nomTemas; let idx = index" class="sliderAraizaAprende">
         <h2>{{titulo}}</h2>
         <ngx-slick-carousel #slickModal="slick-carousel"  [config]="carouselConfig">
           <div ngxSlickItem *ngFor="let t of arrTemas[idx]; let idx = index">
@@ -30,7 +30,7 @@
             </div>
           </div>
         </ngx-slick-carousel>
-      </ul>
+      </div>
     </ng-container>
     <ng-template #elseTemplate>
       <div class="nohaydatos">No hay videos registrados</div>
