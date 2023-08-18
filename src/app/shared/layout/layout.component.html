@@ -23,9 +23,12 @@
               <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/mexicali')">
                   Mexicali
               </div>
-              <ul class="dropdown-menu noclose"  (click)="navegarNavH('/general/bookings','mexicali')">
-                  <li >
+              <ul class="dropdown-menu noclose">
+                  <li (click)="navegarNavH('/general/bookings','mexicali')">
                      Reservar
+                  </li>
+                  <li (click)="buzonSugerencias()">
+                      Buzón de sugerencias
                   </li>
               </ul>
           </div>
@@ -33,9 +36,12 @@
               <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/calafia')">
                   Calafia
               </div>
-              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','calafia')">
-                  <li >
+              <ul class="dropdown-menu noclose" >
+                  <li (click)="navegarNavH('/general/bookings','calafia')">
                      Reservar
+                  </li>
+                  <li (click)="buzonSugerencias()">
+                      Buzón de sugerencias
                   </li>
               </ul>
           </div>
@@ -43,22 +49,25 @@
               <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/sanLuis')" >
                   San Luis
               </div>
-              <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','sanLuis')">
-                  <li >
+              <ul class="dropdown-menu noclose" >
+                  <li (click)="navegarNavH('/general/bookings','sanLuis')">
                       Reservar
+                  </li>
+                  <li (click)="buzonSugerencias()">
+                      Buzón de sugerencias
                   </li>
               </ul>
             </div>
-
-
-
           <div class="btn-group">
             <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
                 Palmira
             </div>
-            <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','palmira')">
-                <li>
+            <ul class="dropdown-menu noclose" >
+                <li (click)="navegarNavH('/general/bookings','palmira')">
                     Reservar
+                </li>
+                <li (click)="buzonSugerencias()">
+                    Buzón de sugerencias
                 </li>
             </ul>
           </div>
@@ -66,10 +75,13 @@
             <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
                 Hermosillo
             </div>
-            <ul class="dropdown-menu noclose" (click)="navegarNavH('/general/bookings','hermosillo')">
-                <li>
-                    Reservar
-                </li>
+            <ul class="dropdown-menu noclose" >
+              <li (click)="navegarNavH('/general/bookings','hermosillo')">
+                  Reservar
+              </li>
+              <li (click)="buzonSugerencias()">
+                  Buzón de sugerencias
+              </li>
             </ul>
         </div>
           <div class="opc logout" [hidden]="isAdminPortal" (click)="portal('/general/slider-config')">
@@ -101,6 +113,8 @@
                 </mat-expansion-panel-header>
                 <a mat-list-item (click)="navegarNavH('/general/bookings','mexicali')" class="menu-opc" routerLinkActive="active" mat-line>
                   Reservar</a>
+                <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
+                  Buzón de sugerencias</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(2)">
                 <mat-expansion-panel-header #panelH2>
@@ -110,6 +124,8 @@
                 </mat-expansion-panel-header>
                 <a mat-list-item (click)="navegarNavH('/general/bookings','calafia')" class="menu-opc" routerLinkActive="active" mat-line>
                   Reservar</a>
+                <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
+                  Buzón de sugerencias</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(3)">
                 <mat-expansion-panel-header #panelH3>
@@ -119,6 +135,8 @@
                 </mat-expansion-panel-header>
                 <a mat-list-item class="menu-opc"(click)="navegarNavH('/general/bookings','sanLuis')" routerLinkActive="active" mat-line>
                   Reservar</a>
+                <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
+                  Buzón de sugerencias</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(4)">
                 <mat-expansion-panel-header #panelH5>
@@ -128,6 +146,8 @@
                 </mat-expansion-panel-header>
                 <a mat-list-item class="menu-opc" (click)="navegarNavH('/general/bookings','palmira')" routerLinkActive="active" mat-line>
                   Reservar</a>
+                <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
+                  Buzón de sugerencias</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(5)">
                   <mat-expansion-panel-header #panelH4 >
@@ -137,6 +157,8 @@
                   </mat-expansion-panel-header>
                   <a mat-list-item (click)="navegarNavH('/general/bookings','hermosillo')" routerLinkActive="active" mat-line>
                     Reservar</a>
+                  <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
+                    Buzón de sugerencias</a>
                   </mat-expansion-panel>
                 <a mat-list-item class="logout"  (click)="salir()" routerLinkActive="active">
                   <mat-icon mat-list-icon>

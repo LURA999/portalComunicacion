@@ -43,6 +43,10 @@ import { AddAraizaAprendeComponent } from './popup/add-araiza-aprende/add-araiza
 import { RestAraizaAprendeComponent } from './popup/rest-araiza-aprende/rest-araiza-aprende.component';
 import { VideoImgAraizaAprComponent } from './opcion-config/galeria-multi-config/componentes/video-img-araiza-apr/video-img-araiza-apr.component';
 import { EditarVideoComponent } from './popup/editar-video/editar-video.component';
+import { ThanksComponent } from './popup/thanks/thanks.component';
+import { EliminarDepartamentoComponent } from './popup/eliminar-departamento/eliminar-departamento.component';
+import { AgregarDepartamentoComponent } from './popup/agregar-departamento/agregar-departamento.component';
+import { EditarDepartamentoComponent } from './popup/editar-departamento/editar-departamento.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +81,11 @@ import { EditarVideoComponent } from './popup/editar-video/editar-video.componen
     AddAraizaAprendeComponent,
     RestAraizaAprendeComponent,
     VideoImgAraizaAprComponent,
-    EditarVideoComponent
+    EditarVideoComponent,
+    ThanksComponent,
+    EliminarDepartamentoComponent,
+    AgregarDepartamentoComponent,
+    EditarDepartamentoComponent
   ],
   imports: [
     HttpClientModule,

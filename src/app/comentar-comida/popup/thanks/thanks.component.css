@@ -1,5 +1,7 @@
 span {
   font-weight: bold;
+  font-family: 'gotham-bold';
+
 }
 
 #imgTitle {
@@ -8,4 +10,8 @@ span {
 
 img {
   width: 80%;
+}
+
+button{
+  font-family: 'gotham-bold';
 }

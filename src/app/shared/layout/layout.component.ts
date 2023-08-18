@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Renderer2, Input, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Renderer2 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { catchError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -7,6 +7,9 @@ import { MatDrawerMode } from '@angular/material/sidenav';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
+import { NgDialogAnimationService } from 'ng-dialog-animation';
+import { BuzonSugerenciaComponent } from '../buzon-sugerencia/buzon-sugerencia.component';
+import { ThanksComponent } from 'src/app/inicio/popup/thanks/thanks.component';
 
 
 @Component({
@@ -38,6 +41,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         private auth : AuthService,
         private rend2 :Renderer2,
         public route : Router,
+        private dialog : NgDialogAnimationService,
         private DataService : DataNavbarService,
         private render : Renderer2
       ) {
@@ -102,15 +106,23 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    activarSeccionBookings(paramUrl : string) : string{
-      if (paramUrl === undefined) {
-        return "general"
-      }
-      if (paramUrl === "bookings") {
-        return CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
-      }else{
-        return paramUrl
-      }
+    buzonSugerencias(){
+      let dialogRef = this.dialog.open(BuzonSugerenciaComponent, {
+        height: 'auto',
+        width: '600px'
+      });
+      dialogRef.afterClosed().pipe(
+        catchError( _ => {
+          throw "Error in source."
+      })
+      ).subscribe(async (resp:Boolean)=>{
+        if(resp){
+          this.dialog.open(ThanksComponent, {
+            height: 'auto',
+            width: '280px',
+          });
+        }
+      })
     }
 
     activarSeccion(link? : string, nombre? :string){
@@ -318,4 +330,5 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     }
+
 }

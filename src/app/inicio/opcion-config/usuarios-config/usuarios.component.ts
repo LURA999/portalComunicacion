@@ -15,6 +15,9 @@ import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { format } from 'date-fns';
+import { EditarDepartamentoComponent } from '../../popup/editar-departamento/editar-departamento.component';
+import { EliminarDepartamentoComponent } from '../../popup/eliminar-departamento/eliminar-departamento.component';
+import { AgregarDepartamentoComponent } from '../../popup/agregar-departamento/agregar-departamento.component';
 
 export interface local {
   idLocal : Number;
@@ -39,7 +42,7 @@ export interface usuarios {
   imgn? : string;
   fechaNacimiento:Date;
   fechaIngreso:Date;
-  departamento: string;
+  departamento: number;
   contrato : number;
   fecha : number;
 }
@@ -331,4 +334,27 @@ export class UsuariosComponent implements OnInit {
 
   }
 
+  agregarDepartamento(){
+    this.dialog.open(AgregarDepartamentoComponent, {
+      height: 'auto',
+      width: '450px',
+      data: undefined
+    });
+  }
+
+  eliminarDepartamento(){
+    this.dialog.open(EliminarDepartamentoComponent, {
+      height: 'auto',
+      width: '450px',
+      data: undefined
+    });
+  }
+
+  modificarDepartamento(){
+    this.dialog.open(EditarDepartamentoComponent, {
+      height: 'auto',
+      width: '450px',
+      data: undefined
+    });
+  }
 }

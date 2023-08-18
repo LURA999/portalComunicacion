@@ -71,14 +71,18 @@
           <mat-option [value]="1">Sindicalizado</mat-option>
           <mat-option [value]="2">No sindicalizado</mat-option>
           <mat-option [value]="3">Corporativo</mat-option>
-
         </mat-select>
       </mat-form-field>
       </div>
     <div>
       <mat-form-field appearance="outline" >
         <mat-label>Departamento</mat-label>
-        <input autocomplete="off" formControlName="departamento"  matInput>
+        <input formControlName="departamento"  matInput  [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let depa of filteredOptions | async" [value]="depa.departamento" >
+            {{ depa.departamento }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
       </div>
     <div>

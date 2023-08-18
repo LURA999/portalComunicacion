@@ -1,80 +1,102 @@
   <div class="container-user">
     <h2>USUARIOS</h2>
-    <div class="cabecera">
-      <form  class="cabecera" [formGroup]="formBuscar">
-      <div class="search">
-        <mat-form-field class="example-ripple-form-field" appearance="standard">
-          <mat-label>Buscar usuario</mat-label>
-          <input autocomplete="off" matInput formControlName="buscador" >
+    <div id="cabeceraRows">
+      <div class="cabecera">
+        <form  class="cabecera" [formGroup]="formBuscar">
+        <div class="search">
+          <mat-form-field class="example-ripple-form-field" appearance="standard">
+            <mat-label>Buscar usuario</mat-label>
+            <input autocomplete="off" matInput formControlName="buscador" >
+          </mat-form-field>
+          <div class="btn-buscar" (click)="buscador()">
+            <button class="btnResponsive" id="btn-trans">
+            <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+        </form>
+        <div id="matform-c">
+        <form class="cabecera" [formGroup]="formBuscar">
+        <mat-form-field appearance="outline">
+          <mat-label>Seleccione la fecha inicial</mat-label>
+          <input matInput formControlName="fechaInicial" [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker ></mat-datepicker>
         </mat-form-field>
-        <div class="btn-buscar" (click)="buscador()">
-          <button id="btn-trans">
-          <mat-icon>search</mat-icon>
+        <mat-form-field appearance="outline">
+          <mat-label>Seleccione la fecha final</mat-label>
+          <input matInput formControlName="fechaFinal" [matDatepicker]="picker2">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Seleccione la seccion</mat-label>
+          <mat-select formControlName="seccion">
+            <mat-option *ngFor="let i of locales"  [value]="i.idLocal"> {{i.local}} </mat-option>
+            <mat-option value="-1">Ninguno</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Visitantes</mat-label>
+          <mat-select formControlName="tipoVisita" >
+            <mat-option [value]="0"> Sin visitas </mat-option>
+            <mat-option [value]="1"> Con visitas </mat-option>
+            <mat-option [value]="2"> Todo </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="botonc">
+          <button  mat-raised-button class="btnResponsive" color="primary" (click)="buscador()">
+            Aplicar
           </button>
         </div>
-      </div>
-      </form>
-      <div id="matform-c">
+        <div class="botonc">
+          <button  mat-raised-button class="btnResponsive" color="primary" (click)="clear()">
+            Clear
+          </button>
+        </div>
 
-      <form class="cabecera" [formGroup]="formBuscar">
-      <mat-form-field appearance="outline">
-        <mat-label>Seleccione la fecha inicial</mat-label>
-        <input matInput formControlName="fechaInicial" [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker ></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Seleccione la fecha final</mat-label>
-        <input matInput formControlName="fechaFinal" [matDatepicker]="picker2">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Seleccione la seccion</mat-label>
-        <mat-select formControlName="seccion">
-          <mat-option *ngFor="let i of locales"  [value]="i.idLocal"> {{i.local}} </mat-option>
-          <mat-option value="-1">Ninguno</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Visitantes</mat-label>
-        <mat-select formControlName="tipoVisita" >
-          <mat-option [value]="0"> Sin visitas </mat-option>
-          <mat-option [value]="1"> Con visitas </mat-option>
-          <mat-option [value]="2"> Todo </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="botonc">
-        <button  mat-raised-button color="primary" (click)="buscador()">
-          Aplicar
-        </button>
-      </div>
-      <div class="botonc">
-        <button  mat-raised-button color="primary" (click)="clear()">
-          Clear
-        </button>
+        </form>
+        </div>
       </div>
 
-      </form>
+      <div id="cabecera2">
+        <div class="botonc">
+          <button  mat-raised-button color="primary" (click)="agregar()">
+            Agregar usuario
+          </button>
+        </div>
+        <div class="botonc">
+          <button  mat-raised-button color="primary" (click)="exportar()">
+            Exportar a Excel
+          </button>
+        </div>
+        <div class="botonc">
+          <button  mat-raised-button color="primary" [matMenuTriggerFor]="menu" >
+           Departamento
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="agregarDepartamento()" mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span>Agregar</span>
+            </button>
+            <button (click)="eliminarDepartamento()" mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Eliminar</span>
+            </button>
+            <button (click)="modificarDepartamento()" mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Modificar</span>
+            </button>
+          </mat-menu>
+        </div>
 
-
-
-      </div>
-      <div class="botonc">
-        <button  mat-raised-button color="primary" (click)="agregar()">
-          Agregar usuario
-        </button>
-      </div>
-      <div class="botonc">
-        <button  mat-raised-button color="primary" (click)="exportar()">
-          Exportar a Excel
-        </button>
       </div>
     </div>
+
 
     <table mat-table [dataSource]="dataSource">
       <!-- Position Column -->
@@ -105,10 +127,10 @@
       <ng-container matColumnDef="opciones">
         <th mat-header-cell *matHeaderCellDef> Opciones </th>
         <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color="primary" (click)="editar(element)">
+        <button mat-raised-button color="primary" class="btnIndividual" (click)="editar(element)">
           Editar
         </button>
-        <button mat-raised-button color="primary" (click)="borrar(element.idUsuario,element.img)">
+        <button mat-raised-button color="primary" class="btnIndividual" (click)="borrar(element.idUsuario,element.img)">
           Borrar
         </button>
       </td>

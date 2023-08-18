@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout/layout.component';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
+import { BuzonSugerenciaComponent } from './buzon-sugerencia/buzon-sugerencia.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CustomMaterialModule } from '../custom-material/custom-material.module'
     CustomMaterialModule
   ],
   declarations: [
-    LayoutComponent
+    LayoutComponent,
+    BuzonSugerenciaComponent
   ],
   exports: [
     CustomMaterialModule,

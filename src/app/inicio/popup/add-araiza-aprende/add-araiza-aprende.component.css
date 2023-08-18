@@ -11,6 +11,10 @@ mat-form-field, input {
   font-family: 'gotham-book';
 
 }
+h2 {
+  font-family: 'gotham-bold';
+}
+
 
 img{
   border-radius: 30px;

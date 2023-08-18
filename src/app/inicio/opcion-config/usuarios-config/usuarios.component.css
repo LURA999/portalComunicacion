@@ -20,6 +20,14 @@ mat-form-field, input {
 
 }
 
+mat-menu {
+  width: 500px;
+}
+
+button span {
+  font-family: 'gotham-book';
+}
+
 mat-form-field {
   width: 144px;
   margin: 9px;
@@ -30,15 +38,26 @@ mat-form-field {
   font-family: 'gotham-book';
 }
 
+
+
+#cabeceraRows {
+  margin-bottom: 45px;
+}
+
 .cabecera {
   margin-top: auto;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 45px;
 }
 
 .cabecera .botonc {
   margin-top: 8px;
+}
+
+#cabecera2 {
+  display: flex;
+  justify-content: space-between;
+
 }
 
 button {
@@ -118,6 +137,19 @@ div#matform-c {
   }
 }
 
+@media(max-width:800px) {
+  mat-form-field{
+    width: 10vw;
+  }
+  #cabecera2 {
+    display: contents;
+  }
+
+  #cabecera2 button {
+    width: 100%;
+  }
+}
+
 @media(max-width:1610px) {
   .cabecera{
     display: contents;
@@ -131,7 +163,7 @@ div#matform-c {
   div#matform-c {
     margin-bottom: 0px;
   }
-  button {
+  button.btnResponsive {
     width: 100%;
   }
  }

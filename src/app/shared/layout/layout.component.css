@@ -196,6 +196,9 @@
     font-family: 'gotham-bold';
     font-size: 15px;
     }
+  ul {
+    font-size: 15px;
+  }
 
   .opc, a {
     padding: 16px;
@@ -235,12 +238,10 @@
       margin-top: 50px;
       padding: 5px;
   }
-  .dropdown-menu.noclose:hover, img {
+  .dropdown-menu.noclose li:hover, img {
     color: #ffba60;
   }
-  .dropdown-menu.noclose:active {
-    margin-top: 50px;
-    padding: 5px;
+  .dropdown-menu.noclose li:active {
     color: #ca934b;
   }
 
@@ -290,13 +291,13 @@ a.mat-list-item:active {
   }
 
   @media(max-width:830px){
-    #menu {
+    #menu, ul {
       font-size: 14px;
     }
   }
 
   @media(max-width:755px){
-    #menu {
+    #menu, ul {
       font-size: 12px;
     }
   }

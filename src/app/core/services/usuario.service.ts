@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { formBuscadorUsuario, usuarios } from 'src/app/inicio/opcion-config/usuarios-config/usuarios.component';
+import { departamento } from 'src/app/inicio/popup/editar-usuario/usuario-form.component';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { usuarioModel } from 'src/app/interfaces_modelos/usuario.model';
 import { environment } from 'src/environments/environment';
@@ -70,4 +71,26 @@ export class UsuarioService {
   buscarRepetidoInsert(user : number, cve : number):Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?RepetidoInsert=true&user='+user+'&cve='+cve);
   }
+
+  //departamentos de los usuarios
+  buscarDepartamentos() {
+    return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?departamento');
+  }
+
+  eliminarDepartamento(departamento : departamento){
+    return this.http.delete<ResponseInterfaceTs>(this.api+'Users/userLogin.php?departamento='+departamento.idDepartamento);
+  }
+
+  insertarDepartamento(departamento : departamento){
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    return this.http.post<ResponseInterfaceTs>(this.api+'Users/userLogin.php?departamento=true',departamento,{headers});
+
+  }
+
+  actualizarDepartamento(departamento : departamento){
+    let headers = new HttpHeaders().set('Content-type','Application/json')
+    return this.http.patch<ResponseInterfaceTs>(this.api+'Users/userLogin.php?departamento=true',departamento, {headers});
+  }
+
+
 }
