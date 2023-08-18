@@ -1,0 +1,25 @@
+.textarea {
+  width: 100%;
+}
+
+.sugerencia{
+  width: 100%;
+}
+
+button{
+  font-family: 'gotham-bold';
+}
+
+mat-form-field {
+  font-family: 'gotham-book';
+}
+
+h2 {
+  font-family: 'gotham-bold';
+}
+
+@media (max-width: 336px) {
+  h2 {
+    line-height: 1.2;
+  }
+}
