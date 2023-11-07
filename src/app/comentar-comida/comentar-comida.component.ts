@@ -6,12 +6,14 @@ import { FoodExtService } from '../core/services_ext/food_ext.service';
 import { lastValueFrom, catchError } from 'rxjs';
 import { ResponseInterfaceTs } from '../interfaces_modelos/response.interface';
 import { MatButton } from '@angular/material/button';
+import { ActivatedRoute } from '@angular/router';
 
 export interface commentarInteface{
   employee_num: number
   rate: number
   suggestion : String
   comment : String
+  local: number
 }
 
 @Component({
@@ -33,14 +35,14 @@ formComment : FormGroup = this.fb.group({
   employee_num : ["", Validators.required],
   suggestion : ["", Validators.nullValidator],
   comment : ["", Validators.required],
-
 })
 
 
   constructor(
     private fb : FormBuilder,
     public dialog: MatDialog,
-    private serviceExt: FoodExtService) {
+    private serviceExt: FoodExtService,
+    private route: ActivatedRoute) {
 
     this.getScreenSize();
     for (let i = 1; i <= this.maxStars; i++) {
@@ -61,6 +63,7 @@ formComment : FormGroup = this.fb.group({
     if (this.formComment.valid) {
     let commentarInteface  : commentarInteface = this.formComment.value;
     commentarInteface.rate = this.selectedStars;
+    commentarInteface.local = Number(this.route.snapshot.paramMap.get('hotel'));
     this.btnEnv!.disabled = true;
     let res: ResponseInterfaceTs = await lastValueFrom(this.serviceExt.postComment(commentarInteface));
      if (res.status === '200') {

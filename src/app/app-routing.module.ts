@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'login',canActivate: [InicioGuard], component: LoginComponent },
   { path: 'login_admin',canActivate: [InicioGuard], component: LoginAdminComponent },
   { path: 'error', component: ErrorComponent },
-  { path: 'rate_food', component: ComentarComidaComponent },
+  { path: 'rate_food/:hotel', component: ComentarComidaComponent },
   { path: '**',canActivate: [InicioGuard], component: LoginComponent },      //
 ];
 
