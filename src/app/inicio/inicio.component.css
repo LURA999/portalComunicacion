@@ -3,7 +3,7 @@
 }
 
 /*SEGUNDA SECCION , ABAJO DEL SLIDER*/
-.container-article {
+.pag-inicio-container-article {
   padding: 6% 0px 6% 0px;
   align-self: center;
   text-align: center;
@@ -16,7 +16,7 @@ h2 {
 
 }
 
-#bienvenido {
+#pag-inicio-bienvenido {
     font-family: 'gotham-bold';
     font-size: 22px;
 }
@@ -35,14 +35,27 @@ mat-card-content div {
   font-size: 12px;
 }
 
-.article article {
+.pag-inicio-article article {
   text-align: center;
   font-family: 'gotham-book';
   font-size: 18px;
   padding: 0px 15% 0 15%;
 }
 
-.article h2 span{
+.pag-inicio-article2 article {
+  text-align: center;
+  font-family: 'gotham-book';
+  font-size: 14px;
+
+}
+
+.pag-inicio-article3 article {
+  text-align: start;
+  font-family: 'gotham-book';
+  font-size: 14px;
+
+}
+.pag-inicio-article h2 span{
   color: #DC994D;
   font-family: 'gotham-bold';
   font-size: 22px;
@@ -66,7 +79,7 @@ mat-card-content div {
 
 /*TERCERA SECCION*/
 
-#section_3 img{
+#pag-inicio-section_3 img{
   width: 100%;
 }
 
@@ -80,7 +93,7 @@ mat-card-content div {
   scale:1.2;
 }
 
-#section_3{
+#pag-inicio-section_3{
   background-color: #F5F5F5;
   padding: 70px 22px 0px 20px;
   display: flex;
@@ -88,12 +101,12 @@ mat-card-content div {
   justify-content: center;
 }
 
-#section_3texto {
+#pag-inicio-section_3texto {
   width: 30%;
   margin-left: 7%;
 }
 
-#section_3texto h2{
+#pag-inicio-section_3texto h2{
   text-align: start;
   padding: 0;
   font-family: 'gotham-bold';
@@ -347,23 +360,36 @@ img {
     font-size: 16px;
   }
 
-  article, .article article {
+  .pag-inicio-article article {
     text-align: center;
     font-family: 'gotham-book';
     font-size: 12px;
 
   }
 
-  .article h2 span{
+  .pag-inicio-article2 article {
+    text-align: center;
+    font-family: 'gotham-book';
+    font-size: 12px;
+
+  }
+
+  .pag-inicio-article3 article {
+    text-align: start;
+    font-family: 'gotham-book';
+    font-size: 12px;
+
+  }
+  .pag-inicio-article h2 span{
     color: #DC994D;
     font-size: 16px;
   }
 
-  #bienvenido {
+  #pag-inicio-bienvenido {
     font-size: 16px;
   }
 
-  #section_3texto h2{
+  #pag-inicio-section_3texto h2{
     text-align: start;
     padding: 0;
     font-family: 'gotham-bold';
@@ -378,10 +404,10 @@ img {
 
 @media(max-width:700px){
 
-  #section_3 img {
+  #pag-inicio-section_3 img {
     width: 200px;
   }
-  #section_3texto {
+  #pag-inicio-section_3texto {
     margin: 0 0 70px 70px;
 
   }
@@ -390,27 +416,27 @@ img {
 
 @media(max-width:500px){
 
-  #section_3 #imgHidden {
+  #pag-inicio-section_3 #imgHidden {
     display: none;
   }
 
 
-  #section_3 #imgHidden2 {
+  #pag-inicio-section_3 #imgHidden2 {
     display: block;
   }
 
-  #section_3 {
+  #pag-inicio-section_3 {
     padding: 70px 22px 20px 20px;
     text-align: -webkit-center;
   }
 
-  #section_3texto {
+  #pag-inicio-section_3texto {
     width: 100%;
     text-align-last: center;
     margin-left: 7%;
   }
 
-  #section_3texto article{
+  #pag-inicio-section_3texto #pag-inicio-article{
     margin-top: 20px;
   }
 }
@@ -418,7 +444,7 @@ img {
 
 @media(max-width:530px){
 
-  #section_3 img {
+  #pag-inicio-section_3 img {
     width: 150px;
   }
 

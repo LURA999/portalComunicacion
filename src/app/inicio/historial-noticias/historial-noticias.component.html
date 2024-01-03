@@ -1,7 +1,7 @@
 
-<div id="container-historial">
+<div id="pag-noticia-container-historial">
   <h2>NOTICIAS</h2>
-  <div id="primer-nivel">
+  <div id="pag-noticia-primer-nivel">
     <form [formGroup]="mesForm" >
       <mat-form-field   appearance="outline">
         <mat-label>Mes</mat-label>
@@ -23,29 +23,29 @@
       </mat-form-field>
     </form>
   </div>
-  <div id="opciones-notHisto">
-    <div class="tab t1"  (click)="routerLink()" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" >TODOS</div>
+  <div id="pag-noticia-opciones-notHisto">
+    <div class="pag-noticia-tab t1"  (click)="routerLink()" alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="pag-noticia-tab t2" >TODOS</div>
 
   </div>
   <hr>
-  <div id="tercer-nivel">
+  <div id="pag-noticia-tercer-nivel">
   <ng-container *ngIf="noticias.length > 0; else elseTemplate">
 
-    <div class="lista-noticiasHisto" *ngFor="let i of noticias | paginate: { itemsPerPage: 10, currentPage: p2 } ; let x=index ">
-      <!--div id="opciones-not">
-        <div class="tab t1"  alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tab t2" (click)="routerLink()">TODOS</div>
+    <div class="pag-noticia-lista-noticiasHisto" *ngFor="let i of noticias | paginate: { itemsPerPage: 10, currentPage: p2 } ; let x=index ">
+      <!--div id="pag-noticia-opciones-not">
+        <div class="pag-noticia-tab t1"  alt="">NUEVAS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="pag-noticia-tab t2" (click)="routerLink()">TODOS</div>
       </div>-->
-      <div class="noticiaHisto">
+      <div class="pag-noticia-noticiaHisto">
         <mat-card-header>
 
         </mat-card-header>
-        <div class="container-matCard">
-        <div class="img-card">
+        <div class="pag-noticia-container-matCard">
+        <div class="pag-noticia-img-card">
           <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
             <img
             [lazyLoad]=" (recursoUrlStr( noticias.length == 0?  i.imgVideo : i.imgVideo,1,1,false) | async)!.toString()"
             src="../../../assets/img/pruebas/loading-noticia.gif"
-            class="d-block w-100"
+            class="pag-noticia-d-block w-100"
             loading="lazy" />
           </ng-container>
           <ng-template  #elseTemplate>
@@ -57,27 +57,27 @@
           </ng-template>
         </div>
         <mat-card-content>
-          <span class="fechaHisto">{{dateNormal(i.fechaInicial)}}</span>
+          <span class="pag-noticia-fechaHisto">{{dateNormal(i.fechaInicial)}}</span>
           <h3>{{i.titulo}}</h3>
-            <div class="textoHisto">
+            <div class="pag-noticia-textoHisto">
               {{i.descripcion}}
               <br>
               <br>
-              <!-- <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="leerMas">Leer mas... </span>
-              <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="leerMas">Leer menos... </span> -->
-              <span class="leerMas" (click)="irLink(i.link)"> Lee mas... </span>
+              <!-- <span [hidden]="cortar[x]" *ngIf="i.descripcion!.toString().length > 80"  (click)="cortarTexto(i.descripcion!.toString(),true,x)" class="pag-noticia-leerMas">Leer mas... </span>
+              <span [hidden]="!cortar[x]" (click)="cortarTexto(i.descripcion!.toString(),false,x)" class="pag-noticia-leerMas">Leer menos... </span> -->
+              <span class="pag-noticia-leerMas" (click)="irLink(i.link)"> Lee mas... </span>
             </div>
         </mat-card-content>
         </div>
       </div>
   </div>
-  <div id="spacePagination"></div>
+  <div id="pag-noticia-spacePagination"></div>
   <pagination-template #p="paginationApi"
                      (click)="paginaActual(p)"
                      (pageChange)="pageChange.emit(p2 = $event)"
                      (pageBoundsCorrection)="pageBoundsCorrection.emit( p2 = $event)">
         <!-- *ngIf="!p.isFirstPage()" -->
-      <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+      <div class="pag-noticia-pagination-previous" [class.disabled]="p.isFirstPage()">
           <a [style]=" !p.isFirstPage()? 'color:black; cursor:pointer;' : 'color:#cacaca;' " (click)=" !p.isFirstPage()? anterior(p) :vacio()"> < </a>
       </div>
 
@@ -100,14 +100,14 @@
         </div> -->
 
       <!-- *ngIf="!p.isLastPage()"  -->
-      <div class="pagination-next" [class.disabled]="p.isLastPage()">
+      <div class="pag-noticia-pagination-next" [class.disabled]="p.isLastPage()">
           <a [style]=" !p.isLastPage()? 'color:black; cursor:pointer;' : 'color:#cacaca;' " (click)=" !p.isLastPage()? siguiente(p) :vacio()"> > </a>
       </div>
   </pagination-template>
   </ng-container>
   <ng-template #elseTemplate>
 
-      <div class="mensaje-nohay">
+      <div class="pag-noticia-mensaje-nohay">
         No hay noticias viejas
       </div>
 

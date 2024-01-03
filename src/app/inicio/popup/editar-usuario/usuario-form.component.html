@@ -113,6 +113,32 @@
       <div>
         <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" #subirImagen (change)="subirImg($event)" class="ing-txt"><br><br>
       </div>
+
+
+      <div>
+      <mat-form-field appearance="outline" >
+        <mat-label>Marca del vehículo</mat-label>
+        <input autocomplete="off" formControlName="markvh"  matInput>
+      </mat-form-field>
+      </div>
+      <div>
+      <mat-form-field appearance="outline" >
+        <mat-label>Modelo del vehículo</mat-label>
+        <input autocomplete="off" formControlName="modelvh"  matInput>
+      </mat-form-field>
+      </div>
+      <div>
+      <mat-form-field appearance="outline" >
+        <mat-label>Color</mat-label>
+        <input autocomplete="off" formControlName="color"  matInput>
+      </mat-form-field>
+      </div>
+      <div>
+      <mat-form-field appearance="outline" >
+        <mat-label>Placas</mat-label>
+        <input autocomplete="off" formControlName="plates"  matInput>
+      </mat-form-field>
+      </div>
   </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>

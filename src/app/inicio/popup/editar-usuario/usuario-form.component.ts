@@ -74,7 +74,11 @@ export class UsuarioFormComponent implements OnInit {
     fechaNacimiento: [ '' , Validators.nullValidator],
     fechaIngreso: [ '' , Validators.nullValidator ],
     departamento: [ '' , Validators.required ],
-    contrato: [ '' , Validators.required ]
+    contrato: [ '' , Validators.required ],
+    markvh : [ '' ],
+    modelvh : [ '' ],
+    color : [ '' ],
+    plates: [ '' ]
   })
   link : string =  environment.production === true ? "": "../../../";
   api : string = environment.api;
@@ -106,7 +110,11 @@ export class UsuarioFormComponent implements OnInit {
         fechaNacimiento: [ new Date(this.data!.fechaNacimiento+"T00:00:00"), Validators.nullValidator ],
         fechaIngreso: [  new Date(this.data!.fechaIngreso+"T00:00:00"), Validators.nullValidator ],
         departamento: [ this.data!.departamento , Validators.required ],
-        contrato: [ Number(this.data?.contrato) , Validators.required ]
+        contrato: [ Number(this.data?.contrato) , Validators.required ],
+        markvh : [ '' ],
+        modelvh : [ '' ],
+        color : [ '' ],
+        plates: [ '' ]
       })
       this.modalidad = false;
       this.myControl.patchValue(this.data!.departamento);
