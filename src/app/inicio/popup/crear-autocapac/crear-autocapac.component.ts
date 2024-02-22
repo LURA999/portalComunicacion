@@ -1,7 +1,7 @@
 import { Component,Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { catchError, concatMap, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { catchError, concat, concatMap, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -10,10 +10,10 @@ import { locales } from '../editar-slider/editar-slider.component';
 
 
 export interface capacitacion {
-  idCapacitacion : number;
+  idCapacitacion? : number;
   nombre : string;
-  link : string;
-  img : string;
+  link? : string;
+  img? : string;
 }
 
 @Component({
@@ -78,11 +78,23 @@ export class CrearAutocapacComponent {
      alert("Por favor llene todos los campos");
    } else {
     this.data= this.formAutoCapac.value;
-    this.autoService.insertarImagenAutocapacitacion(this.formData).pipe(
+    let Observable : Observable<ResponseInterfaceTs>[] = [];
+
+    Observable.push(this.autoService.insertarImagenAutocapacitacion(this.formData).pipe(
       concatMap((res : ResponseInterfaceTs) => {
         this.data.img = res.container['nombre']
         return this.autoService.insertarAutocapacitacion(this.data)})
-    ).subscribe();
+    ));
+
+    Observable.push(this.autoService.mostrarTodoAutocapacitacionHotel(0))
+
+    Observable[0].pipe(
+      concatMap(() => Observable[1].pipe(
+        concatMap(async (resp: ResponseInterfaceTs) => {
+          this.dialogRef.close(await resp.container);
+        })
+      ))).subscribe();
+
    }
 
  }

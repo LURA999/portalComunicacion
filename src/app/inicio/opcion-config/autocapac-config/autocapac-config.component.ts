@@ -12,7 +12,7 @@ import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 import { EditarxHotelAutocapacComponent } from '../../popup/editar-autocapac-x-hotel/editar-autocapac-x-hotel.component';
-import { CrearAutocapacComponent } from '../../popup/crear-autocapac/crear-autocapac.component';
+import { CrearAutocapacComponent, capacitacion } from '../../popup/crear-autocapac/crear-autocapac.component';
 import { AsignarAutocapacComponent } from '../../popup/asignar-autocapac/asignar-autocapac.component';
 import { EditarAutocapacComponent } from '../../popup/editar-autocapac/editar-autocapac.component';
 import { EliminarAutocapacComponent } from '../../popup/eliminar-autocapac/eliminar-autocapac.component';
@@ -55,11 +55,11 @@ export class AutoCapacConfigComponente implements OnInit {
   */
 
   paramUrl : string = this.route.url.split("/")[2];
-  ELEMENT_DATA: autocapacitacionInt[] = [ ];
+  ELEMENT_DATA: capacitacion[] = [ ];
   $sub : Subscription = new Subscription()
 
-  displayedColumns: string[] = [ 'nombre', 'hotel', 'opciones'];
-  dataSource = new MatTableDataSource<autocapacitacionInt>(this.ELEMENT_DATA);
+  displayedColumns: string[] = [ 'nombre'];
+  dataSource = new MatTableDataSource<capacitacion>(this.ELEMENT_DATA);
   locales : local [] = []
   cargando : boolean = false;
 
@@ -72,15 +72,15 @@ export class AutoCapacConfigComponente implements OnInit {
   })
 
   ngOnInit(): void {
-    this.$sub.add(this.loc.todoLocal(-1).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe( async (resp:ResponseInterfaceTs) =>{
-      for await (const i of resp.container) {
-        this.locales.push({idLocal:i.idLocal, local:i.nombre})
-      }
-    }))
+    // this.$sub.add(this.loc.todoLocal(-1).pipe(
+    //   catchError( _ => {
+    //     throw "Error in source."
+    // })
+    // ).subscribe( async (resp:ResponseInterfaceTs) =>{
+    //   for await (const i of resp.container) {
+    //     this.locales.push({idLocal:i.idLocal, local:i.nombre})
+    //   }
+    // }))
     this.cargando = false;
     this.$sub.add(this.autoCap.mostrarTodoAutocapacitacionHotel(0).pipe(
       catchError( _ => {
@@ -90,12 +90,7 @@ export class AutoCapacConfigComponente implements OnInit {
     if (resp.status === '200') {
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push({
-          idAutoCap:c.idAutoCap,
-          nombre:c.nombre,
-          cveLocal:c.cveLocal,
-          local:c.local,
-          opciones:false,
-          link:c.link
+          nombre:c.nombre
         })
       }
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
@@ -145,12 +140,7 @@ export class AutoCapacConfigComponente implements OnInit {
           this.ELEMENT_DATA = []
           for await (const c of resp) {
             this.ELEMENT_DATA.push({
-              idAutoCap:c.idAutoCap,
-              nombre:c.nombre,
-              cveLocal:c.cveLocal,
-              local:c.local,
-              opciones:false,
-              link:c.link
+              nombre:c.nombre
             })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
@@ -182,12 +172,7 @@ export class AutoCapacConfigComponente implements OnInit {
           this.ELEMENT_DATA = []
           for await (const c of resp) {
             this.ELEMENT_DATA.push({
-              idAutoCap:c.idAutoCap,
-              nombre:c.nombre,
-              cveLocal:c.cveLocal,
-              local:c.local,
-              opciones:false,
-              link:c.link
+              nombre:c.nombre
             })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
@@ -218,12 +203,7 @@ export class AutoCapacConfigComponente implements OnInit {
           this.ELEMENT_DATA = []
           for await (const c of resp) {
             this.ELEMENT_DATA.push({
-              idAutoCap:c.idAutoCap,
               nombre:c.nombre,
-              cveLocal:c.cveLocal,
-              local:c.local,
-              opciones:false,
-              link:c.link
             })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
@@ -256,12 +236,7 @@ export class AutoCapacConfigComponente implements OnInit {
           this.ELEMENT_DATA = []
           for await (const c of resp) {
             this.ELEMENT_DATA.push({
-              idAutoCap:c.idAutoCap,
-              nombre:c.nombre,
-              cveLocal:c.cveLocal,
-              local:c.local,
-              opciones:false,
-              link:c.link
+              nombre:c.nombre
             })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
@@ -295,12 +270,7 @@ export class AutoCapacConfigComponente implements OnInit {
           this.ELEMENT_DATA = []
           for await (const c of resp.container) {
             this.ELEMENT_DATA.push({
-              idAutoCap:c.idAutoCap,
-              nombre:c.nombre,
-              cveLocal:c.cveLocal,
-              local:c.local,
-              opciones:false,
-              link:c.link
+              nombre:c.nombre
           })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
@@ -321,28 +291,23 @@ export class AutoCapacConfigComponente implements OnInit {
       catchError( _ => {
         throw "Error in source."
     })
-    ).subscribe(async (resp:ResponseInterfaceTs)=>{
+    ).subscribe(async (resp:any)=>{
 
-      if (Number(resp.status) == 200) {
-        if (resp.container.length > 0) {
+      if (resp !== undefined) {
+        if (resp.length > 0) {
           this.formBuscar.reset();
           this.formBuscar.patchValue({
             buscador : ""
           })
           this.cargando = false;
           this.ELEMENT_DATA = []
-          for await (const c of resp.container) {
+          for await (const c of resp) {
             this.ELEMENT_DATA.push({
-              idAutoCap:c.idAutoCap,
-              nombre:c.nombre,
-              cveLocal:c.cveLocal,
-              local:c.local,
-              opciones:false,
-              link:c.link
-          })
+              nombre:c.nombre
+            })
           }
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.dataSource.paginator = this.paginator;
+          this.dataSource.paginator =  this.paginator;
           this.cargando = true;
         }
       }
@@ -365,12 +330,7 @@ export class AutoCapacConfigComponente implements OnInit {
         this.ELEMENT_DATA = [];
         for await (const c of resp.container) {
           this.ELEMENT_DATA.push({
-            idAutoCap:c.idAutoCap,
-            nombre:c.nombre,
-            cveLocal:c.cveLocal,
-            local:c.local,
-            opciones:false,
-            link:c.link
+            nombre:c.nombre
         })
         }
         this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);

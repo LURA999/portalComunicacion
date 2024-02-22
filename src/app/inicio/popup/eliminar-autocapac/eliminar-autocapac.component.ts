@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { lastValueFrom } from 'rxjs';
+import { Subscription, catchError, lastValueFrom } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -18,6 +18,7 @@ export class EliminarAutocapacComponent {
 
   @ViewChild('cancelarBtn') cancelarBtn!: MatButton;
   @ViewChild('agregarBtn') agregarBtn!: MatButton;
+  $sub : Subscription = new Subscription()
 
   formRest! : FormGroup;
 
@@ -52,7 +53,14 @@ export class EliminarAutocapacComponent {
       if(res == 200){
           this.cancelarBtn.disabled = true;
           this.agregarBtn.disabled = true;
-          this.dialogRef.close();
+          this.$sub.add(this.autocapacServ.mostrarTodoAutocapacitacionHotel(0).pipe(
+            catchError( _ => {
+              throw "Error in source."
+          })
+          ).subscribe(async (resp:ResponseInterfaceTs)=>{
+            console.log(resp);
+            this.dialogRef.close(await resp.container);
+          }))
         }else{
           alert('Esta siendo utilizado');
           this.cancelarBtn.disabled = false;
@@ -64,5 +72,12 @@ export class EliminarAutocapacComponent {
           this.cancelarBtn.disabled = false;
           this.agregarBtn.disabled = false;
         }
+
+
+
+    }
+
+    ngOnDestroy(): void {
+      this.$sub.unsubscribe()
     }
 }

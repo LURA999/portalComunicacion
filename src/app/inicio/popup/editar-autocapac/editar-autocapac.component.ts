@@ -91,7 +91,7 @@ export class EditarAutocapacComponent {
 
     if (this.insertarImagen === true) {
       this.modalidad = true;
-      Observable.push(this.autoService.eliminarAutocapacitacionImagen(this.data.idCapacitacion));
+      Observable.push(this.autoService.eliminarAutocapacitacionImagen(this.data.idCapacitacion!));
       //despues se actualizara la imagen nueva que eligio
       Observable.push(this.autoService.insertarImagenAutocapacitacion(this.formData))
 
@@ -112,17 +112,20 @@ export class EditarAutocapacComponent {
         }
       ))
     })
-    ))
+    ).pipe(() => this.autoService.mostrarTodoAutocapacitacionHotel(0)))
     ).subscribe(async (resp:ResponseInterfaceTs)=>{
-      console.log('se actualizo la imagen');
+
 
     })
   }else{
-    Observable[0].subscribe(async(resp:ResponseInterfaceTs) => {
+    Observable[0].pipe(
+      concatMap(()=> this.autoService.mostrarTodoAutocapacitacionHotel(0))).subscribe(async(resp:ResponseInterfaceTs)=>{
+        this.dialogRef.close(await resp.container);
+      });
 
-    })
+
   }
-  this.dialogRef.close();
+
   }
  }
 

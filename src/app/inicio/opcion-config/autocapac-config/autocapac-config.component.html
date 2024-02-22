@@ -15,7 +15,7 @@
     </div>
     </form>
     <div id="matform-c">
-    <form [formGroup]="formBuscar">
+   <!--  <form [formGroup]="formBuscar">
     <mat-form-field id="selectLocal" appearance="outline">
       <mat-label>Seleccione la seccion</mat-label>
       <mat-select formControlName="seccion" (selectionChange)="buscador()">
@@ -23,12 +23,7 @@
         <mat-option value="-1">Ninguno</mat-option>
       </mat-select>
     </mat-form-field>
-    </form>
-    </div>
-    <div id="botonc">
-      <button  mat-raised-button color="primary" (click)="agregar()">
-        Asignar autocapacitación
-      </button>
+    </form> -->
     </div>
     <div class="botonc">
       <button  mat-raised-button color="primary" [matMenuTriggerFor]="menu" >
@@ -53,26 +48,23 @@
 
   <table mat-table [dataSource]="dataSource">
     <!-- Name Column -->
-    <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef> Autocapacitacion </th>
-      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    <ng-container matColumnDef="nombre" >
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Autocapacitacion </th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.nombre}} </td>
     </ng-container>
     <!-- Symbol Column -->
-    <ng-container matColumnDef="hotel">
+    <!-- <ng-container matColumnDef="hotel">
       <th mat-header-cell *matHeaderCellDef> Hotel </th>
       <td mat-cell *matCellDef="let element"> {{element.local}} </td>
-    </ng-container>
-    <ng-container matColumnDef="opciones">
+    </ng-container> -->
+    <!-- <ng-container matColumnDef="opciones">
       <th mat-header-cell *matHeaderCellDef> Opciones </th>
       <td mat-cell *matCellDef="let element">
-      <button mat-raised-button color="primary" (click)="editar(element)">
-        Editar
-      </button>
       <button mat-raised-button color="primary" (click)="borrar(element.idAutoCap)">
         Borrar
       </button>
     </td>
-    </ng-container>
+    </ng-container> -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
