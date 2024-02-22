@@ -50,9 +50,10 @@ export class OpcionMenuComponent implements OnInit {
    * @auxObsCveHotel  : en esta variable guardo el numero del hotel
    */
 
+
   link : string =  environment.production === true ? "": "../../../";
-  api : string = environment.api
-  $sub : Subscription = new Subscription()
+  api : string = environment.api;
+  $sub : Subscription = new Subscription();
   linkFacebook : string = "";
   linkBasePlanta : string = "";
   linkNuevoIngreso : string = "";
@@ -155,7 +156,7 @@ export class OpcionMenuComponent implements OnInit {
         this.auxObsCveHotel = 5
       break;
     }
-    this.$autoCapacObs = this.autoCapacService.mostrarTodoAutocapacitacion(this.auxObsCveHotel!);
+    this.$autoCapacObs = this.autoCapacService.mostrarTodoAutocapacitacionHotel(this.auxObsCveHotel!);
   }
 
   rellenarSlider(dir : string, number : number){

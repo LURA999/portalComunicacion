@@ -109,13 +109,13 @@ export class EliminarComponent implements OnInit {
             this.dialogRef.close(await resp1);
           }))
           break;
-        case 'autocapacitacion':
+          case 'autocapacitacion del hotel':
             await lastValueFrom(this.autocap.eliminarAutocapacitacion(Number(this.data.id)).pipe(
               catchError(_ =>{
                 throw 'Error in source.'
              })
             ))
-            this.$sub.add(this.autocap.mostrarTodoAutocapacitacion(0).pipe(
+            this.$sub.add(this.autocap.mostrarTodoAutocapacitacionHotel(0).pipe(
       catchError( _ => {
         throw "Error in source."
     })

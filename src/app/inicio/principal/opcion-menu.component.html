@@ -178,27 +178,32 @@
             </div>
         </div>
       </div>
+        <div class="container-autoc">
+          <div id="cuerpo-bt">
+            <h1>AUTOCAPACITACIONES</h1>
+            <div class="textoAutocapac">
+              Las constancias de finalización de los cursos, serán entregadas al departamento de
+              <b> Recursos Humanos </b> para control de los cursos realizados.
+              Este mes te recomendamos los cursos de:
+            </div>
 
-      <div class="container-autoc">
-        <div id="cuerpo-bt">
-          <h1>AUTOCAPACITACIONES</h1>
-          <div id="texto">
-            Las constancias de finalización de los cursos, serán entregadas al departamento de
-            <b> Recursos Humanos </b> para control de los cursos realizados.
-            Este mes te recomendamos los cursos de:
+            <div id="boxContainerBtnCapacitacion" *ngIf="$autoCapacObs  |  async as res  ">
+              <ng-container *ngIf="res.container != undefined && res.container.length >0 ; else elseTemplate">
+                <ng-container *ngFor="let i of res.container">
+                  <div class="boxbtnCapacitacion">
+                    <div class="btnCapacitacion" (click)="enviarPagina(i.link)">
+                      <img [src]="api+'/imgVideo/galeria-autocapacitaciones/'+i.img"  class="imgCapacitacion" [alt]="i.img">
+                    </div>
+                    <div class="textoAutocapacName">{{i.nombre}}</div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <div id="msj-autocapac">No hay cursos de autocapacitacion, regrese pronto.</div>
+              </ng-template>
+            </div>
+            <img [src]="this.link+'assets/img/img-seccion-hotel/morra-like.png'" id="mujer-like" alt="img-like">
           </div>
-
-          <div id="bt-autoc" *ngIf="$autoCapacObs  |  async as res  ">
-            <ng-container *ngIf="res.container != undefined && res.container.length >0 ; else elseTemplate">
-              <button mat-raised-button class="bAuto" *ngFor="let i of res.container" (click)="enviarPagina(i.link)" color="primary">{{i.nombre}}</button>
-            </ng-container>
-            <ng-template #elseTemplate>
-              <div id="msj-autocapac">No hay cursos de autocapacitacion, regrese pronto.</div>
-            </ng-template>
-          </div>
-
-        </div>
-        <img [src]="this.link+'assets/img/img-seccion-hotel/morra-like.png'" alt="img-like">
       </div>
     <app-footer></app-footer>
 </div>

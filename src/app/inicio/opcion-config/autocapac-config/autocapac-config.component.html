@@ -15,7 +15,7 @@
     </div>
     </form>
     <div id="matform-c">
-    <form class="cabecera" [formGroup]="formBuscar">
+    <form [formGroup]="formBuscar">
     <mat-form-field id="selectLocal" appearance="outline">
       <mat-label>Seleccione la seccion</mat-label>
       <mat-select formControlName="seccion" (selectionChange)="buscador()">
@@ -27,8 +27,27 @@
     </div>
     <div id="botonc">
       <button  mat-raised-button color="primary" (click)="agregar()">
-        Agregar autocapacitacion
+        Asignar autocapacitación
       </button>
+    </div>
+    <div class="botonc">
+      <button  mat-raised-button color="primary" [matMenuTriggerFor]="menu" >
+       Autocapacitaciones
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="crear()" mat-menu-item>
+          <mat-icon>add</mat-icon>
+          <span>Agregar</span>
+        </button>
+        <button (click)="borrarAutoCapacitacion()" mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Eliminar</span>
+        </button>
+        <button (click)="modificar()" mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Modificar</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
 
@@ -39,15 +58,6 @@
       <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
     </ng-container>
     <!-- Symbol Column -->
-    <ng-container matColumnDef="fechaInicial">
-      <th mat-header-cell *matHeaderCellDef> Fecha inicial </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaInicial}} </td>
-    </ng-container><!-- Symbol Column -->
-    <!-- Weight Column -->
-    <ng-container matColumnDef="fechaFinal">
-      <th mat-header-cell *matHeaderCellDef> Fecha final </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechaFinal}} </td>
-    </ng-container>
     <ng-container matColumnDef="hotel">
       <th mat-header-cell *matHeaderCellDef> Hotel </th>
       <td mat-cell *matCellDef="let element"> {{element.local}} </td>

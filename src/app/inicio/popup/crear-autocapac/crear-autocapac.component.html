@@ -5,17 +5,9 @@
       <path d="M0 0h24v24H0z" fill="none"></path>
     </svg>
   </div>
-<h2 mat-dialog-title>Actualizando Autocapacitación</h2>
+<h2 mat-dialog-title>Crear Autocapacitación</h2>
 <form [formGroup]="formAutoCapac">
   <mat-dialog-content>
-  <div>
-  <mat-form-field appearance="outline">
-    <mat-label>Seleccione la autocapacitación</mat-label>
-    <mat-select formControlName="idCapacitacion">
-      <mat-option [value]="i.idCapacitacion" *ngFor="let i of capacitacionInterfaz" (onSelectionChange)="clickSelect(i)" > {{i.nombre}} </mat-option>
-    </mat-select>
-  </mat-form-field>
-  </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Autocapacitación</mat-label>
@@ -23,10 +15,10 @@
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Link</mat-label>
-      <input autocomplete="off" matInput formControlName="link" type="text" class="ing-txt">
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Link</mat-label>
+    <input autocomplete="off" matInput formControlName="link" type="text" class="ing-txt">
+  </mat-form-field>
   </div>
   <div>
     <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" #subirImagen (change)="subirImg($event)" class="ing-txt"><br><br>
@@ -34,7 +26,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button (click)="enviandoDatos()">Actualizar</button>
+  <button mat-button (click)="enviandoDatos()">Insertar</button>
 </mat-dialog-actions>
 </form>
 </div>

@@ -11,7 +11,11 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { EliminarComponent } from '../../popup/eliminar/eliminar.component';
 import { MyCustomPaginatorIntl } from '../../MyCustomPaginatorIntl';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
+import { EditarxHotelAutocapacComponent } from '../../popup/editar-autocapac-x-hotel/editar-autocapac-x-hotel.component';
+import { CrearAutocapacComponent } from '../../popup/crear-autocapac/crear-autocapac.component';
+import { AsignarAutocapacComponent } from '../../popup/asignar-autocapac/asignar-autocapac.component';
 import { EditarAutocapacComponent } from '../../popup/editar-autocapac/editar-autocapac.component';
+import { EliminarAutocapacComponent } from '../../popup/eliminar-autocapac/eliminar-autocapac.component';
 
 export interface local {
   idLocal : number;
@@ -21,8 +25,6 @@ export interface local {
 
 export interface autocapacitacionInt {
   nombre: string;
-  fechaInicial:Date;
-  fechaFinal:Date;
   cveLocal: string;
   local:string;
   opciones:boolean;
@@ -56,7 +58,7 @@ export class AutoCapacConfigComponente implements OnInit {
   ELEMENT_DATA: autocapacitacionInt[] = [ ];
   $sub : Subscription = new Subscription()
 
-  displayedColumns: string[] = [ 'nombre', 'fechaInicial', 'fechaFinal', 'hotel', 'opciones'];
+  displayedColumns: string[] = [ 'nombre', 'hotel', 'opciones'];
   dataSource = new MatTableDataSource<autocapacitacionInt>(this.ELEMENT_DATA);
   locales : local [] = []
   cargando : boolean = false;
@@ -80,7 +82,7 @@ export class AutoCapacConfigComponente implements OnInit {
       }
     }))
     this.cargando = false;
-    this.$sub.add(this.autoCap.mostrarTodoAutocapacitacion(0).pipe(
+    this.$sub.add(this.autoCap.mostrarTodoAutocapacitacionHotel(0).pipe(
       catchError( _ => {
         throw "Error in source."
     })
@@ -90,8 +92,6 @@ export class AutoCapacConfigComponente implements OnInit {
         this.ELEMENT_DATA.push({
           idAutoCap:c.idAutoCap,
           nombre:c.nombre,
-          fechaInicial:c.fechaInicial,
-          fechaFinal:c.fechaFinal,
           cveLocal:c.cveLocal,
           local:c.local,
           opciones:false,
@@ -125,7 +125,7 @@ export class AutoCapacConfigComponente implements OnInit {
   }
 
   agregar(){
-    let dialogRef = this.dialog.open(EditarAutocapacComponent, {
+    let dialogRef = this.dialog.open(AsignarAutocapacComponent, {
       height: 'auto',
       width: '450px',
       data: undefined
@@ -147,8 +147,6 @@ export class AutoCapacConfigComponente implements OnInit {
             this.ELEMENT_DATA.push({
               idAutoCap:c.idAutoCap,
               nombre:c.nombre,
-              fechaInicial:c.fechaInicial,
-              fechaFinal:c.fechaFinal,
               cveLocal:c.cveLocal,
               local:c.local,
               opciones:false,
@@ -163,8 +161,82 @@ export class AutoCapacConfigComponente implements OnInit {
     })
   }
 
-  editar(usuario : autocapacitacionInt){
+  crear(){
+    let dialogRef = this.dialog.open(CrearAutocapacComponent, {
+      height: 'auto',
+      width: '450px',
+      data: undefined
+    });
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
+      if (resp !== undefined) {
+        if (resp.length > 0) {
+          this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
+          this.cargando = false;
+          this.ELEMENT_DATA = []
+          for await (const c of resp) {
+            this.ELEMENT_DATA.push({
+              idAutoCap:c.idAutoCap,
+              nombre:c.nombre,
+              cveLocal:c.cveLocal,
+              local:c.local,
+              opciones:false,
+              link:c.link
+            })
+          }
+          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          this.dataSource.paginator =  this.paginator;
+          this.cargando = true;
+        }
+      }
+    })
+  }
+
+  modificar(){
     let dialogRef = this.dialog.open(EditarAutocapacComponent, {
+      height: 'auto',
+      width: '450px',
+    });
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
+      if (resp !== undefined) {
+        if (resp.length > 0) {
+          this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
+          this.cargando = false;
+          this.ELEMENT_DATA = []
+          for await (const c of resp) {
+            this.ELEMENT_DATA.push({
+              idAutoCap:c.idAutoCap,
+              nombre:c.nombre,
+              cveLocal:c.cveLocal,
+              local:c.local,
+              opciones:false,
+              link:c.link
+            })
+          }
+          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          this.dataSource.paginator =  this.paginator;
+          this.cargando = true;
+        }
+      }
+
+     })
+  }
+
+  editar(usuario : autocapacitacionInt){
+    let dialogRef = this.dialog.open(EditarxHotelAutocapacComponent, {
       height: 'auto',
       width: '450px',
       data: usuario
@@ -186,8 +258,6 @@ export class AutoCapacConfigComponente implements OnInit {
             this.ELEMENT_DATA.push({
               idAutoCap:c.idAutoCap,
               nombre:c.nombre,
-              fechaInicial:c.fechaInicial,
-              fechaFinal:c.fechaFinal,
               cveLocal:c.cveLocal,
               local:c.local,
               opciones:false,
@@ -207,14 +277,13 @@ export class AutoCapacConfigComponente implements OnInit {
     let dialogRef = this.dialog.open(EliminarComponent, {
       height: 'auto',
       width: 'auto',
-      data: {id: usuario,seccion: "autocapacitacion"}
+      data: {id: usuario,seccion: "autocapacitacion del hotel"}
     });
     dialogRef.afterClosed().pipe(
       catchError( _ => {
         throw "Error in source."
     })
     ).subscribe(async (resp:ResponseInterfaceTs)=>{
-      console.log(Number(resp.status));
 
       if (Number(resp.status) == 200) {
         if (resp.container.length > 0) {
@@ -228,8 +297,6 @@ export class AutoCapacConfigComponente implements OnInit {
             this.ELEMENT_DATA.push({
               idAutoCap:c.idAutoCap,
               nombre:c.nombre,
-              fechaInicial:c.fechaInicial,
-              fechaFinal:c.fechaFinal,
               cveLocal:c.cveLocal,
               local:c.local,
               opciones:false,
@@ -244,13 +311,50 @@ export class AutoCapacConfigComponente implements OnInit {
      })
   }
 
+  borrarAutoCapacitacion(){
+    let dialogRef = this.dialog.open(EliminarAutocapacComponent, {
+      height: 'auto',
+      width: 'auto',
+      data: {seccion: "autocapacitacion"}
+    });
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
+
+      if (Number(resp.status) == 200) {
+        if (resp.container.length > 0) {
+          this.formBuscar.reset();
+          this.formBuscar.patchValue({
+            buscador : ""
+          })
+          this.cargando = false;
+          this.ELEMENT_DATA = []
+          for await (const c of resp.container) {
+            this.ELEMENT_DATA.push({
+              idAutoCap:c.idAutoCap,
+              nombre:c.nombre,
+              cveLocal:c.cveLocal,
+              local:c.local,
+              opciones:false,
+              link:c.link
+          })
+          }
+          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          this.dataSource.paginator = this.paginator;
+          this.cargando = true;
+        }
+      }
+     })
+  }
   ngOnDestroy(): void {
     this.$sub.unsubscribe();
   }
 
   //envia la peticion y despues guarda el resutado en su respectivo element_Data
   buscador(){
-    this.$sub.add(this.autoCap.mostrarAutocapacitacion(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
+    this.$sub.add(this.autoCap.mostrarAutocapacitacionHotel(this.formBuscar.value["buscador"],this.formBuscar.value["seccion"]==="" ||
     this.formBuscar.value["seccion"]===-1 ?-1:this.formBuscar.value["seccion"]).pipe(
       catchError( _ => {
         throw "Error in source."
@@ -263,8 +367,6 @@ export class AutoCapacConfigComponente implements OnInit {
           this.ELEMENT_DATA.push({
             idAutoCap:c.idAutoCap,
             nombre:c.nombre,
-            fechaInicial:c.fechaInicial,
-            fechaFinal:c.fechaFinal,
             cveLocal:c.cveLocal,
             local:c.local,
             opciones:false,

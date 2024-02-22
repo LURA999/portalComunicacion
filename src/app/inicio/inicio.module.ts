@@ -33,6 +33,7 @@ import { ComidaFormComponent } from './popup/editar-comida/comida-form.component
 import { EditarMesEmpleadoComponent } from './popup/editar-mes-empleado/editar-mes-empleado.component';
 import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/autocapac-config.component';
 import { EditarAutocapacComponent } from './popup/editar-autocapac/editar-autocapac.component';
+import { EditarxHotelAutocapacComponent } from './popup/editar-autocapac-x-hotel/editar-autocapac-x-hotel.component';
 import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 import { TodoNoticiasComponent } from './opcion-config/galeria-multi-config/componentes/todo-noticias/todo-noticias.component';
 import { LazyLoadImageModule } from "ng-lazyload-image";
@@ -47,6 +48,9 @@ import { ThanksComponent } from './popup/thanks/thanks.component';
 import { EliminarDepartamentoComponent } from './popup/eliminar-departamento/eliminar-departamento.component';
 import { AgregarDepartamentoComponent } from './popup/agregar-departamento/agregar-departamento.component';
 import { EditarDepartamentoComponent } from './popup/editar-departamento/editar-departamento.component';
+import { CrearAutocapacComponent } from './popup/crear-autocapac/crear-autocapac.component';
+import { AsignarAutocapacComponent } from './popup/asignar-autocapac/asignar-autocapac.component';
+import { EliminarAutocapacComponent } from './popup/eliminar-autocapac/eliminar-autocapac.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +89,11 @@ import { EditarDepartamentoComponent } from './popup/editar-departamento/editar-
     ThanksComponent,
     EliminarDepartamentoComponent,
     AgregarDepartamentoComponent,
-    EditarDepartamentoComponent
+    EditarDepartamentoComponent,
+    CrearAutocapacComponent,
+    AsignarAutocapacComponent,
+    EditarxHotelAutocapacComponent,
+    EliminarAutocapacComponent
   ],
   imports: [
     HttpClientModule,

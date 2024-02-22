@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 
@@ -21,7 +21,6 @@ export class AraizaAprendeService {
 
   constructor(private http: HttpClient) { }
   api = environment.api;
-
   todoCategorias() : Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?todoCategorias=true");
   }

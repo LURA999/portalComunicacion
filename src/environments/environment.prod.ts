@@ -2,6 +2,8 @@
 
 export const environment = {
   production: true,
-   api: "https://www.comunicadosaraiza.com/portal_api/API/",
+  api: "http://localhost/portal_api/API/",
+
+  //  api: "https://www.comunicadosaraiza.com/portal_api/API/",
   //  api:"https://www.araizadiamante.com/portal_api/API/"
 };

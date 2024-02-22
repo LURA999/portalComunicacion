@@ -68,6 +68,10 @@ div#matform-c {
   margin-bottom: -10px;
 }
 
+.cabecera .botonc {
+  margin-top: 10px;
+}
+
 /**Loading para componentes*/
 .preloader {
   width: 60px;
@@ -93,4 +97,14 @@ div#matform-c {
 .existe {
   text-align: center;
   font-family: 'gotham-bold';
+}
+
+@media(max-width:1240px){
+  .cabecera {
+    display: block;
+  }
+
+  .cabecera mat-form-field, mat-select, button, mat-form-field#selectLocal, mat-form-field {
+    width: 100%;
+  }
 }

@@ -1,0 +1,8 @@
+h2, button {
+  font-family: 'gotham-bold';
+}
+
+mat-form-field {
+  width: 100%;
+  font-family: 'gotham-book';
+}

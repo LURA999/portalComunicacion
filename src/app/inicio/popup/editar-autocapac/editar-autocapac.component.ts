@@ -1,22 +1,18 @@
 import { Component,Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { catchError, lastValueFrom, Subscription } from 'rxjs';
+import { catchError, concat, concatMap, lastValueFrom, Observable, Subscription } from 'rxjs';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
-import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
-import { autocapacitacionInt } from '../../opcion-config/autocapac-config/autocapac-config.component';
-import { local } from '../../opcion-config/usuarios-config/usuarios.component';
-import { locales } from '../editar-slider/editar-slider.component';
+import { capacitacion } from '../crear-autocapac/crear-autocapac.component';
 
 @Component({
   selector: 'app-editar-autocapac',
   templateUrl: './editar-autocapac.component.html',
   styleUrls: ['./editar-autocapac.component.css']
 })
-export class EditarAutocapacComponent implements OnInit {
-
-  /**
+export class EditarAutocapacComponent {
+ /**
    * @modalidad : con esta variable se puede identificar si estas actualizando o insertando
    * una autocapacitacion
    * @localInterfaz : este array se llena de todos las ciudades con sus respectiva cantidad de autocapacitaciones
@@ -27,95 +23,147 @@ export class EditarAutocapacComponent implements OnInit {
    * @formAutoCapac : en esta variable se asignan todas las variables que deben de existir en el formulario
    */
 
-  modalidad : boolean = false;
-  localInterfaz :locales[] = []
-  date : Date = new Date()
-  rango : Date | undefined
-  rango2 : Date | undefined
-  $sub : Subscription = new Subscription()
-  formAutoCapac : FormGroup = this.fb.group({
-    fechaFinal : ['', Validators.required],
-    fechaInicial : ['', Validators.required],
+ modalidad : boolean = false;
+ capacitacionInterfaz : capacitacion[] = []
+ date : Date = new Date()
+ rango : Date | undefined
+ rango2 : Date | undefined
+ title : String = ''
+ $sub : Subscription = new Subscription()
+
+ formAutoCapac : FormGroup = this.fb.group({
+    idCapacitacion : [ '' , Validators.required],
     nombre : [ '' , Validators.required],
-    cveLocal : [ '' , Validators.required],
-    link : [ '' , Validators.required]
-  })
+    img : [ '' ],
+    link : [ '', Validators.required ]
+ })
+ targetFile : any
+ insertarImagen : boolean = false
+ formData : FormData = new FormData();
 
-  constructor(private fb : FormBuilder,public dialogRef: MatDialogRef<EditarAutocapacComponent>, private autoService : AutocapacitacionService,
-    @Inject(MAT_DIALOG_DATA) private data: autocapacitacionInt,private local : localService) {
-      this.$sub.add(this.local.todoLocal(1).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async(resp: ResponseInterfaceTs)=>{
-        for await (const i of resp.container) {
-          this.localInterfaz.push({
-            idLocal : i.idLocal,
-            local : i.nombre,
-            cantidad : i.cantidad
-          })
-        }
-        this.localInterfaz.shift()
-      }))
-     }
+ constructor(
+  private fb : FormBuilder,
+  public dialogRef: MatDialogRef<EditarAutocapacComponent>,
+  private autoService : AutocapacitacionService,
+  @Inject(MAT_DIALOG_DATA) private data: capacitacion,
+  private autocapacServ : AutocapacitacionService) {
 
-
-  fecha1(fecha : Date){
-    this.rango = fecha
-  }
-
-  fecha2(fecha : Date){
-    this.rango2 = fecha
-  }
-
-  ngOnInit(): void {
-    if (this.data !== undefined) {
-      this.formAutoCapac = this.fb.group({
-        fechaFinal : [new Date(this.data.fechaFinal+"T00:00:00"), Validators.required],
-        fechaInicial : [new Date(this.data.fechaInicial+"T00:00:00"), Validators.required],
-        nombre : [this.data.nombre, Validators.required],
-        cveLocal : [ this.data.cveLocal , Validators.required],
-        link : [ this.data.link , Validators.required]
-
-      })
-      this.modalidad = false;
-    }else{
-      this.modalidad = true;
-    }
-  }
-
-
-  async enviandoDatos(){
-    if (this.formAutoCapac.valid == false) {
-      alert("Por favor llene todos los campos");
-    } else {
-      if (this.modalidad == true) {
-        await lastValueFrom(this.autoService.insertarAutocapacitacion(this.formAutoCapac.value).pipe(
-          catchError(_ =>{
-            throw 'Error in source.'
+    this.$sub.add(this.autocapacServ.mostrarTodoAutocapacitacion().pipe(
+    catchError( _ => {
+      throw "Error in source."
+   })
+   ).subscribe(async(resp: ResponseInterfaceTs)=>{
+       for await (const i of resp.container) {
+         this.capacitacionInterfaz.push({
+           idCapacitacion : i.idCapacitacion,
+           nombre : i.nombre,
+           img : i.img,
+           link : i.link
          })
-        ));
-      } else {
-        let idAutoCap = this.data.idAutoCap;
-        this.data = this.formAutoCapac.value;
-        this.data.idAutoCap = idAutoCap;
-        await lastValueFrom(this.autoService.actualizarAutocapacitacion(this.formAutoCapac.value).pipe(
-          catchError(_ =>{
-            throw 'Error in source.'
-         })
-        ));
-      }
-      this.$sub.add(this.autoService.mostrarTodoAutocapacitacion(0).pipe(
-      catchError( _ => {
-        throw "Error in source."
-    })
-    ).subscribe(async (resp:ResponseInterfaceTs)=>{
-        this.dialogRef.close(await resp.container);
+       }
+      //  this.capacitacionInterfaz.shift()
      }))
     }
+
+
+ ngOnInit(): void {
+   /* if (this.data !== undefined) {
+     this.formAutoCapac = this.fb.group({
+       nombre : [this.data.nombre, Validators.required],
+       cveLocal : [ this.data.cveLocal , Validators.required],
+       link : [ this.data.link , Validators.required],
+       img : [ '' ]
+
+     })
+     this.modalidad = false;
+   }else{
+     this.modalidad = true;
+   } */
+ }
+
+
+ async enviandoDatos(){
+  if (this.formAutoCapac.valid == false) {
+    alert("Por favor llene todos los campos");
+  } else {
+    this.data= this.formAutoCapac.value
+    let Observable : Observable<ResponseInterfaceTs>[] = [];
+
+    if (this.insertarImagen === true) {
+      this.modalidad = true;
+      Observable.push(this.autoService.eliminarAutocapacitacionImagen(this.data.idCapacitacion));
+      //despues se actualizara la imagen nueva que eligio
+      Observable.push(this.autoService.insertarImagenAutocapacitacion(this.formData))
+
+      Observable.push(this.autoService.actualizarAutocapacitacion(this.data));
+
+    }else{
+      Observable.push(this.autoService.actualizarAutocapacitacion(this.data));
+    }
+
+    if (this.insertarImagen === true) {
+    Observable[0].pipe(
+    concatMap( () => Observable[1].pipe(
+      concatMap((res: ResponseInterfaceTs) => {
+      this.data.img = res.container['nombre']
+        return Observable[2].pipe(
+        catchError(_ => {
+          throw "Error in source.";
+        }
+      ))
+    })
+    ))
+    ).subscribe(async (resp:ResponseInterfaceTs)=>{
+      console.log('se actualizo la imagen');
+
+    })
+  }else{
+    Observable[0].subscribe(async(resp:ResponseInterfaceTs) => {
+
+    })
+  }
+  this.dialogRef.close();
+  }
+ }
+
+ ngOnDestroy(): void {
+   this.$sub.unsubscribe()
+ }
+
+ clickSelect(cap : capacitacion){
+
+  this.formAutoCapac.patchValue({
+    nombre :  cap.nombre ,
+    link :  cap.link ,
+    img :  cap.img
+  })
+
+
+ }
+
+ subirImg(evt : any){
+  this.targetFile = <DataTransfer>(evt.target).files[0];
+  if (this.targetFile.type.split("/")[0] === "image" && (this.targetFile.size/1024)<=2048) {
+    this.insertarImagen = true
+    const reader= new FileReader()
+    reader.readAsDataURL(this.targetFile )
+    reader.onload = () => {
+      this.formAutoCapac.patchValue({
+        img : this.targetFile.name
+      })
+    }
+    this.formData.append('info', this.targetFile, this.targetFile.name);
+  }else{
+    if (this.targetFile.type.split("/")[0] !== "image") {
+      alert("Solo se permiten subir imagenes");
+    } else {
+      alert("Solo se permiten subir imagenes menores o igual a 2MB");
+    }
+    this.targetFile  = new DataTransfer()
+    let inpimg2 : HTMLInputElement = <HTMLInputElement>document.getElementById("subir-imagen");
+    inpimg2.value="";
+
   }
 
-  ngOnDestroy(): void {
-    this.$sub.unsubscribe()
-  }
+}
 }
