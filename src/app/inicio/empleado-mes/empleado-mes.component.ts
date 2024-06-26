@@ -37,7 +37,21 @@ export class EmpleadoMesComponent implements OnInit {
 
   color_primary : string =  "#DC994D";
   color_secundary : string =  "#293641";
-  private lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
+
+  meses_anual = ["Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"];
+
+  lua : number = this.localNumero(CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8))
   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
   cargando : boolean = false;
 
@@ -61,6 +75,15 @@ export class EmpleadoMesComponent implements OnInit {
        this.cargando = true;
 
     }))
+  }
+
+  sumarMes(mes : string) : string{
+    let index :number = this.meses_anual.indexOf(mes);
+    if (index == this.meses_anual.length-1) {
+      return this.meses_anual[0];
+    }else{
+      return this.meses_anual[index+1];
+    }
   }
 
   private localNumero(lua : string) : number {

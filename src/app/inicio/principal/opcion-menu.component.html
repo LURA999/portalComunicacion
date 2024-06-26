@@ -3,7 +3,7 @@
     <ngb-carousel *ngIf="imageObject == undefined? imageObjectRemplazo : imageObject">
       <ng-template ngbSlide *ngFor="let slide of imageObject == undefined? imageObjectRemplazo : imageObject" >
         <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
-          <img class="img-carousel"
+          <img  rel="preload" class="img-carousel"
           [src]="link+'assets/img/pruebas/loading-banner.png'"
           [lazyLoad]="(recursoUrlStr( slide.src, 1, 1,true) | async)!.toString()"
           [style.cursor]="slide.link==='' || slide.link=== null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
@@ -31,21 +31,21 @@
       <div class="subMenu">
         <div class="subseccion1">
           <div class="cajaMenu" (click)="routerLink('menu')">
-          <div><img [src]="this.link+'assets/img/img-seccion-hotel/camapana1.png'"></div>
+          <div><img  rel="preload" [src]="this.link+'assets/img/img-seccion-hotel/camapana1.png'"></div>
           <div class="item"> MENÚ </div></div>
 
           <div class="cajaMenu" (click)="routerLink('aniversarios')">
-          <div><img [src]="this.link+'assets/img/img-seccion-hotel/aniversario.png'"></div>
+          <div><img  rel="preload" [src]="this.link+'assets/img/img-seccion-hotel/aniversario.png'"></div>
           <div class="item"> ANIVERSARIO </div>
           </div>
         </div>
         <div class="subseccion2">
           <div class="cajaMenu" (click)="routerLink('cumpleaneros')">
-            <div><img [src]="this.link+'assets/img/img-seccion-hotel/cumpleaños.png'"></div>
+            <div><img  rel="preload" [src]="this.link+'assets/img/img-seccion-hotel/cumpleaños.png'"></div>
             <div class="item"> CUMPLEAÑOS </div>
           </div>
           <div class="cajaMenu" (click)="irLink(linkFacebook)">
-            <div><img [src]="this.link+'assets/img/img-seccion-hotel/vacantes.png'"></div>
+            <div><img  rel="preload" [src]="this.link+'assets/img/img-seccion-hotel/vacantes.png'"></div>
             <div class="item"> VACANTES </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                  <div class="container-matCard">
                   <div class="img-card">
                     <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
-                      <img
+                      <img  rel="preload"
                       [lazyLoad]=" (recursoUrlStr( imageObject == undefined?  i.imgVideo : i.imgVideo,1,1,false) | async)!.toString()"
                       [src]="link+'assets/img/pruebas/loading-noticia.gif'"
                       class="d-block w-100"
@@ -111,7 +111,7 @@
                   <div class="container-matCard">
                   <div class="img-card">
                     <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
-                      <img
+                      <img  rel="preload"
                       [lazyLoad]=" (recursoUrlStr( imageObject == undefined?  i.imgVideo : i.imgVideo,1,1,false) | async)!.toString()"
                       [src]="link+'assets/img/pruebas/loading-noticia.gif'"
                       class="d-block w-100"
@@ -153,38 +153,70 @@
             </div>
           </ng-template>
       </div>
-      <div class="container-beneficios">
+      <div class="container-beneficios" *ngIf="paramUrl != 'palmira'">
         <div id="beneficios">
           <span><label id="conoce">CONOCE</label> TUS BENEFICIOS</span>
             <div (click)="enviarPagina(linkBasePlanta)" class="cBfcios">
               <div class="muestra" >
-                <img [src]="this.link+'assets/img/beneficios/base-planta.png'" alt="img-planta" >
+                <img  rel="preload" [src]="this.link+'assets/img/beneficios/base-planta.png'" alt="img-planta" >
               </div>
             </div>
             <div (click)="enviarPagina(linkNuevoIngreso)" class="cBfcios" >
               <div  class="muestra">
-                  <img [src]="this.link+'assets/img/beneficios/nuevo-ingreso.png'" alt="img-ingreso">
+                  <img  rel="preload" [src]="this.link+'assets/img/beneficios/nuevo-ingreso.png'" alt="img-ingreso">
               </div>
             </div>
-            <div class="cBfcios" (click)="routerLink('empleado-mes')">
-              <div  class="muestra">
-                <img [src]="this.link+'assets/img/beneficios/empleado-mes.svg'" alt="img-mes">
+            <ng-container *ngIf="paramUrl != 'palmira';">
+              <div class="cBfcios" (click)="routerLink('empleado-mes')">
+                <div  class="muestra">
+                  <img  rel="preload" [src]="this.link+'assets/img/beneficios/empleado-mes.svg'" alt="img-mes">
+                </div>
               </div>
-            </div>
+            </ng-container>
             <div (click)="routerLink('araiza-diamante')" class="cBfcios">
               <div class="muestra">
-                <img [src]="this.link+'assets/img/beneficios/araiza-diamante.svg'" alt="img-diamante">
+                <img  rel="preload" [src]="this.link+'assets/img/beneficios/araiza-diamante.svg'" alt="img-diamante">
               </div>
             </div>
         </div>
       </div>
+
+       <div class="container-beneficios2" *ngIf="paramUrl == 'palmira'">
+        <div id="beneficios">
+          <span><label id="conoce">CONOCE</label> TUS BENEFICIOS</span>
+            <div (click)="enviarPagina(linkBasePlanta)" class="cBfcios">
+              <div class="muestra" >
+                <img  rel="preload" [src]="this.link+'assets/img/beneficios/base-planta.png'" alt="img-planta" >
+              </div>
+            </div>
+            <div (click)="enviarPagina(linkNuevoIngreso)" class="cBfcios" >
+              <div  class="muestra">
+                  <img  rel="preload" [src]="this.link+'assets/img/beneficios/nuevo-ingreso.png'" alt="img-ingreso">
+              </div>
+            </div>
+            <ng-container *ngIf="paramUrl != 'palmira';">
+              <div class="cBfcios" (click)="routerLink('empleado-mes')">
+                <div  class="muestra">
+                  <img  rel="preload" [src]="this.link+'assets/img/beneficios/empleado-mes.svg'" alt="img-mes">
+                </div>
+              </div>
+            </ng-container>
+            <div (click)="routerLink('araiza-diamante')" class="cBfcios">
+              <div class="muestra">
+                <img  rel="preload" [src]="this.link+'assets/img/beneficios/araiza-diamante.svg'" alt="img-diamante">
+              </div>
+            </div>
+        </div>
+      </div>
+
         <div class="container-autoc">
           <div id="cuerpo-bt">
             <h1>AUTOCAPACITACIONES</h1>
             <div class="textoAutocapac">
-              Las constancias de finalización de los cursos, serán entregadas al departamento de
-              <b> Recursos Humanos </b> para control de los cursos realizados.
-              Este mes te recomendamos los cursos de:
+              Las <b>autocapacitaciones</b> son cursos que están divididos por niveles en los que podrás encontrar videos,
+              infografías y exámenes. Una vez que los apruebes con un <b>mínimo de 80</b>, guarda tu constancia de finalización.
+              Ya que la deberás entregar al departamento de <b>Recursos Humanos</b> para recibir los vales de despensa correspondientes.
+              Te presentamos todos los cursos disponibles:
             </div>
 
             <div id="boxContainerBtnCapacitacion" *ngIf="$autoCapacObs  |  async as res  ">
@@ -192,17 +224,18 @@
                 <ng-container *ngFor="let i of res.container">
                   <div class="boxbtnCapacitacion">
                     <div class="btnCapacitacion" (click)="enviarPagina(i.link)">
-                      <img [src]="api+'/imgVideo/galeria-autocapacitaciones/'+i.img"  class="imgCapacitacion" [alt]="i.img">
+                      <img  rel="preload" [src]="api+'/imgVideo/galeria-autocapacitaciones/'+i.img"  class="imgCapacitacion" [alt]="i.img">
                     </div>
                     <div class="textoAutocapacName">{{i.nombre}}</div>
                   </div>
                 </ng-container>
               </ng-container>
               <ng-template #elseTemplate>
+
                 <div id="msj-autocapac">No hay cursos de autocapacitacion, regrese pronto.</div>
               </ng-template>
             </div>
-            <!-- <img [src]="this.link+'assets/img/img-seccion-hotel/morra-like.png'" id="mujer-like" alt="img-like"> -->
+            <!-- <img  rel="preload" [src]="this.link+'assets/img/img-seccion-hotel/morra-like.png'" id="mujer-like" alt="img-like"> -->
           </div>
       </div>
     <app-footer></app-footer>

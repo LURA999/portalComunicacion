@@ -21,6 +21,8 @@ import { AutoCapacConfigComponente } from './opcion-config/autocapac-config/auto
 import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 import { AraizaAprendeComponent } from './araiza-aprende/araiza-aprende.component';
 import { AraizaAprendeConfigComponent } from './opcion-config/araiza-aprende-config/araiza-aprende-config.component';
+import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-aprende-click.component';
+import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
 
 const routes: Routes = [
   {
@@ -38,12 +40,13 @@ const routes: Routes = [
       { path: 'hermosillo', canActivate: [SesionGuard], component: OpcionMenuComponent },
       { path: 'bookings', canActivate: [SesionGuard], component: BookingsComponent },
       { path: 'araiza-diamante', canActivate: [SesionGuard], component: AraizaDiamanteComponent },
-      { path: 'cumpleaneros',canActivate: [SesionGuard], component: CumpleanerosComponent},
-      { path: 'aniversarios',canActivate: [SesionGuard], component: AniversariosComponent},
-      { path: 'menu',canActivate: [SesionGuard], component: MenuComponent},
-      { path: 'historial-noticias',canActivate: [SesionGuard], component: HistorialNoticiasComponent},
-      { path: 'empleado-mes',canActivate: [SesionGuard], component: EmpleadoMesComponent},
-      { path: 'araiza-aprende',canActivate: [SesionGuard], component: AraizaAprendeComponent},
+      { path: 'cumpleaneros', canActivate: [SesionGuard], component: CumpleanerosComponent},
+      { path: 'aniversarios', canActivate: [SesionGuard], component: AniversariosComponent},
+      { path: 'menu', canActivate: [SesionGuard], component: MenuComponent},
+      { path: 'historial-noticias', canActivate: [SesionGuard], component: HistorialNoticiasComponent},
+      { path: 'empleado-mes', canActivate: [SesionGuard], component: EmpleadoMesComponent},
+      { path: 'araiza-aprende', canActivate: [SesionGuard], component: AraizaAprendeComponent},
+      { path: 'araiza-aprende/araiza-aprende-click', canActivate: [SesionGuard], component: AraizaAprendeClickComponent},
       //Sesion para el admin
       { path: 'slider-config',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
       { path: 'noticias-config',canActivate: [LogSesionAdminGuard], component: NoticiaComponent},
@@ -53,6 +56,7 @@ const routes: Routes = [
       { path: 'usuarios-config',canActivate: [LogSesionAdminGuard], component: UsuariosComponent },
       { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente },
       { path: 'araiza-aprende-config',canActivate: [LogSesionAdminGuard], component: AraizaAprendeConfigComponent },
+      { path: 'araiza-aprende-formulario',canActivate: [LogSesionAdminGuard], component: AraizaAprendeFormularioComponent },
 
     ]
   }

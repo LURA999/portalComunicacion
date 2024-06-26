@@ -106,7 +106,7 @@
       </div>
       <br>
       <ng-container *ngIf="modalidad === false">
-        <img [src]="api+'imgVideo/fotos/'+data!.img" alt="imagen-usuario">
+        <img  rel="preload" [src]="api+'imgVideo/fotos/'+data!.img" alt="imagen-usuario">
         <br>
         <br>
       </ng-container>

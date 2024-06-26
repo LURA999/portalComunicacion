@@ -138,10 +138,6 @@ h2 span {
 
 @media (max-width: 1150px) {
 
-  .descrip {
-    font-size: 12px;
-  }
-
   .nombre{
     font-size: 16px;
   }
@@ -183,7 +179,7 @@ h2 span {
   }
 
   .descrip {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .cuadro {

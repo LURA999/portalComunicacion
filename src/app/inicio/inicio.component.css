@@ -150,6 +150,13 @@ img {
     text-align: -webkit-center;
   }
 
+  #seccion4-notice article{
+    font-family: 'gotham-book';
+    padding-left: 5%;
+    padding-right: 5%;
+    }
+
+
   #seccion4-notice h2{
     margin-bottom: -11px !important;
   }
@@ -241,7 +248,7 @@ img {
   }
   .noticia img {
     width: 100%;
-    height: 160px !important;
+    height: 120px !important;
     margin: 0;
     text-align: center;
   }
@@ -363,21 +370,21 @@ img {
   .pag-inicio-article article {
     text-align: center;
     font-family: 'gotham-book';
-    font-size: 12px;
+    font-size: 15px;
 
   }
 
   .pag-inicio-article2 article {
     text-align: center;
     font-family: 'gotham-book';
-    font-size: 12px;
+    font-size: 15px;
 
   }
 
-  .pag-inicio-article3 article {
-    text-align: start;
+  .pag-inicio-section_3 article {
+    text-align: center;
     font-family: 'gotham-book';
-    font-size: 12px;
+    font-size: 13px;
 
   }
   .pag-inicio-article h2 span{
@@ -414,6 +421,22 @@ img {
 
 }
 
+@media(max-width:490px) {
+  .texto {
+    font-size:  13px;
+  }
+
+  #cuerpo-bt h1 {
+    font-size: 100%;
+  }
+
+  .pag-inicio-article3 article {
+    text-align: center;
+    font-family: 'gotham-book';
+    font-size: 14px;
+
+  }
+}
 @media(max-width:500px){
 
   #pag-inicio-section_3 #imgHidden {

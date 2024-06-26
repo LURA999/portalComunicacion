@@ -1,6 +1,6 @@
 <div id="container-cumpleaños">
   <div id="cabecera">
-    <img [src]="link+'assets/img/img-seccion-hotel/cumpleaneros-head.png'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
+    <img  rel="preload" [src]="link+'assets/img/img-seccion-hotel/cumpleaneros-head.png'" id="cabecera-cumpleaños"  alt="cabecera-cumpleaños">
     <span id="titulo_1">CUMPLEAÑEROS <br> <span id="titulo_2" [style.color]="color_primary"> DE {{mes}}</span></span>
   </div>
   <section class="usuario-seccion">
@@ -9,7 +9,7 @@
     <div id="img-container">
     <div  *ngFor="let i of usuarios; let idx = index">
       <div class="usuario">
-        <img [src]="api+'imgVideo/fotos/'+i.img" alt="img-usuario" class="marco"> <br>
+        <img  rel="preload" [src]="api+'imgVideo/fotos/'+i.img" alt="img-usuario" class="marco"> <br>
         <div class="texto">
            <span class="nombre">{{i.nombres+' '+i.apellidoPaterno}}</span><br>
            <span [style.color]="color_primary" class="depa">{{i.departamento.toUpperCase()}}</span>

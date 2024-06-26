@@ -19,8 +19,19 @@ h2 {
   text-align: center;
 }
 
+p {
+  font-family: 'gotham-book';
+}
+
 @media (max-width: 336px) {
   h2 {
     line-height: 1.2;
+  }
+}
+
+
+@media (max-width: 500px) {
+  p {
+    font-size: smaller;
   }
 }

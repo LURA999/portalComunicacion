@@ -76,6 +76,7 @@ export class OpcionMenuComponent implements OnInit {
     private config: NgbCarouselConfig,
     private autoCapacService : AutocapacitacionService
     ) {
+    console.log(this.paramUrl);
 
     this.config.interval = 9000;
     this.config.keyboard = true;

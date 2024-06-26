@@ -33,8 +33,12 @@ export class AraizaAprendeConfigComponent {
     categoria : ["", Validators.required],
     tema : ["", Validators.required],
     nombre : ["", Validators.required],
-    link : ["", Validators.required],
+    link : ["", Validators.nullValidator],
     input : ["", Validators.required],
+    titulo: ["", Validators.nullValidator],
+    descripcion: ["", Validators.nullValidator],
+    linkVideo: ["", Validators.nullValidator],
+    linkForm: ["", Validators.nullValidator]
   })
 
 
@@ -139,7 +143,11 @@ async subirImg(evt : any){
             img : resp.container.nombre,
             link : this.formAraizaAprende.value['link'],
             nombre : this.formAraizaAprende.value['nombre'],
-            formato : this.formato
+            formato : this.formato,
+            titulo: this.formAraizaAprende.value["titulo"],
+            descripcion: this.formAraizaAprende.value["descripcion"],
+            linkVideo: this.formAraizaAprende.value["linkVideo"],
+            linkForm: this.formAraizaAprende.value["linkForm"]
           };
 
           return this.service.insertarVideo(video)

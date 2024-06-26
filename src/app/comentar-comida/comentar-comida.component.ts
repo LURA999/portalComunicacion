@@ -75,7 +75,7 @@ formComment : FormGroup = this.fb.group({
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`); // Pizza!
+        // console.log(`Dialog result: ${result}`); // Pizza!
       });
      }else{
       this.btnEnv.disabled = false;

@@ -1,0 +1,25 @@
+<div cdkDragRootElement=".cdk-overlay-pane" class="example-box"  cdkDrag>
+
+  <h2 mat-dialog-title>Línea de ayuda</h2>
+  <p>¡Hola! Bienvenido/a a nuestra línea de ayuda. Aquí estamos para brindarte apoyo y orientación en cualquier
+    situación que puedas enfrentar en tu entorno laboral. ¡Estamos aquí para ayudarte! Describe tu situación a continuación.</p>
+  <form [formGroup]="formSugerencia">
+    <mat-dialog-content>
+    <div>
+      <mat-form-field class="sugerencia" appearance="outline">
+        <mat-label>Asunto</mat-label>
+        <input autocomplete="off" matInput formControlName="asunto" class="sugerencia" type="text" class="ing-txt">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" class="textarea">
+        <mat-label>Mensaje</mat-label>
+        <textarea autocomplete="off"  matInput formControlName="mensaje" type="text"  class="textarea" rows="10" class="ing-txt"></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" #enviar (click)="enviandoDatos()"> Enviar</button>
+  </mat-dialog-actions>
+  </form>
+  </div>

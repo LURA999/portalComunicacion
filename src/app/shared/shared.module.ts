@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout/layout.component';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { BuzonSugerenciaComponent } from './buzon-sugerencia/buzon-sugerencia.component';
+import { LineaDeAyudaComponent } from './linea-de-ayuda/linea-de-ayuda.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { BuzonSugerenciaComponent } from './buzon-sugerencia/buzon-sugerencia.co
   ],
   declarations: [
     LayoutComponent,
-    BuzonSugerenciaComponent
+    BuzonSugerenciaComponent,
+    LineaDeAyudaComponent
   ],
   exports: [
     CustomMaterialModule,

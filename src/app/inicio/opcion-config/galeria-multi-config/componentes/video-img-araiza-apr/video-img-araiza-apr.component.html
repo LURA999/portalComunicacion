@@ -5,7 +5,7 @@
     <div class="seccion" >
       <div *ngFor="let i of videoAraiza">
       <div class="limite">
-          <img [alt]="i.img"
+          <img  rel="preload" [alt]="i.img"
           [lazyLoad]=" (recursoUrlStr(i.img) | async)!.toString()"
           src="../../../../../../assets/img/pruebas/loading-noticia.gif">
           <div class="fecha"> {{i.nombre}} </div>

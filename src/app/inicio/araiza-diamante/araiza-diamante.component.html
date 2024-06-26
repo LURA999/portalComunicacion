@@ -9,10 +9,10 @@
             </article>
             <button  mat-raised-button id="btnWeb" (click)="irLink('https://www.araizahoteles.com/araiza-diamante')">Sitio web</button>
         </div>
-        <img class="imgAraiza" [src]="this.link+'assets/img/araiza-diamante/celular-araiza.png'" alt="">
+        <img  rel="preload" class="imgAraiza" [src]="this.link+'assets/img/araiza-diamante/celular-araiza.png'" alt="">
     </div>
     <div class="article-container" id="seccion4">
-        <img class="imgAraiza2" [src]="this.link+'assets/img/araiza-diamante/descuentos-pic.png'" alt="">
+        <img  rel="preload" class="imgAraiza2" [src]="this.link+'assets/img/araiza-diamante/descuentos-pic.png'" alt="">
         <div>
             <h1 class="h1-s">30% de descuento en <br><span style="color:#DC994D;">alimentos y bebidas</span></h1>
             <article>
@@ -40,7 +40,7 @@
           <!-- <article id="mensaje-alianzas">Para saber las alianzas por favor comuníquese con araiza diamante</article> -->
           <ngx-slick-carousel #slickModal="slick-carousel"  [config]="carouselConfig">
             <div ngxSlickItem *ngFor="let item of items; let idx = index">
-              <img [src]="'https://www.comunicadosaraiza.com/portal_api/API/araiza_diam_img/'+item" [alt]="idx+'image'">
+              <img  rel="preload" [src]="'https://www.comunicadosaraiza.com/portal_api/API/araiza_diam_img/'+item" [alt]="idx+'image'">
             </div>
           </ngx-slick-carousel>
         </div>

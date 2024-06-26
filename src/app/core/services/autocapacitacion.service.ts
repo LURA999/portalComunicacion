@@ -15,7 +15,6 @@ export class AutocapacitacionService {
 
   //Elimina la autocapacitacion (sin la imagen)
  /**/ eliminarAutocapacitacion(id:number): Observable<ResponseInterfaceTs>{
-    console.log(this.api+"autoCapac.php?eliminarCapacitacion="+id);
     return this.http.delete<ResponseInterfaceTs>(this.api+"autoCapac.php?eliminarCapacitacion="+id)
   }
 

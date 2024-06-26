@@ -1,0 +1,89 @@
+  iframe {
+    width: 560px;
+    height: 315px;
+  }
+
+  #container-ar-apr-click {
+    min-height: 100%;
+    padding-bottom: 5%;
+  }
+
+  #titulo2 {
+    font-family: 'gotham-bold';
+
+  }
+
+  #titulo1 {
+    font-family: 'gotham-bold';
+  }
+  h2 {
+    text-align: left;
+    font-family: 'gotham-bold';
+  }
+
+  h3 {
+    text-align: left;
+    font-family: 'gotham-bold';
+  }
+
+
+  p {
+    text-align: justify;
+    font-family: 'gotham-book';
+    font-size: 16px;
+  }
+
+@media(max-width:740px){
+  h2 {
+    font-size: 18px;
+    line-height: normal;
+  }
+
+  h3 {
+    font-size: 18px;
+    line-height: normal;
+  }
+
+  p {
+    text-align: justify;
+    font-family: 'gotham-book';
+    font-size: 14px;
+
+  }
+}
+
+@media(max-width:700px){
+  iframe {
+    width: 400px;
+    height: 245px;
+  }
+}
+
+@media(max-width:499px){
+  iframe {
+    width: 350px;
+    height: 245px;
+  }
+}
+
+
+@media(max-width:420px){
+  iframe {
+    width: 280px;
+    height: 230px;
+  }
+}
+
+@media(max-width:355px){
+  iframe {
+    width: 250px;
+    height: 230px;
+  }
+}
+
+@media(max-width:355px){
+  iframe {
+    width: 220px;
+    height: 230px;
+  }
+}

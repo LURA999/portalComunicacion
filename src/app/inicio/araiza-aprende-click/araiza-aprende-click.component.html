@@ -1,0 +1,27 @@
+<div id="container-ar-apr-click" style="margin: 5% 10% 0 10%;" *ngIf="arrVideo | async as data">
+  <h2><span id="titulo1">{{this.data.container[0]["titulo"]}}</span> <span id="titulo2" class="color_primario"> | {{this.data.container[0]['categoria']}}</span></h2>
+  <hr>
+  <div>
+    <h3>Descripción del curso</h3>
+    <p>
+      {{this.data.container[0]["descripcion"]}}
+    </p>
+  </div>
+  <div>
+    <h3>Contenido</h3>
+    <p>
+      <iframe [src]="recursoUrl(this.data.container[0]['linkVideo'])"
+      title="YouTube video player"
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </p>
+
+    <h3>
+      Cuestionario
+    </h3>
+    <p>
+      <a (click)="goPageForm()">{{this.data.container[0]["titulo"]}}</a>
+    </p>
+  </div>
+</div>
+<app-footer></app-footer>

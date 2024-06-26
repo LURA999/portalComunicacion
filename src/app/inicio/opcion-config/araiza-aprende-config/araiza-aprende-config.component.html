@@ -1,7 +1,8 @@
 <div class="container-perso">
   <form [formGroup]="formAraizaAprende"  enctype="multipart/form-data">
 
-    <h1>Video</h1>
+    <h1>Creación del tutorial</h1>
+    <h2>Datos principales</h2>
     <div  class="select-catema" >
       <mat-form-field appearance="outline">
         <mat-label>Categoría</mat-label>
@@ -10,8 +11,8 @@
         </mat-select>
       </mat-form-field>
       <div class="btn-add-rest">
-        <img src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add(1)" alt="add">
-      <img src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest(11)" alt="rest">
+        <img  rel="preload" src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add(1)" alt="add">
+      <img  rel="preload" src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest(11)" alt="rest">
       </div>
     </div>
 
@@ -23,8 +24,8 @@
         </mat-select>
       </mat-form-field>
       <div class="btn-add-rest">
-      <img src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add(2)" alt="add">
-    <img src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest(22)" alt="rest">
+      <img  rel="preload" src="../../../../assets/img/icon/add-araiza-aprende.svg" (click)="add(2)" alt="add">
+    <img  rel="preload" src="../../../../assets/img/icon/rest-araiza-aprende.svg" (click)="rest(22)" alt="rest">
     </div>
     </div>
 
@@ -41,9 +42,43 @@
       <div class="otro-input">
         <mat-form-field class="example-ripple-form-field" appearance="outline">
           <mat-label>Ingrese link del slider</mat-label>
-          <input autocomplete="off" matInput formControlName="link" >
+          <input autocomplete="off" matInput formControlName="link" #message>
         </mat-form-field>
       </div>
+      <br>
+
+      <ng-container *ngIf="message.value.length == 0 ">
+        <h2>Datos de la página</h2>
+        <div class="otro-input">
+          <mat-form-field class="example-ripple-form-field" appearance="outline">
+            <mat-label>Título</mat-label>
+            <input autocomplete="off" matInput formControlName="titulo" >
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="otro-input">
+          <mat-form-field class="example-ripple-form-field" appearance="outline">
+            <mat-label>Descripción del curso</mat-label>
+            <textarea autocomplete="off" matInput formControlName="descripcion" ></textarea>
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="otro-input">
+          <mat-form-field class="example-ripple-form-field" appearance="outline">
+            <mat-label>Link del video embed</mat-label>
+            <input autocomplete="off" matInput formControlName="linkVideo" >
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="otro-input">
+          <mat-form-field class="example-ripple-form-field" appearance="outline">
+            <mat-label>Link del formulario</mat-label>
+            <input autocomplete="off" matInput formControlName="linkForm" >
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+
       <br>
 
         <button type="submit" mat-raised-button id="submit" color="primary"   (click)="enviandoDatos()" #miBoton>Enviar</button>

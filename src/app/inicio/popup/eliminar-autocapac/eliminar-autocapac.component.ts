@@ -58,7 +58,6 @@ export class EliminarAutocapacComponent {
               throw "Error in source."
           })
           ).subscribe(async (resp:ResponseInterfaceTs)=>{
-            console.log(resp);
             this.dialogRef.close(await resp.container);
           }))
         }else{

@@ -51,6 +51,8 @@ import { EditarDepartamentoComponent } from './popup/editar-departamento/editar-
 import { CrearAutocapacComponent } from './popup/crear-autocapac/crear-autocapac.component';
 import { AsignarAutocapacComponent } from './popup/asignar-autocapac/asignar-autocapac.component';
 import { EliminarAutocapacComponent } from './popup/eliminar-autocapac/eliminar-autocapac.component';
+import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-aprende-click.component';
+import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { EliminarAutocapacComponent } from './popup/eliminar-autocapac/eliminar-
     CrearAutocapacComponent,
     AsignarAutocapacComponent,
     EditarxHotelAutocapacComponent,
-    EliminarAutocapacComponent
+    EliminarAutocapacComponent,
+    AraizaAprendeClickComponent,
+    AraizaAprendeFormularioComponent
   ],
   imports: [
     HttpClientModule,

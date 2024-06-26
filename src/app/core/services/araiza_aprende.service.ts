@@ -12,6 +12,10 @@ export interface videoAraizaAprende {
   img : String;
   link : String;
   formato: String;
+  titulo : String;
+  descripcion : String;
+  linkVideo : String;
+  linkForm : String;
 }
 
 @Injectable({
@@ -37,8 +41,12 @@ export class AraizaAprendeService {
   todoVideo(): Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?todoVideo=true");
   }
+
+  segundaPageArAp(id :string): Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?ArApr="+id);
+  }
+
   eliminarTema( idTema : number): Observable<ResponseInterfaceTs>{
-    console.log(this.api+"araizaAprende.php?idTema="+idTema);
 
     return this.http.delete<ResponseInterfaceTs>(this.api+"araizaAprende.php?idTema="+idTema)
   }
@@ -83,8 +91,6 @@ export class AraizaAprendeService {
   editarVideo(imgAraizaApr : videoAraizaAprende): Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders()
     headers.append('Content-Type', 'application/json');
-    console.log(this.api+"araizaAprende.php");
-    console.log(imgAraizaApr);
 
     return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprende.php",imgAraizaApr,{headers})
   }

@@ -20,8 +20,7 @@ export class AccessGuard implements CanActivate {
     if( (path === '/portal_api/API/imgVideo/fotos' ||
         path === '/portal_api/API/imgVideo/galeria-slide' ||
         path === '/portal_api/API/imgVideo/galeria-noticia') && pathLength !== undefined){
-          console.log(path);
-          console.log(pathLength);
+
 
       return false;
     }

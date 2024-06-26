@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
 import { BuzonSugerenciaComponent } from '../buzon-sugerencia/buzon-sugerencia.component';
 import { ThanksComponent } from 'src/app/inicio/popup/thanks/thanks.component';
+import { LineaDeAyudaComponent } from '../linea-de-ayuda/linea-de-ayuda.component';
 
 
 @Component({
@@ -124,6 +125,26 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       })
     }
+
+    lineaDeAyuda(){
+      let dialogRef = this.dialog.open(LineaDeAyudaComponent, {
+        height: 'auto',
+        width: '600px'
+      });
+      dialogRef.afterClosed().pipe(
+        catchError( _ => {
+          throw "Error in source."
+      })
+      ).subscribe(async (resp:Boolean)=>{
+        if(resp){
+          this.dialog.open(ThanksComponent, {
+            height: 'auto',
+            width: '280px',
+          });
+        }
+      })
+    }
+
 
     activarSeccion(link? : string, nombre? :string){
 

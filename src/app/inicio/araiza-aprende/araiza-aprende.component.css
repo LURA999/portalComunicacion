@@ -1,3 +1,7 @@
+#container-ara-apr {
+  min-height: 100%;
+}
+
 #cabecera {
   display: flex;
   justify-content: space-between;

@@ -1,7 +1,8 @@
-<div style="margin: 5% 10% 0 10%;">
+<div id="container-ara-apr" style="margin: 5% 10% 0 10%;">
   <!-- Cabecera -->
   <div id="cabecera">
-    <h1> <span id="titulo1"> Araiza Aprende </span><span id="titulo2" class="color_primario">| {{titulop2}}</span> </h1>
+    <h2> <span id="titulo1"> Araiza Aprende </span><span id="titulo2" class="color_primario">| {{titulop2}}</span> </h2>
+
     <mat-form-field appearance="outline" id="buscarCat">
       <mat-label>Categoría</mat-label>
       <mat-select [value]="'1'" (selectionChange)="onSelected($event)">
@@ -22,11 +23,10 @@
         <ngx-slick-carousel #slickModal="slick-carousel"  [config]="carouselConfig">
           <div ngxSlickItem *ngFor="let t of arrTemas[idx]; let idx = index">
             <div class="slide">
-              <img
+              <img  rel="preload"
               [src]="'https://www.comunicadosaraiza.com/portal_api/API/imgVideo/galeria-video-araiza-aprende/fotos/'+t.img"
-               (click)="irLink(t.link)" [alt]="idx+'image'">
+               (click)="ir(t)" [alt]="idx+'image'">
               <span>{{t.nombre}}</span>
-
             </div>
           </div>
         </ngx-slick-carousel>
@@ -37,3 +37,4 @@
     </ng-template>
   </div>
 </div>
+<app-footer></app-footer>

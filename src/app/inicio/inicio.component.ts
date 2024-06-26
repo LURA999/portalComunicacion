@@ -56,7 +56,8 @@ export class InicioComponent implements OnInit {
   constructor(private DataService : DataNavbarService,
     public route : Router,
     private serviceImgVideo : SubirImgVideoService,
-    private sanitizer : DomSanitizer, config: NgbCarouselConfig, private auth : AuthService
+    private sanitizer : DomSanitizer, config: NgbCarouselConfig,
+    private auth : AuthService
     ) {
       config.interval = 9000;
       config.keyboard = true;

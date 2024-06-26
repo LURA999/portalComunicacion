@@ -233,7 +233,6 @@ export class EditarSliderComponent implements OnInit {
                   concatMap((resp2:ResponseInterfaceTs) => {
                   this.data.obj.imgVideo = resp2.container.nombre
                   this.data.obj.formato = resp2.container.tipo
-                  console.log(this.data);
 
                   //(A)
                   if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&

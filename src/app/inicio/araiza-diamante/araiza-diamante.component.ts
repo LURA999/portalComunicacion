@@ -130,7 +130,6 @@ export class AraizaDiamanteComponent implements OnInit {
   }
 
   handleCarouselEvents(event:any) {
-		console.log(event);
 	}
 
 

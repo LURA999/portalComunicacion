@@ -42,7 +42,7 @@
         <div class="pag-noticia-container-matCard">
         <div class="pag-noticia-img-card">
           <ng-container *ngIf="i.formato === 'image'; else elseTemplate">
-            <img
+            <img  rel="preload"
             [lazyLoad]=" (recursoUrlStr( noticias.length == 0?  i.imgVideo : i.imgVideo,1,1,false) | async)!.toString()"
             src="../../../assets/img/pruebas/loading-noticia.gif"
             class="pag-noticia-d-block w-100"

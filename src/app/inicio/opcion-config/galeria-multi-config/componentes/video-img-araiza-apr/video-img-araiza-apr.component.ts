@@ -42,7 +42,11 @@ export class VideoImgAraizaAprComponent implements OnInit {
             idTema: resp.container[i]['fk_idTema'],
             nombre: resp.container[i]['nombre'],
             img: resp.container[i]['img'],
-            formato: resp.container[i]['formato']
+            formato: resp.container[i]['formato'],
+            titulo: resp.container[i]['titulo'],
+            descripcion: resp.container[i]['descripcion'],
+            linkVideo: resp.container[i]['linkVideo'],
+            linkForm: resp.container[i]['linkForm'],
           })
         }
       }
@@ -75,7 +79,11 @@ export class VideoImgAraizaAprComponent implements OnInit {
             idTema: i['fk_idTema'],
             nombre: i['nombre'],
             img: i['img'],
-            formato: i['formato']
+            formato: i['formato'],
+            titulo: i['titulo'],
+            descripcion: i['descripcion'],
+            linkVideo: i['linkVideo'],
+            linkForm: i['linkForm']
           })
           }
           this.cargando = true;
@@ -125,7 +133,11 @@ export class VideoImgAraizaAprComponent implements OnInit {
               idTema: i['fk_idTema'],
               nombre: i['nombre'],
               img: i['img'],
-              formato: i['formato']
+              formato: i['formato'],
+              titulo: i['titulo'],
+              descripcion: i['descripcion'],
+              linkVideo: i['linkVideo'],
+              linkForm: i['linkForm']
             })
           }
           this.cargando = true;

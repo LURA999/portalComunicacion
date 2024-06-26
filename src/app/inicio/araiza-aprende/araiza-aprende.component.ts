@@ -3,6 +3,9 @@ import { AraizaAprendeService, videoAraizaAprende } from 'src/app/core/services/
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { categoriaInterfaz, temaInterfaz } from '../opcion-config/araiza-aprende-config/araiza-aprende-config.component';
 import { concatMap, of } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-araiza-aprende',
@@ -75,7 +78,10 @@ export class AraizaAprendeComponent {
   ]
   };
 
-  constructor(private serviceAraizaApr : AraizaAprendeService  ){
+  constructor(
+    private serviceAraizaApr : AraizaAprendeService,
+    public route : Router,
+    private auth : AuthService ){
 
     this.serviceAraizaApr.todoCategorias().subscribe((resp:ResponseInterfaceTs) =>{
       for (let i = 0; i < resp.container.length; i++) {
@@ -116,6 +122,7 @@ export class AraizaAprendeComponent {
     this.arrTemas = [];
     this.arrIndiceTema = [];
     this.nomTemas = [];
+
     this.serviceAraizaApr.todoTemasCategoria(Number(event.value)).pipe(
       concatMap((resp: ResponseInterfaceTs) => {
         for (let i = 0; i < resp.container.length; i++) {
@@ -142,8 +149,13 @@ export class AraizaAprendeComponent {
     });
   }
 
-  irLink(link : String){
-    window.open(link.toString(),"_blank")
+  ir(arrTemas : videoAraizaAprende){
+    if (arrTemas.link.length == 0 && arrTemas.idArApr) {
+      this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.idArApr.toString(),"Amxl@2019*-").toString(),"pag_ar");
+      this.route.navigate(["/general/araiza-aprende/araiza-aprende-click"]);
+    }else{
+      window.open(arrTemas.link.toString(),"_blank")
+    }
   }
 
 }

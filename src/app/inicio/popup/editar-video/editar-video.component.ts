@@ -42,8 +42,12 @@ export class EditarVideoComponent implements OnInit {
     categoria : [this.data?.idCategoria.toString(), Validators.required],
     tema : [this.data?.idTema.toString(), Validators.required],
     nombre : [this.data?.nombre, Validators.required],
-    link : [this.data?.link, Validators.required],
-    input : [this.data?.link, Validators.required],
+    link : [this.data?.link, Validators.nullValidator],
+    input : [this.data?.img, Validators.required],
+    titulo: [this.data?.titulo, Validators.nullValidator],
+    descripcion: [this.data?.descripcion, Validators.nullValidator],
+    linkVideo: [this.data?.linkVideo, Validators.nullValidator],
+    linkForm: [this.data?.linkForm, Validators.nullValidator]
   })
   link : string =  environment.production === true ? "": "../../../";
   api : string = environment.api;
@@ -169,6 +173,8 @@ export class EditarVideoComponent implements OnInit {
   }
 
   async enviandoDatos() {
+console.log(this.formAraizaAprende.valid);
+
      if (this.formAraizaAprende.valid == false) {
       alert("Por favor llene todos los campos");
     } else {

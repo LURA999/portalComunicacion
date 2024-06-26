@@ -1,11 +1,11 @@
 <div id="container-mes">
   <div id="cabecera">
-    <img [src]="link+'assets/img/img-seccion-hotel/mesirvesario-head.png'" id="cabecera-mes"  alt="cabecera-mes">
+    <img  rel="preload" [src]="link+'assets/img/img-seccion-hotel/mesirvesario-head.png'" id="cabecera-mes"  alt="cabecera-mes">
     <span id="titulo_1" [style.color]="color_primary" >EMPLEADO <br> <span id="titulo_2"> DEL MES </span></span>
     <article>
       El trabajo que brindó superó todas <br> las expectativas. Grupo Araiza agradece tu apoyo <br> y dedicación.
     </article>
-    <img [src]="link+'assets/img/img-seccion-hotel/logo-mesirvesario.png'" id="logo-comedor" alt="logo-comedor">
+    <img  rel="preload" [src]="link+'assets/img/img-seccion-hotel/logo-mesirvesario.png'" id="logo-comedor" alt="logo-comedor">
 
   </div>
   <section>
@@ -18,7 +18,7 @@
             <tr >
               <td class="num negrito" [width]="'5%'">
                 <ng-container *ngIf="i.posicion === '1' || i.posicion === 1; else elseTemplate">
-                  <div><img [src]="link+'assets/img/img-seccion-hotel/corona.png'" alt="corona" class="corona"></div>
+                  <div><img  rel="preload" [src]="link+'assets/img/img-seccion-hotel/corona.png'" alt="corona" class="corona"></div>
                   <div>1</div>
                 </ng-container>
                 <ng-template #elseTemplate>
@@ -27,7 +27,7 @@
               </td>
               <td class="img" [style.width]="'15%'">
                 <div class="img-card">
-                  <img [src]=" recursoUrl( i.img )"  />
+                  <img  rel="preload" [src]=" recursoUrl( i.img )"  />
                 </div>
               </td>
               <td  [width]="'40%'">
@@ -38,7 +38,8 @@
                 {{i.contratoNombre}}
               </td>
               <td class="udm">
-                {{i.mes}}
+                {{i.mes}} <ng-container *ngIf="lua==3 || lua ==5"> - {{sumarMes(i.mes)}} </ng-container>
+
               </td>
             </tr>
           </table>

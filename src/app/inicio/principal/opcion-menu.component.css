@@ -98,6 +98,7 @@
   font-family: 'gotham-medium';
   text-align: center;
   font-size:  12px;
+  margin-top: 5px;
   line-height: 14px;
 }
 
@@ -113,6 +114,7 @@
 
 
 #msj-autocapac {
+  width: 100%;
   text-align: center;
   font-family: 'gotham-book';
 }
@@ -157,7 +159,8 @@ text-align: -webkit-center;
 
 #seccion4-notice article{
 font-family: 'gotham-book';
-
+padding-left: 5%;
+padding-right: 5%;
 }
 
 #seccion4-notice h2 {
@@ -240,7 +243,7 @@ width: fit-content;
 
 /*Beneficios*/
 
-.container-beneficios {
+.container-beneficios, .container-beneficios2{
   margin-top: 8%;
   margin-bottom: 10%;
   display: flex;
@@ -260,12 +263,16 @@ width: 100%;
 
 }
 
-#beneficios span {
-font-size: 2vw;
-padding: 50px;
+.container-beneficios, #beneficios span {
+padding: 50px 3% 50px 50px;
 line-height: 100%;
-padding-right: 0px;
 color: #DC994D;
+}
+
+.container-beneficios2, #beneficios span {
+  padding: 50px 3% 50px 50px;
+  line-height: 100%;
+  color: #DC994D;
 }
 
 #beneficios .cBfcios {
@@ -356,10 +363,9 @@ font-family: 'gotham-book';
   display: block !important;
 }
 .noticia img {
-  width: 100%;
-  height: 160px !important;
   margin: 0;
   text-align: center;
+  height: 120px !important;
 }
 .noticia .img-card {
   height: auto;
@@ -371,7 +377,7 @@ font-family: 'gotham-book';
 }
 
 @media (max-width:1500px){
-.container-beneficios{
+.container-beneficios.container-beneficios2 {
   margin-left: 1%;
   margin-right: 1%;
 }
@@ -379,6 +385,7 @@ font-family: 'gotham-book';
   width: 100%;
 }
 }
+
 
 @media(max-width:1750px){
 
@@ -414,7 +421,6 @@ font-family: 'gotham-book';
   word-break: break-word;
   height: 80px;
   cursor: pointer;
-  border: 1px solid #293641;
 }
 
 #container-notice2 {
@@ -535,7 +541,7 @@ mat-card  {
 @media(max-width:1120px){
   .info span {
     font-family: 'gotham-book';
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .info h2 {
@@ -576,29 +582,66 @@ mat-card  {
   }
 }
 
-@media (max-width:970px){
+@media (max-width: 1150px){
+
+  .container-beneficios2{
+    display: block;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  .container-beneficios2 .cBfcios img {
+    width: auto !important;
+    height: 90px;
+  }
+
+  .container-beneficios2 #beneficios {
+    display: block;
+    text-align: -webkit-center;
+  }
+
+  .container-beneficios2 #beneficios span{
+    padding: 0;
+    font-size: 30px;
+  }
+
+  .container-beneficios2 #beneficios .cBfcios {
+    width: 90%;
+    border: 1px solid black;
+    margin: 15px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+  }
+
+}
+
+
+@media (max-width: 1285px){
 
   .container-beneficios{
     display: block;
     margin-left: 1%;
     margin-right: 1%;
   }
-  .cBfcios img {
+
+  .container-beneficios .cBfcios img {
     width: auto !important;
     height: 90px;
   }
 
-  #beneficios {
+  .container-beneficios #beneficios {
     display: block;
     text-align: -webkit-center;
   }
 
-  #beneficios span{
+  .container-beneficios #beneficios span{
     padding: 0;
     font-size: 30px;
   }
 
-  #beneficios .cBfcios {
+  .container-beneficios #beneficios .cBfcios {
     width: 90%;
     border: 1px solid black;
     margin: 15px;
@@ -672,6 +715,13 @@ mat-card  {
 
 
 @media(max-width:490px){
+  #boxContainerBtnCapacitacion {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 10px;
+  }
+
   .menu {
     width: 100%;
     margin-top: 50px;
@@ -681,6 +731,24 @@ mat-card  {
     padding-left: 0;
     padding-right: 0;
   }
+  .texto {
+    font-size:  13px;
+  }
+
+  .textoAutocapac {
+    font-size: 15px;
+  }
+  .textoAutocapacName{
+    margin-top: 15px;
+    font-size:  15px;
+    line-height: 16px;
+  }
+
+  #seccion4-notice article{
+    font-family: 'gotham-book';
+    font-size:  15px;
+    line-height: 16px;
+    }
 
 }
 
@@ -690,13 +758,7 @@ mat-card  {
     font-size: 100%;
   }
 
-  .textoAutocapac {
-    font-size: 13px;
-  }
-  .textoAutocapacName{
-    font-size:  11px;
-    line-height: 12px;
-  }
+
 }
 
 @media(max-width:380px) {
@@ -729,3 +791,17 @@ position: relative;
     height: 2px;
   }
 }
+
+
+
+/* @media(min-width:2265px){
+  #beneficios span {
+    padding-right: 100px;
+  }
+}
+
+@media(min-width:1424){
+  #span-pal {
+    padding-right: 10px !important;
+  }
+} */
