@@ -16,12 +16,13 @@
       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </p>
 
-    <h3>
+    <!-- <h3>
       Cuestionario
     </h3>
     <p>
-      <a (click)="goPageForm()">{{this.data.container[0]["titulo"]}}</a>
-    </p>
+      <a [href]="this.data.container[0]['linkForm']">{{this.data.container[0]["titulo"]}}</a>
+       <a [routerLink]="'/general/araiza-aprende/araiza-aprende-formulario'">{{this.data.container[0]["titulo"]}}</a>
+    </p> -->
   </div>
 </div>
 <app-footer></app-footer>

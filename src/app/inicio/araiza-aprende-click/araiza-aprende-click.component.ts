@@ -34,10 +34,4 @@ export class AraizaAprendeClickComponent {
   recursoUrl(src : string) : SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(src);
   }
-
-  goPageForm(){
-
-
-  }
-
   }
