@@ -31,7 +31,17 @@ export class AraizaAprendeClickComponent {
     this.arrVideo = this.serviceAraizaApr.segundaPageArAp(this.ar_apr)
   }
 
-  recursoUrl(src : string) : SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(src);
-  }
+    recursoUrl(src : string) : SafeResourceUrl {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(src);
+    }
+
+    siguiente(){
+
+    }
+
+    anterior(){
+
+    }
+
+
   }

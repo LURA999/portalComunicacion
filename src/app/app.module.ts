@@ -40,8 +40,7 @@ import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
-    NgbModule
-
+    NgbModule,
   ],
   exports: [ ],
   bootstrap: [ AppComponent ],

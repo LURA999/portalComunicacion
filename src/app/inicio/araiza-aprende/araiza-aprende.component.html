@@ -17,10 +17,10 @@
   <!-- Contenido con temas dinámicos -->
   <div style="margin-top: 20px;">
 
-    <ng-container *ngIf="nomTemas.length > 0; else elseTemplate">
+    <ng-container  *ngIf="nomTemas.length > 0; else elseTemplate">
       <div *ngFor="let titulo of nomTemas; let idx = index" class="sliderAraizaAprende">
         <h2>{{titulo}}</h2>
-        <ngx-slick-carousel #slickModal="slick-carousel"  [config]="carouselConfig">
+        <ngx-slick-carousel  #slickModal="slick-carousel"  [config]="carouselConfig">
           <div ngxSlickItem *ngFor="let t of arrTemas[idx]; let idx = index">
             <div class="slide">
               <img  rel="preload"
@@ -30,6 +30,7 @@
             </div>
           </div>
         </ngx-slick-carousel>
+        <br><br>
       </div>
     </ng-container>
     <ng-template #elseTemplate>

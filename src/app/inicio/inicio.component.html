@@ -19,8 +19,6 @@
       </ng-template>
     </ng-template>
   </ngb-carousel>
-
-
     <div class="pag-inicio-container-article">
         <div class="pag-inicio-article">
           <h2 id="pag-inicio-bienvenido">¡BIENVENIDO A <span>GRUPO ARAIZA!</span></h2>
@@ -31,6 +29,18 @@
             </article>
         </div>
     </div>
+    <!-- <div id="container-bars">
+      <div id="pic-container" *ngFor="let i of rivales; let x=index">
+        <div class="pic" id="pic{{x}}"></div>
+          <div class="bar">
+            <div id="progress-container{{x}}" >
+              <div class="progress-tlabel">
+                <div id="progress-label{{x}}">{{i.porcentaje}}%</div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div> -->
     <div id="pag-inicio-section_3">
         <div>
           <img  rel="preload" id="imgHidden" [src]="this.link+'assets/img/img-general/estudiante1.png'" alt="imagen estudiante">
@@ -46,6 +56,7 @@
           <br><button id="botonTuto" mat-raised-button color="primary" (click)="routerLink('araiza-aprende')">Comenzar</button>
         </div>
       </div>
+
       <div class="pag-inicio-article2" id="seccion4-notice">
         <h2 >NOTICIAS</h2>
       <article>¡No te pierdas las novedades de lo que sucede en el hotel!</article>

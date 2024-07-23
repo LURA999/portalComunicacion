@@ -11,6 +11,8 @@ import { NgDialogAnimationService } from 'ng-dialog-animation';
 import { BuzonSugerenciaComponent } from '../buzon-sugerencia/buzon-sugerencia.component';
 import { ThanksComponent } from 'src/app/inicio/popup/thanks/thanks.component';
 import { LineaDeAyudaComponent } from '../linea-de-ayuda/linea-de-ayuda.component';
+import { VotarPopupComponent } from '../votar-popup/votar-popup.component';
+import { AraizaEnCamerinoComponent } from '../araiza-en-camerino/araiza-en-camerino.component';
 
 
 @Component({
@@ -65,21 +67,21 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        if (Number(this.auth.getCveRol()) > 1) {
-            let opcNav : HTMLCollectionOf<Element> = document.getElementsByClassName('opc')
-            for (var i = 0; i < opcNav.length; i++) {
-                this.rend2.setStyle(opcNav.item(i),"display","none")
-            }
-
-            //navbar horizontal
-            this.rend2.setStyle(opcNav.item(7),"display","block")
-            this.rend2.setStyle(opcNav.item(0),"display","block")
-            this.rend2.setStyle(opcNav.item(this.auth.getCveLocal()),"display","block")
-
-            //navbar vertical para administradores
-            this.rend2.setStyle(opcNav.item(8 + Number(this.auth.getCveLocal())),"display","block")
-            this.rend2.setStyle(opcNav.item(14),"display","block")
+      if (Number(this.auth.getCveRol()) > 1) {
+        let opcNav : HTMLCollectionOf<Element> = document.getElementsByClassName('opc')
+        for (var i = 0; i < opcNav.length; i++) {
+            this.rend2.setStyle(opcNav.item(i),"display","none")
         }
+
+        //navbar horizontal
+        this.rend2.setStyle(opcNav.item(7),"display","block")
+        this.rend2.setStyle(opcNav.item(0),"display","block")
+        this.rend2.setStyle(opcNav.item(this.auth.getCveLocal()),"display","block")
+
+        //navbar vertical para administradores
+        this.rend2.setStyle(opcNav.item(8 + Number(this.auth.getCveLocal())),"display","block")
+        this.rend2.setStyle(opcNav.item(14),"display","block")
+      }
     }
 
 
@@ -145,6 +147,47 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     }
 
+    votarPop(){
+      let dialogRef = this.dialog.open(VotarPopupComponent, {
+        height: 'auto',
+        width: '600px'
+      });
+      dialogRef.afterClosed().pipe(
+        catchError( _ => {
+          throw "Error in source."
+      })
+      ).subscribe(async (resp:Boolean)=>{
+        if(resp){
+          this.dialog.open(ThanksComponent, {
+            height: 'auto',
+            width: '280px',
+          });
+        }
+      })
+    }
+
+    enCamerinoPop(correo:String, titulo: String){
+      let dialogRef = this.dialog.open(AraizaEnCamerinoComponent, {
+        height: 'auto',
+        width: '600px',
+        data: {
+          correo: correo,
+          titulo: titulo
+        }
+      });
+      dialogRef.afterClosed().pipe(
+        catchError( _ => {
+          throw "Error in source."
+      })
+      ).subscribe(async (resp:Boolean)=>{
+        if(resp){
+          this.dialog.open(ThanksComponent, {
+            height: 'auto',
+            width: '280px',
+          });
+        }
+      })
+    }
 
     activarSeccion(link? : string, nombre? :string){
 
@@ -153,7 +196,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
-      this.render.setStyle(document.getElementsByClassName("opc")[17],"color","#FFFFFF")
+      this.render.setStyle(document.getElementsByClassName("opc")[18],"color","#FFFFFF")
 
       //aqui se imprimen las opciones del navbar horizontal
       for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
@@ -223,6 +266,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "autocapac-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
             break;
+          case "votaciones-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
+          break;
         }
       } else {
         switch (link) {
@@ -279,6 +325,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "/general/autocapac-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
             break;
+          case "/general/votaciones-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
+          break;
         }
       }
     }

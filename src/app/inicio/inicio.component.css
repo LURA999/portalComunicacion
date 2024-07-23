@@ -1,3 +1,55 @@
+#container-bars {
+  padding-left: 6%;
+  width: 60%;
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.bar {
+  margin-left: 2%;
+  position: relative;
+  display: flex;
+  height: 30px !important;
+  width: 100%;
+  background: #cfcfcf67;
+}
+
+.progress-tlabel {
+  position: absolute;
+  top: 0;
+  /* background-color: red; */
+  /* left: 25%;
+  transform: translateX(-50%); */
+  height: 100%;
+  /* width: 98%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Ajusta el color según sea necesario */
+  font-weight: bold;
+}
+
+/* foto por barra */
+#pic-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pic {
+  width: 70px;
+  height: 60px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+
+
+
 #imgHidden2 {
   display: none;
 }

@@ -6,6 +6,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { BuzonSugerenciaComponent } from './buzon-sugerencia/buzon-sugerencia.component';
 import { LineaDeAyudaComponent } from './linea-de-ayuda/linea-de-ayuda.component';
+import { VotarPopupComponent } from './votar-popup/votar-popup.component';
+import { AraizaEnCamerinoComponent } from './araiza-en-camerino/araiza-en-camerino.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { LineaDeAyudaComponent } from './linea-de-ayuda/linea-de-ayuda.component
   declarations: [
     LayoutComponent,
     BuzonSugerenciaComponent,
-    LineaDeAyudaComponent
+    LineaDeAyudaComponent,
+    VotarPopupComponent,
+    AraizaEnCamerinoComponent,
   ],
   exports: [
     CustomMaterialModule,

@@ -33,6 +33,11 @@
     font-size: 16px;
   }
 
+  #container-btn-sgt {
+    display: flex;
+    justify-content:space-between;
+  }
+
 @media(max-width:740px){
   h2 {
     font-size: 18px;

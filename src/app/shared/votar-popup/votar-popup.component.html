@@ -1,0 +1,16 @@
+<div cdkDragRootElement=".cdk-overlay-pane" class="example-box"  cdkDrag>
+
+  <h2 mat-dialog-title>Línea de ayuda</h2>
+  <p></p>
+  <form>
+    <mat-dialog-content>
+      <div class="container">
+        <div class="circle" id="circle1"></div>
+        <div class="circle" id="circle2"></div>
+    </div>
+    </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" #enviar (click)="votar()"> Enviar</button>
+  </mat-dialog-actions>
+  </form>
+  </div>

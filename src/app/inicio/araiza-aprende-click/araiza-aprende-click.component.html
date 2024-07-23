@@ -15,7 +15,6 @@
       frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </p>
-
     <!-- <h3>
       Cuestionario
     </h3>
@@ -23,6 +22,10 @@
       <a [href]="this.data.container[0]['linkForm']">{{this.data.container[0]["titulo"]}}</a>
        <a [routerLink]="'/general/araiza-aprende/araiza-aprende-formulario'">{{this.data.container[0]["titulo"]}}</a>
     </p> -->
+  </div>
+  <div id="container-btn-sgt">
+    <button color="primary" (click)="siguiente()" mat-flat-button>Anterior</button>
+    <button color="primary" (click)="anterior()" mat-flat-button>Siguiente</button>
   </div>
 </div>
 <app-footer></app-footer>

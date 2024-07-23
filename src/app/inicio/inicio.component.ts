@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DataNavbarService } from '../core/services/data-navbar.service';
 import { SubirImgVideoService } from '../core/services/img-video.service';
@@ -19,6 +19,12 @@ export interface imageObject {
   formato:string,
   link?:string
 }
+
+export interface rival {
+  porcentaje : number,
+  nombre : string
+}
+
 
 @Component({
   selector: 'app-inicio',
@@ -50,6 +56,7 @@ export class InicioComponent implements OnInit {
   cargar : boolean = false;
   noticias: imgVideoModel[] = [];
   texto : string = ""
+  rivales: rival[] =[];
 
   link : string =  environment.production === true ? "": "../../";
 
@@ -57,20 +64,50 @@ export class InicioComponent implements OnInit {
     public route : Router,
     private serviceImgVideo : SubirImgVideoService,
     private sanitizer : DomSanitizer, config: NgbCarouselConfig,
-    private auth : AuthService
+    private auth : AuthService,
+    private renderer: Renderer2,
+    private el: ElementRef
     ) {
+      // this.chartOptions
       config.interval = 9000;
       config.keyboard = true;
       config.pauseOnHover = true;
 
+      this.rivales.push(
+        {
+          nombre:"Jorge ALonso Luna Rivera",
+          porcentaje: 30 //80
+        }
+      );
 
+      this.rivales.push(
+        {
+          nombre:"Jorge ALonso Luna Rivera",
+          porcentaje: 10 //75
+        }
+      );
+
+      //5% no se ve
+      // a partir del 55 se ve muy apretado
+      //70 es el limite de apretado, 75 se sale de la barra
+      //
   }
 
+  ngAfterViewInit(): void {
+    for (let i = 0; i < this.rivales.length; i++) {
+      let bar = this.el.nativeElement.querySelector('#progress-container'+i);
+      this.renderer.setStyle(bar,'width',(this.rivales[i].porcentaje ).toString()+'%')
+      this.renderer.setStyle(bar,"background-color", "#DC994D")
+      this.renderer.setStyle(bar,"padding-left", "2%")
+      this.renderer.setStyle(bar,"padding-right", "2%")
+      this.renderer.setStyle(bar,"display", "flex")
+      this.renderer.setStyle(bar,"justify-content", "end")
+    }
+  }
   ngOnInit(): void {
     this.rellenarSlider("imgVideo",0)
     this.rellenarSlider("imgVideoNoticia",0)
     this.DataService.open.emit("general");
-
   }
 
   rellenarSlider(dir:string ,number : number){

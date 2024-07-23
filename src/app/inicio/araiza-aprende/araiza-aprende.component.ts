@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AraizaAprendeService, videoAraizaAprende } from 'src/app/core/services/araiza_aprende.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { categoriaInterfaz, temaInterfaz } from '../opcion-config/araiza-aprende-config/araiza-aprende-config.component';
@@ -6,6 +6,7 @@ import { concatMap, of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
+import { SlickCarouselComponent } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-araiza-aprende',
@@ -20,6 +21,7 @@ export class AraizaAprendeComponent {
   temas : temaInterfaz  [] = [];
   titulop2 : String = "Comunicación";
   selectedValue: String = "";
+  @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
 
   carouselConfig = {
     slidesToShow: 3,
@@ -27,6 +29,7 @@ export class AraizaAprendeComponent {
     swipe: true,
     infinite: true,
     variableWidth:true,
+    initialSlide: 2,
     /* "interval": 3000,
     "loop": true,
     "showControls": true,
@@ -78,6 +81,10 @@ export class AraizaAprendeComponent {
   ]
   };
 
+
+  ngAfterViewInit() {
+
+  }
   constructor(
     private serviceAraizaApr : AraizaAprendeService,
     public route : Router,

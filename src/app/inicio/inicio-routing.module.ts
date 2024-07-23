@@ -23,6 +23,7 @@ import { AraizaAprendeComponent } from './araiza-aprende/araiza-aprende.componen
 import { AraizaAprendeConfigComponent } from './opcion-config/araiza-aprende-config/araiza-aprende-config.component';
 import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-aprende-click.component';
 import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
+import { VotacionesConfigComponent } from './opcion-config/votaciones-config/votaciones-config.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,7 @@ const routes: Routes = [
       { path: 'usuarios-config',canActivate: [LogSesionAdminGuard], component: UsuariosComponent },
       { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente },
       { path: 'araiza-aprende-config',canActivate: [LogSesionAdminGuard], component: AraizaAprendeConfigComponent },
+      { path: 'votaciones-config',canActivate: [LogSesionAdminGuard], component: VotacionesConfigComponent },
 
     ]
   }

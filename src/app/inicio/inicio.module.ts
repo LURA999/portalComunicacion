@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { InicioRoutingModule } from './inicio-routing.module';
@@ -38,6 +38,7 @@ import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 import { TodoNoticiasComponent } from './opcion-config/galeria-multi-config/componentes/todo-noticias/todo-noticias.component';
 import { LazyLoadImageModule } from "ng-lazyload-image";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ProgressModule } from '@coreui/angular';
 import { AraizaAprendeComponent } from './araiza-aprende/araiza-aprende.component';
 import { AraizaAprendeConfigComponent } from './opcion-config/araiza-aprende-config/araiza-aprende-config.component';
 import { AddAraizaAprendeComponent } from './popup/add-araiza-aprende/add-araiza-aprende.component';
@@ -53,6 +54,12 @@ import { AsignarAutocapacComponent } from './popup/asignar-autocapac/asignar-aut
 import { EliminarAutocapacComponent } from './popup/eliminar-autocapac/eliminar-autocapac.component';
 import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-aprende-click.component';
 import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
+import { VotacionesConfigComponent } from './opcion-config/votaciones-config/votaciones-config.component';
+import { EditarCompetenciaComponent } from './popup/editar-competencia/editar-competencia.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { DynamicInputComponent } from './componentes/dynamic-input/dynamic-input.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +104,10 @@ import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/ar
     EditarxHotelAutocapacComponent,
     EliminarAutocapacComponent,
     AraizaAprendeClickComponent,
-    AraizaAprendeFormularioComponent
+    AraizaAprendeFormularioComponent,
+    VotacionesConfigComponent,
+    EditarCompetenciaComponent,
+    DynamicInputComponent
   ],
   imports: [
     HttpClientModule,
@@ -110,10 +120,14 @@ import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/ar
     NgbModule,
     CustomMaterialModule,
     LazyLoadImageModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    ProgressModule
   ],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: [CUSTOM_ELEMENTS_SCHEMA,MAT_DIALOG_DEFAULT_OPTIONS], useValue: {hasBackdrop: false}}
   ]
 })
 export class InicioModule { }

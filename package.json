@@ -29,6 +29,7 @@
     "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@ng-bootstrap/schematics": "^2.0.0-alpha.1",
     "@popperjs/core": "^2.11.6",
+    "@swimlane/ngx-charts": "^20.5.0",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.2.3",
     "chart.js": "^3.1.1",
@@ -46,6 +47,7 @@
     "popper.js": "^1.16.1",
     "rxjs": "~7.5.0",
     "slick-carousel": "^1.8.1",
+    "socket.io": "^4.7.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -54,6 +56,7 @@
     "@angular/cli": "~15.2.4",
     "@angular/compiler-cli": "^15.2.4",
     "@types/crypto-js": "^4.1.1",
+    "@types/d3-shape": "^3.1.6",
     "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~4.0.0",
     "crypto-js": "^4.1.1",

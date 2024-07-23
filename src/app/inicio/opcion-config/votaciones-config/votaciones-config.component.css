@@ -1,0 +1,170 @@
+
+table {
+  width: 100%;
+}
+
+table th {
+  font-family: 'gotham-regular';
+}
+
+table td {
+  font-family: 'gotham-book';
+}
+
+mat-option {
+  font-family: 'gotham-book';
+}
+
+mat-form-field, input {
+  font-family: 'gotham-book';
+
+}
+
+mat-menu {
+  width: 500px;
+}
+
+button span {
+  font-family: 'gotham-book';
+}
+
+mat-form-field {
+  width: 144px;
+  margin: 9px;
+  font-size: 11px;
+}
+
+::ng-deep span.mat-select-min-line {
+  font-family: 'gotham-book';
+}
+
+
+
+#cabeceraRows {
+  margin-bottom: 45px;
+}
+
+.cabecera {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cabecera .botonc {
+  margin-top: 8px;
+}
+
+#cabecera2 {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+button {
+  margin: 5px;
+  border-radius: 0;
+  font-family: 'gotham-medium';
+  font-size: 11px;
+}
+
+.container-votaciones {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 70px;
+  align-self: center;
+}
+
+td.cdk-column-no {
+  width: 6%;
+  padding: 10px;
+}
+
+td.cdk-column-nombre {
+  width: 25%;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+#btn-trans {
+  border: none;
+  background: transparent;
+}
+
+div#matform-c {
+  margin-bottom: -10px;
+}
+
+/**columna visita*/
+
+.visita {
+  text-align: center;
+}
+
+/**Loading para componentes*/
+.preloader {
+  width: 60px;
+  height: 60px;
+  border: 10px solid #eee;
+  border-top: 10px solid rgb(255, 186, 96) ;
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  cursor:wait;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.existe {
+  text-align: center;
+  font-family: 'gotham-bold';
+}
+
+
+@media(max-width:1373px) {
+  mat-form-field{
+    width: 10vw;
+  }
+}
+
+@media(max-width:800px) {
+  mat-form-field{
+    width: 10vw;
+  }
+  #cabecera2 {
+    display: contents;
+  }
+
+  #cabecera2 button {
+    width: 100%;
+  }
+}
+
+@media(max-width:1610px) {
+  .cabecera{
+    display: contents;
+    margin-bottom: 0px;
+  }
+
+  mat-form-field{
+    width: 100%;
+  }
+
+  div#matform-c {
+    margin-bottom: 0px;
+  }
+  button.btnResponsive {
+    width: 100%;
+  }
+ }
+
