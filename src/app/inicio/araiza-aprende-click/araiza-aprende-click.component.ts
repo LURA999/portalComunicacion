@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import * as CryptoJS from 'crypto-js';
 import { AraizaAprendeService } from 'src/app/core/services/araiza_aprende.service';
@@ -25,7 +25,7 @@ export class AraizaAprendeClickComponent {
 
   constructor(
     private auth : AuthService,
-    private sanitizer : DomSanitizer,
+    @Inject(DomSanitizer)private sanitizer : DomSanitizer,
     private serviceAraizaApr : AraizaAprendeService,
   ){
     this.arrVideo = this.serviceAraizaApr.segundaPageArAp(this.ar_apr)

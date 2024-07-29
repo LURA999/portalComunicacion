@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation  } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -71,7 +71,7 @@ export class OpcionMenuComponent implements OnInit {
   constructor(private DataService : DataNavbarService,
     public route : Router,
     private serviceImgVideo : SubirImgVideoService,
-    private sanitizer : DomSanitizer,
+    @Inject(DomSanitizer) private sanitizer : DomSanitizer,
     private auth : AuthService,
     private config: NgbCarouselConfig,
     private autoCapacService : AutocapacitacionService

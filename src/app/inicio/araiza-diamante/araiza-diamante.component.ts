@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit,ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ViewEncapsulation, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
@@ -120,7 +120,7 @@ export class AraizaDiamanteComponent implements OnInit {
     private local : localService,
     public route : Router,
     private DataService : DataNavbarService,
-    private sanitizer : DomSanitizer,
+    @Inject(DomSanitizer)private sanitizer : DomSanitizer,
     private dimService: araizaDiamante) {
     }
 

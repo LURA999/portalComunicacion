@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -55,7 +55,11 @@ export class EmpleadoMesComponent implements OnInit {
   private luaStr : string = CryptoJS.AES.decrypt(this.auth.getrElm("lua")!,"Amxl@2019*-").toString(CryptoJS.enc.Utf8)
   cargando : boolean = false;
 
-  constructor(private usServ : UsuarioService, private auth : AuthService,private DataService : DataNavbarService,private sanitizer : DomSanitizer) {
+  constructor(
+    private usServ : UsuarioService,
+    private auth : AuthService,
+    private DataService : DataNavbarService,
+    @Inject(DomSanitizer)private sanitizer : DomSanitizer) {
 
   }
 

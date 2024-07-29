@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -55,7 +55,7 @@ export class HistorialNoticiasComponent implements OnInit {
   constructor(private snoticia : SubirImgVideoService,
     private DataService : DataNavbarService,
     private auth : AuthService,
-    private sanitizer : DomSanitizer,
+    @Inject(DomSanitizer)private sanitizer : DomSanitizer,
     public route : Router,
     private fb : FormBuilder,
     private imgService : SubirImgVideoService

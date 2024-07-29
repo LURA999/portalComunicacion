@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgDialogAnimationService } from 'ng-dialog-animation';
 import { Observable, Subscription, catchError, from } from 'rxjs';
@@ -40,7 +40,7 @@ export class TodoNoticiasComponent implements OnInit {
   api : string = environment.api
   @Input() tipoNoticias! : number;
   constructor(private servicioMulti : SubirImgVideoService,
-    private sanitizer : DomSanitizer,
+    @Inject(DomSanitizer) private sanitizer : DomSanitizer,
     private dialog:NgDialogAnimationService,) { }
 
 

@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { LoginAdminComponent } from './auth/login-admin/login-admin.component';
@@ -20,30 +20,23 @@ import { ErrorComponent } from './error/error.component';
 import { ComentarComidaComponent } from './comentar-comida/comentar-comida.component';
 import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    LoginAdminComponent,
-    ErrorComponent,
-    ComentarComidaComponent,
-    ThanksComponent,
-  ],
-  imports: [
-    CustomMaterialModule,
-    SharedModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    HttpClientModule,
-    NgbModule,
-  ],
-  exports: [ ],
-  bootstrap: [ AppComponent ],
-  providers: [ CookieService ]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LoginComponent,
+        LoginAdminComponent,
+        ErrorComponent,
+        ComentarComidaComponent,
+        ThanksComponent,
+    ],
+    exports: [],
+    bootstrap: [AppComponent], imports: [CustomMaterialModule,
+        SharedModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        NgbModule], providers: [CookieService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

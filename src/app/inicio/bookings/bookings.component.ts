@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from 'src/app/core/services/auth.service';
 import * as CryptoJS from 'crypto-js';
@@ -16,7 +16,7 @@ export class BookingsComponent implements OnInit {
 
   src : string = ""
 
-  constructor(private auth : AuthService, private sanitizer : DomSanitizer) { }
+  constructor(private auth : AuthService, @Inject(DomSanitizer) private sanitizer : DomSanitizer) { }
 
   ngOnInit(): void {
     let local :number = this.auth.getCveLocal()

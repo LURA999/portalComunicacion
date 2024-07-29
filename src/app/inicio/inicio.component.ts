@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DataNavbarService } from '../core/services/data-navbar.service';
 import { SubirImgVideoService } from '../core/services/img-video.service';
@@ -63,7 +63,8 @@ export class InicioComponent implements OnInit {
   constructor(private DataService : DataNavbarService,
     public route : Router,
     private serviceImgVideo : SubirImgVideoService,
-    private sanitizer : DomSanitizer, config: NgbCarouselConfig,
+    @Inject(DomSanitizer) private sanitizer : DomSanitizer,
+    config: NgbCarouselConfig,
     private auth : AuthService,
     private renderer: Renderer2,
     private el: ElementRef

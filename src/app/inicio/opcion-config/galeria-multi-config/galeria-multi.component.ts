@@ -72,7 +72,7 @@ export class GaleriaMultiComponent implements OnInit {
     private media: MediaMatcher,
     private changeDetectorRef: ChangeDetectorRef,
     private servicioMulti : SubirImgVideoService,
-    private sanitizer : DomSanitizer,
+    @Inject(DomSanitizer)private sanitizer : DomSanitizer,
     private dialog:NgDialogAnimationService,
     private DataService : DataNavbarService,
     public route : Router,
