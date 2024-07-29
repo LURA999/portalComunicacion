@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'any'
 })
-export class SesionGuard implements CanActivate {
+export class SesionGuard  {
   constructor(private cookie: CookieService, private route : Router,private auth : AuthService) { }
 
   canActivate(

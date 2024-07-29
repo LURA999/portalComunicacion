@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { CanActivate, Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'any'
 })
-export class InicioGuard implements CanActivate {
+export class InicioGuard  {
 
   constructor(private cookie: CookieService, private route : Router,private auth : AuthService){}
 
