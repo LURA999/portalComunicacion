@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "portal_comunicacion:build:production"
+              "buildTarget": "portal_comunicacion:build:production"
             },
             "development": {
-              "browserTarget": "portal_comunicacion:build:development"
+              "buildTarget": "portal_comunicacion:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "portal_comunicacion:build"
+            "buildTarget": "portal_comunicacion:build"
           }
         },
         "test": {

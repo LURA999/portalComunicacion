@@ -6,7 +6,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class FoodExtService {
   local = environment.api

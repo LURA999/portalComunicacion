@@ -20,7 +20,7 @@ export interface fechaServ {
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class EmpleadoMesService {
   api : string = environment.api

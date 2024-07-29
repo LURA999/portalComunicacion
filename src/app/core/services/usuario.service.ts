@@ -9,7 +9,7 @@ import { usuarioModel } from 'src/app/interfaces_modelos/usuario.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class UsuarioService {
 

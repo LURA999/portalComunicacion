@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class SubirImgVideoService {
   local = environment.api

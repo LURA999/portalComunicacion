@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class InicioGuard implements CanActivate {
 

@@ -8,7 +8,7 @@ import { correoAyuda } from 'src/app/shared/linea-de-ayuda/linea-de-ayuda.compon
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class BuzonSugerenciaService {
   api : string = environment.api;

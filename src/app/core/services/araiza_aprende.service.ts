@@ -19,7 +19,7 @@ export interface videoAraizaAprende {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class AraizaAprendeService {
 

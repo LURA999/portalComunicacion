@@ -11,7 +11,7 @@ export interface registrar {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class LoginService {
 
