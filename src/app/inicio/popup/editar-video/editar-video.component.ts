@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { lastValueFrom, catchError, Subscription, concatMap, switchMap,Observable } from 'rxjs';
@@ -47,11 +47,13 @@ export class EditarVideoComponent implements OnInit {
     titulo: [this.data?.titulo, Validators.nullValidator],
     descripcion: [this.data?.descripcion, Validators.nullValidator],
     linkVideo: [this.data?.linkVideo, Validators.nullValidator],
-    linkForm: [this.data?.linkForm, Validators.nullValidator]
+    linkForm: [this.data?.linkForm, Validators.nullValidator],
+    contrasena: [this.data?.contrasena, Validators.nullValidator]
   })
   link : string =  environment.production === true ? "": "../../../";
   api : string = environment.api;
 
+  hide2 = signal(true);
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: videoAraizaAprende,public dialogRef: MatDialogRef<EditarSliderComponent>,
   private dialog : NgDialogAnimationService,private service : AraizaAprendeService
@@ -59,7 +61,6 @@ export class EditarVideoComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
   this.service.todoCategorias().subscribe((resp:ResponseInterfaceTs) =>{
     for (let i = 0; i < resp.container.length; i++) {
       this.categorias.push(resp.container[i]);
@@ -74,6 +75,10 @@ export class EditarVideoComponent implements OnInit {
   }
 
 
+  clickEvent(event: MouseEvent) {
+    this.hide2.set(!this.hide2());
+    event.stopPropagation();
+  }
 
   async subirImg(evt : any){
     let target : any = <DataTransfer>(evt.target).files[0];
@@ -243,6 +248,8 @@ console.log(this.formAraizaAprende.valid);
   ngOnDestroy(): void {
     this.$sub.unsubscribe()
   }
+
+
 
 }
 

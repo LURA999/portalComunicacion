@@ -92,6 +92,7 @@ mat-card-content div {
   font-family: 'gotham-book';
   font-size: 18px;
   padding: 0px 15% 0 15%;
+  line-height: normal;
 }
 
 .pag-inicio-article2 article {
@@ -163,6 +164,7 @@ mat-card-content div {
   padding: 0;
   font-family: 'gotham-bold';
   font-size: 22px;
+  line-height: normal;
 }
 
 #botonTuto {
@@ -268,16 +270,17 @@ img {
     text-align: center;
     width: 100%;
     justify-content: center;
-    height: 100%;
+    height: inherit;
   }
 
   .noticia mat-card-content {
-  text-align: justify;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 20px;
-  overflow-x: auto;
+    text-align: justify;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 20px;
+    overflow-x: auto;
   }
+
 
   #container-notice2{
     width: fit-content;
@@ -463,9 +466,6 @@ img {
 
 @media(max-width:700px){
 
-  #pag-inicio-section_3 img {
-    width: 200px;
-  }
   #pag-inicio-section_3texto {
     margin: 0 0 70px 70px;
 
@@ -545,4 +545,6 @@ img {
     height: 2px;
   }
 }
+
+
 

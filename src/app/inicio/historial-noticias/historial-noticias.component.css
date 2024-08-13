@@ -100,6 +100,7 @@ hr {
 #pag-noticia-opciones-notHisto {
   display: flex;
   margin-bottom: -30px;
+  font-size: 14px;
 }
 
 #pag-noticia-opciones-notHisto .pag-noticia-tab {

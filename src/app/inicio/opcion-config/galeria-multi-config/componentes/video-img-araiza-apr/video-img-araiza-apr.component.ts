@@ -47,6 +47,7 @@ export class VideoImgAraizaAprComponent implements OnInit {
             descripcion: resp.container[i]['descripcion'],
             linkVideo: resp.container[i]['linkVideo'],
             linkForm: resp.container[i]['linkForm'],
+            contrasena: resp.container[i]['contrasena']
           })
         }
       }
@@ -83,7 +84,8 @@ export class VideoImgAraizaAprComponent implements OnInit {
             titulo: i['titulo'],
             descripcion: i['descripcion'],
             linkVideo: i['linkVideo'],
-            linkForm: i['linkForm']
+            linkForm: i['linkForm'],
+            contrasena: i['contrasena']
           })
           }
           this.cargando = true;
@@ -137,7 +139,8 @@ export class VideoImgAraizaAprComponent implements OnInit {
               titulo: i['titulo'],
               descripcion: i['descripcion'],
               linkVideo: i['linkVideo'],
-              linkForm: i['linkForm']
+              linkForm: i['linkForm'],
+              contrasena: i['contrasena']
             })
           }
           this.cargando = true;

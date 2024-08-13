@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamicInputComponent } from './dynamic-input.component';
+import { PasswordPopupComponent } from './password-popup.component';
 
-describe('DynamicInputComponent', () => {
-  let component: DynamicInputComponent;
-  let fixture: ComponentFixture<DynamicInputComponent>;
+describe('PasswordPopupComponent', () => {
+  let component: PasswordPopupComponent;
+  let fixture: ComponentFixture<PasswordPopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicInputComponent ]
+      imports: [PasswordPopupComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DynamicInputComponent);
+    fixture = TestBed.createComponent(PasswordPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -55,11 +55,13 @@ import { EliminarAutocapacComponent } from './popup/eliminar-autocapac/eliminar-
 import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-aprende-click.component';
 import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
 import { VotacionesConfigComponent } from './opcion-config/votaciones-config/votaciones-config.component';
+import { CuestionariosConfigComponent } from './opcion-config/cuestionarios-config/cuestionarios-config.component';
 import { EditarCompetenciaComponent } from './popup/editar-competencia/editar-competencia.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { DynamicInputComponent } from './componentes/dynamic-input/dynamic-input.component';
+import { PasswordPopupComponent } from './popup/password-popup/password-popup.component';
 
 @NgModule({ declarations: [
         InicioComponent,
@@ -106,7 +108,9 @@ import { DynamicInputComponent } from './componentes/dynamic-input/dynamic-input
         AraizaAprendeFormularioComponent,
         VotacionesConfigComponent,
         EditarCompetenciaComponent,
-        DynamicInputComponent
+        DynamicInputComponent,
+        CuestionariosConfigComponent,
+        PasswordPopupComponent
     ], imports: [CommonModule,
         NgxPaginationModule,
         SharedModule,

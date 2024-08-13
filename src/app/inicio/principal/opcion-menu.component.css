@@ -15,6 +15,7 @@
 
 .info span {
   font-family: 'gotham-book';
+  line-height: normal;
   font-size: 18px;
 }
 
@@ -23,7 +24,9 @@
 }
 
 .info h2 {
+  margin: 0 0 32px;
   font-size: 22px;
+  text-align: center;
 }
 
 .info h2 span {
@@ -106,6 +109,7 @@
   font-family: 'gotham-medium';
   text-align: justify;
   margin-bottom: 30px;
+  font-size: 14px;
 }
 
 .container-autoc img#mujer-like {
@@ -161,6 +165,7 @@ text-align: -webkit-center;
 font-family: 'gotham-book';
 padding-left: 5%;
 padding-right: 5%;
+font-size: 14px;
 }
 
 #seccion4-notice h2 {
@@ -222,15 +227,15 @@ display: flex;
   text-align: center;
   width: 100%;
   justify-content: center;
-  height: 100%;
+  height: inherit;
 }
 
 .noticia mat-card-content {
-text-align: justify;
-margin-left: 20px;
-margin-right: 20px;
-margin-top: 20px;
-overflow-x: auto;
+  text-align: justify;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 20px;
+  overflow-x: auto;
 }
 
 #container-notice2{
@@ -737,7 +742,10 @@ mat-card  {
 
   .textoAutocapac {
     font-size: 15px;
+    font-family: "gotham-medium";
+    line-height: normal;
   }
+
   .textoAutocapacName{
     margin-top: 15px;
     font-size:  15px;

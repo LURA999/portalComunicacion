@@ -1,0 +1,15 @@
+<input type="text" placeholder="Titulo">
+<input type="text" placeholder="Instrucciones">
+<hr>
+<button mat-button-raised [matMenuTriggerFor]="menu" >Crear + </button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="crearNuevoElemento(1)">Pregunta abierta</button>
+  <button mat-menu-item (click)="crearNuevoElemento(2)">Pregunta con opc cerrada</button>
+  <button mat-menu-item (click)="crearNuevoElemento(3)">Pregunta con opc multiple</button>
+</mat-menu>
+
+<div id="container-preguntas">
+  <div class="cajaBx">
+    <ng-template #placeholder></ng-template>
+  </div>
+</div>

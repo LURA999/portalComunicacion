@@ -1,11 +1,11 @@
 <div cdkDragRootElement=".cdk-overlay-pane" class="example-box"  cdkDrag>
-  <div class="example-handle" cdkDragHandle>
+  <div class="example-handle" cdkDrag>
     <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
       <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
       <path d="M0 0h24v24H0z" fill="none"></path>
     </svg>
   </div>
-<h2 mat-dialog-title>Modificando video</h2>
+<h4 mat-dialog-title>Modificando video</h4>
 <form [formGroup]="formAraizaAprende">
 <mat-dialog-content>
   <div  class="select-catema" >
@@ -44,11 +44,26 @@
         <input autocomplete="off" matInput formControlName="link" #message>
       </mat-form-field>
     </div>
+    <div class="otro-input">
+      <mat-form-field class="example-ripple-form-field" appearance="outline">
+        <mat-label>Contraseña para acceder</mat-label>
+        <input [type]="hide2() ? 'password' : 'text'" autocomplete="off"  matInput formControlName="contrasena" >
+        <button
+        mat-icon-button
+        matSuffix
+        (click)="clickEvent($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide2()"
+      >
+      <mat-icon>{{hide2() ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      </mat-form-field>
+    </div>
     <div>
       <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" #subirImagen (change)="subirImg($event)" class="ing-txt"><br><br>
     </div>
     <ng-container *ngIf="message.value.length == 0 ">
-      <h2>Datos de la página</h2>
+      <h4 mat-dialog-title>Datos de la página2</h4>
       <div class="otro-input">
         <mat-form-field class="example-ripple-form-field" appearance="outline">
           <mat-label>Título</mat-label>

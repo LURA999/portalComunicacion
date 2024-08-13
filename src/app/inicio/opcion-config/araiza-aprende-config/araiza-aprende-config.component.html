@@ -1,8 +1,8 @@
 <div class="container-perso">
   <form [formGroup]="formAraizaAprende"  enctype="multipart/form-data">
 
-    <h1>Creación del tutorial</h1>
-    <h2>Datos principales</h2>
+    <h4>Creación del tutorial</h4>
+    <h5>Datos principales</h5>
     <div  class="select-catema" >
       <mat-form-field appearance="outline">
         <mat-label>Categoría</mat-label>
@@ -45,10 +45,16 @@
           <input autocomplete="off" matInput formControlName="link" #message>
         </mat-form-field>
       </div>
+      <div class="otro-input">
+        <mat-form-field class="example-ripple-form-field" appearance="outline">
+          <mat-label>Contraseña para acceder</mat-label>
+          <input type="password" autocomplete="off"  matInput formControlName="contrasena" >
+        </mat-form-field>
+      </div>
       <br>
 
       <ng-container *ngIf="message.value.length == 0 ">
-        <h2>Datos de la página</h2>
+        <h5>Datos de la página</h5>
         <div class="otro-input">
           <mat-form-field class="example-ripple-form-field" appearance="outline">
             <mat-label>Título</mat-label>

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 export interface videoAraizaAprende {
   idArApr? : number;
   idCategoria : number;
+  fk_idCategoria? : number;
   idTema : number;
   nombre : String;
   img : String;
@@ -16,6 +17,7 @@ export interface videoAraizaAprende {
   descripcion : String;
   linkVideo : String;
   linkForm : String;
+  contrasena: String;
 }
 
 @Injectable({
@@ -38,12 +40,17 @@ export class AraizaAprendeService {
   selectVideo(idCategoria:number): Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?idCategoria="+idCategoria)
   }
+
+  selectVideoIds(idCategoria:string): Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?cat="+idCategoria)
+  }
+
   todoVideo(): Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?todoVideo=true");
   }
 
-  segundaPageArAp(id :string): Observable<ResponseInterfaceTs>{
-    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?ArApr="+id);
+  segundaPageArAp(id :string, cat : string): Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprende.php?ArApr="+id+"&cat="+cat);
   }
 
   eliminarTema( idTema : number): Observable<ResponseInterfaceTs>{
@@ -91,7 +98,6 @@ export class AraizaAprendeService {
   editarVideo(imgAraizaApr : videoAraizaAprende): Observable<ResponseInterfaceTs>{
     let headers = new HttpHeaders()
     headers.append('Content-Type', 'application/json');
-
     return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprende.php",imgAraizaApr,{headers})
   }
 

@@ -1,7 +1,7 @@
 <div id="container-ara-apr" style="margin: 5% 10% 0 10%;">
   <!-- Cabecera -->
   <div id="cabecera">
-    <h2> <span id="titulo1"> Araiza Aprende </span><span id="titulo2" class="color_primario">| {{titulop2}}</span> </h2>
+    <h4> <span id="titulo1"> Araiza Aprende </span><span id="titulo2" class="color_primario">| {{titulop2}}</span> </h4>
 
     <mat-form-field appearance="outline" id="buscarCat">
       <mat-label>Categoría</mat-label>
@@ -19,13 +19,13 @@
 
     <ng-container  *ngIf="nomTemas.length > 0; else elseTemplate">
       <div *ngFor="let titulo of nomTemas; let idx = index" class="sliderAraizaAprende">
-        <h2>{{titulo}}</h2>
+        <h4>{{titulo}}</h4>
         <ngx-slick-carousel  #slickModal="slick-carousel"  [config]="carouselConfig">
           <div ngxSlickItem *ngFor="let t of arrTemas[idx]; let idx = index">
             <div class="slide">
               <img  rel="preload"
               [src]="'https://www.comunicadosaraiza.com/portal_api/API/imgVideo/galeria-video-araiza-aprende/fotos/'+t.img"
-               (click)="ir(t)" [alt]="idx+'image'">
+              (click)="ir(t)" [alt]="idx+'image'">
               <span>{{t.nombre}}</span>
             </div>
           </div>

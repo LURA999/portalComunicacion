@@ -1,16 +1,17 @@
-<div id="container-ar-apr-click" style="margin: 5% 10% 0 10%;" *ngIf="arrVideo | async as data">
-  <h2><span id="titulo1">{{this.data.container[0]["titulo"]}}</span> <span id="titulo2" class="color_primario"> | {{this.data.container[0]['categoria']}}</span></h2>
+<div id="container-ar-apr-click" style="margin: 5% 10% 0 10%;" *ngIf="arrVideoAux != undefined">
+  <h2><span id="titulo1">{{ arrVideoAux["titulo"]}}</span>
+    <span id="titulo2" class="color_primario"> | {{ arrVideoAux["categoria"] }}</span></h2>
   <hr>
-  <div>
-    <h3>Descripción del curso</h3>
-    <p>
-      {{this.data.container[0]["descripcion"]}}
-    </p>
-  </div>
+    <div>
+      <h3>Descripción del curso</h3>
+      <p>
+        {{ arrVideoAux["descripcion"] }}
+      </p>
+    </div>
   <div>
     <h3>Contenido</h3>
     <p>
-      <iframe [src]="recursoUrl(this.data.container[0]['linkVideo'])"
+      <iframe [src]="recursoUrl(arrVideoAux['linkVideo'])"
       title="YouTube video player"
       frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -19,13 +20,13 @@
       Cuestionario
     </h3>
     <p>
-      <a [href]="this.data.container[0]['linkForm']">{{this.data.container[0]["titulo"]}}</a>
-       <a [routerLink]="'/general/araiza-aprende/araiza-aprende-formulario'">{{this.data.container[0]["titulo"]}}</a>
+      <a [href]="arrVideo[0]['linkForm']">{{arrVideo[0]["titulo"]}}</a>
+      <a [routerLink]="'/general/araiza-aprende/araiza-aprende-formulario'">{{arrVideo[0]["titulo"]}}</a>
     </p> -->
   </div>
   <div id="container-btn-sgt">
-    <button color="primary" (click)="siguiente()" mat-flat-button>Anterior</button>
-    <button color="primary" (click)="anterior()" mat-flat-button>Siguiente</button>
+    <button color="primary" (click)="anterior()" [disabled]="enabledBtnIzq" mat-flat-button>Anterior</button>
+    <button color="primary" (click)="siguiente()" [disabled]="enabledBtnDcho" mat-flat-button>Siguiente</button>
   </div>
 </div>
 <app-footer></app-footer>

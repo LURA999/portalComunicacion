@@ -2,11 +2,13 @@ import { Component, ViewChild } from '@angular/core';
 import { AraizaAprendeService, videoAraizaAprende } from 'src/app/core/services/araiza_aprende.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { categoriaInterfaz, temaInterfaz } from '../opcion-config/araiza-aprende-config/araiza-aprende-config.component';
-import { concatMap, of } from 'rxjs';
+import { catchError, concatMap, of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
+import { PasswordPopupComponent } from '../popup/password-popup/password-popup.component';
+import { NgDialogAnimationService } from 'ng-dialog-animation';
 
 @Component({
   selector: 'app-araiza-aprende',
@@ -88,7 +90,8 @@ export class AraizaAprendeComponent {
   constructor(
     private serviceAraizaApr : AraizaAprendeService,
     public route : Router,
-    private auth : AuthService ){
+    private auth : AuthService,
+    private dialog : NgDialogAnimationService ){
 
     this.serviceAraizaApr.todoCategorias().subscribe((resp:ResponseInterfaceTs) =>{
       for (let i = 0; i < resp.container.length; i++) {
@@ -157,12 +160,37 @@ export class AraizaAprendeComponent {
   }
 
   ir(arrTemas : videoAraizaAprende){
-    if (arrTemas.link.length == 0 && arrTemas.idArApr) {
-      this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.idArApr.toString(),"Amxl@2019*-").toString(),"pag_ar");
-      this.route.navigate(["/general/araiza-aprende/araiza-aprende-click"]);
-    }else{
-      window.open(arrTemas.link.toString(),"_blank")
+    if (arrTemas.contrasena.length == 0 ) {
+      if (arrTemas.link.length == 0 && arrTemas.idArApr) {
+        this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.idArApr.toString(),"Amxl@2019*-").toString(),"pag_ar");
+        this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.fk_idCategoria!.toString(),"Amxl@2019*-").toString(),"pag_cat");
+        this.route.navigate(["/general/araiza-aprende/araiza-aprende-click"]);
+      }else{
+        window.open(arrTemas.link.toString(),"_blank")
+      }
+    } else {
+      let dialogRef = this.dialog.open(PasswordPopupComponent, {
+        height: 'auto',
+        width: '450px',
+        data: arrTemas
+      });
+      dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:boolean)=>{
+      if (resp === true) {
+        if (arrTemas.link.length == 0 && arrTemas.idArApr) {
+          this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.idArApr!.toString(),"Amxl@2019*-").toString(),"pag_ar");
+          this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.fk_idCategoria!.toString(),"Amxl@2019*-").toString(),"pag_cat");
+          this.route.navigate(["/general/araiza-aprende/araiza-aprende-click"]);
+        } else {
+          window.open(arrTemas.link.toString(),"_blank")
+        }
+      }
+    })
     }
+
   }
 
 }

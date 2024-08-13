@@ -70,7 +70,7 @@ h2 span {
 .nombre{
   font-size: .9vw;
   line-height: normal;
-  font-weight: bold;
+  font-family: 'gotham-bold';
 }
 
 .containerFecha {
