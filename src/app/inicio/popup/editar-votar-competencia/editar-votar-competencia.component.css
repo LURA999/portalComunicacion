@@ -1,0 +1,28 @@
+mat-form-field {
+  width: 100%;
+}
+
+ mat-option, button{
+  font-family: 'gotham-bold';
+}
+
+
+mat-form-field, input {
+  font-family: 'gotham-book';
+
+}
+
+mat-chip-row {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+
+::ng-deep span.mat-select-min-line {
+  font-family: 'gotham-book';
+}
+
+img{
+  border-radius: 30px;
+  width: 250px;
+}

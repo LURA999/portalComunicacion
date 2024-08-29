@@ -1,0 +1,96 @@
+<div class="example-box"  cdkDrag>
+  <div class="example-handle" cdkDragHandle>
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div>
+<h4 mat-dialog-title>Editar competencia</h4>
+<form [formGroup]="formCompetencia" autocomplete="off">
+  <mat-dialog-content>
+  <div>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Elige un evento</mat-label>
+      <input type="text"
+            matInput
+            autocomplete="off"
+            [formControl]="myControlEventos"
+            [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedEvento($event)">
+          @for (o of filteredOptionsEventos | async; track o.idCompetencia) {
+            <mat-option  [value]="o" >{{o.nombre}}</mat-option>
+          }
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Editar nombre del evento</mat-label>
+      <input type="text"
+            aria-label="Number"
+            matInput
+            autocomplete="off"
+            [formControl]="myControlEventosNuevo"
+            [matAutocomplete]="auto">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Seleccione un hotel</mat-label>
+      <mat-select formControlName="cveLocal" (selectionChange)="vaciarAutocomplete()">
+        <ng-container *ngFor="let i of localInterfaz">
+          <ng-container *ngIf="i.idLocal > 0">
+            <mat-option [value]="i.idLocal" > {{i.local}} </mat-option>
+          </ng-container>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha inicial</mat-label>
+      <input autocomplete="off" (click)="picker4.open()" (dateChange)="fecha1($event.value)" [min]="date" [max]="rango2" formControlName="fechaInicial" matInput [matDatepicker]="picker4">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+      <mat-datepicker #picker4></mat-datepicker>
+    </mat-form-field>
+  </div> <br/>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha final</mat-label>
+      <input autocomplete="off" (click)="picker3.open()" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango" formControlName="fechaFinal" matInput [matDatepicker]="picker3">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+  </div> <br/>
+  <div>
+    <mat-form-field appearance="outline" class="example-full-width">
+         <mat-label>Nombre o # de empleado</mat-label>
+         <input type="text"
+               matInput
+               autocomplete="off"
+              (keyup)="buscarUsuario()"
+               [formControl]="myControlUsuarios"
+               [matAutocomplete]="auto2">
+         <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedUsuario($event)">
+             @for (o of optionsUsuarios; track o.id) {
+               <mat-option  [value]="o" >{{o.nombre}}</mat-option>
+             }
+         </mat-autocomplete>
+       </mat-form-field>
+
+         @for (competencia of seleccionadas; track $index) {
+           <mat-chip-row>
+             {{competencia.nombre}}
+             <button matChipRemove (click)="remove(competencia)" [attr.aria-label]="'remove ' + competencia.nombre">
+               <mat-icon>cancel</mat-icon>
+             </button>
+           </mat-chip-row>
+         }
+     </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="enviarDatos()">Aceptar</button>
+</mat-dialog-actions>
+</form>
+</div>

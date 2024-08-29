@@ -1,0 +1,25 @@
+span {
+  font-weight: bold;
+  font-family: 'gotham-bold';
+
+}
+
+mat-dialog-content {
+  font-family: 'gotham-book';
+}
+
+#imgTitle {
+  text-align: center;
+}
+
+button{
+  font-family: 'gotham-bold';
+}
+
+h2 {
+  font-family: 'gotham-bold';
+}
+
+img {
+  width: 80%;
+}

@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>¿Está seguro que desea eliminar el evento?</h2>
+<mat-dialog-content>
+  <span>Todos las votaciones serán eliminadas de la base de datos permanentemente.</span>
+</mat-dialog-content>
+<mat-dialog-actions [align]="'end'">
+  <button mat-stroked-button color="primary" (click)="cerrar(false)">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="cerrar(true)">Aceptar</button>
+</mat-dialog-actions>

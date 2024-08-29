@@ -1,0 +1,25 @@
+span {
+  color: black;
+}
+
+h2 {
+  font-family: 'gotham-bold';
+  font-size: 22px !important;
+  text-align: center;
+}
+
+span {
+  font-family: 'gotham-book';
+  font-size: 18px;
+  text-align: center;
+}
+
+#nombreCompetidor {
+  font-family: 'gotham-bold';
+}
+
+@media (max-width: 680px) {
+  span {
+    font-size: 17px;
+  }
+}
