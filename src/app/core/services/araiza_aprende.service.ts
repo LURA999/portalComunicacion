@@ -101,4 +101,63 @@ export class AraizaAprendeService {
     return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprende.php",imgAraizaApr,{headers})
   }
 
+  ///////////// CUESTIONARIOS /////////////
+
+  /*********** GET */
+  imprimirDatosPrincipalesForm(idForm : number) : Observable<ResponseInterfaceTs>{
+    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?idForm="+idForm+"&datos=true")
+  }
+
+  imprimirFormularios() : Observable<ResponseInterfaceTs>{ //en este imprime los formularios existentes que hay
+    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?titulos=true")
+  }
+
+  imprimirFormularioRespuestas(idUsuario : number, form : number, local : number) : Observable<ResponseInterfaceTs>{ // en este apartado, imprime las respuestas del usuario que inicio sesión
+    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?idUsuario="+idUsuario+"&form="+form+"&local="+local+"&respuestas=true")
+  }
+
+  imprimirFormularioPreguntas(idForm : number) : Observable<ResponseInterfaceTs>{ //imprime las preguntas y respuestas pero sin responder
+    return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?idForm="+idForm+"&preguntas=true")
+  }
+
+
+  /************ PATCH */
+
+  // editarPreguntaTexto(res : String){
+  //   let headers = new HttpHeaders()
+  //   headers.append('Content-Type', 'application/json');
+  //   return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?editarPreguntaTexto=true", res,{headers})
+  // }
+
+  // editarRespuestaTexto(res : String){
+  //   let headers = new HttpHeaders()
+  //   headers.append('Content-Type', 'application/json');
+  //   return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?editarRespuestaTexto=true", res,{headers})
+  // }
+
+  editarRespuesta( res : String, idPregunta: Number, idUsuario : Number) : Observable<ResponseInterfaceTs> {
+    let headers = new HttpHeaders()
+    headers.append('Content-Type', 'application/json');
+    return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?editarRespuesta=true", [res, idPregunta, idUsuario],{headers})
+  }
+
+  // editarEncabezado( res : Array<String>) : Observable<ResponseInterfaceTs> {
+  //   let headers = new HttpHeaders()
+  //   headers.append('Content-Type', 'application/json');
+  //   return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?editarEncabezado=true", res,{headers})
+  // }
+
+  // editarDescripcion( res : Array<String>) : Observable<ResponseInterfaceTs> {
+  //   let headers = new HttpHeaders()
+  //   headers.append('Content-Type', 'application/json');
+  //   return this.http.patch<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?editarDescripcion=true", res,{headers})
+  // }
+
+
+  insertarRespuesta(res : String, idPregunta: Number, idUsuario : Number){
+    let headers = new HttpHeaders()
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?insertarRespuesta=true", [res, idPregunta, idUsuario],{headers})
+  }
 }

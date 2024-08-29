@@ -1,3 +1,4 @@
+
 @keyframes glide {
   0% { justify-content: end; }
 }
@@ -10,16 +11,10 @@
   width: 100%;
 }
 
-button{
-  font-family: 'gotham-bold';
-}
-
-mat-form-field {
-  font-family: 'gotham-book';
-}
-
 h2 {
+  margin-top: 10px;
   font-family: 'gotham-bold';
+  font-size: 28px !important;
   text-align: center;
 }
 
@@ -32,71 +27,210 @@ p {
   gap: 20px;
 }
 
-.circle {
-  width: 100%;
-  height: 250px;
-  background-color: red;
-  border-radius: 50%;
-}
 
 /* Diferentes colores para los círculos */
-#circle1 {
-  background-color: blue;
+
+table {
+  width: 100%;
+  vertical-align: middle;
+  font-family: 'gotham-book';
 }
 
-#circle2 {
-  background-color: green;
+.img-card {
+  position:relative;
+  width:100%;
+  height:0;
+  padding-bottom:80%;
+  margin: 0px auto;
 }
 
+ .img-card img {
+  position:absolute;
+  top:50%;
+  left:50%;
+  width: 65%;
+  height: 80%;
+  object-fit:cover;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.renglon {
+  box-shadow: 0px 0px 13px -3px #888888;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  user-select: none;
+  background-color: white;
+  touch-action: manipulation;
+  position: relative;
+  margin-bottom: 10px;
+}
 
- /* Responsivo votar*/
-@media (max-width: 768px) {
-  .circle {
-      height: 210px;
+.renglon:hover {
+  transform: scale(1.05);
+  z-index: 1;
+}
+
+.renglon:not(:focus):not(:active):not(:hover) {
+  transform: scale(1); /* Asegura que el elemento vuelva a su tamaño original */
+  z-index: 0;
+}
+
+.renglon:focus,
+.renglon:active {
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.renglon:active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 1;  /*Para que el pseudo-elemento esté encima del contenido del div*/
+}
+.renglon table td {
+  font-size: 18px;
+}
+
+.letra {
+  padding: 0px 10px 0px 10px;
+}
+
+.negrito {
+  font-family: 'gotham-bold';
+  color: black;
+}
+
+#mensaje {
+  text-align: center;
+  color: #000000;
+}
+
+@media (max-width: 380px) {
+  h2 {
+    font-size: 20px !important;
   }
 }
-
-@media (max-width: 630px) {
-  .circle {
-      height: 180px;
-  }
-}
-
-@media (max-width: 550px) {
-  .circle {
-      height: 150px;
-  }
-}
-
-
-@media (max-width: 480px) {
-  .circle {
-      height: 120px;
-  }
-}
-
-@media (max-width: 360px) {
-  .circle {
-      height: 70px;
-  }
-}
-
-@media (max-width: 280px) {
-  .circle {
-      height: 50px;
-  }
-}
-
 
 @media (max-width: 336px) {
   h2 {
-    line-height: 1.2;
+    line-height: 1.4 ;
+  }
+}
+
+@media(max-width:740px){
+
+  .renglon table td {
+    font-size: 18px;
+    padding: 0px 20px 0px 20px;
+  }
+  .img-card img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 85%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .renglon {
+    padding: 20px;
   }
 }
 
 
-@media (max-width: 500px) {
-  p {
-    font-size: smaller;
+@media(max-width:675px){
+
+  .img-card img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 95%;
+    height: 115%;
+    object-fit: cover;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
   }
 }
+
+@media(max-width:610px){
+
+  .img-card img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 125%;
+    height: 150%;
+    object-fit: cover;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media(max-width:535px){
+
+  .img-card img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 135%;
+    height: 170%;
+    object-fit: cover;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+@media (max-width: 609px) and  (min-width: 451px) {
+  table {
+      width: 100%;
+      vertical-align: middle;
+      font-family: "gotham-book";
+      height: 115px;
+  }
+}
+
+@media (max-width: 450px) {
+  .img-card {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 90%;
+    margin: 0px auto;
+  }
+
+  .img-card img {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width: 65%;
+    height: 80%;
+    object-fit:cover;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  table, table tr td, table tr {
+    display: block;
+    text-align: center;
+    width: 100% !important;
+    padding-bottom: 5px;
+  }
+
+  .img-card img {
+    width: 85%;
+    height: 90%;
+  }
+}
+@media (max-width: 430px) {
+  .renglon {
+    padding: 5px;
+  }
+}
+
+

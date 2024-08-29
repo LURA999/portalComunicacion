@@ -49,7 +49,7 @@ const routes: Routes = [
       { path: 'empleado-mes', canActivate: [SesionGuard], component: EmpleadoMesComponent},
       { path: 'araiza-aprende', canActivate: [SesionGuard], component: AraizaAprendeComponent},
       { path: 'araiza-aprende/araiza-aprende-click', canActivate: [SesionGuard], component: AraizaAprendeClickComponent},
-      { path: 'araiza-aprende/araiza-aprende-formulario',canActivate: [SesionGuard], component: AraizaAprendeFormularioComponent },
+      { path: 'araiza-aprende/araiza-aprende-formulario/:id',canActivate: [SesionGuard], component: AraizaAprendeFormularioComponent },
       //Sesion para el admin
       { path: 'slider-config',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
       { path: 'noticias-config',canActivate: [LogSesionAdminGuard], component: NoticiaComponent},
@@ -60,7 +60,7 @@ const routes: Routes = [
       { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente },
       { path: 'araiza-aprende-config',canActivate: [LogSesionAdminGuard], component: AraizaAprendeConfigComponent },
       { path: 'votaciones-config',canActivate: [LogSesionAdminGuard], component: VotacionesConfigComponent },
-      { path: 'cuestionario-config',canActivate: [LogSesionAdminGuard], component: CuestionariosConfigComponent },
+      { path: 'cuestionarios-config',canActivate: [LogSesionAdminGuard], component: CuestionariosConfigComponent },
 
     ]
   }

@@ -1,14 +1,14 @@
 <div id="container-ar-apr-form" style="margin: 5% 10% 0 10%;" >
-  <h2><span id="titulo1">Nombre del producto</span></h2>
+  <h2><span id="titulo1">{{titulo}}</span></h2>
   <hr>
   <div>
     <h3>Responde las siguientes preguntas de acuerdo al video.</h3>
   </div>
-  <div id="container-preguntas">
+  <div id="container-preguntas" >
     <div class="cajaBx">
-      <ng-template #placeholder></ng-template>
+      <ng-template #placeholder ></ng-template>
     </div>
   </div>
-  <button mat-raised-button color="primary" (click)="enviar()">ENVIAR</button>
+  <button color="primary" (click)="enviar()" mat-flat-button>ENVIAR</button>
 </div>
 <app-footer></app-footer>

@@ -69,6 +69,7 @@ export class InicioComponent implements OnInit {
     private renderer: Renderer2,
     private el: ElementRef
     ) {
+
       // this.chartOptions
       config.interval = 9000;
       config.keyboard = true;

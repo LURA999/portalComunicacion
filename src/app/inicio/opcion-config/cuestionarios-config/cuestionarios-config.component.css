@@ -1,0 +1,14 @@
+mat-form-field {
+  margin-left: 20px;
+}
+
+button {
+  margin-left: 20px;
+}
+
+.container-cuestionario {
+  align-self: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 70px;
+}

@@ -4,7 +4,8 @@ import { MatRadioModule } from '@angular/material/radio';
 
 export interface opcionRadioButton {
     title : string,
-    state : boolean,
+    state? : boolean,
+    stateDrag? : number,
     id: number
 }
 

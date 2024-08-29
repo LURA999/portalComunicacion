@@ -26,7 +26,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatNativeDateModule } from '@angular/material/core';
 
 /*export const MY_FORMATS = {
@@ -52,7 +51,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatAutocompleteModule, MatTableModule, MatDialogModule, MatTabsModule,
     MatTooltipModule, MatSelectModule, MatPaginatorModule, MatChipsModule,
     MatButtonToggleModule, MatSlideToggleModule, MatBadgeModule, MatCheckboxModule,
-    MatExpansionModule, DragDropModule, MatSortModule,MatNativeDateModule   ],
+    MatExpansionModule, MatSortModule,MatNativeDateModule   ],
   providers: [
    // {
      // provide: MAT_DATE_FORMATS,

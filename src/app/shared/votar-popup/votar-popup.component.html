@@ -1,16 +1,34 @@
-<div cdkDragRootElement=".cdk-overlay-pane" class="example-box"  cdkDrag>
+<div class="example-box" >
 
-  <h2 mat-dialog-title>Línea de ayuda</h2>
-  <p></p>
-  <form>
+  <h2 mat-dialog-title>VOTA POR TU PARTICIPANTE FAVORITO</h2>
+
+  <ng-container *ngIf="activar; else elseTemplate">
     <mat-dialog-content>
-      <div class="container">
-        <div class="circle" id="circle1"></div>
-        <div class="circle" id="circle2"></div>
+      <br>
+      <div class="renglon" (click)="clickVotar(i)" *ngFor="let i of resp; let idx = index">
+      <table>
+        <tr>
+        <td class="img" [style.width]="'40%'">
+          <div class="img-card">
+            <img  rel="preload" [src]="recursoUrl(i.img)"  />
+          </div>
+        </td>
+        <td  [width]="'60%'" class="letra">
+          <span class="negrito"> {{i.nombre}}</span><br>
+          {{i.departamento}}
+        </td>
+        </tr>
+      </table>
     </div>
     </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-raised-button color="primary" #enviar (click)="votar()"> Enviar</button>
-  </mat-dialog-actions>
-  </form>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <mat-dialog-content>
+      <div id="mensaje">
+        {{mensaje}}
+      </div>
+    </mat-dialog-content>
+  </ng-template>
+
+
   </div>

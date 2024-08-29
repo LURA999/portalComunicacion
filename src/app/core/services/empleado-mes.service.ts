@@ -43,7 +43,6 @@ export class EmpleadoMesService {
 
   totalEmpleado(cveLocal : number):Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+"empleadoMes.php?cveLocal="+cveLocal);
-
   }
 
   actualizarDFechaCambio(fechaCam:fechaServ):Observable<ResponseInterfaceTs> {

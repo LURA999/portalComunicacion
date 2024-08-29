@@ -38,6 +38,32 @@
     justify-content:space-between;
   }
 
+/* Estilo básico para la etiqueta <a> */
+a.link {
+  color: #0000EE; /* Color del texto */
+  /*text-decoration: none;  Quita el subrayado */
+  /* font-weight: bold; Hace el texto en negrita */
+  font-family: Arial, sans-serif; /* Fuente del texto */
+}
+
+/* Estilo cuando se pasa el mouse por encima (hover) */
+a.link:hover {
+  color: #551A8B; /* Cambia el color al pasar el mouse */
+  text-decoration: underline; /* Subraya el texto al pasar el mouse */
+  cursor: pointer;
+}
+
+/* Estilo para enlaces visitados */
+a.link:visited {
+  color: #FF0000; /* Color para enlaces ya visitados */
+}
+
+/* Estilo para enlaces activos (al hacer clic) */
+a.link:active {
+  color: #004085; /* Color cuando el enlace está activo */
+  text-decoration: underline; /* Subraya el texto */
+}
+
 @media(max-width:740px){
   h2 {
     font-size: 18px;

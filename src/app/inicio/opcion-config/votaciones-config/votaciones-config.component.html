@@ -27,23 +27,28 @@
           <mat-form-field appearance="outline">
             <mat-label>Seleccione la seccion</mat-label>
             <mat-select formControlName="seccion">
-              <mat-option *ngFor="let i of locales"  [value]="i.idLocal"> {{i.local}} </mat-option>
-              <mat-option value="-1">Ninguno</mat-option>
+              @for (i of locales; track $index) {
+                @if ($index > 0) {
+                  <mat-option [value]="i.idLocal"> {{i.local}} </mat-option>
+                } @else {
+                  <mat-option value="-1">Ninguno</mat-option>
+                }
+              }
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="botonc">
+        <div class="botonc btn-snivel">
           <button  mat-raised-button color="primary" (click)="agregar()">
             Nueva competencia
           </button>
         </div>
-        <div class="botonc">
+        <div class="botonc btn-snivel">
           <div class="botonc">
             <button  mat-raised-button color="primary" [matMenuTriggerFor]="menu" >
              Competencia
             </button>
             <mat-menu #menu="matMenu">
-              <button (click)="eliminarDepartamento()" mat-menu-item>
+              <button (click)="eliminarCompetencia()" mat-menu-item>
                 <mat-icon>delete</mat-icon>
                 <span>Eliminar</span>
               </button>
@@ -71,26 +76,34 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="fecha_inicial">
       <th mat-header-cell *matHeaderCellDef> Hotel </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha_inicial}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.hotel}} </td>
     </ng-container><!-- Symbol Column -->
     <!-- Weight Column -->
     <ng-container matColumnDef="fecha_final">
       <th mat-header-cell *matHeaderCellDef> Fecha inicial </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha_final}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_inicial}} </td>
     </ng-container>
     <ng-container matColumnDef="hotel" >
       <th mat-header-cell *matHeaderCellDef> Fecha final </th>
-      <td mat-cell *matCellDef="let element" class="visita"> {{element.hotel}} </td>
+      <td mat-cell *matCellDef="let element" class="visita"> {{element.fecha_final}}  </td>
     </ng-container>
     <ng-container matColumnDef="opciones">
-      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <th mat-header-cell *matHeaderCellDef>  </th>
       <td mat-cell *matCellDef="let element">
-      <button mat-raised-button color="primary" class="btnIndividual" >
-        Editar
-      </button>
-      <button mat-raised-button color="primary" class="btnIndividual" >
-        Borrar
-      </button>
+      <div>
+        <mat-checkbox color="primary" [checked]="element.activar == 1? true : false " (click)="activar(element.cveLocal, element.idCompetencia, element.activar == 1? 0 : 1)">Activar</mat-checkbox>
+      </div>
+
+    </td>
+    </ng-container>
+    <ng-container matColumnDef="opciones2">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element">
+      <div>
+        <button class="download" (click)="exportar(element)">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="download"></mat-icon>
+        </button>
+      </div>
     </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

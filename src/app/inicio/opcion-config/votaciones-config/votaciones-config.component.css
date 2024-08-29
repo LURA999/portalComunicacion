@@ -50,14 +50,13 @@ mat-form-field {
   justify-content: space-between;
 }
 
-.cabecera .botonc {
-  margin-top: 8px;
+.btn-snivel {
+  margin-top: 10px;
 }
 
 #cabecera2 {
   display: flex;
   justify-content: space-between;
-
 }
 
 button {
@@ -95,6 +94,11 @@ td.cdk-column-nombre {
 
 div#matform-c {
   margin-bottom: -10px;
+}
+
+.download {
+  background-color: transparent;
+  border: 0px;
 }
 
 /**columna visita*/
@@ -137,10 +141,15 @@ div#matform-c {
   }
 }
 
-@media(max-width:800px) {
+@media(max-width:920px) {
   mat-form-field{
     width: 10vw;
   }
+
+  .btn-snivel {
+    margin-top: 8px;
+  }
+
   #cabecera2 {
     display: contents;
   }

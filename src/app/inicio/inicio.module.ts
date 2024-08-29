@@ -56,17 +56,22 @@ import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-apren
 import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
 import { VotacionesConfigComponent } from './opcion-config/votaciones-config/votaciones-config.component';
 import { CuestionariosConfigComponent } from './opcion-config/cuestionarios-config/cuestionarios-config.component';
-import { EditarCompetenciaComponent } from './popup/editar-competencia/editar-competencia.component';
+import { CrearCompetenciaComponent } from './popup/crear-competencia/crear-competencia.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { DynamicInputComponent } from './componentes/dynamic-input/dynamic-input.component';
 import { PasswordPopupComponent } from './popup/password-popup/password-popup.component';
+import { ExamenEnviadoComponent } from './popup/examen-enviado/examen-enviado.component';
+import { EditarVotarCompetenciaComponent } from './popup/editar-votar-competencia/editar-votar-competencia.component';
+import { EliminarCompetenciaComponent } from './popup/eliminar-competencia/eliminar-competencia.component';
+import { EliminarCompetenciaSeguridadComponent } from './popup/eliminar-competencia-seguridad/eliminar-competencia-seguridad.component';
 
 @NgModule({ declarations: [
         InicioComponent,
         OpcionMenuComponent,
         FooterComponent,
+        EditarVotarCompetenciaComponent,
         ImagenVideoComponent,
         NoticiaComponent,
         GaleriaMultiComponent,
@@ -107,10 +112,13 @@ import { PasswordPopupComponent } from './popup/password-popup/password-popup.co
         AraizaAprendeClickComponent,
         AraizaAprendeFormularioComponent,
         VotacionesConfigComponent,
-        EditarCompetenciaComponent,
+        CrearCompetenciaComponent,
         DynamicInputComponent,
         CuestionariosConfigComponent,
-        PasswordPopupComponent
+        PasswordPopupComponent,
+        ExamenEnviadoComponent,
+        EliminarCompetenciaComponent,
+        EliminarCompetenciaSeguridadComponent
     ], imports: [CommonModule,
         NgxPaginationModule,
         SharedModule,

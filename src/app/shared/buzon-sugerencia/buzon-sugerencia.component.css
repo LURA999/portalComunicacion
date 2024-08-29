@@ -15,9 +15,24 @@ mat-form-field {
 }
 
 h2 {
+  margin-top: 10px;
   font-family: 'gotham-bold';
+  font-size: 23px !important;
   text-align: center;
 }
+
+@media (max-width: 380px) {
+  h2 {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 336px) {
+  h2 {
+    line-height: 1.4 ;
+  }
+}
+
 
 @media (max-width: 336px) {
   h2 {

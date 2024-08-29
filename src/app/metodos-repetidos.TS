@@ -24,4 +24,23 @@ export class metodosRepetidos {
       }
     }
 
+    detectBrowser(): string {
+      const userAgent = navigator.userAgent;
+
+      if (/chrome|crios/i.test(userAgent) && !/edg|edge|opr|opera/i.test(userAgent)) {
+        return 'Chrome';
+      } else if (/safari/i.test(userAgent) && !/chrome|crios/i.test(userAgent)) {
+        return 'Safari';
+      } else if (/firefox|fxios/i.test(userAgent)) {
+        return 'Firefox';
+      } else if (/edg|edge/i.test(userAgent)) {
+        return 'Edge';
+      } else if (/opr|opera/i.test(userAgent)) {
+        return 'Opera';
+      } else {
+        return 'Otro';
+      }
+    }
+
+
 }

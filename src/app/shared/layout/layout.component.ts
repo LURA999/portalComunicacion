@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Renderer2, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { catchError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -12,7 +12,8 @@ import { BuzonSugerenciaComponent } from '../buzon-sugerencia/buzon-sugerencia.c
 import { ThanksComponent } from 'src/app/inicio/popup/thanks/thanks.component';
 import { LineaDeAyudaComponent } from '../linea-de-ayuda/linea-de-ayuda.component';
 import { VotarPopupComponent } from '../votar-popup/votar-popup.component';
-import { AraizaEnCamerinoComponent } from '../araiza-en-camerino/araiza-en-camerino.component';
+import { VotacionesService } from 'src/app/core/services/votaciones_service';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { AraizaEnCamerinoComponent } from '../araiza-en-camerino/araiza-en-camer
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LayoutComponent implements OnDestroy, AfterViewInit {
   link : string =  environment.production === true ? "": "../../../";
 
 
@@ -37,6 +38,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     verNavbar :boolean = true
     paramUrl : string = this.route.url.split("/")[2];
     cambiarLogo : string = ""
+    opcionVotar : Array<boolean> = [true, true, true, true, true]
 
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
@@ -46,7 +48,8 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         public route : Router,
         private dialog : NgDialogAnimationService,
         private DataService : DataNavbarService,
-        private render : Renderer2
+        private render : Renderer2,
+        private ccia : VotacionesService
       ) {
 
         this.mobileQuery = this.media.matchMedia('(max-width: 700px)');
@@ -57,9 +60,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
 
-    ngOnInit(): void {
-
-    }
 
     ngOnDestroy(): void {
         // tslint:disable-next-line: deprecation
@@ -110,9 +110,11 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     buzonSugerencias(){
+
+      let mobileQuery : MediaQueryList = this.media.matchMedia('(max-width: 1600px)');
       let dialogRef = this.dialog.open(BuzonSugerenciaComponent, {
         height: 'auto',
-        width: '600px'
+        width: mobileQuery ? '600px' : '40%'
       });
       dialogRef.afterClosed().pipe(
         catchError( _ => {
@@ -129,9 +131,10 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     lineaDeAyuda(){
+      let mobileQuery : MediaQueryList = this.media.matchMedia('(max-width: 1600px)');
       let dialogRef = this.dialog.open(LineaDeAyudaComponent, {
         height: 'auto',
-        width: '600px'
+        width: mobileQuery ? '600px' : '40%'
       });
       dialogRef.afterClosed().pipe(
         catchError( _ => {
@@ -147,33 +150,12 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     }
 
-    votarPop(){
+    votandoPop(local : number){
+      let mobileQuery : MediaQueryList = this.media.matchMedia('(max-width: 1600px)');
       let dialogRef = this.dialog.open(VotarPopupComponent, {
         height: 'auto',
-        width: '600px'
-      });
-      dialogRef.afterClosed().pipe(
-        catchError( _ => {
-          throw "Error in source."
-      })
-      ).subscribe(async (resp:Boolean)=>{
-        if(resp){
-          this.dialog.open(ThanksComponent, {
-            height: 'auto',
-            width: '280px',
-          });
-        }
-      })
-    }
-
-    enCamerinoPop(correo:String, titulo: String){
-      let dialogRef = this.dialog.open(AraizaEnCamerinoComponent, {
-        height: 'auto',
-        width: '600px',
-        data: {
-          correo: correo,
-          titulo: titulo
-        }
+        width: mobileQuery.matches ? '600px' : '40%',
+        data: local
       });
       dialogRef.afterClosed().pipe(
         catchError( _ => {
@@ -190,13 +172,20 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     activarSeccion(link? : string, nombre? :string){
-
+      for (let x = 0; x < this.opcionVotar.length; x++) {
+        this.opcionVotar[x] = true;
+        this.ccia.imprimirUsuariosCompetenciaActivado(1+x).subscribe((resp: ResponseInterfaceTs) => {
+          if (resp.container.length) {
+            this.opcionVotar[x] = false;
+          }
+        })
+      }
       for (let i = 0; i < document.getElementsByClassName("opc").length; i++) {
         this.render.setStyle(document.getElementsByClassName("opc")[i],"color","#000000")
       }
 
       this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
-      this.render.setStyle(document.getElementsByClassName("opc")[18],"color","#FFFFFF")
+      this.render.setStyle(document.getElementsByClassName("opc")[19],"color","#FFFFFF")
 
       //aqui se imprimen las opciones del navbar horizontal
       for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
@@ -269,6 +258,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "votaciones-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
           break;
+          case "cuestionarios-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
+          break;
         }
       } else {
         switch (link) {
@@ -328,24 +320,27 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
           case "/general/votaciones-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
           break;
+          case "/general/cuestionarios-config":
+            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
+          break;
         }
       }
     }
 
     ngAfterContentInit(): void {
-      this.DataService.open.pipe(
+    this.DataService.open.pipe(
       catchError( _ => {
         throw "Error in source."
     })
     ).subscribe(res => {
         if (Number(this.auth.getCveRol()) == 1) {
           this.isAdminPortal = false;
-          //en estas paginas el navabar  no aparecera del lado izquierdo desplazando estos componentes:
           if (res === undefined || res==="mexicali"
           || res==="calafia" || res==="sanLuis"
           || res==="palmira" || res==="hermosillo"
           || res==="araiza-diamante"
           || res==="bookings" || res==="general" || res==="imagen-compartida") {
+            //en estas paginas el navabar  no aparecera del lado izquierdo desplazando estos componentes:
              this.isAdmin = false
              this.mode = 'over'
           } else {

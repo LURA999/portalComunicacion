@@ -1,15 +1,23 @@
-<input type="text" placeholder="Titulo">
-<input type="text" placeholder="Instrucciones">
-<hr>
-<button mat-button-raised [matMenuTriggerFor]="menu" >Crear + </button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="crearNuevoElemento(1)">Pregunta abierta</button>
-  <button mat-menu-item (click)="crearNuevoElemento(2)">Pregunta con opc cerrada</button>
-  <button mat-menu-item (click)="crearNuevoElemento(3)">Pregunta con opc multiple</button>
-</mat-menu>
-
-<div id="container-preguntas">
-  <div class="cajaBx">
-    <ng-template #placeholder></ng-template>
-  </div>
+<div class="container-cuestionario">
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Cuestionario</mat-label>
+      <mat-select formControlName="cveFormulario" name="food">
+        @for (f of formularios; track f) {
+          <mat-option [value]="f.idFormulario">  {{ f.titulo }}</mat-option>
+        }
+      </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Hotel</mat-label>
+        <mat-select formControlName="cveLocal" name="food">
+          @for (l of locales; track l) {
+            @if (l.idLocal !== '0') {
+              <mat-option [value]="l.idLocal" >{{ l.nombre }}</mat-option>
+            }
+          }
+        </mat-select>
+      </mat-form-field>
+      <button color="primary" (click)="descargarExcel()" mat-flat-button>Descargar excel</button>
+  </form>
 </div>

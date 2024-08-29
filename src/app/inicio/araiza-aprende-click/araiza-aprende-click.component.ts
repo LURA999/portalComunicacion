@@ -1,10 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import * as CryptoJS from 'crypto-js';
-import { AraizaAprendeService, videoAraizaAprende } from 'src/app/core/services/araiza_aprende.service';
+import { AraizaAprendeService } from 'src/app/core/services/araiza_aprende.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
-import { concat, concatMap, Observable, of, Subscription } from 'rxjs';
+import { concatMap, of } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 export interface videoEsAraizaAprende {
   titulo : string;
@@ -14,6 +15,7 @@ export interface videoEsAraizaAprende {
   descripcion : string;
   linkVideo : string;
   linkForm : string;
+  fk_formulario: number;
 }
 
 @Component({
@@ -30,6 +32,7 @@ export class AraizaAprendeClickComponent {
   arrVideoAux! : videoEsAraizaAprende;
   enabledBtnIzq = false;
   enabledBtnDcho = false;
+  link : string = environment.production === true ? "https://www.comunicadosaraiza.com/portalnuevo/#/": "http://localhost:4200/#/"
 
   constructor(
     private auth : AuthService,
@@ -38,8 +41,6 @@ export class AraizaAprendeClickComponent {
   ){
     this.serviceAraizaApr.selectVideoIds(this.ar_cat).pipe(
       concatMap((resp2: ResponseInterfaceTs) => {
-        console.log(this.ar_apr+"  --- "+this.ar_cat);
-
         return this.serviceAraizaApr.segundaPageArAp(this.ar_apr,this.ar_cat).pipe(
           concatMap((resp: ResponseInterfaceTs) =>{
             this.arrVideo = resp.container;
@@ -75,6 +76,11 @@ export class AraizaAprendeClickComponent {
 
     recursoUrl(src : string) : SafeResourceUrl {
       return this.sanitizer.bypassSecurityTrustResourceUrl(src);
+    }
+
+
+    abrirCuestionario(){
+      window.open(this.link+'general/araiza-aprende/araiza-aprende-formulario/'+this.arrVideoAux.fk_formulario, "_blank");
     }
 
     siguiente(){

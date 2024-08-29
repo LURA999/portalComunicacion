@@ -75,7 +75,7 @@ export class EmpleadoDelMesComponent implements OnInit {
   paramUrl : string = this.route.url.split("/")[2];
   ELEMENT_DATA: usuariosDelMes[] = [ ];
   $sub : Subscription = new Subscription()
-   meses : string []= ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  meses : string []= ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   displayedColumns: string[] = ['no', 'nombre', 'hotel', 'fecha','fechaInicio','fechaFinal','contrato', 'posicion', 'opciones'];
   dataSource = new MatTableDataSource<usuariosDelMes>(this.ELEMENT_DATA);
   locales : local [] = []

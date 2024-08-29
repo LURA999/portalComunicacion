@@ -30,8 +30,8 @@
                   <li (click)="buzonSugerencias()">
                       Buzón de sugerencias
                   </li>
-                  <li (click)="enCamerinoPop('dhumano@araizahoteles.com','Araiza en Camerino')">
-                    Araiza en Camerino
+                  <li [hidden]="opcionVotar[0]" (click)="votandoPop(1)">
+                      Vota
                   </li>
                   <li (click)="lineaDeAyuda()">
                       Línea de ayuda
@@ -49,8 +49,8 @@
                   <li (click)="buzonSugerencias()">
                       Buzón de sugerencias
                   </li>
-                  <li (click)="enCamerinoPop('rhcalafia@araizahoteles.com','Calafia en Camerino')">
-                    Calafia en Camerino
+                  <li [hidden]="opcionVotar[1]" (click)="votandoPop(2)">
+                      Vota
                   </li>
                   <li (click)="lineaDeAyuda()">
                       Línea de ayuda
@@ -68,8 +68,8 @@
                   <li (click)="buzonSugerencias()">
                       Buzón de sugerencias
                   </li>
-                  <li (click)="enCamerinoPop('rhsanluis@araizahoteles.com','Araiza en Camerino')">
-                    Araiza en Camerino
+                  <li [hidden]="opcionVotar[2]" (click)="votandoPop(3)">
+                      Vota
                   </li>
                   <li (click)="lineaDeAyuda()">
                       Línea de ayuda
@@ -87,9 +87,9 @@
                 <li (click)="buzonSugerencias()">
                     Buzón de sugerencias
                 </li>
-                <li (click)="enCamerinoPop('rhpalmira@araizahoteles.com','Araiza en Camerino')">
-                  Araiza en Camerino
-                </li>
+                <li [hidden]="opcionVotar[3]" (click)="votandoPop(4)">
+                  Vota
+              </li>
                 <li (click)="lineaDeAyuda()">
                     Línea de ayuda
                 </li>
@@ -106,8 +106,8 @@
               <li (click)="buzonSugerencias()">
                   Buzón de sugerencias
               </li>
-              <li (click)="enCamerinoPop('rhhmo@araizahoteles.com','Araiza en Camerino')">
-                Araiza en Camerino
+              <li [hidden]="opcionVotar[4]" (click)="votandoPop(5)">
+                Vota
               </li>
               <li (click)="lineaDeAyuda()">
                   Línea de ayuda
@@ -147,8 +147,8 @@
                   Buzón de sugerencias</a>
                 <a mat-list-item (click)="lineaDeAyuda()" routerLinkActive="active" mat-line>
                   Línea de ayuda</a>
-                <a mat-list-item (click)="enCamerinoPop('dhumano@araizahoteles.com','Araiza en Camerino')" routerLinkActive="active" mat-line>
-                  Araiza en Camerino</a>
+                <a mat-list-item [hidden]="opcionVotar[0]" (click)="votandoPop(1)" routerLinkActive="active" mat-line>
+                  Vota</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(2)">
                 <mat-expansion-panel-header #panelH2>
@@ -162,8 +162,8 @@
                   Buzón de sugerencias</a>
                 <a mat-list-item (click)="lineaDeAyuda()" routerLinkActive="active" mat-line>
                   Línea de ayuda</a>
-                  <a mat-list-item (click)="enCamerinoPop('rhcalafia@araizahoteles.com','Araiza en Calafia')" routerLinkActive="active" mat-line>
-                    Araiza en Calafia</a>
+                <a mat-list-item [hidden]="opcionVotar[1]" (click)="votandoPop(2)" routerLinkActive="active" mat-line>
+                    Vota</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(3)">
                 <mat-expansion-panel-header #panelH3>
@@ -175,8 +175,8 @@
                   Solicitudes</a>
                 <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
                   Buzón de sugerencias</a>
-                <a mat-list-item (click)="enCamerinoPop('rhsanluis@araizahoteles.com','Araiza en Camerino')" routerLinkActive="active" mat-line>
-                  Araiza en Camerino</a>
+                <a mat-list-item [hidden]="opcionVotar[2]" (click)="votandoPop(3)" routerLinkActive="active" mat-line>
+                  Vota</a>
                 <a mat-list-item (click)="lineaDeAyuda()" routerLinkActive="active" mat-line>
                   Línea de ayuda</a>
                 </mat-expansion-panel>
@@ -192,8 +192,8 @@
                   Buzón de sugerencias</a>
                 <a mat-list-item (click)="lineaDeAyuda()" routerLinkActive="active" mat-line>
                   Línea de ayuda</a>
-                <a mat-list-item (click)="enCamerinoPop('rhpalmira@araizahoteles.com','Araiza en Camerino')" routerLinkActive="active" mat-line>
-                  Araiza en Camerino</a>
+                <a mat-list-item [hidden]="opcionVotar[3]" (click)="votandoPop(4)" routerLinkActive="active" mat-line>
+                  Vota</a>
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(5)">
                   <mat-expansion-panel-header #panelH4 >
@@ -207,8 +207,8 @@
                     Buzón de sugerencias</a>
                   <a mat-list-item (click)="lineaDeAyuda()" routerLinkActive="active" mat-line>
                     Línea de ayuda</a>
-                  <a mat-list-item (click)="enCamerinoPop('rhhmo@araizahoteles.com','Araiza en Camerino')" routerLinkActive="active" mat-line>
-                    Araiza en Camerino</a>
+                  <a mat-list-item [hidden]="opcionVotar[4]" (click)="votandoPop(5)" routerLinkActive="active" mat-line>
+                    Vota</a>
                   </mat-expansion-panel>
                 <a mat-list-item class="logout"  (click)="salir()" routerLinkActive="active">
                   <mat-icon mat-list-icon>
@@ -288,6 +288,12 @@
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc">Votaciones</span>
+        </a>
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/cuestionarios-config')" >
+          <mat-icon mat-list-icon >
+            <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
+          </mat-icon>
+          <span class="opc verticalN-opc">Cuestionarios</span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item class="logout" (click)="salir()" routerLinkActive="active">
           <mat-icon mat-list-icon>

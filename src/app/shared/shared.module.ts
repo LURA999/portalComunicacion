@@ -8,6 +8,7 @@ import { BuzonSugerenciaComponent } from './buzon-sugerencia/buzon-sugerencia.co
 import { LineaDeAyudaComponent } from './linea-de-ayuda/linea-de-ayuda.component';
 import { VotarPopupComponent } from './votar-popup/votar-popup.component';
 import { AraizaEnCamerinoComponent } from './araiza-en-camerino/araiza-en-camerino.component';
+import {CdkDrag, CdkDragHandle}  from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { AraizaEnCamerinoComponent } from './araiza-en-camerino/araiza-en-cameri
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    CdkDrag, CdkDragHandle
   ],
   declarations: [
     LayoutComponent,
