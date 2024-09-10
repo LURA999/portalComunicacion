@@ -54,6 +54,5 @@ export class BuzonSugerenciaComponent {
       alert('A complete el formulario, por favor');
     }
 
-
   }
 }

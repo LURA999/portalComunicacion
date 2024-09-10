@@ -14,6 +14,7 @@
       <input type="text"
             matInput
             autocomplete="off"
+            placeholder="Busque un evento..."
             [formControl]="myControlEventos"
             [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedEvento($event)">
@@ -48,7 +49,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Fecha inicial</mat-label>
       <input autocomplete="off" (click)="picker4.open()" (dateChange)="fecha1($event.value)" [min]="date" [max]="rango2" formControlName="fechaInicial" matInput [matDatepicker]="picker4">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>DD/MM/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
       <mat-datepicker #picker4></mat-datepicker>
     </mat-form-field>
@@ -57,7 +58,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Fecha final</mat-label>
       <input autocomplete="off" (click)="picker3.open()" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango" formControlName="fechaFinal" matInput [matDatepicker]="picker3">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>DD/MM/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
       <mat-datepicker #picker3></mat-datepicker>
     </mat-form-field>

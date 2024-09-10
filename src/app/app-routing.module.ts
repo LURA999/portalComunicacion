@@ -5,6 +5,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { InicioGuard } from './core/guards/inicio.guard';
 import { ErrorComponent } from './error/error.component';
 import { ComentarComidaComponent } from './comentar-comida/comentar-comida.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 const routes: Routes = [
   { path: 'general', loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioModule) },
@@ -16,8 +18,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash:true})],
-  exports: [RouterModule],
+  imports: [ RouterModule.forRoot(routes, {useHash:true}) ],
+  exports: [ RouterModule ],
+  providers : [  ]
 
 })
 export class AppRoutingModule { }

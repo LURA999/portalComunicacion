@@ -26,19 +26,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
-/*export const MY_FORMATS = {
+export const MY_FORMATS = {
   parse: {
-    dateInput: 'DD MMM YYYY',
+    dateInput: 'YYYY MMM DD',
   },
- /* display: {
-    dateInput: 'DD MMM YYYY',
-    monthYearLabel: 'MMM YYYY',
+  display: {
+    dateInput: 'YYYY MMM DD',
+    monthYearLabel: 'YYYY MMM',
     dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY'
+    monthYearA11yLabel: 'YYYY MMMM'
   }
-};*/
+};
 
 @NgModule({
   imports: [
@@ -53,11 +54,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonToggleModule, MatSlideToggleModule, MatBadgeModule, MatCheckboxModule,
     MatExpansionModule, MatSortModule,MatNativeDateModule   ],
   providers: [
-   // {
-     // provide: MAT_DATE_FORMATS,
-   //   useValue: MY_FORMATS
-   // },
-    { provide: LOCALE_ID, useValue: 'en-US' }
+   /*  {
+      provide: MAT_DATE_FORMATS,
+      useValue: MY_FORMATS
+    }, */
+    /* { provide: MAT_DATE_LOCALE, useValue: 'en-GB' } */
   ],
   declarations: []
 })
@@ -65,8 +66,7 @@ export class CustomMaterialModule {
   static forRoot() {
     return {
       ngModule: CustomMaterialModule,
-      providers: [
-      ]
+      providers: [   ]
     };
   }
 }

@@ -45,7 +45,7 @@ export class EliminarComponent implements OnInit {
       switch (this.data.seccion.toString()) {
         case "foto/imagen":
           this.contenedor_carga.style.display = "block";
-
+          //Cuando utilizo el of("") es porque los observables siguientes
           of('').pipe(
             concatMap(()=>{
               if (this.data.opc === true) {

@@ -81,11 +81,11 @@ export class SubirImgVideoService {
   }
 
   //fotos de usuarios
-  subirImgUsuario(obj : FormData) :Observable <ResponseInterfaceTs> {
+  subirImgUsuario(obj : FormData) : Observable <ResponseInterfaceTs> {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-  return this.http.post<ResponseInterfaceTs>(this.local+"Users/img.php", obj, {headers})
+    return this.http.post<ResponseInterfaceTs>(this.local+"Users/img.php", obj, {headers})
   }
 
   eliminarDirImgUsuario(id: string) : Observable <ResponseInterfaceTs>{

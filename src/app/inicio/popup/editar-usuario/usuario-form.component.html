@@ -89,7 +89,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Fecha de nacimiento</mat-label>
           <input autocomplete="off" formControlName="fechaNacimiento" matInput [matDatepicker]="picker">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -99,22 +99,27 @@
         <mat-form-field appearance="outline">
           <mat-label>Fecha de ingreso</mat-label>
             <input autocomplete="off" formControlName="fechaIngreso" matInput [matDatepicker]="picker2">
-            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-hint>DD/MM/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
       </div>
-      <br>
-      <ng-container *ngIf="modalidad === false">
-        <img  rel="preload" [src]="api+'imgVideo/fotos/'+data!.img" alt="imagen-usuario">
+
+      @if( modalidad === false ){
+        <mat-checkbox [checked]="aniversarioCheckbox" (change)="cambiarCheckbox($event, 1)" color="primary"> Aniversarios </mat-checkbox> <br>
+        <mat-checkbox [checked]="cumpleanosCheckbox" (change)="cambiarCheckbox($event, 2)" color="primary"> Cumpleaños </mat-checkbox>
         <br>
         <br>
-      </ng-container>
+        <ng-container *ngIf="modalidad === false">
+          <img  rel="preload" [src]="api+'imgVideo/fotos/'+data!.img" alt="imagen-usuario">
+          <br>
+          <br>
+        </ng-container>
+      }
+
       <div>
         <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" #subirImagen (change)="subirImg($event)" class="ing-txt"><br><br>
       </div>
-
-
       <div>
       <!-- <mat-form-field appearance="outline" >
         <mat-label>Marca del vehículo</mat-label>

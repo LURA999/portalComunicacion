@@ -11,14 +11,14 @@
     <mat-form-field appearance="outline" >
         <mat-label>Fecha inicial de la noticia</mat-label>
         <input autocomplete="off" formControlName="fechaInicial" (dateChange)="fecha1($event.value)" [max]="rango2" matInput [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Fecha final de la noticia</mat-label>
         <input autocomplete="off" formControlName="fechaFinal" (dateChange)="fecha2($event.value)" [min]="rango==undefined?date:rango"  matInput [matDatepicker]="picker2">
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>

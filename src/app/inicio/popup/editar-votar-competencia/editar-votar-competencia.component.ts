@@ -34,6 +34,7 @@ export class EditarVotarCompetenciaComponent {
  })
 
  filteredOptionsEventos!: Observable<votaciones[]>;
+
  myControlEventos = new FormControl('');
  myControlEventosNuevo = new FormControl('');
 
@@ -76,19 +77,24 @@ export class EditarVotarCompetenciaComponent {
       }
     }))
     //para comprender completamente por que -1 y una cadena vacia, hay que ver la logica de la API
-    /** */
     this.ccia.imprimirDatosCompetencia(-1," ").subscribe( async (resp : ResponseInterfaceTs)=>{
       if (resp.status.toString() === '200') {
         this.optionsEventos = resp.container;
+        this.filteredOptionsEventos = this.myControlEventos.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterEventos(value)),
+        );
       }
     })
+
+  }
+
+  ngAfterViewInit(): void {
+
   }
 
   ngOnInit() {
-    this.filteredOptionsEventos = this.myControlEventos.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterEventos(value)),
-    );
+
   }
 
   private _filterEventos(value: any) : votaciones[] {

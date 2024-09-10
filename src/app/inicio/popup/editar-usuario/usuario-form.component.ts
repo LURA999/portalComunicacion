@@ -9,6 +9,7 @@ import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interfa
 import { environment } from 'src/environments/environment';
 import { local, usuarios } from '../../opcion-config/usuarios-config/usuarios.component';
 import { EditarSliderComponent } from '../editar-slider/editar-slider.component';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export interface actNomImgVideo {
   imgn : string;
@@ -82,11 +83,15 @@ export class UsuarioFormComponent implements OnInit {
   })
   link : string =  environment.production === true ? "": "../../../";
   api : string = environment.api;
+  aniversarioCheckbox : boolean = false;
+  cumpleanosCheckbox : boolean = false;
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
   private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private usuario : UsuarioService ) {
+    console.log(this.data!);
 
   this.usuario.buscarDepartamentos().subscribe((res:ResponseInterfaceTs)=>{
+
     if (res.container!=null) {
       for (let i = 0; i < res.container.length; i++) {
         this.departamento.push(res.container[i])
@@ -97,6 +102,9 @@ export class UsuarioFormComponent implements OnInit {
 
 
     if (data !== undefined) {
+      this.aniversarioCheckbox = this.data!.aniversario == 1? true : false ;
+      this.cumpleanosCheckbox =  this.data!.cumple == 1? true : false;
+
       this.formUsuario = this.fb.group({
         usuario : [this.data!.usuario, Validators.required],
         apellidoPaterno : [this.data!.apellidoPaterno, Validators.required],
@@ -199,12 +207,16 @@ export class UsuarioFormComponent implements OnInit {
         })
         ))).container[0].total;
         this.contenedor_carga.style.display = "none";
+
+        //creacion de usuario
         if(y == 0 && this.insertarImagen === true && this.formUsuario.valid === true){
         this.contenedor_carga.style.display = "block";
         this.data = this.formUsuario.value
         this.data!.departamento = this.departamento.find(item => item.departamento === this.myControl.value)?.idDepartamento!;
+
         //no es obligatorio insertar img, pero es necesario comprobar si se inserto una imagen
           this.formData.append('info', this.targetFile, this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]);
+
           this.serviceImgVideo.subirImgUsuario(this.formData).pipe(
             concatMap((res1:ResponseInterfaceTs) => {
                 this.data!.img = res1.container.nombre
@@ -251,7 +263,8 @@ export class UsuarioFormComponent implements OnInit {
         this.data!.imgn = gimg; //Foto anterior
         this.data!.img = gimg?.split("_")[0]+"_"+this.formUsuario.value["cveLocal"]+"."+(gimg!.split(".")[gimg!.split(".").length - 1]) //Foto nueva
         this.data!.usuarion = usuario;
-
+        this.data!.aniversario  = this.aniversarioCheckbox == true? 1 : 0 ;
+        this.data!.cumple = this.cumpleanosCheckbox   == true? 1 : 0;
         this.data!.departamento = this.departamento.find(item => item.departamento === this.myControl.value)?.idDepartamento!;
 
         if( Number(usuario) !==  Number(this.formUsuario.value["usuario"]) && this.insertarImagen === false) {
@@ -270,6 +283,7 @@ export class UsuarioFormComponent implements OnInit {
           Observable.push(this.serviceImgVideo.eliminarDirImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]));
           Observable.push(this.serviceImgVideo.actualizarImgUsuario(this.data!.usuario.toString()+"_"+this.formUsuario.value["cveLocal"]+"."+this.targetFile.name.split(".")[this.targetFile.name.split(".").length - 1]));
           //despues se actualizara la imagen nueva que eligio
+
           Observable.push(this.serviceImgVideo.subirImgUsuario(this.formData))
         }
 
@@ -277,7 +291,7 @@ export class UsuarioFormComponent implements OnInit {
 
         Observable.push(this.usService.selectAllusers(1))
 
-
+        //
         if (Observable.length === 3) {
           this.$sub.add(Observable[0].pipe(
           concatMap(() => Observable[1].pipe(
@@ -319,9 +333,11 @@ export class UsuarioFormComponent implements OnInit {
         }
 
         if (Observable.length === 2) {
+
           if(this.data!.imgn === this.data!.img){
             this.data!.img = '';
           }
+
           this.$sub.add(Observable[0].pipe(
             concatMap(() => Observable[1])
             ).pipe(
@@ -373,6 +389,12 @@ export class UsuarioFormComponent implements OnInit {
 
 
 
-
+  cambiarCheckbox( event : MatCheckboxChange, bool : number){
+     if (bool == 1) {
+      this.aniversarioCheckbox = event.checked;
+    }else{
+      this.cumpleanosCheckbox = event.checked;
+    }
+  }
 }
 

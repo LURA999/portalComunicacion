@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +19,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorComponent } from './error/error.component';
 import { ComentarComidaComponent } from './comentar-comida/comentar-comida.component';
 import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import 'moment/locale/es';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -29,7 +31,8 @@ import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component
         ThanksComponent,
     ],
     exports: [],
-    bootstrap: [AppComponent], imports: [CustomMaterialModule,
+    bootstrap: [AppComponent],
+    imports: [CustomMaterialModule,
         SharedModule,
         BrowserModule,
         AppRoutingModule,
@@ -38,5 +41,15 @@ import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component
         MatInputModule,
         MatIconModule,
         MatButtonModule,
-        NgbModule], providers: [CookieService, provideHttpClient(withInterceptorsFromDi())] })
+        NgbModule
+      ],
+      providers: [
+          { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
+          CookieService,
+          provideMomentDateAdapter(),
+          provideHttpClient(withInterceptorsFromDi()),
+        ]
+      })
 export class AppModule { }
+
+

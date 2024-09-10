@@ -56,12 +56,17 @@ export class EliminarCompetenciaComponent {
   }
 
   selectedLocal(e : MatSelectChange){
-
+    this.optionsEventos = [];
     this.ccia.imprimirDatosCompetencia(e.value," ").subscribe( async (resp : ResponseInterfaceTs)=>{
-      this.optionsEventos = [];
+
       if (resp.status.toString() === '200') {
         this.optionsEventos = resp.container;
+        this.filteredOptionsEventos = this.myControlEventos.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterEventos(value)),
+        );
       }
+
     })
 
   }

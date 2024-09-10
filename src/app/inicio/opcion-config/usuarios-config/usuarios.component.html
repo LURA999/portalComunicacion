@@ -20,14 +20,14 @@
         <mat-form-field appearance="outline">
           <mat-label>Seleccione la fecha inicial</mat-label>
           <input matInput formControlName="fechaInicial" [matDatepicker]="picker">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-hint>{{dateFormatString()}}</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker ></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Seleccione la fecha final</mat-label>
           <input matInput formControlName="fechaFinal" [matDatepicker]="picker2">
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>

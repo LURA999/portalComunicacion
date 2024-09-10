@@ -51,6 +51,14 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
         private render : Renderer2,
         private ccia : VotacionesService
       ) {
+        for (let x = 0; x < this.opcionVotar.length; x++) {
+          this.opcionVotar[x] = true;
+          this.ccia.imprimirUsuariosCompetenciaActivado(1+x).subscribe((resp: ResponseInterfaceTs) => {
+            if (resp.container.length) {
+              this.opcionVotar[x] = false;
+            }
+          })
+        }
 
         this.mobileQuery = this.media.matchMedia('(max-width: 700px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -222,14 +230,14 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
             this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
             break;
           case "hermosillo":
-            this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
-            break;
-          case "palmira":
             this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
             this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
             this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
+            break;
+          case "palmira":
+            this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
             break;
           case "slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")

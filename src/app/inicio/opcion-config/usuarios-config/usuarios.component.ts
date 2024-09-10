@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,6 +18,9 @@ import { format } from 'date-fns';
 import { EditarDepartamentoComponent } from '../../popup/editar-departamento/editar-departamento.component';
 import { EliminarDepartamentoComponent } from '../../popup/eliminar-departamento/eliminar-departamento.component';
 import { AgregarDepartamentoComponent } from '../../popup/agregar-departamento/agregar-departamento.component';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatDatepickerIntl } from '@angular/material/datepicker';
 
 export interface local {
   idLocal : Number;
@@ -45,6 +48,8 @@ export interface usuarios {
   departamento: number;
   contrato : number;
   fecha : number;
+  aniversario : number;
+  cumple : number;
 }
 
 export interface formBuscadorUsuario {
@@ -60,8 +65,12 @@ export interface formBuscadorUsuario {
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css'],
-  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
-
+  providers: [
+    { provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
+    provideMomentDateAdapter()
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsuariosComponent implements OnInit {
 
@@ -98,6 +107,17 @@ export class UsuariosComponent implements OnInit {
     tipoVisita : -1
   })
 
+  private readonly _adapter =
+  inject<DateAdapter<unknown, unknown>>(DateAdapter);
+  private readonly _intl = inject(MatDatepickerIntl);
+  private readonly _locale = signal(inject<unknown>(MAT_DATE_LOCALE));
+  readonly dateFormatString = computed(() => {
+     if (this._locale() === 'es-MX') {
+      return 'DD/MM/YYYY';
+    }
+    return '';
+  });
+
   ngOnInit(): void {
     this.$sub.add(this.loc.todoLocal(-1).pipe(
       catchError( _ => {
@@ -115,6 +135,7 @@ export class UsuariosComponent implements OnInit {
         throw "Error in source."
     })
     ).subscribe(async (resp:ResponseInterfaceTs)=>{
+
       for await (const c of resp.container) {
         this.ELEMENT_DATA.push( c )
       }
@@ -175,6 +196,7 @@ export class UsuariosComponent implements OnInit {
       width: '450px',
       data: usuario
     });
+
     dialogRef.afterClosed().subscribe(async (resp:any)=>{
       if (resp !== undefined) {
         if (resp.length > 0) {
@@ -233,6 +255,8 @@ export class UsuariosComponent implements OnInit {
         throw "Error in source."
     })
     ).subscribe(async (resp:ResponseInterfaceTs)=>{
+      console.log(resp);
+
       if (Number(resp.status) == 200) {
         this.cargando = false;
         this.ELEMENT_DATA = [];
@@ -356,5 +380,11 @@ export class UsuariosComponent implements OnInit {
       width: '450px',
       data: undefined
     });
+  }
+
+
+  updateCloseButtonLabel(label: string) {
+    this._intl.closeCalendarLabel = label;
+    this._intl.changes.next();
   }
 }

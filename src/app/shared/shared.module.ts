@@ -9,6 +9,8 @@ import { LineaDeAyudaComponent } from './linea-de-ayuda/linea-de-ayuda.component
 import { VotarPopupComponent } from './votar-popup/votar-popup.component';
 import { AraizaEnCamerinoComponent } from './araiza-en-camerino/araiza-en-camerino.component';
 import {CdkDrag, CdkDragHandle}  from '@angular/cdk/drag-drop';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
   imports: [
@@ -17,8 +19,10 @@ import {CdkDrag, CdkDragHandle}  from '@angular/cdk/drag-drop';
     ReactiveFormsModule,
     FlexLayoutModule,
     CustomMaterialModule,
-    CdkDrag, CdkDragHandle
+    CdkDrag,
+    CdkDragHandle
   ],
+  providers:[  ],
   declarations: [
     LayoutComponent,
     BuzonSugerenciaComponent,

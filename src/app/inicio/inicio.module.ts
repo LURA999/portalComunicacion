@@ -119,7 +119,9 @@ import { EliminarCompetenciaSeguridadComponent } from './popup/eliminar-competen
         ExamenEnviadoComponent,
         EliminarCompetenciaComponent,
         EliminarCompetenciaSeguridadComponent
-    ], imports: [CommonModule,
+    ],
+    imports: [
+        CommonModule,
         NgxPaginationModule,
         SharedModule,
         InicioRoutingModule,
@@ -132,8 +134,15 @@ import { EliminarCompetenciaSeguridadComponent } from './popup/eliminar-competen
         MatIconModule,
         MatAutocompleteModule,
         MatChipsModule,
-        ProgressModule], providers: [
-        { provide: [CUSTOM_ELEMENTS_SCHEMA, MAT_DIALOG_DEFAULT_OPTIONS], useValue: { hasBackdrop: false } },
+        ProgressModule
+      ],
+      providers: [
+        {
+          provide: [
+            CUSTOM_ELEMENTS_SCHEMA, MAT_DIALOG_DEFAULT_OPTIONS
+          ],
+          useValue: { hasBackdrop: false }
+        },
         provideHttpClient(withInterceptorsFromDi())
-    ] })
+      ] })
 export class InicioModule { }
