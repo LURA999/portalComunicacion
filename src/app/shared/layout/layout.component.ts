@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Renderer2, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { catchError } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
@@ -49,7 +49,8 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
         private dialog : NgDialogAnimationService,
         private DataService : DataNavbarService,
         private render : Renderer2,
-        private ccia : VotacionesService
+        private ccia : VotacionesService,
+        private activeRoute: ActivatedRoute,
       ) {
         for (let x = 0; x < this.opcionVotar.length; x++) {
           this.opcionVotar[x] = true;
@@ -106,12 +107,13 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
         }
 
       this.activarSeccion(link,undefined);
-      this.route.navigateByUrl(link)
+      this.route.navigate([link],  {relativeTo: this.activeRoute})
     }
 
     navegarNavH(link : string, nombre? : string){
-      this.activarSeccion(link,nombre);
-        this.route.navigateByUrl(link)
+        this.route.navigate([link],  {relativeTo: this.activeRoute});
+        this.activarSeccion(link,nombre);
+
         if (nombre !== undefined && this.auth.getCveRol() == 1) {
             this.auth.crearElm(CryptoJS.AES.encrypt(nombre,"Amxl@2019*-").toString(),"lua")
         }

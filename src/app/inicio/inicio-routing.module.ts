@@ -25,8 +25,6 @@ import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-apren
 import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
 import { VotacionesConfigComponent } from './opcion-config/votaciones-config/votaciones-config.component';
 import { CuestionariosConfigComponent } from './opcion-config/cuestionarios-config/cuestionarios-config.component';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 const routes: Routes = [
   {
