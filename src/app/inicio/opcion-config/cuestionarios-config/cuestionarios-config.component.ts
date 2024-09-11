@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+ import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { DynamicInputComponent } from '../../componentes/dynamic-input/dynamic-input.component';
 import { localService } from 'src/app/core/services/local.service';
 import { AraizaAprendeService } from 'src/app/core/services/araiza_aprende.service';
@@ -158,26 +158,7 @@ form : FormGroup = this.fb.group({
     return ''
   }
 
-//////////////////////
-  crearNuevoElemento(i : number){
-    switch (i) {
-      case 1:
-        const componentRef1 = this.placeholder.createComponent(DynamicInputComponent);
-        componentRef1.instance.placeholder = 'Respuesta';
-        componentRef1.changeDetectorRef.detectChanges();
-        break;
-      case 2:
-        const componentRef2 = this.placeholder.createComponent(DynamicInputComponent);
-        componentRef2.instance.placeholder = 'Respuesta';
-        componentRef2.changeDetectorRef.detectChanges();
-        break;
-      case 3:
-        const componentRef3 = this.placeholder.createComponent(DynamicInputComponent);
-        componentRef3.instance.placeholder = 'Respuesta';
-        componentRef3.changeDetectorRef.detectChanges();
-        break;
-      default:
-        break;
-    }
-  }
+
+
+  
 }

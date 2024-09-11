@@ -66,6 +66,8 @@ import { ExamenEnviadoComponent } from './popup/examen-enviado/examen-enviado.co
 import { EditarVotarCompetenciaComponent } from './popup/editar-votar-competencia/editar-votar-competencia.component';
 import { EliminarCompetenciaComponent } from './popup/eliminar-competencia/eliminar-competencia.component';
 import { EliminarCompetenciaSeguridadComponent } from './popup/eliminar-competencia-seguridad/eliminar-competencia-seguridad.component';
+import { CreateQuestionComponent } from './componentes/create-question/create-question.component';
+
 
 @NgModule({ declarations: [
         InicioComponent,
@@ -118,7 +120,8 @@ import { EliminarCompetenciaSeguridadComponent } from './popup/eliminar-competen
         PasswordPopupComponent,
         ExamenEnviadoComponent,
         EliminarCompetenciaComponent,
-        EliminarCompetenciaSeguridadComponent
+        EliminarCompetenciaSeguridadComponent,
+        CreateQuestionComponent
     ],
     imports: [
         CommonModule,
