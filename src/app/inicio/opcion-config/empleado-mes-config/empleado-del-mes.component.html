@@ -54,11 +54,11 @@
     </ng-container>
     <ng-container matColumnDef="fechaInicio">
       <th mat-header-cell *matHeaderCellDef> Fecha inicio </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha === null || element.fechaInicio === ""? "N/A": element.fechaInicio}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha === null || element.fechaInicio === ""? "N/A": element.fechaInicio | date:'dd-MM-yyyy'}} </td>
     </ng-container>
     <ng-container matColumnDef="fechaFinal">
       <th mat-header-cell *matHeaderCellDef> Fecha final </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha === null || element.fechaFinal === ""? "N/A": element.fechaFinal}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha === null || element.fechaFinal === ""? "N/A": element.fechaFinal | date:'dd-MM-yyyy'}} </td>
     </ng-container>
     <ng-container matColumnDef="posicion">
       <th mat-header-cell *matHeaderCellDef> Posicion </th>

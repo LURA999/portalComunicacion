@@ -47,7 +47,7 @@
     </ng-container><!-- Symbol Column -->
     <ng-container matColumnDef="fecha">
       <th mat-header-cell *matHeaderCellDef> Fecha de despliegue </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha | date:'dd-MM-yyyy' }} </td>
     </ng-container>
     <!-- Weight Column -->
     <ng-container matColumnDef="hotel">

@@ -22,7 +22,7 @@
                       <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                     </video>
                   </ng-template>
-                  <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                  <div class="fecha"> {{i.fechaInicial | date:'dd-MM-yyyy'}} - {{i.fechaFinal | date:'dd-MM-yyyy'}} </div>
                   <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,false,arrPosicionGeneralS)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idImgVideo,false,i)">Eliminar</button>
               </div >
           </div>
@@ -44,7 +44,7 @@
                     No se puede reproducir en este navegador
                    </video>
                 </ng-template>
-                <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                <div class="fecha"> {{i.fechaInicial | date:'dd-MM-yyyy'}} - {{i.fechaFinal | date:'dd-MM-yyyy'}} </div>
                   <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,false,arrPosicionMexicaliS)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idImgVideo,false,i)">Eliminar</button>
               </div >
           </div>
@@ -65,7 +65,7 @@
                     <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                   </video>
                 </ng-template>
-                <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                <div class="fecha"> {{i.fechaInicial | date:'dd-MM-yyyy'}} - {{i.fechaFinal | date:'dd-MM-yyyy'}} </div>
                   <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,false,arrPosicionCalafiaS)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idImgVideo,false,i)">Eliminar</button>
               </div >
           </div>
@@ -86,7 +86,7 @@
                     <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                   </video>
                 </ng-template>
-                <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                <div class="fecha"> {{i.fechaInicial | date:'dd-MM-yyyy'}} - {{i.fechaFinal | date:'dd-MM-yyyy'}} </div>
                   <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,false,arrPosicionsanLuisS)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idImgVideo,false,i)">Eliminar</button>
               </div >
           </div>
@@ -108,7 +108,7 @@
                     <source [src]="(recursoUrlStr(i.imgVideo,true,true) | async)!.toString()" >
                   </video>
                 </ng-template>
-                  <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                  <div class="fecha"> {{i.fechaInicial | date:'dd-MM-yyyy'}} - {{i.fechaFinal | date:'dd-MM-yyyy'}} </div>
                   <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,false,arrPosicionPalmiraS)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idImgVideo,false,i)">Eliminar</button>
               </div >
           </div>
@@ -131,7 +131,7 @@
                         >
                       </video>
                     </ng-template>
-                    <div class="fecha"> {{i.fechaInicial}} - {{i.fechaFinal}} </div>
+                    <div class="fecha"> {{i.fechaInicial | date:'dd-MM-yyyy'}} - {{i.fechaFinal | date:'dd-MM-yyyy'}} </div>
                       <button mat-stroked-button [style.color]="'green'" class="modify" (click)="modificar(i,false,arrPosicionHermosilloS)">Modificar</button><button mat-stroked-button [style.color]="'red'" class="delete" (click)="eliminar(i.idImgVideo,false,i)">Eliminar</button>
                   </div >
               </div>
