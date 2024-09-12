@@ -27,6 +27,7 @@ indexRadioButton :number = 0;
 indexCheckBox :number = 0;
 paramUrl : string = this.route.url.split("/")[2];
 arrayPreguntas : any[] = [];
+contadorPreguntas : number = 0;
 
 
 formularios: any;
@@ -164,9 +165,11 @@ form : FormGroup = this.fb.group({
   agregarPregunta(){
     const componentRef  = this.preguntas.createComponent(CreateQuestionComponent);
     this.arrayPreguntas.push(componentRef);
+    this.contadorPreguntas++;
 
     componentRef.instance.buttonEliminar.subscribe((id: number) => {
-      console.log('entra');
+      this.contadorPreguntas--;
+      console.log(this.contadorPreguntas);
       componentRef.destroy();
     });
 
