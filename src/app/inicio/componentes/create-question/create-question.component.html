@@ -1,19 +1,42 @@
-<mat-card appearance="outlined">
-    <form >
-      <div class="example-form-fields">
-        <mat-form-field >
-          <input matInput placeholder="Pregunta" required />
-        </mat-form-field>
 
-        <mat-form-field >
-          <mat-select required>
-            <mat-option>-- None --</mat-option>
-            <mat-option value="option">Option</mat-option>
-          </mat-select>
-          <mat-label>Tipo</mat-label>
-        </mat-form-field>
+<div class="card mt-4 mb-4">
+    <form >
+        <div class="card-header">
+          <!-- Nombre de pregunta -->
+          <p></p>
+          <button (click)="eliminarPregunta()" class="btn"><i class="fas fa-times"></i></button>
+         
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <mat-form-field >
+                <input matInput placeholder="Pregunta" required />
+              </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <mat-form-field >
+                <mat-select  (selectionChange)="onChange($event)" required>
+                  <mat-option  value="1">Texto</mat-option>
+                  <mat-option  value="2">Radio Button</mat-option>
+                  <mat-option  value="3">Checkbox</mat-option>
+                  <mat-option  value="4">DragDrop</mat-option>
+                </mat-select>
+                <mat-label>Tipo</mat-label>
+              </mat-form-field>
+            </div>
+           
+            <div>
+            <!-- crear respuestas -->
+            <ng-template (buttonClicked)="handleChildClick($event)" #answers></ng-template>
+            @if(valorSelect > 1){
+            <button class="btn btn-sm" (click)="agregarOpcion()"><i class="fas fa-plus"></i> Agregar</button>
+            }
+            </div>
+          </div>
+
       </div>
     </form>
 
-  </mat-card>
+  </div>
 

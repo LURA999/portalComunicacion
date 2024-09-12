@@ -20,9 +20,30 @@
       </mat-form-field>
       <button color="primary" (click)="descargarExcel()" mat-flat-button>Descargar excel</button>
   </form>
-  <app-create-question>
 
-  </app-create-question>
+  <div class="seccion-botones">
+    <div>
+      <button mat-raised-button color="primary" class="btn" (click)="agregarPregunta()">
+          <i class="fas fa-plus"></i> Agregar pregunta
+      </button>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" class="btn" disabled>
+        Completar
+      </button>
+    </div>
+  </div>
+  <div class="card mt-4">
+    <div class="card-header">
+      <input class="form-control" type="text" placeholder="Titulo"/>
+    </div>
+    <div class="card-body">
+      <input class="form-control" type="text" placeholder="Descripcion"/>
+    </div>
+    
+  </div>
+
+  <ng-template (buttonEliminar)="handleChildClick($event)" #preguntas></ng-template>
 </div>
 
 

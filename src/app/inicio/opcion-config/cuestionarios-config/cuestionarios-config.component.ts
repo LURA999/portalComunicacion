@@ -10,6 +10,7 @@ import * as fs from 'file-saver';
 import { concatMap, of } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { format } from 'date-fns';
+import { CreateQuestionComponent } from '../../componentes/create-question/create-question.component';
 
 @Component({
   selector: 'app-cuestionarios-config',
@@ -18,12 +19,15 @@ import { format } from 'date-fns';
 })
 export class CuestionariosConfigComponent {
 
-@ViewChild('placeholder', {read: ViewContainerRef, static: true}) placeholder!: ViewContainerRef;
+@ViewChild('preguntas', {read: ViewContainerRef, static: true}) preguntas!: ViewContainerRef;
+
 componentRef : any[] = [];
 componentRef2 : any[] = [];
 indexRadioButton :number = 0;
 indexCheckBox :number = 0;
 paramUrl : string = this.route.url.split("/")[2];
+arrayPreguntas : any[] = [];
+
 
 formularios: any;
 locales: any;
@@ -144,8 +148,6 @@ form : FormGroup = this.fb.group({
             }
           }
           return respuesta;
-
-
       }
     }else if (tipoPregunta == 4){
       let resp1Container = JSON.parse(resp1.container[contadorR1]["respuestaCorrecta"]);
@@ -159,6 +161,20 @@ form : FormGroup = this.fb.group({
   }
 
 
+  agregarPregunta(){
+    const componentRef  = this.preguntas.createComponent(CreateQuestionComponent);
+    this.arrayPreguntas.push(componentRef);
+
+    componentRef.instance.buttonEliminar.subscribe((id: number) => {
+      console.log('entra');
+      componentRef.destroy();
+    });
+
+  }
+
+
 
   
+
+
 }

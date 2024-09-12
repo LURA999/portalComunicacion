@@ -11,6 +11,7 @@ import { AraizaEnCamerinoComponent } from './araiza-en-camerino/araiza-en-cameri
 import {CdkDrag, CdkDragHandle}  from '@angular/cdk/drag-drop';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
     FlexLayoutModule,
     CustomMaterialModule,
     CdkDrag,
-    CdkDragHandle
+    CdkDragHandle,
   ],
   providers:[  ],
   declarations: [
@@ -34,7 +35,8 @@ import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
     CustomMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatGridListModule
 
   ]
 })
