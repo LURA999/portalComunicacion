@@ -9,6 +9,8 @@ import { localService } from 'src/app/core/services/local.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 import { MatButton } from '@angular/material/button';
+import { log } from 'console';
+import { MatSelectChange } from '@angular/material/select';
 
 export interface locales {
   idLocal : number
@@ -71,15 +73,27 @@ export class ImagenVideoComponent implements OnInit {
   sliderListo :boolean = false;
   contenedor_carga = <HTMLDivElement> document.getElementById("contenedor_carga");
   @ViewChild('miBoton') miBoton!: MatButton;
+  proxima_posicion : number = 0;
 
   constructor(private DataService : DataNavbarService,
     private fb : FormBuilder,
     private serviceImgVid : SubirImgVideoService,
     public route : Router,
     private local : localService) {
+      /*En esta parte del codigo, se llama la cantidad de sliders que contiene la pagina "general"
+       y se le suma 1, para insertar el siguiente*/
 
+      this.serviceImgVid.cantidadSlider(0).subscribe((resp: ResponseInterfaceTs) => {
+        this.proxima_posicion = resp.container[0]['proxima_posicion'];
+        this.formImgVideo.patchValue({
+          posicion: this.proxima_posicion
+        })
+      });
+
+      //Solamente se obtiene todos los hoteles y se elige al hotel 0 por default
       this.secciones_local(1);
-     /*
+
+     /* Codigo que aprendi en el transcurso de la pagina
      con esto desactivo el enter para el formulario
      window.addEventListener("keypress", function(event){
         if (event.keyCode == 13){
@@ -249,6 +263,12 @@ export class ImagenVideoComponent implements OnInit {
           })
         }
       }
+
+      //Una ves que se llena el array de hoteles, se elige por default el hotel 0 (general)
+      this.formImgVideo.patchValue({
+        cveLocal: 0
+      })
+
     }))
 
   }
@@ -257,6 +277,31 @@ export class ImagenVideoComponent implements OnInit {
     this.DataService.open.emit(this.paramUrl);
     this.miBoton.disabled = true;
 
+    let campoNumerico = document.getElementById('campo-numerico');
+
+    campoNumerico!.addEventListener('keydown', function(evento) {
+      let teclaPresionada = evento.key;
+      const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+      const sePresionoUnaTeclaNoAdmitida =
+        teclaPresionada != 'ArrowDown' &&
+        teclaPresionada != 'ArrowUp' &&
+        teclaPresionada != 'ArrowLeft' &&
+        teclaPresionada != 'ArrowRight' &&
+        teclaPresionada != 'Backspace' &&
+        teclaPresionada != 'Delete' &&
+        teclaPresionada != 'Enter' &&
+        !teclaPresionadaEsUnNumero;
+      const comienzaPorCero =
+        campoNumerico!.innerText.length === 0 &&
+        teclaPresionada  as String == '0';
+
+      if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+        evento.preventDefault();
+      }
+
+    });
   }
 
   private url(){
@@ -285,7 +330,15 @@ export class ImagenVideoComponent implements OnInit {
 
   }
 
-  rellenarTarget(){
+  rellenarTarget(ev : MatSelectChange){
+    //Una ves que se llena el array de hoteles, se elige por default el hotel 0 (general)
+    this.serviceImgVid.cantidadSlider(ev.value).subscribe((resp: ResponseInterfaceTs) => {
+      this.proxima_posicion = resp.container[0]['proxima_posicion'];
+      this.formImgVideo.patchValue({
+        posicion: this.proxima_posicion
+      })
+    });
+
     this.url()
   }
 
@@ -300,4 +353,5 @@ export class ImagenVideoComponent implements OnInit {
       this.miBoton.disabled = false;
     }
   }
+
 }

@@ -22,6 +22,14 @@ mat-form-field {
 span {
   font-family: 'gotham-book';
 }
+
+#hint_proxima_posicion{
+  margin-bottom: 20px;
+}
+
+mat-hint{
+  margin-bottom: 200px !important;
+}
 /*
 .carousel-indicators {
   box-sizing: content-box;

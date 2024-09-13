@@ -152,17 +152,25 @@ export class EditarVotarCompetenciaComponent {
   }
 
   selectedUsuario(e : MatAutocompleteSelectedEvent){
-    this.seleccionadasNumber.push((e.option.value as opcion).id)
-    this.seleccionadas.push(e.option.value as opcion)
-    this.optionsUsuarios = []
-    // (e.option.value as opcion).nombre
-    this.myControlUsuarios.patchValue(
-      ""
-    )
+    if (this.seleccionadasNumber.indexOf((e.option.value as opcion).id) == -1) {
+      this.seleccionadasNumber.push((e.option.value as opcion).id)
+      this.seleccionadas.push(e.option.value as opcion)
+      this.optionsUsuarios = []
+      // (e.option.value as opcion).nombre
+      this.myControlUsuarios.patchValue(
+        ""
+      )
+    }else{
+      this.myControlUsuarios.patchValue((
+        ""
+      ))
+      alert("El usuario ya esta agregado en la competencia.")
+    }
+
   }
 
   async enviarDatos(){
-    if (this.formCompetencia.valid) {
+    if (this.formCompetencia.valid && this.seleccionadas.length > 0) {
 
       //En el siguiente bloque se analizan las diferentes secciones para actualizar el evento o competencia
       let actualizar : boolean = false;
@@ -228,6 +236,10 @@ export class EditarVotarCompetenciaComponent {
           this.dialogRef.close(undefined)
         }
       })
+    }else {
+      if (this.seleccionadas.length == 0) {
+        alert("Por favor seleccione a los competidores");
+      }
     }
   }
 

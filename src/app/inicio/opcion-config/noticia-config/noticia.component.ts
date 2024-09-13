@@ -50,8 +50,8 @@ export class NoticiaComponent implements OnInit {
     private serviceImgVideo : SubirImgNoticiaService,
     public route : Router,private local : localService,
     ) {
-      //subscribe
-      this.$sub.add(this.local.todoLocal(2).pipe(
+    //subscribe
+    this.$sub.add(this.local.todoLocal(2).pipe(
       catchError( _ => {
         throw "Error in source."
     })
@@ -146,7 +146,6 @@ export class NoticiaComponent implements OnInit {
 
  async enviandoDatos() {
   this.activarBut();
-
     if(this.miBoton.disabled === false){
     if (this.formImgVideo.valid == false) {
       alert("Por favor llene todos los campos");

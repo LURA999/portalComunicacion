@@ -45,6 +45,7 @@ export class GaleriaMultiComponent implements OnInit {
    *  @cargando : variable para saber si ya caragaron las noticias
    *  @cargando2 : variable para saber si ya caragaron los sliders
    */
+
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
   $sub : Subscription = new Subscription()
