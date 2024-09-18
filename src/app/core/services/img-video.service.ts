@@ -22,6 +22,11 @@ export class SubirImgVideoService {
     return this.http.get<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?cvLoc="+cveLocal+"&cvSec="+cveSeccion+"&historial="+historial+"&filtroHistorial="+filtroHistorial);
   }
 
+   // fotos/videos de sliders o noticias
+   cantidadSlider(cveLocal : number )  : Observable <ResponseInterfaceTs> {
+    return this.http.get<ResponseInterfaceTs>(this.local+"imgVideo/imgVideo.php?ultimoSlider=true&cvLoc="+cveLocal);
+  }
+
   subirImgVideo(obj : imgVideoModel,arch : string, actualizar:boolean) : Observable <ResponseInterfaceTs> {
     let headers = new HttpHeaders().set('Content-type','Application/json')
     return this.http.post<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?act="+actualizar,obj, {headers} );

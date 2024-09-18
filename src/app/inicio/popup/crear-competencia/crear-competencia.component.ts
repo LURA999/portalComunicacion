@@ -26,6 +26,7 @@ export class CrearCompetenciaComponent {
   date : Date = new Date()
   rango : Date | undefined
   rango2 : Date | undefined
+  seleccionadasNumber : Array<number> = []
   formCompetencia : FormGroup = this.fb.group({
     nombre : [ '' , Validators.required],
     cveLocal : [ '' , Validators.required],
@@ -71,25 +72,34 @@ export class CrearCompetenciaComponent {
   }
 
   remove(competencia: opcion){
-    this.seleccionadas.splice(this.seleccionadas.indexOf(competencia), 1)
+    let id : number= this.seleccionadas.indexOf(competencia)
+    this.seleccionadas.splice(id, 1)
+    this.seleccionadasNumber.splice(id, 1)
   }
 
   selectedUsuario(e : MatAutocompleteSelectedEvent){
-    this.seleccionadas.push(e.option.value as opcion)
-    this.options = []
-    // (e.option.value as opcion).nombre
-    this.myControl.patchValue((
-      ""
-    ))
+    console.log(this.seleccionadasNumber.indexOf((e.option.value as opcion).id));
+
+    if (this.seleccionadasNumber.indexOf((e.option.value as opcion).id) == -1) {
+      this.seleccionadasNumber.push((e.option.value as opcion).id)
+      this.seleccionadas.push(e.option.value as opcion)
+      this.options = []
+      // (e.option.value as opcion).nombre
+      this.myControl.patchValue((
+        ""
+      ))
+    }else{
+      this.myControl.patchValue((
+        ""
+      ))
+      alert("El usuario ya esta agregado en la competencia.")
+    }
   }
 
   async buscarUsuario(){
     if (this.formCompetencia.value["cveLocal"].length !== 0) {
-    this.options = (await lastValueFrom(this.user.selectUsuariosHotel(String(this.myControl.value), Number(this.formCompetencia.value["cveLocal"])))).container
-    console.log(this.options);
-
-  }
-
+      this.options = (await lastValueFrom(this.user.selectUsuariosHotel(String(this.myControl.value), Number(this.formCompetencia.value["cveLocal"])))).container
+    }
   }
 
   private filterOptions(value: string): Observable<ResponseInterfaceTs> {
@@ -99,7 +109,7 @@ export class CrearCompetenciaComponent {
 
   enviarDatos(){
 
-    if (this.formCompetencia.valid && this.myControl.valid) {
+    if (this.formCompetencia.valid && this.myControl.valid && this.seleccionadas.length > 0) {
       // let opciones : any = { month: 'short', day: 'numeric', year: 'numeric' };
       let objeto : competencia = this.formCompetencia.value;
       /* let date1 : string [] = new Date((this.formCompetencia.value["fechaFinal"] as Date)+"T00:00:00").toLocaleDateString('es',opciones).split(" ")
@@ -120,6 +130,10 @@ export class CrearCompetenciaComponent {
           }
         })
       })
+    }else{
+      if (this.seleccionadas.length == 0) {
+        alert("Por favor seleccione a los competidores")
+      }
     }
   }
 

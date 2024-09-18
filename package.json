@@ -16,7 +16,7 @@
     "@angular/forms": "^18.1.2",
     "@angular/localize": "^18.1.2",
     "@angular/material-moment-adapter": "^18.2.3",
-    "@angular/platform-browser": "^18.1.2",
+    "@angular/platform-browser": "^18.2.4",
     "@angular/platform-browser-dynamic": "^18.1.2",
     "@angular/router": "^18.1.2",
     "@coreui/angular": "^4.2.14",

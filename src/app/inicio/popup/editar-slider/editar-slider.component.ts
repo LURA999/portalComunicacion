@@ -305,4 +305,32 @@ export class EditarSliderComponent implements OnInit {
     this.$sub.unsubscribe()
   }
 
+  ngAfterContentInit(): void {
+    let campoNumerico = document.getElementById('campo-numerico');
+
+    campoNumerico!.addEventListener('keydown', function(evento) {
+      let teclaPresionada = evento.key;
+      const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+      const sePresionoUnaTeclaNoAdmitida =
+        teclaPresionada != 'ArrowDown' &&
+        teclaPresionada != 'ArrowUp' &&
+        teclaPresionada != 'ArrowLeft' &&
+        teclaPresionada != 'ArrowRight' &&
+        teclaPresionada != 'Backspace' &&
+        teclaPresionada != 'Delete' &&
+        teclaPresionada != 'Enter' &&
+        !teclaPresionadaEsUnNumero;
+      const comienzaPorCero =
+        campoNumerico!.innerText.length === 0 &&
+        teclaPresionada  as String == '0';
+
+      if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+        evento.preventDefault();
+      }
+
+    });
+  }
+
 }

@@ -30,7 +30,6 @@ export class UsuarioService {
   selectUsuariosHotel(p : string, op : number):Observable<ResponseInterfaceTs>{
     const timestamp = Date.now();
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
-
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?localUsuarios=true&palabra2='+p+'&cvehotel='+op, { headers });
   }
 
