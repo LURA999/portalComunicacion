@@ -268,7 +268,7 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
           case "votaciones-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
           break;
-          case "cuestionarios-config":
+          case "cuestionarios-menu":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
           break;
         }
@@ -330,7 +330,7 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
           case "/general/votaciones-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
           break;
-          case "/general/cuestionarios-config":
+          case "/general/cuestionarios-menu":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
           break;
         }
@@ -343,6 +343,7 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
         throw "Error in source."
     })
     ).subscribe(res => {
+        console.log(res);
         if (Number(this.auth.getCveRol()) == 1) {
           this.isAdminPortal = false;
           if (res === undefined || res==="mexicali"

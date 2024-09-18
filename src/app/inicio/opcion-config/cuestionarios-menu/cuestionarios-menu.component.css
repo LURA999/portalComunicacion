@@ -1,0 +1,13 @@
+.cuestionarios{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 70px;
+}
+
+.sep{
+    margin-top:20px;
+    margin-bottom:20px;
+    display: flex;
+    justify-content: space-between;
+}
+

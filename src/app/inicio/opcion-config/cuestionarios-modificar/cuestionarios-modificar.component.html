@@ -1,0 +1,56 @@
+<div class="container-cuestionario">
+    <!-- Seccion para agregar preguntas -->
+    <div class="seccion-botones">
+      <div> 
+        <button mat-raised-button (click)="regresarMenu()" color="primary">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <button mat-raised-button color="primary" (click)="agregarPregunta()">
+            <i class="fas fa-plus"></i> Agregar pregunta
+        </button>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="updateCuestionario()" >
+          Modificar
+        </button>
+      </div>  
+    </div>
+    <!-- Titulo de cuestionario -->
+    <div class="card mt-4"  *ngIf="cuestionarioTitulos">
+      <div class="card-header">
+        <input class="form-control" type="text" placeholder="Titulo" value="{{ cuestionarioTitulos.titulo }}"/>
+       
+      </div>
+      <div class="card-body">
+        <input class="form-control" type="text" placeholder="Descripcion" value="{{ cuestionarioTitulos.descripcion }}"/>
+      </div>
+    </div>
+     <!-- <ng-template #createQuestion></ng-template>  -->
+
+    <!-- <div *ngFor="let pregunta of cuestionarioPreguntas">
+      <div class="card mt-4 mb-4">
+
+        <div class="card-header">
+          <p></p>
+            <button (click)="eliminarPregunta(pregunta.idPregunta-1)" class="btn"><i class="fas fa-times"></i></button>
+        </div>
+        <ng-template #createQuestion></ng-template>
+      <app-create-question 
+       (buttonEliminar)="handleEliminarPregunta($event)" 
+       [valorSelect]="pregunta.tipoQuestion" 
+       [preguntaNombre]="pregunta.pregunta" 
+       [cantidadRespuestas]="pregunta.respuesta.length" 
+       [arrayRespuestas]="pregunta.respuesta" ></app-create-question> 
+    </div> -->
+    <div class="card-header">
+      <p></p>
+        <button class="btn">sdsdsdsds<i class="fas fa-times"></i></button>
+    </div>
+     <ng-template (buttonEliminar)="handleEliminarPregunta($event)" #createQuestion></ng-template> 
+  
+  </div>
+
+
+
+
+

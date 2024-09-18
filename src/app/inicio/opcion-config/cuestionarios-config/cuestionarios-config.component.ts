@@ -174,6 +174,10 @@ form : FormGroup = this.fb.group({
     });
 
   }
+  
+  regresarMenu(){
+    this.route.navigate(["/general/cuestionarios-menu"]);
+  }
 
 
 

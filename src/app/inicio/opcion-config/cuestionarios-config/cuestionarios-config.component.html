@@ -1,38 +1,23 @@
 <div class="container-cuestionario">
-  <form [formGroup]="form">
-    <mat-form-field>
-      <mat-label>Cuestionario</mat-label>
-      <mat-select formControlName="cveFormulario" name="food">
-        @for (f of formularios; track f) {
-          <mat-option [value]="f.idFormulario">  {{ f.titulo }}</mat-option>
-        }
-      </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Hotel</mat-label>
-        <mat-select formControlName="cveLocal" name="food">
-          @for (l of locales; track l) {
-            @if (l.idLocal !== '0') {
-              <mat-option [value]="l.idLocal" >{{ l.nombre }}</mat-option>
-            }
-          }
-        </mat-select>
-      </mat-form-field>
-      <button color="primary" (click)="descargarExcel()" mat-flat-button>Descargar excel</button>
-  </form>
 
+
+  <!-- Seccion para agregar preguntas -->
   <div class="seccion-botones">
-    <div>
-      <button mat-raised-button color="primary" class="btn" (click)="agregarPregunta()">
+    <div> 
+      <button mat-raised-button (click)="regresarMenu()" color="primary">
+          <i class="fas fa-arrow-left"></i>
+      </button>
+      <button mat-raised-button color="primary" (click)="agregarPregunta()">
           <i class="fas fa-plus"></i> Agregar pregunta
       </button>
     </div>
     <div>
-      <button mat-raised-button color="primary" class="btn"[disabled]="contadorPreguntas === 0">
+      <button mat-raised-button color="primary" [disabled]="contadorPreguntas === 0">
         Completar
       </button>
     </div>
   </div>
+  <!-- Titulo de cuestionario -->
   <div class="card mt-4">
     <div class="card-header">
       <input class="form-control" type="text" placeholder="Titulo"/>
@@ -40,10 +25,11 @@
     <div class="card-body">
       <input class="form-control" type="text" placeholder="Descripcion"/>
     </div>
-    
   </div>
 
+  <!-- Aqui se inyectan lo componentes d-->
   <ng-template (buttonEliminar)="handleChildClick($event)" #preguntas></ng-template>
+  
 </div>
 
 

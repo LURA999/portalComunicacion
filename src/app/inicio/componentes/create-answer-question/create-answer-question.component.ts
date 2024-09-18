@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-dynamic-input',
+  selector: 'create-answer-question',
   template: `
     <div class="row">
       <div class="col-1 text-center">
@@ -25,8 +25,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styles: ['.example-full-width { width: 100%; }']
 })
 export class CreateAnswerQuestionComponent  {
-  placeholder: string = 'Enter value';
-  respuesta: string = '';
+  @Input() placeholder: string = 'Enter value';
+  @Input() respuesta: string = '';
   id_option: number = 0;
   canDelete: boolean = true; 
   @Output() buttonClicked = new EventEmitter<number>();

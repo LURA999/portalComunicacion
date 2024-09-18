@@ -15,10 +15,10 @@ import { DynamicDragDropComponent } from '../componentes/dynamic-drag-drop/dynam
 
 
 export interface cuestionario {
-  idCuestionario : Number;
-  idPregunta : Number;
-  pregunta : String;
-  tipoQuestion : Number;
+  idCuestionario : number;
+  idPregunta : number;
+  pregunta : string;
+  tipoQuestion : number;
   respuesta : Array<opcionRadioButton> | string;
 }
 

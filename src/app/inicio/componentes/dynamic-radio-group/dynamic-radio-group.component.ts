@@ -26,7 +26,7 @@ export interface opcionRadioButton {
   styles: ['.example-full-width { width: 100%; }']
 })
 export class DynamicRadioGroupComponent {
-  @Input() opciones: Array<opcionRadioButton> = [];
+  @Input() opciones:  Array<opcionRadioButton> = [];
 
   seleccionar(index : number){
     this.opciones[index].state = true;
@@ -35,6 +35,5 @@ export class DynamicRadioGroupComponent {
         this.opciones[x].state = false;
       }
     }
-
   }
 }

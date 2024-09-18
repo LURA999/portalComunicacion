@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
@@ -21,6 +24,7 @@ import { ComentarComidaComponent } from './comentar-comida/comentar-comida.compo
 import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import 'moment/locale/es';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -41,14 +45,19 @@ import 'moment/locale/es';
         MatInputModule,
         MatIconModule,
         MatButtonModule,
-        NgbModule
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        NgbModule,
+        ReactiveFormsModule
       ],
       providers: [
           { provide: MAT_DATE_LOCALE, useValue: 'es-MX' },
           CookieService,
           provideMomentDateAdapter(),
           provideHttpClient(withInterceptorsFromDi()),
-        ]
+        ],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA] 
       })
 export class AppModule { }
 

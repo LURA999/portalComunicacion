@@ -25,6 +25,8 @@ import { AraizaAprendeClickComponent } from './araiza-aprende-click/araiza-apren
 import { AraizaAprendeFormularioComponent } from './araiza-aprende-formulario/araiza-aprende-formulario.component';
 import { VotacionesConfigComponent } from './opcion-config/votaciones-config/votaciones-config.component';
 import { CuestionariosConfigComponent } from './opcion-config/cuestionarios-config/cuestionarios-config.component';
+import { CuestionariosMenuComponent } from './opcion-config/cuestionarios-menu/cuestionarios-menu.component';
+import { CuestionariosModificarComponent } from './opcion-config/cuestionarios-modificar/cuestionarios-modificar.component';
 
 const routes: Routes = [
   {
@@ -61,7 +63,8 @@ const routes: Routes = [
       { path: 'araiza-aprende-config',canActivate: [LogSesionAdminGuard], component: AraizaAprendeConfigComponent },
       { path: 'votaciones-config',canActivate: [LogSesionAdminGuard], component: VotacionesConfigComponent },
       { path: 'cuestionarios-config',canActivate: [LogSesionAdminGuard], component: CuestionariosConfigComponent },
-
+      { path: 'cuestionarios-menu', canActivate: [LogSesionAdminGuard], component: CuestionariosMenuComponent},
+      { path: 'cuestionarios-modificar/:id', canActivate: [LogSesionAdminGuard], component: CuestionariosModificarComponent}
     ]
   }
 ];

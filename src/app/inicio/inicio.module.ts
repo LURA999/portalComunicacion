@@ -68,6 +68,9 @@ import { EliminarCompetenciaComponent } from './popup/eliminar-competencia/elimi
 import { EliminarCompetenciaSeguridadComponent } from './popup/eliminar-competencia-seguridad/eliminar-competencia-seguridad.component';
 import { CreateQuestionComponent } from './componentes/create-question/create-question.component';
 import { CreateAnswerQuestionComponent } from './componentes/create-answer-question/create-answer-question.component';
+import { CuestionariosMenuComponent } from './opcion-config/cuestionarios-menu/cuestionarios-menu.component';
+import { CuestionariosModificarComponent } from './opcion-config/cuestionarios-modificar/cuestionarios-modificar.component';
+
 
 
 @NgModule({ declarations: [
@@ -124,6 +127,8 @@ import { CreateAnswerQuestionComponent } from './componentes/create-answer-quest
         EliminarCompetenciaSeguridadComponent,
         CreateQuestionComponent,
         CreateAnswerQuestionComponent,
+        CuestionariosMenuComponent,
+        CuestionariosModificarComponent
     ],
     imports: [
         CommonModule,
