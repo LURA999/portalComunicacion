@@ -15,7 +15,7 @@ import { DynamicDragDropComponent } from '../componentes/dynamic-drag-drop/dynam
 
 
 export interface cuestionario {
-  idCuestionario : number;
+  idCuestionario? : number;
   idPregunta : number;
   pregunta : string;
   tipoQuestion : number;

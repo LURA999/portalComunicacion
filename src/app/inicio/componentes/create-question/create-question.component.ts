@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContaine
 import { MatSelectChange } from '@angular/material/select';
 import { CreateAnswerQuestionComponent } from '../create-answer-question/create-answer-question.component';
 import { cuestionario } from '../../araiza-aprende-formulario/araiza-aprende-formulario.component';
+import { opcionRadioButton } from '../dynamic-radio-group/dynamic-radio-group.component';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class CreateQuestionComponent implements OnInit {
   @Input() preguntaNombre: string = '';
   @Input() respuestasArray: any[] = [];
   @Input() cantidadRespuestas: number = 0;
-  @Output() buttonEliminar = new EventEmitter<number>();
+  @Output() buttonEliminar = new EventEmitter<cuestionario>();
   @Input() arrayRespuestas: any;
   arrayCuestionarios: cuestionario [] = [];
 
@@ -42,7 +43,7 @@ export class CreateQuestionComponent implements OnInit {
     componentRef.instance.id_option = this.id_opcion++;
     componentRef.instance.placeholder = this.getPlaceholder(valor);
     componentRef.instance.iconType = this.getPlaceholder(valor);
-    
+
     // No mostrar el boton de eliminar cuando solamente es un componente de question-answer
     componentRef.instance.canDelete = this.opcion !== 0;
     const currentRespuestas = this.arrayRespuestas[this.opcion];
@@ -60,7 +61,7 @@ export class CreateQuestionComponent implements OnInit {
     this.answers.clear(); // Vaciar todos los componentes dinamicos de tipo create-answer-question
     this.valorSelect = valor;
     this.id_opcion = 0;
-    this.opcion = -1; 
+    this.opcion = -1;
     this.respuestasArray = []; // Vaciar el array cada que refresca el select
     this.procesoSeleccion(valor);
   }
@@ -75,7 +76,7 @@ export class CreateQuestionComponent implements OnInit {
     componentRef.instance.id_option = this.id_opcion++;
     componentRef.instance.placeholder = this.getPlaceholder(valor);
     componentRef.instance.iconType = this.getPlaceholder(valor);
-    
+
     // No mostrar el boton de eliminar cuando solamente es un componente de question-answer
     componentRef.instance.canDelete = this.opcion !== 0;
 
@@ -105,8 +106,27 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
-  eventEliminar() {
-    this.buttonEliminar.emit(1);
+  enviarDatos() {
+
+  let respuestasArray2 : Array<opcionRadioButton> = [];
+  for (let j = 0; j < this.respuestasArray.length; j++) {
+    respuestasArray2.push({
+      id:this.respuestasArray[j].instance.id_option,
+      title: this.respuestasArray[j].instance.respuesta,
+    });
+  }
+
+  let pregunta : cuestionario = {
+    idPregunta : this.id_opcion,
+    pregunta : this.preguntaNombre,
+    respuesta : respuestasArray2,
+    tipoQuestion : this.valorSelect
+
+
+  };
+  return pregunta;
+  // this.buttonEliminar.emit(pregunta)
+
   }
 
 

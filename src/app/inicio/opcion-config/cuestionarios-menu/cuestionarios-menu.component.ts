@@ -26,7 +26,7 @@ export class CuestionariosMenuComponent  {
 
   }
 
-  
+
   ngOnInit() {
     this.loadCuestionarios();
   }
@@ -35,7 +35,7 @@ export class CuestionariosMenuComponent  {
     this.cuest.getCuestionarios().subscribe(
       (data: ResponseInterfaceTs) => {
         this.dataSource = data.container;
-        console.log(data.container);
+
       },
       (error) => {
         console.error('Error fetching data', error);

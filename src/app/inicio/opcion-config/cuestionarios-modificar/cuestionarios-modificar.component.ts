@@ -1,11 +1,12 @@
-import { Component, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CuestionariosService } from 'src/app/core/services/cuestionarios.service';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { CreateQuestionComponent } from '../../componentes/create-question/create-question.component';
 import { cuestionario } from '../../araiza-aprende-formulario/araiza-aprende-formulario.component';
 import { opcionRadioButton } from '../../componentes/dynamic-radio-group/dynamic-radio-group.component';
-import { MatButton } from '@angular/material/button';
+import { forkJoin, Observable } from 'rxjs';
+import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 
 @Component({
   selector: 'app-cuestionarios-modificar',
@@ -16,39 +17,39 @@ export class CuestionariosModificarComponent implements OnInit{
   paramUrl : string = this.route.url.split("/")[2];
   id: number = 0;
   cuestionarioTitulos: any;
-  cuestionarioPreguntas: any;
-  keyCuestionarios: string[] = [];
-  respuestasArray: opcionRadioButton[] = [];
 
+  observables : Array<Observable<ResponseInterfaceTs>> = []
 
+  //Con este podemos acceder a todos los componetes createQuestion
+  @ViewChildren(CreateQuestionComponent) hijos!: QueryList<CreateQuestionComponent>;
+
+  cuestionarioPreguntas: Array<cuestionario> = [/* {idCuestionario: 1,idPregunta: 1, pregunta: '', respuesta: [], tipoQuestion: 1} */];
+  cuestionarioPreguntasModificado : Array<cuestionario> = [];
   @ViewChild('createQuestion', {read: ViewContainerRef, static: true}) createQuestion!: ViewContainerRef;
-  
   createQuestionArray : any [] = [];
-  cuestionarioActualizadas : Array<cuestionario> = []
-  arrayPreguntas : any[] = [];
   contadorPreguntas : number = 0;
-  constructor(private DataService : DataNavbarService,
-    private rend : Renderer2, 
-    public route : Router, private routeA: ActivatedRoute,private cuestionarioService: CuestionariosService){}
+
+  tipoQuestion : number = 0;
+  respuesta : any [] = [] ;
+  idCuestionario : number = this.id;
+  idPregunta : number = 1;
+  pregunta : string = '';
+
+  constructor(private DataService : DataNavbarService, public route : Router, private routeA: ActivatedRoute,private cuestionarioService: CuestionariosService){}
 
   ngOnInit(): void {
     this.id = Number(this.routeA.snapshot.paramMap.get('id'));
-    
     this.getCuestionario(this.id);
-    // console.log('Received ID:', this.id);
   }
 
   ngAfterContentInit(): void {
     this.DataService.open.emit(this.paramUrl);
-
-
   }
 
   getCuestionario(id: number): void {
     this.cuestionarioService.getCuestionarioTituloById(id).subscribe(
       (data) => {
         this.cuestionarioTitulos = data.container[0];
-        // console.log('Cuestionario data:', this.cuestionarioTitulos);
       },
       (error) => {
         console.error('Error agarrando titulos:', error);
@@ -60,77 +61,40 @@ export class CuestionariosModificarComponent implements OnInit{
         this.cuestionarioPreguntas = data.container;
 
         this.cuestionarioPreguntas.forEach((pregunta: any) => {
-          pregunta.respuestas = JSON.parse(pregunta.respuestas);
+          pregunta.respuesta = JSON.parse(pregunta.respuestas);
+          pregunta.tipoQuestion = pregunta.tipoPregunta
         });
-
-        for (let index = 0; index < this.cuestionarioPreguntas.length; index++) {
-          
-          
-          const componentRef2 = this.createQuestion.createComponent(MatButton);
-
-          const componentRef = this.createQuestion.createComponent(CreateQuestionComponent);
-          
-        
-          // Detectar cambios para reflejar el botón dinámico en el DOM
-          
-          // Aplicar las propiedades
-          componentRef.instance.valorSelect = this.cuestionarioPreguntas[index].tipoPregunta;
-          componentRef.instance.preguntaNombre = this.cuestionarioPreguntas[index].pregunta;
-          componentRef.instance.arrayRespuestas = this.cuestionarioPreguntas[index].respuestas;
-          componentRef.instance.cantidadRespuestas = this.cuestionarioPreguntas[index].respuestas.length;
-          // No mostrar el boton de eliminar cuando solamente es un componente de question-answer
-          this.createQuestionArray.push(componentRef); // Almacena en array el componente
-          componentRef.changeDetectorRef.detectChanges();
-          componentRef.instance.buttonEliminar.subscribe((id: number) => {
-            componentRef.destroy();
-          });
-
-          // Asignar propiedades o clases al botón dinámico
-          componentRef2.instance.color = 'primary';  // Cambiar el color
-
-          componentRef2.instance.disabled = false;   // Habilitar o deshabilitar el botón
-          // Añadir texto al botón
-          componentRef2.instance._elementRef.nativeElement.textContent = 'Clic Aquí';
-          componentRef2.instance._elementRef.nativeElement.addEventListener('click', () => {
-            componentRef.destroy()
-            componentRef2.destroy()
-          });
-          this.rend.addClass(componentRef2.instance._elementRef.nativeElement, 'mat-raised-button');
-
-          componentRef2.changeDetectorRef.detectChanges();
-
-          
-        }
-
-        // console.log('Cuestionario data:', this.cuestionarioPreguntas);
+        this.contadorPreguntas = this.cuestionarioPreguntas.length
       },
       (error) => {
         console.error('Error agarrando preguntas:', error);
       }
     );
+
   }
 
 
-
   agregarPregunta(){
-    const componentRef  = this.createQuestion.createComponent(CreateQuestionComponent);
-    console.log(componentRef);
-    
-    // this.cuestionarioActualizadas.push({
-    //   idCuestionario: 2,
-    //   idPregunta:2,
-    //   pregunta:'',
-    //   respuesta: [],
-    //   tipoQuestion : 1
-    // });
-    
-    this.contadorPreguntas++;
 
-    componentRef.instance.buttonEliminar.subscribe((id: number) => {
-      this.contadorPreguntas--;
-      console.log(this.contadorPreguntas);
-      componentRef.destroy();
+    this.cuestionarioPreguntas.push({
+      tipoQuestion : this.tipoQuestion,
+      respuesta : this.respuesta,
+      idCuestionario : this.idCuestionario,
+      idPregunta : this.idPregunta,
+      pregunta : this.pregunta
     });
+
+    for (let z = 0; z < this.cuestionarioPreguntas.length; z++) {
+      this.cuestionarioPreguntas[z].idPregunta = 1+z;
+    }
+  }
+
+  eliminarPregunta(valor : number){
+    this.cuestionarioPreguntas.splice(valor, 1)
+
+    for (let z = 0; z < this.cuestionarioPreguntas.length; z++) {
+      this.cuestionarioPreguntas[z].idPregunta = 1+z;
+    }
 
   }
 
@@ -141,52 +105,19 @@ export class CuestionariosModificarComponent implements OnInit{
 
   // form submit
   updateCuestionario(){
-    // console.log(this.createQuestion.length);
+    // this.cuestionarioService.enviarCuestionario(y.enviarDatos()).subscribe()
+    for ( let y of this.hijos) {
+      let cues : cuestionario = y.enviarDatos()
+      cues.idCuestionario = this.id
+      console.log(cues);
 
-    for (let x = 0; x < this.createQuestion.length; x++) {
-      console.log(this.createQuestion.length);
-      for (let y = 0; y < this.createQuestionArray[x].instance.arrayRespuestas.length; y++) {
-      //  console.log(this.createQuestionArray[x].instance.arrayRespuestas[y].title);
-      //  console.log(this.createQuestionArray[x].instance.valorSelect);
-      //  console.log(this.createQuestionArray[x].instance.preguntaNombre);
-      //  console.log(this.createQuestionArray[x].instance.respuestasArray);
-       this.respuestasArray = [];
-       for (let o = 0; o < this.createQuestionArray[x].instance.respuestasArray.length; o++) {        
-          this.respuestasArray.push({
-            id: this.createQuestionArray[x].instance.respuestasArray[o].instance.id_option,
-            title: this.createQuestionArray[x].instance.respuestasArray[o].instance.respuesta,
-          });
-        
-       }
-      }
+      this.observables.push(this.cuestionarioService.enviarCuestionario(cues))
 
-      this.cuestionarioActualizadas.push({
-        tipoQuestion : this.createQuestionArray[x].instance.valorSelect,
-        respuesta : this.respuestasArray ,
-        idCuestionario : this.id,
-        idPregunta : 1,
-        pregunta : this.createQuestionArray[x].instance.preguntaNombre
-
-      });
- 
     }
-
-    console.log(this.cuestionarioActualizadas);
-    
-    this.cuestionarioActualizadas = [];
-
-    
+    forkJoin(this.observables).subscribe()
   }
 
-  eliminarPregunta(valor : number){
-    this.cuestionarioPreguntas.splice(valor, 1)
-
-    for (let z = 0; z < this.cuestionarioPreguntas.length; z++) {
-      this.cuestionarioPreguntas[z].idPregunta = 1+z;
-      
-    }
-
+  handleEliminarPregunta(index: any) {
+    // Handle the elimination logic
   }
-
-
 }

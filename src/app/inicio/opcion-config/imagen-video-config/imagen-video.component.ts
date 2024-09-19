@@ -86,7 +86,8 @@ export class ImagenVideoComponent implements OnInit {
       this.serviceImgVid.cantidadSlider(0).subscribe((resp: ResponseInterfaceTs) => {
         this.proxima_posicion = resp.container[0]['proxima_posicion'];
         this.formImgVideo.patchValue({
-          posicion: this.proxima_posicion
+          posicion: this.proxima_posicion,
+          cveLocal: '0'
         })
       });
 
@@ -263,11 +264,8 @@ export class ImagenVideoComponent implements OnInit {
           })
         }
       }
-
       //Una ves que se llena el array de hoteles, se elige por default el hotel 0 (general)
-      this.formImgVideo.patchValue({
-        cveLocal: 0
-      })
+
 
     }))
 

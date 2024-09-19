@@ -22,7 +22,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Seleccione la seccion</mat-label>
         <mat-select formControlName="cveLocal" (selectionChange)="rellenarTarget($event)" (ngModelChange)="activarBut()">
-          <mat-option [value]="i.idLocal"  *ngFor="let i of localInterfaz" >
+          <mat-option [value]="i.idLocal.toString()"  *ngFor="let i of localInterfaz" >
               {{i.local}}
           </mat-option>
         </mat-select>
