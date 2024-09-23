@@ -20,6 +20,8 @@ export interface cuestionario {
   pregunta : string;
   tipoQuestion : number;
   respuesta : Array<opcionRadioButton> | string;
+  respuestaCorrecta?: string ;
+  cantidadRespuestas?: number ;
 }
 
 @Component({

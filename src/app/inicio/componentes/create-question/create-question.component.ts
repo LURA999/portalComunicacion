@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
 import { CreateAnswerQuestionComponent } from '../create-answer-question/create-answer-question.component';
 import { cuestionario } from '../../araiza-aprende-formulario/araiza-aprende-formulario.component';
 import { opcionRadioButton } from '../dynamic-radio-group/dynamic-radio-group.component';
@@ -19,7 +18,14 @@ export class CreateQuestionComponent implements OnInit {
   @Input() cantidadRespuestas: number = 0;
   @Output() buttonEliminar = new EventEmitter<cuestionario>();
   @Input() arrayRespuestas: any;
+
+  selectedCheckboxes: number[] = [];  // To store selected checkbox IDs
+  selectedRadioButton: number | null = null;  // To store the selected radio button ID
+
   arrayCuestionarios: cuestionario [] = [];
+  componentRef : any [] = [];
+  
+  selectedValues: { id: number, type: string, selected: boolean }[] = [];  // Unified array to handle selections
 
   @ViewChild('answers', { read: ViewContainerRef, static: true }) answers!: ViewContainerRef;
 
@@ -34,62 +40,168 @@ export class CreateQuestionComponent implements OnInit {
 
   }
 
-  rellenarCuestionario(valor: number){
-    this.opcion++; // Variable de incremento para array
-    const componentRef = this.answers.createComponent(CreateAnswerQuestionComponent);
-    this.respuestasArray.push(componentRef); // Almacena en array el componente
+  // Este metodo rellena los campos del cuestionario
+  rellenarCuestionario(valor: number) {
+    this.opcion++; // Incremento del índice para array
+    const newComponent = this.answers.createComponent(CreateAnswerQuestionComponent);
+    this.componentRef.push(newComponent);
+    this.respuestasArray.push(newComponent); // Almacena el componente
+   
+    newComponent.instance.id_option = this.opcion;
+    newComponent.instance.placeholder = this.getPlaceholder(valor);
+    newComponent.instance.iconType = this.getPlaceholder(valor);
+    newComponent.instance.valorSelect = valor;
 
-    // Aplicar las propiedades
-    componentRef.instance.id_option = this.id_opcion++;
-    componentRef.instance.placeholder = this.getPlaceholder(valor);
-    componentRef.instance.iconType = this.getPlaceholder(valor);
 
-    // No mostrar el boton de eliminar cuando solamente es un componente de question-answer
-    componentRef.instance.canDelete = this.opcion !== 0;
+    newComponent.instance.canDelete = this.opcion !== 0; // No mostrar botón eliminar en el primer componente
+   
     const currentRespuestas = this.arrayRespuestas[this.opcion];
-    componentRef.instance.respuesta = currentRespuestas?.title || '';
+    newComponent.instance.respuesta = currentRespuestas?.title || '';
+   
+    newComponent.changeDetectorRef.detectChanges();
+   
+    newComponent.instance.buttonClicked.subscribe((id: number) => {
+      this.removeComponent(newComponent);  
+      this.actualizarIdOption();
+    
+      // Adjust indices of selected checkboxes even if the deleted option was unselected
+      const index = this.selectedCheckboxes.indexOf(id);
 
-    componentRef.changeDetectorRef.detectChanges();
+      if (index !== -1) {
+        // If the deleted option was selected, remove it from the array
+        this.selectedCheckboxes.splice(index, 1);
+      }
 
-    componentRef.instance.buttonClicked.subscribe((id: number) => {
-      this.removeComponent(componentRef);
+      // Adjust the indices of selected checkboxes after the deleted option
+      for (let i = 0; i < this.selectedCheckboxes.length; i++) {
+        if (this.selectedCheckboxes[i] > id) {
+          this.selectedCheckboxes[i]--;
+        }
+    }
+
+       console.log('Selected Checkboxes:', this.selectedCheckboxes);
+    });
+
+    newComponent.instance.selectionChanged.subscribe((change: { id: number, type: string, selected: boolean }) => {
+      this.handleSelectionChange(change);  // Handle the change
+    });
+   }
+
+  //  Este metodo agrega preguntas nuevas
+   procesoSeleccion(valor: number) {
+    this.opcion++;
+    const newComponent = this.answers.createComponent(CreateAnswerQuestionComponent);
+    this.componentRef.push(newComponent);
+    this.respuestasArray.push(newComponent);
+  
+    // Aplicar las propiedades necesarias
+    newComponent.instance.id_option = this.opcion;
+    newComponent.instance.placeholder = this.getPlaceholder(valor);
+    newComponent.instance.iconType = this.getPlaceholder(valor);
+    
+    newComponent.instance.valorSelect = valor;
+
+    // No mostrar el botón de eliminar en el primer componente
+    newComponent.instance.canDelete = this.opcion !== 0;
+  
+    // Actualizar las respuestas actuales en caso de haberlas
+    const currentRespuestas = this.arrayRespuestas[this.opcion];
+    newComponent.instance.respuesta = currentRespuestas?.title || '';
+  
+    newComponent.changeDetectorRef.detectChanges();
+
+    newComponent.instance.buttonClicked.subscribe((id: number) => {
+      // Handle the deletion of a component
+      this.removeComponent(newComponent);
+  
+      // Update the IDs for all remaining components
+      this.actualizarIdOption();
+  
+      // Adjust indices of selected checkboxes
+      const index = this.selectedCheckboxes.indexOf(id);
+      if (index !== -1) {
+        // If the deleted option was selected, remove it from the array
+        this.selectedCheckboxes.splice(index, 1);
+      }
+  
+      // Adjust the indices of selected checkboxes after the deleted option
+      for (let i = 0; i < this.selectedCheckboxes.length; i++) {
+        if (this.selectedCheckboxes[i] > id) {
+          this.selectedCheckboxes[i]--;
+        }
+      }
+  
+      // Log the updated array of selected checkboxes
+      console.log('Selected Checkboxes (after deletion):', this.selectedCheckboxes);
+    });
+
+    newComponent.instance.selectionChanged.subscribe((change: { id: number, type: string, selected: boolean }) => {
+      this.handleSelectionChange(change);  // Handle the change
     });
   }
 
+  // Este metodo actualiza los id por si se llega a borrar una pregunta o respuesta
+   actualizarIdOption() {
+    // Actualizar los ids de todos los componentes después de cambios
+    for (let v = 0; v < this.componentRef.length; v++) {
+      this.componentRef[v].instance.id_option = v;
+    }
+  }
 
+  // Este metodo se utiliza en el select dentro del componente de create question para cambiar el tipo de pregunta y asi mandar al
+  // componente hijo (create-answer-question) el tipo de respuesta,input y icono que ocupa, tambien resetea todos los inputs
   onChange(valor: number) {
-    this.answers.clear(); // Vaciar todos los componentes dinamicos de tipo create-answer-question
-    this.valorSelect = valor;
-    this.id_opcion = 0;
-    this.opcion = -1;
-    this.respuestasArray = []; // Vaciar el array cada que refresca el select
-    this.procesoSeleccion(valor);
+    const confirmReset = confirm("Esta seguro que quiere cambiar el tipo de respuesta?, Perdera sus cambios");
+   
+    if (confirmReset) {
+      this.answers.clear();  // This clears all dynamically added components
+      this.respuestasArray = [];  // Clear the array holding the components' state
+      this.arrayRespuestas = [];
+      this.componentRef.forEach(comp => {
+        comp.instance.respuesta = '';  // Clear the input for each component
+        comp.instance.iconType = '';  // Reset the input type
+        comp.instance.placeholder = '';  // Clear the placeholder if needed
+        comp.changeDetectorRef.detectChanges();  // Apply the changes
+      });
+      this.componentRef = [];  // Clear component references
+  
+      // Reset the options and counters
+      this.opcion = -1;
+      this.id_opcion = 0;
+      this.valorSelect = valor;  // Set the new selected value
+      
+      // If the new type of question is valid, create the first empty answer input
+      if (valor > 1) {
+        this.procesoSeleccion(valor);  // Create the first answer input for the new type
+      }
+    }
   }
 
-  procesoSeleccion(valor: number) {
-    valor = Number(this.valorSelect);
-    this.opcion++; // Variable de incremento para array
-    const componentRef = this.answers.createComponent(CreateAnswerQuestionComponent);
-    this.respuestasArray.push(componentRef); // Almacena en array el componente
 
-    // Aplicar las propiedades
-    componentRef.instance.id_option = this.id_opcion++;
-    componentRef.instance.placeholder = this.getPlaceholder(valor);
-    componentRef.instance.iconType = this.getPlaceholder(valor);
+  // Handle the selection change
+  handleSelectionChange(change: { id: number, type: string, selected: boolean }) {
+    const { id, type, selected } = change;
 
-    // No mostrar el boton de eliminar cuando solamente es un componente de question-answer
-    componentRef.instance.canDelete = this.opcion !== 0;
+    if (type === 'checkbox') {
+      if (selected) {
+        this.selectedCheckboxes.push(id);  // Add to selected checkboxes array
+      } else {
+        this.selectedCheckboxes = this.selectedCheckboxes.filter(item => item !== id);  // Remove from array
+      }
+      console.log('Selected Checkboxes:', this.selectedCheckboxes);
+    }
 
-
-    componentRef.changeDetectorRef.detectChanges();
-
-    componentRef.instance.buttonClicked.subscribe((id: number) => {
-      this.removeComponent(componentRef);
-    });
+    if (type === 'radio') {
+      this.selectedRadioButton = id;  // Set the selected radio button ID
+      console.log('Selected Radio Button:', this.selectedRadioButton);
+    }
   }
+  
 
+  // Placeholde para saber que tipo de input es
   getPlaceholder(valor: number): string {
-    switch (valor) {
+    const numValor = Number(valor);
+    switch (numValor) {
       case 1: return "Texto";
       case 2: return "Radio Button";
       case 3: return "Checkbox";
@@ -98,35 +210,68 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
-  removeComponent(componentRef: any) {
+  
+  // Este componente destruye las preguntas y actualiza los indices
+  removeComponent(componentRef: any) {   
     const index = this.respuestasArray.indexOf(componentRef);
+ 
     if (index > -1) {
-      componentRef.destroy(); // Quitar de array el componente
+      // Destruir el componente
+      componentRef.destroy(); 
+      
+      // Remover del array respuestasArray y componentRef
       this.respuestasArray.splice(index, 1);
+      this.componentRef.splice(index, 1);
+
+      
+   
+      // Actualizar los índices después de eliminar
+      for (let v = 0; v < this.componentRef.length; v++) {
+        this.componentRef[v].instance.id_option = v;
+      }
+
+      this.opcion = this.componentRef.length - 1;
     }
   }
 
+
+  // Este metodo manda los datos al componente padre (cuestionarios-modificar)
   enviarDatos() {
+    const respuestasArray2 = this.respuestasArray.map(component => ({
+      id: component.instance.id_option,
+      title: component.instance.respuesta,
+    }));
 
-  let respuestasArray2 : Array<opcionRadioButton> = [];
-  for (let j = 0; j < this.respuestasArray.length; j++) {
-    respuestasArray2.push({
-      id:this.respuestasArray[j].instance.id_option,
-      title: this.respuestasArray[j].instance.respuesta,
-    });
+
+  let respuestaCorrecta: number[] | number | null;
+  let cantidadRespuestas: number;
+
+  // Check if it's a checkbox or radio question
+  if (this.valorSelect == 3) { // Checkbox (multiple answers)
+    respuestaCorrecta = this.selectedCheckboxes;
+    cantidadRespuestas = this.selectedCheckboxes.length;
+
+    
+  } else if (this.valorSelect == 2) { // Radio (single answer)
+    respuestaCorrecta = this.selectedRadioButton;
+    cantidadRespuestas = this.selectedRadioButton ? 1 : 0;
+  } else {
+    console.log("entra a nulo");
+    
+    respuestaCorrecta = null;
+    cantidadRespuestas = 0;
   }
-
-  let pregunta : cuestionario = {
-    idPregunta : this.id_opcion,
-    pregunta : this.preguntaNombre,
-    respuesta : respuestasArray2,
-    tipoQuestion : this.valorSelect
-
-
-  };
-  return pregunta;
-  // this.buttonEliminar.emit(pregunta)
-
+  console.log(respuestaCorrecta);
+  
+    return {
+      idPregunta: this.id_opcion,
+      pregunta: this.preguntaNombre,
+      respuesta: respuestasArray2,
+      tipoQuestion: this.valorSelect,
+      respuestaCorrecta: this.valorSelect == 3 ? "["+respuestaCorrecta?.toString()+"]" : respuestaCorrecta?.toString(),
+      cantidadRespuestas: cantidadRespuestas
+    
+    } as cuestionario;
   }
 
 
