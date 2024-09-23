@@ -88,7 +88,7 @@
               <li (click)="buzonSugerencias()">
                   Buzón de sugerencias
               </li>
-              <li [hidden]="opcionVotar[3]" (click)="votandoPop(4)">
+              <li [hidden]="opcionVotar[4]" (click)="votandoPop(5)">
                 Vota
               </li>
               <li (click)="lineaDeAyuda()">
@@ -107,7 +107,7 @@
                   <li (click)="buzonSugerencias()">
                       Buzón de sugerencias
                   </li>
-                  <li [hidden]="opcionVotar[4]" (click)="votandoPop(3)">
+                  <li [hidden]="opcionVotar[3]" (click)="votandoPop(4)">
                     Vota
                 </li>
                   <li (click)="lineaDeAyuda()">
@@ -182,7 +182,7 @@
                   Línea de ayuda</a>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(4)">
+                <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(5)">
                   <mat-expansion-panel-header #panelH4 >
                   <a mat-list-item class="menu-opc"  (click)="panelH4._toggle()" (click)="navegarNavH('/general/hermosillo')">
                     Hermosillo
@@ -197,23 +197,21 @@
                   <a mat-list-item [hidden]="opcionVotar[4]" (click)="votandoPop(5)" routerLinkActive="active" mat-line>
                     Vota</a>
                   </mat-expansion-panel>
-
-                  <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(5)">
-                    <mat-expansion-panel-header #panelH5>
-                    <a mat-list-item class="menu-opc"  (click)="panelH5._toggle()" (click)="navegarNavH('/general/palmira')">
-                       Palmira
-                    </a>
-                    </mat-expansion-panel-header>
-                    <a mat-list-item class="menu-opc" (click)="navegarNavH('/general/bookings','palmira')" routerLinkActive="active" mat-line>
-                      Solicitudes</a>
-                    <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
-                      Buzón de sugerencias</a>
-                    <a mat-list-item (click)="lineaDeAyuda()" routerLinkActive="active" mat-line>
-                      Línea de ayuda</a>
-                    <a mat-list-item [hidden]="opcionVotar[3]" (click)="votandoPop(4)" routerLinkActive="active" mat-line>
-                      Vota</a>
-                    </mat-expansion-panel>
-
+                  <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(4)">
+                  <mat-expansion-panel-header #panelH5>
+                  <a mat-list-item class="menu-opc"  (click)="panelH5._toggle()" (click)="navegarNavH('/general/palmira')">
+                      Palmira
+                  </a>
+                  </mat-expansion-panel-header>
+                  <a mat-list-item class="menu-opc" (click)="navegarNavH('/general/bookings','palmira')" routerLinkActive="active" mat-line>
+                    Solicitudes</a>
+                  <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
+                    Buzón de sugerencias</a>
+                  <a mat-list-item (click)="lineaDeAyuda()" routerLinkActive="active" mat-line>
+                    Línea de ayuda</a>
+                  <a mat-list-item [hidden]="opcionVotar[3]" (click)="votandoPop(4)" routerLinkActive="active" mat-line>
+                    Vota</a>
+                  </mat-expansion-panel>
                 <a mat-list-item class="logout"  (click)="salir()" routerLinkActive="active">
                   <mat-icon mat-list-icon>
                   exit_to_app

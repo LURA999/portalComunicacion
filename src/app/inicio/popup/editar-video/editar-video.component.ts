@@ -178,7 +178,6 @@ export class EditarVideoComponent implements OnInit {
   }
 
   async enviandoDatos() {
-console.log(this.formAraizaAprende.valid);
 
      if (this.formAraizaAprende.valid == false) {
       alert("Por favor llene todos los campos");

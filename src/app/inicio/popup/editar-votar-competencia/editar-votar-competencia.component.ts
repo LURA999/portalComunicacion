@@ -11,6 +11,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { locales } from '../editar-slider/editar-slider.component';
 import { votaciones } from '../../opcion-config/votaciones-config/votaciones-config.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Equipo, votacionesEquipoService } from 'src/app/core/services/votaciones_equipo.service';
 
 @Component({
   selector: 'app-editar-votar-competencia',
@@ -35,14 +36,15 @@ export class EditarVotarCompetenciaComponent {
 
  filteredOptionsEventos!: Observable<votaciones[]>;
 
+ filteredOptionsEquipo!: Observable<Equipo[]>;
  myControlEventos = new FormControl('');
  myControlEventosNuevo = new FormControl('');
 
  myControlUsuarios = new FormControl('');
  optionsEventos: Array<votaciones> = [ ];
- optionsUsuarios: Array<opcion> = [ ];
+ optionsEquipo: Array<Equipo> = [ ];
 
- seleccionadas : Array<opcion> = []
+ seleccionadas : Array<Equipo> = []
  seleccionadasNumber : Array<number> = []
  seleccionadasNumberRespaldo : Array<number> = []
 
@@ -57,7 +59,8 @@ export class EditarVotarCompetenciaComponent {
   private local : localService,
   private user : UsuarioService,
   private ccia : VotacionesService,
-  public dialogRef: MatDialogRef<EditarVotarCompetenciaComponent>
+  public dialogRef: MatDialogRef<EditarVotarCompetenciaComponent>,
+  private vce : votacionesEquipoService,
   ) {
 
     this.$sub.add(this.local.todoLocal(1).pipe(
@@ -76,6 +79,17 @@ export class EditarVotarCompetenciaComponent {
         }
       }
     }))
+
+    this.vce.mostrarEquipos().subscribe( async (resp : ResponseInterfaceTs)=>{
+      if (resp.status.toString() === '200') {
+        this.optionsEquipo = resp.container;
+        this.filteredOptionsEquipo = this.myControlUsuarios.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterEquipo(value)),
+        );
+      }
+    })
+
     //para comprender completamente por que -1 y una cadena vacia, hay que ver la logica de la API
     this.ccia.imprimirDatosCompetencia(-1," ").subscribe( async (resp : ResponseInterfaceTs)=>{
       if (resp.status.toString() === '200') {
@@ -130,9 +144,9 @@ export class EditarVotarCompetenciaComponent {
     this.seleccionadasNumberRespaldo = []
     this.ccia.imprimirUsuariosCompetencia(this.eventoSeleccionado.idCompetencia,-1).subscribe((resp:ResponseInterfaceTs) => {
       for (let i = 0; i < resp.container.length; i++) {
-        this.seleccionadas.push(resp.container[i] as opcion)
-        this.seleccionadasNumber.push((resp.container[i] as opcion).id)
-        this.seleccionadasNumberRespaldo.push((resp.container[i] as opcion).id)
+        this.seleccionadas.push(resp.container[i] as Equipo)
+        this.seleccionadasNumber.push((resp.container[i] as Equipo).idEquipo!)
+        this.seleccionadasNumberRespaldo.push((resp.container[i] as Equipo).idEquipo!)
       }
 
     });
@@ -140,22 +154,27 @@ export class EditarVotarCompetenciaComponent {
 
   async buscarUsuario(){
     if (Number(this.formCompetencia.value["cveLocal"]) !== 0) {
-      this.optionsUsuarios = (await lastValueFrom(this.user.selectUsuariosHotel(String(this.myControlUsuarios.value),
+      this.optionsEquipo = (await lastValueFrom(this.user.selectUsuariosHotel(String(this.myControlUsuarios.value),
       Number(this.formCompetencia.value["cveLocal"])))).container
     }
   }
 
-  remove(competencia: opcion){
+  private _filterEquipo(value: any) : Equipo[] {
+    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.nombreEquipo.toLowerCase();
+    return this.optionsEquipo.filter(option => option.nombreEquipo.toLowerCase().includes(filterValue));
+  }
+
+  remove(competencia: Equipo){
     let id : number= this.seleccionadas.indexOf(competencia)
     this.seleccionadasNumber.splice(id, 1)
     this.seleccionadas.splice(id, 1)
   }
 
   selectedUsuario(e : MatAutocompleteSelectedEvent){
-    if (this.seleccionadasNumber.indexOf((e.option.value as opcion).id) == -1) {
-      this.seleccionadasNumber.push((e.option.value as opcion).id)
-      this.seleccionadas.push(e.option.value as opcion)
-      this.optionsUsuarios = []
+    if (this.seleccionadasNumber.indexOf((e.option.value as Equipo).idEquipo!) == -1) {
+      this.seleccionadasNumber.push((e.option.value as Equipo).idEquipo!)
+      this.seleccionadas.push(e.option.value as Equipo)
+      // this.optionsUsuarios = []
       // (e.option.value as opcion).nombre
       this.myControlUsuarios.patchValue(
         ""
@@ -164,7 +183,7 @@ export class EditarVotarCompetenciaComponent {
       this.myControlUsuarios.patchValue((
         ""
       ))
-      alert("El usuario ya esta agregado en la competencia.")
+      alert("El equipo ya esta agregado en la competencia.")
     }
 
   }
@@ -244,7 +263,7 @@ export class EditarVotarCompetenciaComponent {
   }
 
   vaciarAutocomplete(){
-    this.optionsUsuarios = []
+    // this.optionsUsuarios = []
     this.seleccionadas = []
     this.seleccionadasNumber = []
   }

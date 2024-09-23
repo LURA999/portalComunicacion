@@ -18,8 +18,6 @@ export class AceptarPopupComponent {
     public dialogRef: MatDialogRef<AceptarPopupComponent>,
   ){
     let n = new metodosRepetidos();
-    console.log(n.detectBrowser());
-
   }
 
   cerrar(sino : boolean){

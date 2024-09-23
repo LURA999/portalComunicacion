@@ -9,6 +9,9 @@ import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.
 import { EmpleadoMesService } from 'src/app/core/services/empleado-mes.service';
 import { dosParamInt } from 'src/app/interfaces_modelos/dosParamInt.interface';
 import { AraizaAprendeService } from 'src/app/core/services/araiza_aprende.service';
+import { votacionesEquipoService } from 'src/app/core/services/votaciones_equipo.service';
+import { VotacionesService } from 'src/app/core/services/votaciones_service';
+import { votaciones } from '../../opcion-config/votaciones-config/votaciones-config.component';
 
 @Component({
   selector: 'app-eliminar',
@@ -30,7 +33,9 @@ export class EliminarComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,private serviceImgVideo : SubirImgVideoService,
     private usService:UsuarioService, private servImgVideo : SubirImgVideoService,
     private comidaServ : ComidaService, private autocap : AutocapacitacionService,
-    private mesService:EmpleadoMesService, private videoAprende : AraizaAprendeService) { }
+    private mesService:EmpleadoMesService, private videoAprende : AraizaAprendeService,
+    private vce : votacionesEquipoService,
+    private ccia : VotacionesService,) { }
 
   ngOnInit(): void {
 
@@ -156,6 +161,23 @@ export class EliminarComponent implements OnInit {
               this.contenedor_carga.style.display = "none";
 
             })
+          break;
+          case 'equipo':
+            this.contenedor_carga.style.display = "block";
+            this.vce.eliminarImg(Number(this.data.id)).pipe(
+            concatMap((resp:ResponseInterfaceTs) => {
+              return this.ccia.imprimirDatosCompetencia(-1," ").pipe(
+                concatMap( async (resp : ResponseInterfaceTs) =>{
+                if (resp.status.toString() === '200') {
+                  let ELEMENT_DATA : Array<votaciones> = []
+                  for await (const c of resp.container) {
+                    ELEMENT_DATA.push( c )
+                  }
+                  this.dialogRef.close(ELEMENT_DATA)
+                  this.contenedor_carga.style.display = "none";
+                }
+              }))})).subscribe();
+
           break;
         }
       }

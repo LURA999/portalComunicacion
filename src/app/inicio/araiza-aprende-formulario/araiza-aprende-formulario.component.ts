@@ -110,7 +110,6 @@ export class AraizaAprendeFormularioComponent {
       }else{
         //Entra a este codigo cuando el examen no esta respondido
         if( typeof this.quiz[i].respuesta !== "string"){
-          console.log(this.quiz[i].respuesta);
 
           let arrBool : Boolean[] = []
           let arrNum: Number[] = []
@@ -160,8 +159,6 @@ export class AraizaAprendeFormularioComponent {
   //En esta primera llamada, se confirma si el usuario acompleto el cuestionario
   this.servicioForm.imprimirFormularioRespuestas(this.auth.getId(), this.id, 0).pipe((
     concatMap((resp : ResponseInterfaceTs) => {
-      console.log(resp);
-
       //Se piden los datos principales del form, obligatoriamente
       return this.servicioForm.imprimirDatosPrincipalesForm(this.id).pipe((
         concatMap((resp2 : ResponseInterfaceTs) => {

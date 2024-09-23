@@ -59,7 +59,8 @@ constructor(
   private fb : FormBuilder,
   private dialog : NgDialogAnimationService,
   private service : AraizaAprendeService,
-  public route : Router,private DataService : DataNavbarService){
+  public route : Router,
+  private DataService : DataNavbarService){
 
 }
 

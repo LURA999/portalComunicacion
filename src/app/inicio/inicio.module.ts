@@ -70,6 +70,8 @@ import { CreateQuestionComponent } from './componentes/create-question/create-qu
 import { CreateAnswerQuestionComponent } from './componentes/create-answer-question/create-answer-question.component';
 import { CuestionariosMenuComponent } from './opcion-config/cuestionarios-menu/cuestionarios-menu.component';
 import { CuestionariosModificarComponent } from './opcion-config/cuestionarios-modificar/cuestionarios-modificar.component';
+import { CrearEquipoCompetenciaComponent } from './popup/crear-equipo-competencia/crear-equipo-competencia.component';
+import { EliminarEquipoCompetenciaComponent } from './popup/eliminar-equipo-competencia/eliminar-equipo-competencia.component';
 
 
 
@@ -128,7 +130,9 @@ import { CuestionariosModificarComponent } from './opcion-config/cuestionarios-m
         CreateQuestionComponent,
         CreateAnswerQuestionComponent,
         CuestionariosMenuComponent,
-        CuestionariosModificarComponent
+        CuestionariosModificarComponent,
+        CrearEquipoCompetenciaComponent,
+        EliminarEquipoCompetenciaComponent
     ],
     imports: [
         CommonModule,

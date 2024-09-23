@@ -109,8 +109,6 @@ export class CuestionariosModificarComponent implements OnInit{
     for ( let y of this.hijos) {
       let cues : cuestionario = y.enviarDatos()
       cues.idCuestionario = this.id
-      console.log(cues);
-
       this.observables.push(this.cuestionarioService.enviarCuestionario(cues))
 
     }

@@ -88,8 +88,6 @@ export class UsuarioFormComponent implements OnInit {
 
   constructor(private fb : FormBuilder,@Inject(MAT_DIALOG_DATA) public data: usuarios | undefined,public dialogRef: MatDialogRef<EditarSliderComponent>,
   private loc : localService, private usService : UsuarioService, private serviceImgVideo : SubirImgVideoService, private usuario : UsuarioService ) {
-    console.log(this.data!);
-
   this.usuario.buscarDepartamentos().subscribe((res:ResponseInterfaceTs)=>{
 
     if (res.container!=null) {

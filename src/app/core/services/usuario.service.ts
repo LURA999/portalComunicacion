@@ -20,14 +20,14 @@ export class UsuarioService {
       return this.http.delete<ResponseInterfaceTs>(this.api+'Users/userLogin.php?id='+id);
   }
 
-  selectUser(obj: formBuscadorUsuario, op:number):Observable<ResponseInterfaceTs>{
+  selectUser(obj: formBuscadorUsuario, op:number) : Observable<ResponseInterfaceTs>{
     const datePipe = new DatePipe('en-US');
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?palabra='+obj.buscador+'&hotel='+(obj.seccion===null || obj.seccion===undefined || obj.seccion==="" ||
     obj.seccion===-1 ?-1:obj.seccion)+'&fechaInicial='+(datePipe.transform(obj.fechaInicial, 'yyyy-MM-dd', 'UTC'))+'&fechaFinal='+(datePipe.transform(obj.fechaFinal, 'yyyy-MM-dd', 'UTC'))+'&op='+op+
     '&tipoVista='+(obj.tipoVisita??null));
   }
 
-  selectUsuariosHotel(p : string, op : number):Observable<ResponseInterfaceTs>{
+  selectUsuariosHotel(p : string, op : number) : Observable<ResponseInterfaceTs>{
     const timestamp = Date.now();
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?localUsuarios=true&palabra2='+p+'&cvehotel='+op, { headers });
@@ -35,7 +35,7 @@ export class UsuarioService {
 
 
 
-  selectAllusers(op : number):Observable<ResponseInterfaceTs>{
+  selectAllusers(op : number) : Observable<ResponseInterfaceTs>{
     const timestamp = Date.now();
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
 
@@ -43,15 +43,15 @@ export class UsuarioService {
   }
 
 /**Todos los empleados que cumplen años - 1 */
-  selectAllusersBirth(birt : number):Observable<ResponseInterfaceTs>{
+  selectAllusersBirth(birt : number) : Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?birt='+birt);
   }
 
-  selectAllusersAniv(aniv : number):Observable<ResponseInterfaceTs>{
+  selectAllusersAniv(aniv : number) : Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?aniv='+aniv);
   }
 
-  selectAllusersMesi(aniv : number):Observable<ResponseInterfaceTs>{
+  selectAllusersMesi(aniv : number) : Observable<ResponseInterfaceTs>{
     return this.http.get<ResponseInterfaceTs>(this.api+'Users/userLogin.php?mesi='+aniv);
   }
   /**  1*/

@@ -17,6 +17,9 @@ import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { format } from 'date-fns';
 import { EliminarCompetenciaComponent } from '../../popup/eliminar-competencia/eliminar-competencia.component';
+import { CrearEquipoCompetenciaComponent } from '../../popup/crear-equipo-competencia/crear-equipo-competencia.component';
+import { votacionesEquipoService } from 'src/app/core/services/votaciones_equipo.service';
+import { EliminarEquipoCompetenciaComponent } from '../../popup/eliminar-equipo-competencia/eliminar-equipo-competencia.component';
 
 export interface votaciones {
   cveLocal : number;
@@ -75,6 +78,7 @@ export class VotacionesConfigComponent {
     private loc : localService,
     private ccia : VotacionesService,
     private dialog : NgDialogAnimationService,
+    private ceService : votacionesEquipoService
   ){
 
     this.$sub.add(this.loc.todoLocal(-1).pipe(
@@ -111,10 +115,7 @@ export class VotacionesConfigComponent {
     this.formBuscar.reset();
   }
 
-  buscador(){
-    console.log(this.formBuscar.value["buscador"]);
-    console.log(this.formBuscar.value["seccion"]);
-
+  buscador() {
      this.ccia.imprimirDatosCompetencia(this.formBuscar.value["seccion"], this.formBuscar.value["buscador"])
     .subscribe( async(resp : ResponseInterfaceTs)=>{
       this.ELEMENT_DATA = [];
@@ -333,6 +334,21 @@ export class VotacionesConfigComponent {
     this.rellenarTabla();
   }
 
+  crearEquipo(){
+    let dialogRef = this.dialog.open(CrearEquipoCompetenciaComponent, {
+      height: 'auto',
+      width: '700px',
+      data: false
+    });
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:any)=>{
+
+    })
+
+  }
 
   modificarCompentencia(){
     let dialogRef = this.dialog.open(EditarVotarCompetenciaComponent, {
@@ -360,6 +376,46 @@ export class VotacionesConfigComponent {
         }
       }
     })
+  }
+
+  eliminarEquipo(){
+    let dialogRef = this.dialog.open(EliminarEquipoCompetenciaComponent, {
+      height: 'auto',
+      width: '700px',
+      data: undefined
+    });
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:Array<votaciones>)=>{
+
+    })
+    /* this.ceService.eliminarEquipo().subscribe((resp: ResponseInterfaceTs)=>{
+
+    }) */
+  }
+
+  modificarEquipo(){
+    let dialogRef = this.dialog.open(CrearEquipoCompetenciaComponent, {
+      height: 'auto',
+      width: '700px',
+      data: true
+    });
+    dialogRef.afterClosed().pipe(
+      catchError( _ => {
+        throw "Error in source."
+    })
+    ).subscribe(async (resp:Array<votaciones>)=>{
+      if (resp.length > 0) {
+        this.rellenarTabla()
+      }
+
+    })
+
+    /* this.ceService.eliminarImg().subscribe((resp: ResponseInterfaceTs)=>{
+
+    }) */
   }
 
   ngAfterContentInit(): void {

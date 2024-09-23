@@ -19,7 +19,6 @@ export class DynamicInputComponent {
   }
 
   cambio(){
-    console.log(this.respuesta);
 
   }
 

@@ -1,6 +1,6 @@
 <div class="example-box" >
 
-  <h2 mat-dialog-title>VOTA POR TU PARTICIPANTE FAVORITO</h2>
+  <h2 mat-dialog-title>VOTA POR TU EQUIPO FAVORITO</h2>
 
   <ng-container *ngIf="activar; else elseTemplate">
     <mat-dialog-content>
@@ -10,12 +10,11 @@
         <tr>
         <td class="img" [style.width]="'40%'">
           <div class="img-card">
-            <img  rel="preload" [src]="recursoUrl(i.img)"  />
+            <img  rel="preload" [src]="recursoUrl(i.imgEquipo)"  />
           </div>
         </td>
         <td  [width]="'60%'" class="letra">
-          <span class="negrito"> {{i.nombre}}</span><br>
-          {{i.departamento}}
+          <span class="negrito"> {{i.nombreEquipo}}</span><br>
         </td>
         </tr>
       </table>

@@ -81,14 +81,20 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
         for (var i = 0; i < opcNav.length; i++) {
             this.rend2.setStyle(opcNav.item(i),"display","none")
         }
+        let cveHotel : number = this.auth.getCveLocal();
+        if (this.auth.getCveLocal() == 5) {
+          cveHotel = 4;
+        }else if (this.auth.getCveLocal() == 4){
+          cveHotel = 5;
+        }
 
         //navbar horizontal
         this.rend2.setStyle(opcNav.item(7),"display","block")
         this.rend2.setStyle(opcNav.item(0),"display","block")
-        this.rend2.setStyle(opcNav.item(this.auth.getCveLocal()),"display","block")
+        this.rend2.setStyle(opcNav.item(cveHotel),"display","block")
 
         //navbar vertical para administradores
-        this.rend2.setStyle(opcNav.item(8 + Number(this.auth.getCveLocal())),"display","block")
+        this.rend2.setStyle(opcNav.item(8 + Number(cveHotel)),"display","block")
         this.rend2.setStyle(opcNav.item(14),"display","block")
       }
     }
@@ -213,33 +219,33 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
       if (nombre !==undefined ) {
         switch (nombre) {
           case "general":
-            this.render.setStyle(document.getElementsByClassName("opc")[0],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[0],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opc")[0], "color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[0], "color","#ffba60")
             break;
           case "calafia":
-            this.render.setStyle(document.getElementsByClassName("opcM")[1],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[2],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[3],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[1], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[2], "color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[3], "color","#ffba60")
             break;
          case "sanLuis":
-            this.render.setStyle(document.getElementsByClassName("opcM")[2],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[3],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[5],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[2], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[3], "color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[5], "color","#ffba60")
             break;
           case "mexicali":
-            this.render.setStyle(document.getElementsByClassName("opcM")[0],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[1],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[0], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[1], "color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[1], "color","#ffba60")
             break;
           case "hermosillo":
-            this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[3], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[4], "color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[7], "color","#ffba60")
             break;
           case "palmira":
-            this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("opcM")[4], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+            this.render.setStyle(document.getElementsByClassName("opc")[5], "color","#ffba60")
+            this.render.setStyle(document.getElementsByClassName("menu-opc")[9], "color","#ffba60")
             break;
           case "slider-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
@@ -343,7 +349,6 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
         throw "Error in source."
     })
     ).subscribe(res => {
-        console.log(res);
         if (Number(this.auth.getCveRol()) == 1) {
           this.isAdminPortal = false;
           if (res === undefined || res==="mexicali"

@@ -169,19 +169,18 @@ form : FormGroup = this.fb.group({
 
     componentRef.instance.buttonEliminar.subscribe((id: number) => {
       this.contadorPreguntas--;
-      console.log(this.contadorPreguntas);
       componentRef.destroy();
     });
 
   }
-  
+
   regresarMenu(){
     this.route.navigate(["/general/cuestionarios-menu"]);
   }
 
 
 
-  
+
 
 
 }

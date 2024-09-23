@@ -41,7 +41,7 @@ export class VotarPopupComponent {
   }
 
   recursoUrl(src : string) : SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+'imgVideo/fotos/'+src);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+'imgVideo/galeria-equipos/fotos/'+src);
   }
 
   async clickVotar(resp : any){
@@ -54,10 +54,11 @@ export class VotarPopupComponent {
     dialogRef.afterClosed().subscribe(async (result :boolean)=> {
       if (result) {
         try {
-          await lastValueFrom(this.ccia.insertarVotacion(Number(resp["cveCompentencia"]), this.auth.getId(), Number(resp["id"])))
+          await lastValueFrom(this.ccia.insertarVotacion(Number(resp["cveCompentencia"]), this.auth.getId(), Number(resp["idEquipo"])))
           this.mensaje = "Usted ya votó en esta competencia ✅. ¡Gracias por su participación!";
+
         } catch (error) {
-          this.mensaje = "Acabá de ocurrir un error ❌, por favor intentelo mas tarde.";
+          this.mensaje = "Acabá de ocurrir un error ❌, por favor inténtelo más tarde.";
         }
         this.activar = false;
       }

@@ -255,8 +255,6 @@ export class UsuariosComponent implements OnInit {
         throw "Error in source."
     })
     ).subscribe(async (resp:ResponseInterfaceTs)=>{
-      console.log(resp);
-
       if (Number(resp.status) == 200) {
         this.cargando = false;
         this.ELEMENT_DATA = [];

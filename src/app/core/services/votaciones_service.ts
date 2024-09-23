@@ -29,8 +29,6 @@ export class VotacionesService {
   }
 
   comprobarVotacion(local : number, user : number) : Observable<ResponseInterfaceTs> {
-    console.log(this.api+'votarCompetencia.php?gvotar=true&local='+local+'&user='+user);
-
     return this.http.get<ResponseInterfaceTs>(this.api+'votarCompetencia.php?gvotar=true&local='+local+'&user='+user);
   }
 
@@ -62,8 +60,6 @@ export class VotacionesService {
   }
 
   insertarVotacion(iComp : number, iU : number, cveUCompetidor : number){
-    console.log( [iComp, iU, cveUCompetidor]);
-
     let headers = new HttpHeaders().set('Content-type','Application/json')
     return this.http.post<ResponseInterfaceTs>(this.api+'votarCompetencia.php?ivotar=true', [iComp, iU, cveUCompetidor], {headers})
   }

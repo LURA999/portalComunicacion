@@ -1,0 +1,48 @@
+<div class="example-box"  cdkDrag>
+  <h4 mat-dialog-title>
+    @if(data){
+      Editar equipo
+    } @else {
+      Crear equipo
+    }
+  </h4>
+  <form [formGroup]="formEquipo">
+    <mat-dialog-content>
+    @if( data ){
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Nombre del equipo</mat-label>
+        <input type="text"
+              matInput
+              autocomplete="off"
+              [formControl]="myControlUsuarios"
+              [matAutocomplete]="auto2">
+        <mat-autocomplete #auto2="matAutocomplete"  (optionSelected)="selectedUsuario($event)">
+            @for (o of filteredOptionsEquipo | async; track o.idEquipo) {
+              <mat-option  [value]="o" >{{o.nombreEquipo}}</mat-option>
+            }
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Nuevo nombre del equipo</mat-label>
+        <input formControlName="nombreEquipo" matInput >
+      </mat-form-field>
+    } @else {
+      <mat-form-field  class="example-full-width">
+        <mat-label>Nombre del equipo</mat-label>
+        <input formControlName="nombreEquipo" matInput >
+      </mat-form-field>
+    }
+
+    <br>
+    <span>Imagen del equipo</span>
+    <div>
+      <input autocomplete="off" mat-input  type="file" name="subir-imagen" id="subir-imagen" #subirImagen (change)="subirImg($event)" class="ing-txt"><br><br>
+    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancelar</button>
+      <button mat-button (click)="enviarDatos()">Aceptar</button>
+    </mat-dialog-actions>
+  </form>
+
+</div>

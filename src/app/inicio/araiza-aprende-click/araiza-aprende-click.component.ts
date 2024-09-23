@@ -90,8 +90,6 @@ export class AraizaAprendeClickComponent {
 
         this.serviceAraizaApr.segundaPageArAp(this.arrVideo[1].idArApr!.toString(),this.arrVideo[1].fk_idCategoria!.toString()).subscribe((resp:ResponseInterfaceTs) =>{
           this.arrVideo = resp.container;
-          console.log(this.arrVideo.length);
-
           if (this.arrVideo.length ==2) {
             this.enabledBtnIzq = false;
             this.enabledBtnDcho = true;

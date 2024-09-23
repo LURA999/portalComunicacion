@@ -45,25 +45,30 @@
     </mat-form-field>
   </div> <br/>
   <div>
- <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>Nombre o # de empleado</mat-label>
+  <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Escribe el nombre del equipo</mat-label>
       <input type="text"
             aria-label="Number"
             matInput
-            (keyup)="buscarUsuario()"
             [formControl]="myControl"
             [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedUsuario($event)">
-          @for (o of options; track o.id) {
+          @for (o of filteredOptionsEquipo | async; track o.idEquipo) {
+            <mat-option  [value]="o" >{{o.nombreEquipo}}</mat-option>
+          }
+
+          <!--
+          @for (o of filteredOptionsEventos | async; track o.idCompetencia) {
             <mat-option  [value]="o" >{{o.nombre}}</mat-option>
           }
+          -->
       </mat-autocomplete>
     </mat-form-field>
 
       @for (competencia of seleccionadas; track $index) {
         <mat-chip-row>
-          {{competencia.nombre}}
-          <button matChipRemove (click)="remove(competencia)" [attr.aria-label]="'remove ' + competencia.nombre">
+          {{competencia.nombreEquipo}}
+          <button matChipRemove (click)="remove(competencia)" [attr.aria-label]="'remove ' + competencia.nombreEquipo">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
@@ -72,7 +77,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button (click)="enviarDatos()">Aceptar</button>
+  <button mat-button (click)="enviarDatos()" [disabled]="desactivarBoton">Aceptar</button>
 </mat-dialog-actions>
 </form>
 </div>
