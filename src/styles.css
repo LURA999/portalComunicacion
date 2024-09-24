@@ -3,6 +3,7 @@ html, body {
   overflow: auto;
 }
 
+
 /* You can add global styles to this file, and also import other style files */
 @font-face {
   font-family: 'gotham-regular';
@@ -202,6 +203,8 @@ h2, h4, h5, h6 {
   margin-right: auto;
   margin-top: 10px;
 }
+
+
 /*
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

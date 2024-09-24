@@ -32,9 +32,9 @@ export class VotarPopupComponent {
       })
 
       this.ccia.comprobarVotacion(data, this.auth.getId()).subscribe((resp: ResponseInterfaceTs) =>{
-        if(Number(resp.container[0]["votar"]) == 0){
+        if( Number(resp.container[0]["votar"]) == 0 ){
           this.activar = true;
-        }else{
+        } else {
           this.mensaje = "Usted ya votó en esta competencia ✅. ¡Gracias por su participación!";
         }
       })

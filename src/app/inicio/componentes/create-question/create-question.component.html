@@ -4,21 +4,21 @@
           <div class="row">
             <div class="col-12 col-md-6">
               <mat-form-field >
-                <input matInput placeholder="Pregunta" [value]="preguntaNombre" required />
+                <input matInput placeholder="Pregunta" [formControl]="controlPreguntaNombre" required />
               </mat-form-field>
             </div>
             <div class="col-12 col-md-6">
               <mat-form-field >
                 <mat-select  [(value)]="valorSelect" (selectionChange)="onChange($event.value)" required>
                   <!-- <mat-option  value="1">Texto</mat-option> -->
-                  <mat-option  value="2">Radio Button</mat-option>
-                  <mat-option  value="3">Checkbox</mat-option>
-                  <mat-option  value="4">DragDrop</mat-option>
+                  <mat-option value="2">Radio Button</mat-option>
+                  <mat-option value="3">Checkbox</mat-option>
+                  <mat-option value="4">DragDrop</mat-option>
                 </mat-select>
                 <mat-label>Tipo</mat-label>
               </mat-form-field>
             </div>
-            @if(valorSelect == 3){
+            @if(valorSelect == 3) {
             <div class="cantidad">
               <p></p>
               <div class="mb-4">
@@ -27,16 +27,17 @@
               </div>
             </div>
             }
-            @if(valorSelect == 4){    
+
+            @if(valorSelect == 4) {
               <div style="margin-left:10px;font-weight: bold;font-size:15px;">
                 <p class="mt-3 mb-5">El orden adecuado para la selección de respuestas es de arriba hacia abajo. Asegúrese de definir claramente cómo desea que el usuario responda.</p>
-              </div>      
+              </div>
             }
             <div>
             <!-- crear respuestas -->
-            <ng-template (buttonClicked)="handleChildClick($event)"  #answers></ng-template>
-            @if(valorSelect > 1){
-            <button class="btn btn-sm" (click)="procesoSeleccion(valorSelect)"><i class="fas fa-plus"></i> Agregar</button>
+            <ng-template (buttonClicked)="handleChildClick($event)" #answers></ng-template>
+            @if(valorSelect > 1) {
+              <button class="btn btn-sm" (click)="procesoSeleccion(valorSelect)"><i class="fas fa-plus"></i> Agregar</button>
             }
             </div>
           </div>

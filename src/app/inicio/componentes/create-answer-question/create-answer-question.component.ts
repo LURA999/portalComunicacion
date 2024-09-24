@@ -1,4 +1,4 @@
-import { Component,EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import { Component,EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'create-answer-question',
@@ -10,17 +10,19 @@ import { Component,EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
           class="form-check-input"
           [id]="'radioButton' + id_option"
           type="radio"
+          [checked]="respuestaCorrecta"
           (change)="onCheckboxChange($event)"
           name="valorRadio" />
-    
+
 
     <input *ngIf="valorSelect == 3"
           class="form-check-input"
           [id]="'checkBox' + id_option"
           type="checkbox"
+          [checked]="respuestaCorrecta"
           (change)="onRadioChange($event)"
           name="valorCheckbox" />
-    
+
 
   </div>
 
@@ -32,13 +34,13 @@ import { Component,EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
       <i *ngSwitchCase="'Dragdrop'" class="fas fa-arrows-alt mt-3"></i>
     </ng-container>
   </div>
-  
+
   <div class="col-9">
     <mat-form-field class="example-full-width">
       <input matInput [placeholder]="placeholder" [(ngModel)]="respuesta">
     </mat-form-field>
   </div>
-  
+
   <div class="col-1">
     <button *ngIf="canDelete" (click)="eliminarOpcion()" class="btn btn-sm">
       <i class="fas fa-times"></i>
@@ -49,12 +51,13 @@ import { Component,EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
   `,
   styles: ['.example-full-width { width: 100%; }']
 })
-export class CreateAnswerQuestionComponent  {
+export class CreateAnswerQuestionComponent implements OnInit {
   @Input() placeholder: string = 'Enter value';
   @Input() respuesta: string = '';
   @Input() valorSelect: number = 0;
-  @Input()id_option: number = 0;
-  @Input()canDelete: boolean = true; 
+  @Input() respuestaCorrecta : boolean = false;
+  @Input() id_option: number = 0;
+  @Input()canDelete: boolean = true;
   actualizar : number = 0;
   @Output() buttonClicked = new EventEmitter<number>();
   @Output() selectionChanged = new EventEmitter<{ id: number, type: string, selected: boolean }>();
@@ -70,12 +73,25 @@ export class CreateAnswerQuestionComponent  {
     const input = event.target as HTMLInputElement;
     const isChecked = input.checked;
     this.selectionChanged.emit({ id: this.id_option, type: 'checkbox', selected: isChecked });
-  
+
+  }
+
+  ngAfterContentInit(): void {
+
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
+
+  }
+  ngOnInit(): void {
+
+   /*  for (let index = 0; index < array.length; index++) {
+      const element = array[index];
+
+    } */
   }
 
   eliminarOpcion(): void {
-    
-    this.buttonClicked.emit(this.id_option); 
+    this.buttonClicked.emit(this.id_option);
 
-  } 
+  }
 }

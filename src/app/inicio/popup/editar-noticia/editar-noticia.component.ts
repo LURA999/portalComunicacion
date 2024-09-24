@@ -132,7 +132,6 @@ export class EditarNoticiaComponent implements OnInit{
 
      //Se eliminara la anterior imagen, si esque se remplazo el actual
     if (this.nombreActualizadoImgVid === true) {
-
       Observable.push(this.serviceImgVideo.eliminarDirImgVideo(Number(this.data.obj.idNoticia),"imgVideoNoticia"))
       Observable.push(this.serviceImgVideo.subirImgVideo2(this.formData,"imgVideoNoticia"))
     }

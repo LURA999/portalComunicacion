@@ -10,34 +10,36 @@
         </button>
       </div>
       <div>
-        <button mat-raised-button color="primary" (click)="updateCuestionario()" >
-          Modificar
-        </button>
+        <button mat-raised-button color="primary" (click)="updateCuestionario()">Modificar</button>
+
       </div>
     </div>
     <!-- Titulo de cuestionario -->
     <div class="card mt-4"  *ngIf="cuestionarioTitulos">
       <div class="card-header">
-        <input class="form-control" type="text" placeholder="Titulo" value="{{ cuestionarioTitulos.titulo }}"/>
+        <input class="form-control" type="text" placeholder="Titulo" [(ngModel)]="cuestionarioTitulos.titulo"/>
 
       </div>
       <div class="card-body">
-        <input class="form-control" type="text" placeholder="Descripcion" value="{{ cuestionarioTitulos.descripcion }}"/>
+        <input class="form-control" type="text" placeholder="Descripcion" [(ngModel)]="cuestionarioTitulos.descripcion"/>
       </div>
     </div>
+
      <!-- <ng-template #createQuestion></ng-template>  -->
      <div *ngFor="let pregunta of cuestionarioPreguntas; let i = index">
-
       <div class="card mt-4 mb-4">
         <div class="card-header">
           <p></p>
             <button (click)="eliminarPregunta(pregunta.idPregunta-1)" class="btn"><i class="fas fa-times"></i></button>
         </div>
+
       <app-create-question #hijoComponent
         (buttonEliminar)="handleEliminarPregunta($event)"
+        [idPregunta]="pregunta.idPregunta"
         [valorSelect]="pregunta.tipoQuestion"
         [preguntaNombre]="pregunta.pregunta"
         [cantidadRespuestas]="pregunta.respuesta.length"
+        [respuestaCorrecta]="pregunta.respuestaCorrecta!"
         [arrayRespuestas]="pregunta.respuesta" ></app-create-question>
       </div>
   <!--   <div class="card-header">
