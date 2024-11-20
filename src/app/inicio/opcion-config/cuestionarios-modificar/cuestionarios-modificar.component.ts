@@ -45,8 +45,12 @@ export class CuestionariosModificarComponent implements OnInit{
   idPregunta : number = 1;
   pregunta : string = '';
 
-  constructor(private DataService : DataNavbarService, public route : Router,
-    private routeA: ActivatedRoute,private cuestionarioService: CuestionariosService){}
+  constructor(
+    private DataService : DataNavbarService, 
+    public route : Router,
+    private routeA: ActivatedRoute,
+    private cuestionarioService: CuestionariosService
+  ){}
 
   ngOnInit(): void {
     this.id = Number(this.routeA.snapshot.paramMap.get('id'));

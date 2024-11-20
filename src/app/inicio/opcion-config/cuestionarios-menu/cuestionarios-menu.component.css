@@ -4,6 +4,28 @@
     padding-top: 70px;
 }
 
+h1 {
+    text-align: center;
+}   
+
+td, .op {
+    text-align: center;
+}
+
+tbody, tr {
+    height: 60px;
+}
+
+th, td {
+    align-content: center;
+    padding: 25px;
+}
+
+.table {
+    border-radius: 10px; /* adjust the radius as needed */
+    overflow: hidden; /* to hide the table's border collapse */
+  }
+
 .sep{
     margin-top:20px;
     margin-bottom:20px;

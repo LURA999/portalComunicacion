@@ -27,6 +27,7 @@ import { VotacionesConfigComponent } from './opcion-config/votaciones-config/vot
 import { CuestionariosConfigComponent } from './opcion-config/cuestionarios-config/cuestionarios-config.component';
 import { CuestionariosMenuComponent } from './opcion-config/cuestionarios-menu/cuestionarios-menu.component';
 import { CuestionariosModificarComponent } from './opcion-config/cuestionarios-modificar/cuestionarios-modificar.component';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -72,6 +73,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers : [  ]
+  providers : [  
+    { provide: LocationStrategy, useClass: PathLocationStrategy } // Usa el PathLocationStrategy
+  ]
 })
 export class InicioRoutingModule { }

@@ -30,6 +30,7 @@
 
   .navbar-sidenav-container {
     flex:1;
+    background-color: rgb(191, 233, 255);
   }
 
   .navbar-is-mobile .navbar-sidenav-container {

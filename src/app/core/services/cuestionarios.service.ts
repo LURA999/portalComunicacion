@@ -41,4 +41,12 @@ export class CuestionariosService {
   }
 
 
+  /**Net core */
+  //Obteniendo titulos
+
+  getTitulos() : Observable <ResponseInterfaceTs>{
+    let headers = new HttpHeaders().set('Content-type','Application/json');
+    return this.http.get<ResponseInterfaceTs>('http://lura.somee.com/api/Formularios/TituloLocal', {headers})
+  }
+
 }

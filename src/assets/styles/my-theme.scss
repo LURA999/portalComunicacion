@@ -4,28 +4,28 @@
 //@include mat.strong-focus-indicators();
 
 
-$indigo-palette: (
-  50 : #fbf3ea,
-  100 : #f5e0ca,
-  200 : #eecca6,
-  300 : #e7b882,
-  400 : #e1a868,
-  500 : #dc994d,
-  600 : #d89146,
-  700 : #d3863d,
-  800 : #ce7c34,
-  900 : #c56b25,
-  A100 : #ffffff,
-  A200 : #ffe2ce,
-  A400 : #ffc49b,
-  A700 : #ffb581,
+$deep-purple: (
+  50 : #EDE7F6,
+  100 : #D1C4E9,
+  200 : #B39DDB,
+  300 : #9575CD,
+  400 : #7E57C2,
+  500 : #673AB7,
+  600 : #673AB7,
+  700 : #512DA8,
+  800 : #4527A0,
+  900 : #311B92,
+  A100 : #B388FF,
+  A200 : #7C4DFF,
+  A400 : #651FFF,
+  A700 : #6200EA,
   contrast: (
       50 : #000000,
       100 : #000000,
-      200 : #000000,
-      300 : #000000,
-      400 : #000000,
-      500 : #000000,
+      200 : #ffffff,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
       600 : #ffffff,
       700 : #000000,
       800 : #000000,
@@ -37,7 +37,7 @@ $indigo-palette: (
   )
 );
 
-$my-primary: mat.m2-define-palette($indigo-palette,600);
+$my-primary: mat.m2-define-palette($deep-purple,500);
 $my-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
 
 $my-theme: mat.m2-define-light-theme((

@@ -11,9 +11,9 @@
               <mat-form-field >
                 <mat-select  [(value)]="valorSelect" (selectionChange)="onChange($event.value)" required>
                   <!-- <mat-option  value="1">Texto</mat-option> -->
-                  <mat-option value="2">Radio Button</mat-option>
-                  <mat-option value="3">Checkbox</mat-option>
-                  <mat-option value="4">DragDrop</mat-option>
+                  <mat-option [value]="2">Radio Button</mat-option>
+                  <mat-option [value]="3">Checkbox</mat-option>
+                  <mat-option [value]="4">DragDrop</mat-option>
                 </mat-select>
                 <mat-label>Tipo</mat-label>
               </mat-form-field>

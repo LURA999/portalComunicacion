@@ -23,7 +23,10 @@ export class CuestionariosMenuComponent  {
   dataSource : Cuestionario[] = [];
 
   constructor(private DataService : DataNavbarService,public route : Router,private cuest : CuestionariosService){
-
+    cuest.getTitulos().subscribe((resp: any) => {
+      console.log(resp);
+      
+    })
   }
 
 

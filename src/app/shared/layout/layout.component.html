@@ -124,10 +124,11 @@
         </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  <mat-sidenav-container class="navbar-sidenav-container">
+  <mat-sidenav-container  class="navbar-sidenav-container">
 
-    <!--Esto va dentro de la etiqueta mat-sidenav [opened]="mobileQuery.matches"-->
-    <mat-sidenav id="mat-estaticos" [ngStyle]="{'background-color': isAdmin===true?'#293641':'white'}" #snav [opened]="isAdmin"  [mode]="mode">
+    <!--Esto va dentro de la etiqueta mat-sidenav [opened]="mobileQuery.matches"--> 
+    <!-- [ngStyle]="{'background-color': isAdmin===true?'#293641':'white'}" -->
+    <mat-sidenav style="background-color: rgb(0 18 38);" id="mat-estaticos" #snav [opened]="isAdmin"  [mode]="mode">
               <!--Navbar de Usuario normal-->
               <mat-nav-list id="usuarioNav" [hidden]="isAdmin">
                 <div >
@@ -227,15 +228,15 @@
               </mat-nav-list>
       <!--Navbar de usuario administrador-->
         <mat-nav-list id="adminNav" [hidden]="!isAdmin">
-
-        <div class="opcMenu" [ngStyle]="{'background-color': '#293641'}"  aria-selected="true">
-          <span > <img  rel="preload" [src]="this.link+'assets/img/logos/araiza_logo.svg'" id="logo_nav" alt=""> </span>
+        <!-- [ngStyle]="{'background-color': '#293641'}" -->
+        <div class="opcMenu"   aria-selected="true">
+          <span > <img style="border-radius: 50%; border: black solid 10px;" rel="preload" [src]="this.link+'assets/img/logos/AAR.png'" id="logo_nav" alt=""> </span>
         </div>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="portal('/general')"  >
+        <!-- <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="portal('/general')"  >
           <mat-icon mat-list-icon >
           <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-portal.png'" alt="">
         </mat-icon>
-          <span   class="opc"> Portal  </span>
+          <span   class="opc"> Inicio  </span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/slider-config')"  >
           <mat-icon mat-list-icon >
@@ -247,7 +248,7 @@
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-ar-apr.svg'" alt="">
           </mat-icon>
-          <span   class="opc verticalN-opc" > Araiza Aprende  </span>
+          <span   class="opc verticalN-opc" > Aprende  </span>
         </a>
         <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/noticias-config')">
           <mat-icon mat-list-icon >
@@ -290,10 +291,10 @@
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc">Votaciones</span>
-        </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/cuestionarios-menu')" >
+        </a> -->
+         <!--<a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/cuestionarios-menu')" >
           <mat-icon mat-list-icon >
-            <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
+            <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/emoticon-sonriente.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc">Cuestionarios</span>
         </a>
@@ -302,7 +303,7 @@
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-cerrarsesion.png'" alt="">
           </mat-icon>
           <span class="opc"  > Salir </span>
-        </a>
+        </a> -->
         </mat-nav-list>
     </mat-sidenav>
   <!-- Main content -->

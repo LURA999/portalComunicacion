@@ -7,6 +7,7 @@ import { ErrorComponent } from './error/error.component';
 import { ComentarComidaComponent } from './comentar-comida/comentar-comida.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   { path: 'general', loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioModule) },
@@ -18,9 +19,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, {useHash:true}) ],
+  imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ],
-  providers : [  ]
+  providers : [  
+    { provide: LocationStrategy, useClass: PathLocationStrategy } // Usa el PathLocationStrategy
+  ]
 
 })
 export class AppRoutingModule { }
