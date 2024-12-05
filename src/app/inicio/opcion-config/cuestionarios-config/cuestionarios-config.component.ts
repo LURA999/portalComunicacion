@@ -1,5 +1,4 @@
- import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { DynamicInputComponent } from '../../componentes/dynamic-input/dynamic-input.component';
+ import { Component, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { localService } from 'src/app/core/services/local.service';
 import { AraizaAprendeService } from 'src/app/core/services/araiza_aprende.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
@@ -7,10 +6,13 @@ import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { Router } from '@angular/router';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
-import { concatMap, of } from 'rxjs';
+import { Observable, concatMap, of } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { format } from 'date-fns';
 import { CreateQuestionComponent } from '../../componentes/create-question/create-question.component';
+import { cuestionario } from '../../araiza-aprende-formulario/araiza-aprende-formulario.component';
+import { cuestionarioTitulos } from '../cuestionarios-modificar/cuestionarios-modificar.component';
+import { CuestionariosService } from 'src/app/core/services/cuestionarios.service';
 
 @Component({
   selector: 'app-cuestionarios-config',
@@ -29,6 +31,10 @@ paramUrl : string = this.route.url.split("/")[2];
 arrayPreguntas : any[] = [];
 contadorPreguntas : number = 0;
 
+@ViewChildren(CreateQuestionComponent) hijos!: QueryList<CreateQuestionComponent>;
+observables : Array<Observable<ResponseInterfaceTs>> = []
+cuestionarioTitulos!: cuestionarioTitulos;
+cuestionarioPreguntas: Array<cuestionario> = [/* {idCuestionario: 1,idPregunta: 1, pregunta: '', respuesta: [], tipoQuestion: 1} */];
 
 formularios: any;
 locales: any;
@@ -43,7 +49,9 @@ form : FormGroup = this.fb.group({
     private local: localService,
     public route : Router,
     private fb : FormBuilder,
+    private cuestionarioService: CuestionariosService,
     private aaprendeServicio: AraizaAprendeService){
+    
     aaprendeServicio.imprimirFormularios().subscribe((resp: ResponseInterfaceTs) => {
       this.formularios = resp.container
     })
@@ -134,7 +142,6 @@ form : FormGroup = this.fb.group({
   procedimientoSeparar(resp2: any, x : number, tipoPregunta :number, resp1 : any, contadorR1 : number, arrayBoolStr :string | boolean[]) : String {
     // 1.1 Se obtiene el array booleano o string
     let respuesta : string = ""
-
     if (tipoPregunta == 2 || tipoPregunta == 3) {
       if (tipoPregunta == 2) {
         //En este caso solamente se busca la respuesta que fue elegida en las preguntas de tipo radiobutton
@@ -167,20 +174,46 @@ form : FormGroup = this.fb.group({
     this.arrayPreguntas.push(componentRef);
     this.contadorPreguntas++;
 
-    componentRef.instance.buttonEliminar.subscribe((id: number) => {
+   /*  componentRef.instance.buttonEliminar.subscribe((id: number) => {
       this.contadorPreguntas--;
       componentRef.destroy();
     });
-
+ */
   }
 
   regresarMenu(){
-    this.route.navigate(["/general/cuestionarios-menu"]);
+    this.route.navigate(["/menu/questionnaires-menu"]);
+  }
+
+
+  saveQuiz() {
+    let cues : Array<cuestionario> = []
+    for (let j = 0; j < this.hijos.length; j++) {
+      cues.push(this.hijos.get(j)!.enviarDatos());
+      cues[j].respuesta = JSON.stringify(cues[j].respuesta);
+      cues[j].respuestaCorrecta = cues[j].respuestaCorrecta?.toString();
+      this.observables.push(this.cuestionarioService.enviarCuestionario(cues[j]))
+    }
+
+    this.cuestionarioTitulos = {
+      descripcion: this.cuestionarioTitulos.descripcion,
+      titulo: this.cuestionarioTitulos.titulo
+    };
+  }
+
+  eliminarPregunta(valor : number){    
+    this.cuestionarioPreguntas.splice(valor, 1)
+    for (let z = 0; z < this.cuestionarioPreguntas.length; z++) {
+      this.cuestionarioPreguntas[z].idPregunta = 1+z;
+    }
+
   }
 
 
 
 
-
+  handleEliminarPregunta(index: any) {
+    // Handle the elimination logic
+  }
 
 }

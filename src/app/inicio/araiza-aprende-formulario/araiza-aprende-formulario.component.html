@@ -1,14 +1,20 @@
 <div id="container-ar-apr-form" style="margin: 5% 10% 0 10%;" >
-  <h2><span id="titulo1">{{titulo}}</span></h2>
+  <div style="display: flex; justify-content: space-between;">
+    <h2><span id="titulo1">{{titulo}}</span></h2>
+    <button (click)="goSettings()" color="primary" mat-mini-fab >
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+  <span id="titulo1">{{descripcion}}</span>
+  
   <hr>
   <div>
-    <h3>Responde las siguientes preguntas de acuerdo al video.</h3>
+  <!-- <h3>Responde las siguientes preguntas de acuerdo al video.</h3> -->
   </div>
   <div id="container-preguntas" >
     <div class="cajaBx">
       <ng-template #placeholder ></ng-template>
     </div>
   </div>
-  <button color="primary" (click)="enviar()" mat-flat-button>ENVIAR</button>
+  <button color="primary" (click)="enviar()" mat-flat-button>SEND</button>
 </div>
-<app-footer></app-footer>

@@ -2,12 +2,12 @@ import { Component, Renderer2, ViewChild, ViewContainerRef } from '@angular/core
 import { MatCard } from '@angular/material/card';
 import { DynamicInputComponent } from '../componentes/dynamic-input/dynamic-input.component';
 import { DynamicRadioGroupComponent, opcionRadioButton } from '../componentes/dynamic-radio-group/dynamic-radio-group.component';
-import { DynamicCheckboxGroupComponent } from '../componentes/dynamic-checkbox-group/dynamic-checkbox-group.component';
+import { DynamicCheckboxGroupComponent, opcionCheckBoxButton } from '../componentes/dynamic-checkbox-group/dynamic-checkbox-group.component';
 import { AraizaAprendeService } from 'src/app/core/services/araiza_aprende.service';
 import { concatMap, lastValueFrom, of } from 'rxjs';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ExamenEnviadoComponent } from '../popup/examen-enviado/examen-enviado.component';
@@ -25,7 +25,7 @@ export interface cuestionario {
 }
 
 @Component({
-  selector: 'app-araiza-aprende-formulario',
+  selector: 'app-custionarios-formulario',
   templateUrl: './araiza-aprende-formulario.component.html',
   styleUrls: ['./araiza-aprende-formulario.component.css']
 })
@@ -38,11 +38,13 @@ export class AraizaAprendeFormularioComponent {
   indexDragDrop :number = 0;
   indexMatFormField :number = 0;
   titulo : string = "";
+  descripcion : string = "";
   cuestionarioRespondido : boolean = false;
-  id : number = Number(this.router.snapshot.paramMap.get("id"));
+  id : number = Number(this.routerActivated.snapshot.paramMap.get("id"));
 
   quiz : Array<cuestionario> = [];
   quizRespaldo : Array<cuestionario> = [];
+  newIdQuestions : Array<number> = [];
 
   @ViewChild('placeholder', {read: ViewContainerRef, static: true}) placeholder!: ViewContainerRef;
   componentRef : any[] = [];
@@ -58,7 +60,8 @@ export class AraizaAprendeFormularioComponent {
     private _renderer : Renderer2,
     private servicioForm : AraizaAprendeService,
     private auth : AuthService,
-    private router: ActivatedRoute,
+    private routerActivated: ActivatedRoute,
+    private router : Router,
     private DataService : DataNavbarService,
     public dialog: MatDialog
   ){
@@ -72,22 +75,29 @@ export class AraizaAprendeFormularioComponent {
 
 
   async enviar(){
-   //ARRAY QUE RECORRE TODO EL JSON DEL CUESTIONARIO
-    for (let i = 0; i < this.quiz.length; i++) {
+    
 
-      if(this.cuestionarioRespondido){
+   //ARRAY QUE RECORRE TODO EL JSON DEL CUESTIONARIO
+    for (let i = 0; i < this.quiz.length; i++) {      
+      // if the question is new then it will throw false and it will only be updated.
+      // if the question is not new then it will throw true and it will only be inserted.
+      
+      if(this.cuestionarioRespondido  && !this.newIdQuestions.find( (e : number) => this.quiz[i].idPregunta == e)){       
+         
         //Entra a este codigo cuando el examen ya esta respondido
         //1.1 Se comparan las respuestas JSON
         if(JSON.stringify(this.quiz[i].respuesta) !== JSON.stringify(this.quizRespaldo[i].respuesta)
           && (this.quiz[i].tipoQuestion == 3 || this.quiz[i].tipoQuestion == 2) ){
-
+            
            let arrBool : Boolean[] = []
+           
            for (let x = 0; x < this.quiz[i].respuesta.length; x++) {
              //1.1.1 Se obtienen todos valores booleanos de las respuestas que tiene la pregunta
-             arrBool.push((this.quiz[i].respuesta[x] as opcionRadioButton).state!)
+             arrBool.push((this.quiz[i].respuesta[x] as opcionRadioButton).state?? false)
            }
+           
            //1.1.2 Se envia convertido en string y en estructura de array
-          await lastValueFrom(this.servicioForm.editarRespuesta("["+arrBool.toString()+"]", this.quiz[i].idPregunta,this.auth.getId()))
+           await lastValueFrom(this.servicioForm.editarRespuesta("["+arrBool.toString()+"]", this.quiz[i].idPregunta,this.auth.getId()))
 
          //1.2 Y SI NO Se comparan las respuestas STRING
          }else if(this.quiz[i].respuesta !== this.quizRespaldo[i].respuesta && this.quiz[i].tipoQuestion == 1){
@@ -103,13 +113,17 @@ export class AraizaAprendeFormularioComponent {
            * stateDrag = orden en el cual esta actualmente ese objeto
            */
           for (let n = 0; n < this.quiz[i].respuesta.length; n++) {
-           arrNumber.push((this.quiz[i].respuesta[n] as opcionRadioButton).id -1);
+           arrNumber.push((this.quiz[i].respuesta[n] as opcionRadioButton).id);
           }
 
           await lastValueFrom(this.servicioForm.editarRespuesta("["+arrNumber+"]", this.quiz[i].idPregunta,this.auth.getId()))
         }
 
-      }else{
+      } else {        
+        //it empty little by little the array fot it can update again
+        this.newIdQuestions.splice(this.newIdQuestions.findIndex(e=> e == this.quiz[i].idPregunta),1)
+        
+        // this.quiz[i].idPregunta
         //Entra a este codigo cuando el examen no esta respondido
         if( typeof this.quiz[i].respuesta !== "string"){
 
@@ -119,11 +133,11 @@ export class AraizaAprendeFormularioComponent {
           //como el examen es nuevo se tienen insertar todos los valores asi no esten respondidos, dentro del array
           if (this.quiz[i].tipoQuestion == 4) {
             for (let x = 0; x < this.quiz[i].respuesta.length; x++) {
-              arrNum.push((this.quiz[i].respuesta[x] as opcionRadioButton).id - 1)
+              arrNum.push((this.quiz[i].respuesta[x] as opcionRadioButton).id)
             }
-          }else{
+          } else {
             for (let x = 0; x < this.quiz[i].respuesta.length; x++) {
-             arrBool.push((this.quiz[i].respuesta[x] as opcionRadioButton).state!)
+             arrBool.push((this.quiz[i].respuesta[x] as opcionRadioButton).state ?? false)
             }
           }
 
@@ -132,7 +146,7 @@ export class AraizaAprendeFormularioComponent {
           await lastValueFrom(this.servicioForm.insertarRespuesta(this.quiz[i].respuesta.toString(), this.quiz[i].idPregunta,this.auth.getId()))
         }
       }
-    }
+    } 
     this.abrirForm()
     this.rellenarFormulario();
   }
@@ -156,19 +170,28 @@ export class AraizaAprendeFormularioComponent {
   }
 
   rellenarFormulario(){
-  this.quiz = []
-  this.quizRespaldo = []
+  this.quiz = [];
+  this.quizRespaldo = [];
   //En esta primera llamada, se confirma si el usuario acompleto el cuestionario
-  this.servicioForm.imprimirFormularioRespuestas(this.auth.getId(), this.id, 0).pipe((
-    concatMap((resp : ResponseInterfaceTs) => {
+  this.servicioForm.imprimirFormularioRespuestas(this.auth.getId(), this.id, 1).pipe((
+    concatMap((resp : ResponseInterfaceTs) => {      
       //Se piden los datos principales del form, obligatoriamente
       return this.servicioForm.imprimirDatosPrincipalesForm(this.id).pipe((
-        concatMap((resp2 : ResponseInterfaceTs) => {
+        concatMap((resp2 : ResponseInterfaceTs) => {        
           this.titulo = resp2.container[0]["titulo"];
-          if(resp.container.length == 0){
+          this.descripcion = resp2.container[0]["descripcion"];
+          let c: number =0;
+          for (let i = 0; i < resp.container.length; i++) {            
+            if (!(JSON.parse(resp.container[i]["respuesta"]) === null)) {
+              c++;
+            }
+          }
+          
+          if(c == 0){
+            
           //En el dado caso que no se realizo el cuestionario, se entrega uno vacio, para que lo llene
           return this.servicioForm.imprimirFormularioPreguntas(this.id).pipe((
-            concatMap((resp3 : ResponseInterfaceTs) => {
+            concatMap((resp3 : ResponseInterfaceTs) => {    
               for (let i = 0; i < resp3.container.length; i++) {
                 let nuevoArray : Array<opcionRadioButton> = JSON.parse(resp3.container[i]["respuestas"])
                 if (Number(resp3.container[i]["tipoPregunta"]) == 4) {
@@ -177,37 +200,54 @@ export class AraizaAprendeFormularioComponent {
                   for (let y = 0; y < nuevoArray.length; y++) {
                     nuevoArray[y].stateDrag = number[y];
                   }
-                }
-                this.quiz?.push(
-                  {
-                    idCuestionario:resp3.container[i]["fk_formulario"],
-                    idPregunta: resp3.container[i]["idPregunta"],
-                    pregunta: resp3.container[i]["pregunta"],
-                    respuesta: nuevoArray as Array<opcionRadioButton>,
-                    tipoQuestion: Number(resp3.container[i]["tipoPregunta"])
-                  }
-                )
+                } 
+                  this.quiz?.push(
+                    {
+                      idCuestionario: resp3.container[i]["fk_formulario"],
+                      idPregunta: resp3.container[i]["idPregunta"],
+                      pregunta: resp3.container[i]["pregunta"],
+                      respuesta: nuevoArray as Array<opcionRadioButton>,
+                      tipoQuestion: Number(resp3.container[i]["tipoPregunta"])
+                    }
+                  )      
               }
               return of("");
             })
           ))
-          }else{
+          } else {
             this.cuestionarioRespondido = true;
             //En el dado caso que este tenga respondido cuestionario, se entrega uno con sus respuestas
             //1. Se modifica la respuesta del cuestionario con las respuestas del usuario, con la ayuda de la sig. variable
             let respuestasModificadas : Array<Array<opcionRadioButton>> = [];
+            
             for (let x = 0; x < resp.container.length; x++) {
+              
               let tipoPregunta = Number(resp.container[x]["tipoPregunta"]);
-              //1.1 Se obtiene el array booleano, string o array number
-              let arrayBoolStrNum : Array<boolean> | string | Array<number>= JSON.parse(resp.container[x]["respuesta"]) as Array<boolean> | string | Array<number>;
+              //1.1 Se obtiene el array booleano, string o array number           
+              /**in this section we divide our question types based on whether the answer is null or not*/
+              let arrayBoolStrNum : Array<boolean> | string | Array<number> = []
+              if((tipoPregunta ==  2 || tipoPregunta == 3  || tipoPregunta == 4) && JSON.parse(resp.container[x]["respuesta"]) !== null){                
+                arrayBoolStrNum = JSON.parse(resp.container[x]["respuesta"]) as Array<boolean> | string | Array<number>;
+              }else {
+                this.newIdQuestions.push(Number(resp.container[x]["idPregunta"]));                
+                if(tipoPregunta == 2 || tipoPregunta == 3) {
+                  arrayBoolStrNum = []
+                }else {
+                  let number : Array<number> = Array.from({ length: JSON.parse(resp.container[x]["respuestas"]).length }, (_, index) => index);
+                  arrayBoolStrNum = this.mezclarArray(number)
+                  
+                }
+                
+              }
 
+              
               /*las respuestas modificadas, son de las preguntas que ya han sido respondidas y fueron guardadas en la BD
               (o incluso pueden permanecer con un valor sin responder)*/
               respuestasModificadas.push(JSON.parse(resp.container[x]["respuestas"]) as Array<opcionRadioButton>)
-
+              
               if ( tipoPregunta == 2 || tipoPregunta == 3 ) {
               //1.2 Modificando respuestas booleanas, de las preguntas te tipo booleano
-                for (let y = 0; y < arrayBoolStrNum.length; y++) {
+                for (let y = 0; y < arrayBoolStrNum.length; y++) {                  
                   respuestasModificadas[x][y].state  = arrayBoolStrNum[y] as boolean;
                 }
               } else if ( tipoPregunta == 1 ) {
@@ -217,10 +257,10 @@ export class AraizaAprendeFormularioComponent {
 
               } else if ( tipoPregunta == 4 ) {
                 //1.4 Modificando el orden del drag drop, con la posicion guardada en la base de datos.
-                for (let y = 0; y < arrayBoolStrNum.length; y++) {
+              for (let y = 0; y < arrayBoolStrNum.length; y++) {
                   respuestasModificadas[x][y].stateDrag = arrayBoolStrNum[y] as number;
                 }
-                }
+              }
 
             }
 
@@ -288,7 +328,7 @@ export class AraizaAprendeFormularioComponent {
         case 3:
             this.componentRef3[this.indexCheckBox] = this.placeholder.createComponent(DynamicCheckboxGroupComponent);
             this.componentRef3[this.indexCheckBox].instance.opciones = this.quiz[i].respuesta as opcionRadioButton[];
-            this.componentRef3[this.indexCheckBox].changeDetectorRef.detectChanges();
+            this.componentRef3[this.indexCheckBox].changeDetectorRef.detectChanges();            
             this.indexCheckBox++;
           break;
         //drag drop
@@ -343,11 +383,25 @@ export class AraizaAprendeFormularioComponent {
   */
 
   mezclarArray<T>(array: T[]): T[] {
-    for (let i = array.length - 1; i > 0; i--) {
+
+    //order array
+    let arrayReal : Array<number> = []
+    for (let index = 0; index < array.length; index++) {
+      arrayReal.push(index)
+    }
+
+     while (array.toString() === arrayReal.toString()){
+      for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
+      }
     }
+    
     return array;
+  }
+
+  goSettings(){
+      this.router.navigate(["/menu/questionnaires-modify/",this.id]);
   }
 
 }

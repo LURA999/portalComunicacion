@@ -1,5 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { Router } from '@angular/router';
 import { CuestionariosService } from 'src/app/core/services/cuestionarios.service';
@@ -23,10 +22,10 @@ export class CuestionariosMenuComponent  {
   dataSource : Cuestionario[] = [];
 
   constructor(private DataService : DataNavbarService,public route : Router,private cuest : CuestionariosService){
-    cuest.getTitulos().subscribe((resp: any) => {
-      console.log(resp);
+    // cuest.getTitulos().subscribe((resp: any) => {
+    //   console.log(resp);
       
-    })
+    // })
   }
 
 
@@ -38,10 +37,6 @@ export class CuestionariosMenuComponent  {
     this.cuest.getCuestionarios().subscribe(
       (data: ResponseInterfaceTs) => {
         this.dataSource = data.container;
-
-      },
-      (error) => {
-        console.error('Error fetching data', error);
       }
     );
   }
@@ -51,9 +46,22 @@ export class CuestionariosMenuComponent  {
   }
 
   nuevoCuestionario(){
-    this.route.navigate(["/general/cuestionarios-config"]);
+    this.route.navigate(["/menu/questionnaires-setting"]);
   }
   mandarCuestionario(id: number){
-    this.route.navigate(["/general/cuestionarios-modificar", id]);
+    this.route.navigate(["/menu/questionnaires-modify", id]);
+  }
+  eliminar(id: number){
+    this.cuest.eliminarCuestionario(id).subscribe((resp:ResponseInterfaceTs) =>{
+        if(resp.status === "200") {
+          this.loadCuestionarios();
+        }else{
+          alert("Ah occured an error");
+        }
+    })
+  }
+
+  goQuiz(id: number){
+    this.route.navigate(["/menu/questionnaires/questionnaires-form/", id]);
   }
 }

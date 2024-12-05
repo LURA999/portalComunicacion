@@ -1,27 +1,28 @@
 <div class="cuestionarios"> 
-      <h1>CUESTIONARIOS</h1>
+      <h1>QUESTIONNAIRES</h1>
       <div class="sep"> 
         <p></p>
         <button (click)="nuevoCuestionario()" mat-raised-button color="primary">
-          <i class="fas fa-plus"></i> Agregar cuestionario
+           
+           <mat-icon>add</mat-icon> Add new 
         </button>
       </div>
       <!-- <div class="mt-3 mb-3">
         <input class="form-control" placeholder="Buscar"/>
       </div> -->
-        <table class="table">
+        <table class="table table-hover">
           <thead>
-            <tr class="table-active">
-              <th scope="col">Nombre</th>
+            <tr class="table-dark">
+              <th scope="col">Title</th>
               <!-- <th>Hotel</th> -->
-              <th scope="col" class="op">Modificar</th>
-              <th scope="col" class="op">Eliminar</th>
+              <th scope="col"  class="op">Modify</th>
+              <th scope="col"  class="op">Delete</th>
             </tr>
           </thead>
           <tbody>
             @for(cuestionario of dataSource; track cuestionario.idFormulario){
-            <tr>
-              <th scope="row">
+            <tr class="row-quiz" >
+              <th scope="row" (click)="goQuiz(cuestionario.idFormulario)">
                 <span>
                   {{ cuestionario.titulo }}
                 </span>
@@ -34,7 +35,7 @@
               </td>
              
               <td>
-                <button  mat-raised-button style="background: red;color:white;">
+                <button (click)="eliminar(cuestionario.idFormulario)"  mat-raised-button style="background: red;color:white;">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>

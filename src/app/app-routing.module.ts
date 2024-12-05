@@ -10,7 +10,7 @@ import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 const routes: Routes = [
-  { path: 'general', loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioModule) },
+  { path: 'menu', loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioModule) },
   { path: 'login',canActivate: [InicioGuard], component: LoginComponent },
   { path: 'login_admin',canActivate: [InicioGuard], component: LoginAdminComponent },
   { path: 'error', component: ErrorComponent },

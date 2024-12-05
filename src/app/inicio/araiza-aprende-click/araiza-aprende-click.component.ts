@@ -80,7 +80,7 @@ export class AraizaAprendeClickComponent {
 
 
     abrirCuestionario(){
-      window.open(this.link+'general/araiza-aprende/araiza-aprende-formulario/'+this.arrVideoAux.fk_formulario, "_blank");
+      window.open(this.link+'menu/araiza-aprende/araiza-aprende-formulario/'+this.arrVideoAux.fk_formulario, "_blank");
     }
 
     siguiente(){

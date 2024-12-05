@@ -17,7 +17,7 @@ export class LogSesionAdminGuard  {
       return true;
     }else{
       if (this.cookie.get('user') !== "" && this.auth.getCveRol() > 1) {
-        this.route.navigateByUrl('/general')
+        this.route.navigateByUrl('/menu')
       } else {
         this.route.navigateByUrl('/login_admin')
       }

@@ -148,7 +148,7 @@ export class HistorialNoticiasComponent implements OnInit {
 
 
   routerLink(){
-    this.route.navigate(["/general/"+this.luaStr]);
+    this.route.navigate(["/menu/"+this.luaStr]);
   }
 
   mesClick(){

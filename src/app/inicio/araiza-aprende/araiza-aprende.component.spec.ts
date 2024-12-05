@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AraizaAprendeComponent } from './araiza-aprende.component';
+import { AraizaAprendeComponent } from './custionarios.component';
 
 describe('AraizaAprendeComponent', () => {
   let component: AraizaAprendeComponent;

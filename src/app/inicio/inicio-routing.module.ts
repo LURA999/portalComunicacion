@@ -37,7 +37,7 @@ const routes: Routes = [
     [
       //para usuarios
       { path: '', canActivate: [SesionGuard], component: InicioComponent } ,
-      { path: 'general', canActivate: [SesionGuard], component: InicioComponent },
+      { path: 'menu', canActivate: [SesionGuard], component: InicioComponent },
       { path: 'mexicali', canActivate: [SesionGuard], component: OpcionMenuComponent },
       { path: 'calafia', canActivate: [SesionGuard], component: OpcionMenuComponent },
       { path: 'sanLuis', canActivate: [SesionGuard], component: OpcionMenuComponent },
@@ -50,9 +50,9 @@ const routes: Routes = [
       { path: 'menu', canActivate: [SesionGuard], component: MenuComponent},
       { path: 'historial-noticias', canActivate: [SesionGuard], component: HistorialNoticiasComponent},
       { path: 'empleado-mes', canActivate: [SesionGuard], component: EmpleadoMesComponent},
-      { path: 'araiza-aprende', canActivate: [SesionGuard], component: AraizaAprendeComponent},
-      { path: 'araiza-aprende/araiza-aprende-click', canActivate: [SesionGuard], component: AraizaAprendeClickComponent},
-      { path: 'araiza-aprende/araiza-aprende-formulario/:id',canActivate: [SesionGuard], component: AraizaAprendeFormularioComponent },
+      { path: 'custionarios', canActivate: [SesionGuard], component: AraizaAprendeComponent},
+      { path: 'questionnaires/questionnaires-click', canActivate: [SesionGuard], component: AraizaAprendeClickComponent},
+      { path: 'questionnaires/questionnaires-form/:id',canActivate: [SesionGuard], component: AraizaAprendeFormularioComponent },
       //Sesion para el admin
       { path: 'slider-config',canActivate: [LogSesionAdminGuard], component: ImagenVideoComponent},
       { path: 'noticias-config',canActivate: [LogSesionAdminGuard], component: NoticiaComponent},
@@ -61,11 +61,11 @@ const routes: Routes = [
       { path: 'galeriaMulti-config',canActivate: [LogSesionAdminGuard], component: GaleriaMultiComponent},
       { path: 'usuarios-config',canActivate: [LogSesionAdminGuard], component: UsuariosComponent },
       { path: 'autocapac-config',canActivate: [LogSesionAdminGuard], component: AutoCapacConfigComponente },
-      { path: 'araiza-aprende-config',canActivate: [LogSesionAdminGuard], component: AraizaAprendeConfigComponent },
+      { path: 'custionarios-config',canActivate: [LogSesionAdminGuard], component: AraizaAprendeConfigComponent },
       { path: 'votaciones-config',canActivate: [LogSesionAdminGuard], component: VotacionesConfigComponent },
-      { path: 'cuestionarios-config',canActivate: [LogSesionAdminGuard], component: CuestionariosConfigComponent },
-      { path: 'cuestionarios-menu', canActivate: [LogSesionAdminGuard], component: CuestionariosMenuComponent},
-      { path: 'cuestionarios-modificar/:id', canActivate: [LogSesionAdminGuard], component: CuestionariosModificarComponent}
+      { path: 'questionnaires-menu', canActivate: [LogSesionAdminGuard], component: CuestionariosMenuComponent},
+      { path: 'questionnaires-setting',canActivate: [LogSesionAdminGuard], component: CuestionariosModificarComponent },
+      { path: 'questionnaires-modify/:id', canActivate: [LogSesionAdminGuard], component: CuestionariosModificarComponent}
     ]
   }
 ];

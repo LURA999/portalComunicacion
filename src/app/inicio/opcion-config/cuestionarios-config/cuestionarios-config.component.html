@@ -8,26 +8,48 @@
           <i class="fas fa-arrow-left"></i>
       </button>
       <button mat-raised-button color="primary" (click)="agregarPregunta()">
-          <i class="fas fa-plus"></i> Agregar pregunta
+          <i class="fas fa-plus"></i> Add question2
       </button>
     </div>
     <div>
-      <button mat-raised-button color="primary" [disabled]="contadorPreguntas === 0">
+      <button mat-raised-button color="primary"  [disabled]="hijos.length  === 0">
         Completar
       </button>
     </div>
   </div>
   <!-- Titulo de cuestionario -->
-  <div class="card mt-4">
-    <div class="card-header">
-      <input class="form-control" type="text" placeholder="Titulo"/>
-    </div>
-    <div class="card-body">
+  <mat-card class="card mt-4 mb-4">
+    <mat-card-header class="card-header bg-light">
+      <input class="form-control mb-4"
+       type="text" placeholder="Titulo"/>
+    </mat-card-header>
+    <mat-card-content >
+      <br>
       <input class="form-control" type="text" placeholder="Descripcion"/>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 
+  <mat-card class="card mt-4 mb-4">
+    <mat-card-header class="card-header bg-light">
+      <p></p>
+        <button (click)="eliminarPregunta(contadorPreguntas)" class="btn">
+          <mat-icon >delete</mat-icon>
+        </button>
+    </mat-card-header>
+  <mat-card-content>
   <!-- Aqui se inyectan lo componentes d-->
+    <app-create-question #hijoComponent
+    (buttonEliminar)="handleEliminarPregunta($event)"
+    [idPregunta]="contadorPreguntas"
+    [valorSelect]="1"
+    [preguntaNombre]="'pregunta1'"
+    [cantidadRespuestas]="1"
+    [respuestaCorrecta]="[]"
+    [arrayRespuestas]="[]"
+    ></app-create-question>
+    </mat-card-content>
+  </mat-card>
+
   <ng-template (buttonEliminar)="handleChildClick($event)" #preguntas></ng-template>
   
 </div>

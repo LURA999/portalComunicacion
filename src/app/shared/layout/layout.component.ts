@@ -188,159 +188,159 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
     }
 
     activarSeccion(link? : string, nombre? :string){
-      for (let x = 0; x < this.opcionVotar.length; x++) {
-        this.opcionVotar[x] = true;
-        this.ccia.imprimirUsuariosCompetenciaActivado(1+x).subscribe((resp: ResponseInterfaceTs) => {
-          if (resp.container.length) {
-            this.opcionVotar[x] = false;
-          }
-        })
-      }
-      for (let i = 0; i < document.getElementsByClassName("opc").length; i++) {
-        this.render.setStyle(document.getElementsByClassName("opc")[i],"color","#000000")
-      }
+      // for (let x = 0; x < this.opcionVotar.length; x++) {
+      //   this.opcionVotar[x] = true;
+      //   this.ccia.imprimirUsuariosCompetenciaActivado(1+x).subscribe((resp: ResponseInterfaceTs) => {
+      //     if (resp.container.length) {
+      //       this.opcionVotar[x] = false;
+      //     }
+      //   })
+      // }
+      // for (let i = 0; i < document.getElementsByClassName("opc").length; i++) {
+      //   this.render.setStyle(document.getElementsByClassName("opc")[i],"color","#000000")
+      // }
 
-      this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
-      this.render.setStyle(document.getElementsByClassName("opc")[19],"color","#FFFFFF")
+      // this.render.setStyle(document.getElementsByClassName("opc")[8],"color","#FFFFFF")
+      // this.render.setStyle(document.getElementsByClassName("opc")[19],"color","#FFFFFF")
 
-      //aqui se imprimen las opciones del navbar horizontal
-      for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
-        this.render.setStyle(document.getElementsByClassName("opcM")[i],"background-image","url("+this.link+"assets/img/pruebas/vector2.png)")
-      }
+      // //aqui se imprimen las opciones del navbar horizontal
+      // for (let i = 0; i < document.getElementsByClassName("opcM").length; i++) {
+      //   this.render.setStyle(document.getElementsByClassName("opcM")[i],"background-image","url("+this.link+"assets/img/pruebas/vector2.png)")
+      // }
 
-      for (let i = 0; i < document.getElementsByClassName("menu-opc").length; i++) {
-        this.render.setStyle(document.getElementsByClassName("menu-opc")[i],"color","#000000")
-      }
+      // for (let i = 0; i < document.getElementsByClassName("menu-opc").length; i++) {
+      //   this.render.setStyle(document.getElementsByClassName("menu-opc")[i],"color","#000000")
+      // }
 
-      for (let i = 0; i < document.getElementsByClassName("verticalN-opc").length; i++) {
-        this.render.setStyle(document.getElementsByClassName("verticalN-opc")[i],"color","#FFFFFF")
-      }
+      // for (let i = 0; i < document.getElementsByClassName("verticalN-opc").length; i++) {
+      //   this.render.setStyle(document.getElementsByClassName("verticalN-opc")[i],"color","#FFFFFF")
+      // }
 
-      if (nombre !==undefined ) {
-        switch (nombre) {
-          case "general":
-            this.render.setStyle(document.getElementsByClassName("opc")[0], "color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[0], "color","#ffba60")
-            break;
-          case "calafia":
-            this.render.setStyle(document.getElementsByClassName("opcM")[1], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[2], "color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[3], "color","#ffba60")
-            break;
-         case "sanLuis":
-            this.render.setStyle(document.getElementsByClassName("opcM")[2], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[3], "color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[5], "color","#ffba60")
-            break;
-          case "mexicali":
-            this.render.setStyle(document.getElementsByClassName("opcM")[0], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[1], "color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[1], "color","#ffba60")
-            break;
-          case "hermosillo":
-            this.render.setStyle(document.getElementsByClassName("opcM")[3], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[4], "color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[7], "color","#ffba60")
-            break;
-          case "palmira":
-            this.render.setStyle(document.getElementsByClassName("opcM")[4], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[5], "color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[9], "color","#ffba60")
-            break;
-          case "slider-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
-            break;
-          case "araiza-aprende-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
-          break;
-          case "noticias-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
-            break;
-          case "menu-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
-            break;
-          case "empleado-mes-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
-            break;
-          case "galeriaMulti-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
-            break;
-          case "usuarios-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
-            break;
-          case "autocapac-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
-            break;
-          case "votaciones-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
-          break;
-          case "cuestionarios-menu":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
-          break;
-        }
-      } else {
-        switch (link) {
-          case "/general":
-            this.render.setStyle(document.getElementsByClassName("opc")[0],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[0],"color","#ffba60")
-            break;
-          case "/general/calafia":
-            this.render.setStyle(document.getElementsByClassName("opcM")[1],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[2],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[3],"color","#ffba60")
-            break;
-         case "/general/sanLuis":
-            this.render.setStyle(document.getElementsByClassName("opcM")[2],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[3],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[5],"color","#ffba60")
-            break;
-          case "/general/mexicali":
-            this.render.setStyle(document.getElementsByClassName("opcM")[0],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[1],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
-            break;
-          case "/general/hermosillo":
-            this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
-            break;
-          case "/general/palmira":
-            this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
-            this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
-            this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
-            break;
-          case "/general/slider-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
-            break;
-          case "/general/araiza-aprende-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
-            break;
-          case "/general/noticias-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
-            break;
-         case "/general/menu-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
-            break;
-          case "/general/empleado-mes-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
-            break;
-          case "/general/galeriaMulti-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
-            break;
-          case "/general/usuarios-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
-            break;
-          case "/general/autocapac-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
-            break;
-          case "/general/votaciones-config":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
-          break;
-          case "/general/cuestionarios-menu":
-            this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
-          break;
-        }
-      }
+      // if (nombre !==undefined ) {
+      //   switch (nombre) {
+      //     case "general":
+      //       this.render.setStyle(document.getElementsByClassName("opc")[0], "color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[0], "color","#ffba60")
+      //       break;
+      //     case "calafia":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[1], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[2], "color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[3], "color","#ffba60")
+      //       break;
+      //    case "sanLuis":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[2], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[3], "color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[5], "color","#ffba60")
+      //       break;
+      //     case "mexicali":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[0], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[1], "color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[1], "color","#ffba60")
+      //       break;
+      //     case "hermosillo":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[3], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[4], "color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[7], "color","#ffba60")
+      //       break;
+      //     case "palmira":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[4], "background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[5], "color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[9], "color","#ffba60")
+      //       break;
+      //     case "slider-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
+      //       break;
+      //     case "custionarios-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
+      //     break;
+      //     case "noticias-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
+      //       break;
+      //     case "menu-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
+      //       break;
+      //     case "empleado-mes-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
+      //       break;
+      //     case "galeriaMulti-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
+      //       break;
+      //     case "usuarios-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
+      //       break;
+      //     case "autocapac-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
+      //       break;
+      //     case "votaciones-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
+      //     break;
+      //     case "cuestionarios-menu":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
+      //     break;
+      //   }
+      // } else {
+      //   switch (link) {
+      //     case "/menu":
+      //       this.render.setStyle(document.getElementsByClassName("opc")[0],"color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[0],"color","#ffba60")
+      //       break;
+      //     case "/menu/calafia":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[1],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[2],"color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[3],"color","#ffba60")
+      //       break;
+      //    case "/menu/sanLuis":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[2],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[3],"color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[5],"color","#ffba60")
+      //       break;
+      //     case "/menu/mexicali":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[0],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[1],"color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[1],"color","#ffba60")
+      //       break;
+      //     case "/menu/hermosillo":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[3],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[4],"color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[7],"color","#ffba60")
+      //       break;
+      //     case "/menu/palmira":
+      //       this.render.setStyle(document.getElementsByClassName("opcM")[4],"background-image","url("+this.link+"assets/img/pruebas/vector.png)")
+      //       this.render.setStyle(document.getElementsByClassName("opc")[5],"color","#ffba60")
+      //       this.render.setStyle(document.getElementsByClassName("menu-opc")[9],"color","#ffba60")
+      //       break;
+      //     case "/menu/slider-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[0],"color","#ffba60")
+      //       break;
+      //     case "/menu/custionarios-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[1],"color","#ffba60")
+      //       break;
+      //     case "/menu/noticias-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[2],"color","#ffba60")
+      //       break;
+      //    case "/menu/menu-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[3],"color","#ffba60")
+      //       break;
+      //     case "/menu/empleado-mes-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[4],"color","#ffba60")
+      //       break;
+      //     case "/menu/galeriaMulti-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[5],"color","#ffba60")
+      //       break;
+      //     case "/menu/usuarios-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[6],"color","#ffba60")
+      //       break;
+      //     case "/menu/autocapac-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[7],"color","#ffba60")
+      //       break;
+      //     case "/menu/votaciones-config":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
+      //     break;
+      //     case "/menu/cuestionarios-menu":
+      //       this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
+      //     break;
+      //   }
+      // }
     }
 
     ngAfterContentInit(): void {
@@ -370,7 +370,7 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
             this.mode = 'over'
         }
 
-        this.activarSeccion(this.paramUrl,res)
+        // this.activarSeccion(this.paramUrl,res)
         this.changeDetectorRef.detectChanges();
       })
 

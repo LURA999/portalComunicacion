@@ -113,6 +113,8 @@ export class AraizaAprendeService {
   }
 
   imprimirFormularioRespuestas(idUsuario : number, form : number, local : number) : Observable<ResponseInterfaceTs>{ // en este apartado, imprime las respuestas del usuario que inicio sesión
+    console.log(this.api+"araizaAprendeForm.php?idUsuario="+idUsuario+"&form="+form+"&local="+local+"&respuestas=true");
+    
     return this.http.get<ResponseInterfaceTs>(this.api+"araizaAprendeForm.php?idUsuario="+idUsuario+"&form="+form+"&local="+local+"&respuestas=true")
   }
 

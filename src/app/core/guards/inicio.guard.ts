@@ -17,9 +17,9 @@ export class InicioGuard  {
       return true
     }else{
       if (this.auth.getCveRol() == 1) {
-        this.route.navigateByUrl('/general/slider-config')
+        this.route.navigateByUrl('/menu/slider-config')
       }else{
-        this.route.navigateByUrl('/general')
+        this.route.navigateByUrl('/menu')
       }
       return false;
     }

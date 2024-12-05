@@ -48,7 +48,7 @@ export class LoginAdminComponent implements OnInit {
     ).subscribe((response:any) =>{
       if(response.status === "ok"){
        this.auth.crearSesion(response.container);
-       this.router.navigateByUrl('/general/slider-config')
+       this.router.navigateByUrl('/menu/slider-config')
       }else{
         alert(response.info)
       }

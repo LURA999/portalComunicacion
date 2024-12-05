@@ -1,6 +1,6 @@
 
 <div class="navbar-container">
-  <mat-toolbar  [hidden]="isAdmin">
+  <!--<mat-toolbar  [hidden]="isAdmin">
     <mat-toolbar-row>
       <div id="btn-toggle">
         <button  mat-icon-button (click)="snav.toggle()">
@@ -16,15 +16,15 @@
       </div>
 
         <div id="menu">
-          <div class="opc" (click)="navegarNavH('/general')">
+          <div class="opc" (click)="navegarNavH('/menu')">
               General
           </div>
             <div class="btn-group" >
-              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/mexicali')">
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/menu/mexicali')">
                   Mexicali
               </div>
               <ul class="dropdown-menu noclose">
-                  <li (click)="navegarNavH('/general/bookings','mexicali')">
+                  <li (click)="navegarNavH('/menu/bookings','mexicali')">
                      Solicitudes
                   </li>
                   <li (click)="buzonSugerencias()">
@@ -39,11 +39,11 @@
               </ul>
           </div>
             <div class="btn-group">
-              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/calafia')">
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/menu/calafia')">
                   Calafia
               </div>
               <ul class="dropdown-menu noclose" >
-                  <li (click)="navegarNavH('/general/bookings','calafia')">
+                  <li (click)="navegarNavH('/menu/bookings','calafia')">
                      Solicitudes
                   </li>
                   <li (click)="buzonSugerencias()">
@@ -58,11 +58,11 @@
               </ul>
           </div>
             <div class="btn-group">
-              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/sanLuis')" >
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/menu/sanLuis')" >
                   San Luis
               </div>
               <ul class="dropdown-menu noclose" >
-                  <li (click)="navegarNavH('/general/bookings','sanLuis')">
+                  <li (click)="navegarNavH('/menu/bookings','sanLuis')">
                       Solicitudes
                   </li>
                   <li (click)="buzonSugerencias()">
@@ -78,11 +78,11 @@
             </div>
 
           <div class="btn-group">
-            <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/hermosillo')">
+            <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/menu/hermosillo')">
                 Hermosillo
             </div>
             <ul class="dropdown-menu noclose" >
-              <li (click)="navegarNavH('/general/bookings','hermosillo')">
+              <li (click)="navegarNavH('/menu/bookings','hermosillo')">
                   Solicitudes
               </li>
               <li (click)="buzonSugerencias()">
@@ -97,11 +97,11 @@
             </ul>
             </div>
             <div class="btn-group">
-              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/general/palmira')">
+              <div class="opc opcM" data-toggle="dropdown" (click)="navegarNavH('/menu/palmira')">
                   Palmira
               </div>
               <ul class="dropdown-menu noclose" >
-                  <li (click)="navegarNavH('/general/bookings','palmira')">
+                  <li (click)="navegarNavH('/menu/bookings','palmira')">
                       Solicitudes
                   </li>
                   <li (click)="buzonSugerencias()">
@@ -115,7 +115,7 @@
                   </li>
               </ul>
         </div>
-          <div class="opc logout" [hidden]="isAdminPortal" (click)="portal('/general/slider-config')">
+        <div class="opc logout" [hidden]="isAdminPortal" (click)="portal('/menu/slider-config')">
             <mat-icon>settings</mat-icon>
           </div>
           <div class="opc logout" (click)="salir()">
@@ -123,7 +123,7 @@
           </div>
         </div>
     </mat-toolbar-row>
-  </mat-toolbar>
+  </mat-toolbar>-->
   <mat-sidenav-container  class="navbar-sidenav-container">
 
     <!--Esto va dentro de la etiqueta mat-sidenav [opened]="mobileQuery.matches"--> 
@@ -134,16 +134,16 @@
                 <div >
                   <p> Menu </p>
                 </div>
-                <a  mat-list-item class="menu-opc" (click)="navegarNavH('/general')">
+                <a  mat-list-item class="menu-opc" (click)="navegarNavH('/menu')">
                   General
                 </a>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(1)">
                 <mat-expansion-panel-header #panelH >
-                  <a mat-list-item   class="menu-opc" (click)="panelH._toggle()" (click)="navegarNavH('/general/mexicali')">
+                  <a mat-list-item   class="menu-opc" (click)="panelH._toggle()" (click)="navegarNavH('/menu/mexicali')">
                      Mexicali
                   </a>
                 </mat-expansion-panel-header>
-                <a mat-list-item (click)="navegarNavH('/general/bookings','mexicali')" class="menu-opc" routerLinkActive="active" mat-line>
+                <a mat-list-item (click)="navegarNavH('/menu/bookings','mexicali')" class="menu-opc" routerLinkActive="active" mat-line>
                   Solicitudes</a>
                 <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
                   Buzón de sugerencias</a>
@@ -154,11 +154,11 @@
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(2)">
                 <mat-expansion-panel-header #panelH2>
-                  <a mat-list-item class="menu-opc"  (click)="panelH2._toggle()" (click)="navegarNavH('/general/calafia')">
+                  <a mat-list-item class="menu-opc"  (click)="panelH2._toggle()" (click)="navegarNavH('/menu/calafia')">
                    Calafia
                 </a>
                 </mat-expansion-panel-header>
-                <a mat-list-item (click)="navegarNavH('/general/bookings','calafia')" class="menu-opc" routerLinkActive="active" mat-line>
+                <a mat-list-item (click)="navegarNavH('/menu/bookings','calafia')" class="menu-opc" routerLinkActive="active" mat-line>
                   Solicitudes</a>
                 <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
                   Buzón de sugerencias</a>
@@ -169,11 +169,11 @@
                 </mat-expansion-panel>
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(3)">
                 <mat-expansion-panel-header #panelH3>
-                <a mat-list-item class="menu-opc"  (click)="panelH3._toggle()" (click)="navegarNavH('/general/sanLuis')">
+                <a mat-list-item class="menu-opc"  (click)="panelH3._toggle()" (click)="navegarNavH('/menu/sanLuis')">
                   San Luis
                 </a>
                 </mat-expansion-panel-header>
-                <a mat-list-item class="menu-opc"(click)="navegarNavH('/general/bookings','sanLuis')" routerLinkActive="active" mat-line>
+                <a mat-list-item class="menu-opc"(click)="navegarNavH('/menu/bookings','sanLuis')" routerLinkActive="active" mat-line>
                   Solicitudes</a>
                 <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
                   Buzón de sugerencias</a>
@@ -185,11 +185,11 @@
 
                 <mat-expansion-panel  togglePosition="before" [hidden]="ocOpcionVerticalNav(5)">
                   <mat-expansion-panel-header #panelH4 >
-                  <a mat-list-item class="menu-opc"  (click)="panelH4._toggle()" (click)="navegarNavH('/general/hermosillo')">
+                  <a mat-list-item class="menu-opc"  (click)="panelH4._toggle()" (click)="navegarNavH('/menu/hermosillo')">
                     Hermosillo
                   </a>
                   </mat-expansion-panel-header>
-                  <a mat-list-item (click)="navegarNavH('/general/bookings','hermosillo')" routerLinkActive="active" mat-line>
+                  <a mat-list-item (click)="navegarNavH('/menu/bookings','hermosillo')" routerLinkActive="active" mat-line>
                     Solicitudes</a>
                   <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
                     Buzón de sugerencias</a>
@@ -200,11 +200,11 @@
                   </mat-expansion-panel>
                   <mat-expansion-panel  togglePosition="before" expanded="false" [hidden]="ocOpcionVerticalNav(4)">
                   <mat-expansion-panel-header #panelH5>
-                  <a mat-list-item class="menu-opc"  (click)="panelH5._toggle()" (click)="navegarNavH('/general/palmira')">
+                  <a mat-list-item class="menu-opc"  (click)="panelH5._toggle()" (click)="navegarNavH('/menu/palmira')">
                       Palmira
                   </a>
                   </mat-expansion-panel-header>
-                  <a mat-list-item class="menu-opc" (click)="navegarNavH('/general/bookings','palmira')" routerLinkActive="active" mat-line>
+                  <a mat-list-item class="menu-opc" (click)="navegarNavH('/menu/bookings','palmira')" routerLinkActive="active" mat-line>
                     Solicitudes</a>
                   <a mat-list-item (click)="buzonSugerencias()" routerLinkActive="active" mat-line>
                     Buzón de sugerencias</a>
@@ -219,12 +219,12 @@
                   </mat-icon>
                    Salir
                 </a>
-                <a mat-list-item class="logout"  [hidden]="isAdminPortal" (click)="portal('/general/slider')">
+                <!-- <a mat-list-item class="logout"  [hidden]="isAdminPortal" (click)="portal('/menu/slider')">
                   <mat-icon mat-list-icon>
                   settings
                   </mat-icon>
                   Ajustes
-                </a>
+                </a> -->
               </mat-nav-list>
       <!--Navbar de usuario administrador-->
         <mat-nav-list id="adminNav" [hidden]="!isAdmin">
@@ -232,67 +232,67 @@
         <div class="opcMenu"   aria-selected="true">
           <span > <img style="border-radius: 50%; border: black solid 10px;" rel="preload" [src]="this.link+'assets/img/logos/AAR.png'" id="logo_nav" alt=""> </span>
         </div>
-        <!-- <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="portal('/general')"  >
+        <!-- <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="portal('/menu')"  >
           <mat-icon mat-list-icon >
           <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-portal.png'" alt="">
         </mat-icon>
           <span   class="opc"> Inicio  </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/slider-config')"  >
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/menu/slider-config')"  >
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-slider.png'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Slider  </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/araiza-aprende-config')"  >
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/menu/custionarios-config')"  >
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-ar-apr.svg'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Aprende  </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/noticias-config')">
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/menu/noticias-config')">
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-noticia.png'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Noticias  </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/general/menu-config')">
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item (click)="navegarNavH('/menu/menu-config')">
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-menu.png'" alt="">
           </mat-icon>
           <span   class="opc verticalN-opc" > Menu  </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/empleado-mes-config')">
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/menu/empleado-mes-config')">
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-aniversario.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc" > Empleado del mes  </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/galeriaMulti-config')" >
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/menu/galeriaMulti-config')" >
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc"  > Galeria Multimedia </span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/usuarios-config')" >
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/menu/usuarios-config')" >
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc"  > Usuarios</span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/autocapac-config')" >
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/menu/autocapac-config')" >
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc">Autocapacitaciones</span>
         </a>
-        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/votaciones-config')" >
+        <a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/menu/votaciones-config')" >
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/icon-galeria.png'" alt="">
           </mat-icon>
           <span class="opc verticalN-opc">Votaciones</span>
         </a> -->
-         <!--<a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/general/cuestionarios-menu')" >
+         <!--<a [ngStyle]="{'background-color': '#293641'}" mat-list-item  (click)="navegarNavH('/menu/cuestionarios-menu')" >
           <mat-icon mat-list-icon >
             <img  rel="preload" [src]="this.link+'assets/img/img-nav-admin/emoticon-sonriente.png'" alt="">
           </mat-icon>

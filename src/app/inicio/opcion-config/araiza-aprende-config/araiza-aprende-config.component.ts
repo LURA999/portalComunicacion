@@ -23,7 +23,7 @@ export interface temaInterfaz {
 
 
 @Component({
-  selector: 'app-araiza-aprende-config',
+  selector: 'app-custionarios-config',
   templateUrl: './araiza-aprende-config.component.html',
   styleUrls: ['./araiza-aprende-config.component.css']
 })

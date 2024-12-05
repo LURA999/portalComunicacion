@@ -164,7 +164,7 @@ export class AraizaAprendeComponent {
       if (arrTemas.link.length == 0 && arrTemas.idArApr) {
         this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.idArApr.toString(),"Amxl@2019*-").toString(),"pag_ar");
         this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.fk_idCategoria!.toString(),"Amxl@2019*-").toString(),"pag_cat");
-        this.route.navigate(["/general/araiza-aprende/araiza-aprende-click"]);
+        this.route.navigate(["/menu/custionarios/custionarios-click"]);
       }else{
         window.open(arrTemas.link.toString(),"_blank")
       }
@@ -183,7 +183,7 @@ export class AraizaAprendeComponent {
         if (arrTemas.link.length == 0 && arrTemas.idArApr) {
           this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.idArApr!.toString(),"Amxl@2019*-").toString(),"pag_ar");
           this.auth.crearElm(CryptoJS.AES.encrypt(arrTemas.fk_idCategoria!.toString(),"Amxl@2019*-").toString(),"pag_cat");
-          this.route.navigate(["/general/araiza-aprende/araiza-aprende-click"]);
+          this.route.navigate(["/menu/custionarios/custionarios-click"]);
         } else {
           window.open(arrTemas.link.toString(),"_blank")
         }

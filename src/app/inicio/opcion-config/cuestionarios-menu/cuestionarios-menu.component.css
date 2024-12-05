@@ -3,9 +3,18 @@
     padding-right: 30px;
     padding-top: 70px;
 }
+.table-dark {
+    color: white;
+}
 
 h1 {
     text-align: center;
+    letter-spacing: 7px;
+    font-size: 30px;
+    color: black;
+    font-family: Lato, Roboto, Open Sans, sans-serif;
+    font-weight: bolder;
+    /*text-shadow: -2px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;*/
 }   
 
 td, .op {
@@ -24,6 +33,7 @@ th, td {
 .table {
     border-radius: 10px; /* adjust the radius as needed */
     overflow: hidden; /* to hide the table's border collapse */
+    box-shadow: 1px 1px 20px -15px black;
   }
 
 .sep{
@@ -31,5 +41,9 @@ th, td {
     margin-bottom:20px;
     display: flex;
     justify-content: space-between;
+}
+
+.row-quiz {
+    cursor: pointer;
 }
 

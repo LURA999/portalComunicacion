@@ -95,7 +95,7 @@ export class VideoImgAraizaAprComponent implements OnInit {
 
 
   recursoUrl(src : String) : SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-video-araiza-aprende/fotos/"+src);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.api+"imgVideo/galeria-video-custionarios/fotos/"+src);
   }
 
   hayElementos() : boolean{
@@ -151,7 +151,7 @@ export class VideoImgAraizaAprComponent implements OnInit {
 
 
   recursoUrlStr(src :String) : Observable<string> {
-    return from([this.api+"imgVideo/galeria-video-araiza-aprende/fotos/"+src]);
+    return from([this.api+"imgVideo/galeria-video-custionarios/fotos/"+src]);
 
   }
 

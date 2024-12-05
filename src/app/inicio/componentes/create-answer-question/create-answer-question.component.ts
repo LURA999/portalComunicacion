@@ -36,14 +36,14 @@ import { Component,EventEmitter, Input, OnInit, Output} from '@angular/core';
   </div>
 
   <div class="col-9">
-    <mat-form-field class="example-full-width">
-      <input matInput [placeholder]="placeholder" [(ngModel)]="respuesta">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input matInput [placeholder]="placeholder"  [(ngModel)]="respuesta">
     </mat-form-field>
   </div>
 
-  <div class="col-1">
+  <div class="col-1" style="margin-top: 10px">
     <button *ngIf="canDelete" (click)="eliminarOpcion()" class="btn btn-sm">
-      <i class="fas fa-times"></i>
+    <mat-icon>clear</mat-icon>
     </button>
   </div>
 </div>
@@ -57,7 +57,7 @@ export class CreateAnswerQuestionComponent implements OnInit {
   @Input() valorSelect: number = 0;
   @Input() respuestaCorrecta : boolean = false;
   @Input() id_option: number = 0;
-  @Input()canDelete: boolean = true;
+  @Input() canDelete: boolean = true;
   actualizar : number = 0;
   @Output() buttonClicked = new EventEmitter<number>();
   @Output() selectionChanged = new EventEmitter<{ id: number, type: string, selected: boolean }>();

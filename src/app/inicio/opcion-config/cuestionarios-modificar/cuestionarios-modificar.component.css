@@ -3,6 +3,7 @@ mat-form-field {
   }
 
   button {
+    align-self: center;
     margin-left: 20px;
   }
   .card-header {

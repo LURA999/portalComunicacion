@@ -88,27 +88,27 @@ export class OpcionMenuComponent implements OnInit {
     switch(Number(this.auth.getCveLocal())){
       case 1:
         if (this.paramUrl !== "mexicali") {
-          this.route.navigateByUrl("/general/mexicali")
+          this.route.navigateByUrl("/menu/mexicali")
         }
         break;
       case 2:
         if (this.paramUrl !== "calafia") {
-          this.route.navigateByUrl("/general/calafia")
+          this.route.navigateByUrl("/menu/calafia")
         }
         break;
       case 3:
         if (this.paramUrl !== "sanLuis") {
-          this.route.navigateByUrl("/general/sanLuis")
+          this.route.navigateByUrl("/menu/sanLuis")
         }
         break;
       case 4:
         if (this.paramUrl !== "palmira") {
-          this.route.navigateByUrl("/general/palmira")
+          this.route.navigateByUrl("/menu/palmira")
         }
         break;
       case 5:
         if (this.paramUrl !== "hermosillo") {
-          this.route.navigateByUrl("/general/hermosillo")
+          this.route.navigateByUrl("/menu/hermosillo")
         }
         break;
     }
@@ -277,7 +277,7 @@ export class OpcionMenuComponent implements OnInit {
   routerLink(seccion : string){
 
     this.auth.crearElm(CryptoJS.AES.encrypt(this.paramUrl,"Amxl@2019*-").toString(),"lua");
-    this.route.navigate(["/general/"+seccion]);
+    this.route.navigate(["/menu/"+seccion]);
   }
 
   ngOnDestroy(): void {

@@ -222,7 +222,7 @@ export class InicioComponent implements OnInit {
 
   routerLink(seccion : string){
     this.auth.crearElm(CryptoJS.AES.encrypt("general","Amxl@2019*-").toString(),"lua");
-    this.route.navigate(["/general/"+seccion]);
+    this.route.navigate(["/menu/"+seccion]);
   }
 
   irLink(link : string){

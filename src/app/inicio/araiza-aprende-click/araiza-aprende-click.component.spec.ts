@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AraizaAprendeClickComponent } from './araiza-aprende-click.component';
+import { AraizaAprendeClickComponent } from './custionarios-click.component';
 
 describe('AraizaAprendeClickComponent', () => {
   let component: AraizaAprendeClickComponent;

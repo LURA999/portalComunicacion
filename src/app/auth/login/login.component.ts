@@ -44,12 +44,12 @@ export class LoginComponent implements OnInit {
     if(this.formSesion.valid){
       this.$sub.add(this.usuarioServicio.login(btoa(this.formSesion.controls['usuario'].value),btoa(this.formSesion.controls['contrasena'].value)).pipe(
       catchError( _ => {
-        throw "Error in source."
+        throw _
     })
     ).subscribe((response:any) =>{
       if(response.status === "ok"){
        this.auth.crearSesion(response.container);
-       this.router.navigateByUrl('/general')
+       this.router.navigateByUrl('/menu')
       }else{
         alert(response.info)
       }
