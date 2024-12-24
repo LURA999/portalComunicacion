@@ -17,9 +17,6 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarAction, MatSnackBarActions, MatSnackBarL
   `
   ,
   styles: `
-    //  ::ng-deep .mdc-snackbar__surface {
-    //   background-color: green !important;
-    // }
     span.icon {
     text-align: center;
     align-self: center;

@@ -9,7 +9,7 @@ import * as CryptoJS from 'crypto-js';
 import { DataNavbarService } from 'src/app/core/services/data-navbar.service';
 import { environment } from 'src/environments/environment';
 import { Observable, Subscription, catchError, from } from 'rxjs';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselConfig } from 'ngx-bootstrap/carousel';
 import { AutocapacitacionService } from 'src/app/core/services/autocapacitacion.service';
 
 
@@ -26,7 +26,7 @@ export interface imageObject {
 @Component({
   selector: 'app-menu-opcion',
   templateUrl: './opcion-menu.component.html',
-  providers: [NgbCarouselConfig],
+  providers: [CarouselConfig],
   styleUrls: ["./opcion-menu.component.css"],
   encapsulation: ViewEncapsulation.None
 })
@@ -73,13 +73,13 @@ export class OpcionMenuComponent implements OnInit {
     private serviceImgVideo : SubirImgVideoService,
     @Inject(DomSanitizer) private sanitizer : DomSanitizer,
     private auth : AuthService,
-    private config: NgbCarouselConfig,
+    private config: CarouselConfig,
     private autoCapacService : AutocapacitacionService
     ) {
 
     this.config.interval = 9000;
-    this.config.keyboard = true;
-    this.config.pauseOnHover = true;
+    //this.config.keyboard = true;
+    this.config.pauseOnFocus = true;
   }
 
 

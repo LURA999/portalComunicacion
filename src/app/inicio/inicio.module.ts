@@ -18,7 +18,7 @@ import { EliminarComponent } from './popup/eliminar/eliminar.component';
 import { EditarSliderComponent } from './popup/editar-slider/editar-slider.component';
 import { EditarNoticiaComponent }from './popup/editar-noticia/editar-noticia.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CarouselModule } from "ngx-bootstrap/carousel";
 import { UsuariosComponent } from './opcion-config/usuarios-config/usuarios.component';
 import { UsuarioFormComponent } from './popup/editar-usuario/usuario-form.component';
 import { EmpleadoDelMesComponent } from './opcion-config/empleado-mes-config/empleado-del-mes.component';
@@ -38,7 +38,7 @@ import { EmpleadoMesComponent } from './empleado-mes/empleado-mes.component';
 import { TodoNoticiasComponent } from './opcion-config/galeria-multi-config/componentes/todo-noticias/todo-noticias.component';
 import { LazyLoadImageModule } from "ng-lazyload-image";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { ProgressModule } from '@coreui/angular';
+//import { ProgressModule } from '@coreui/angular';
 import { AraizaAprendeComponent } from './araiza-aprende/araiza-aprende.component';
 import { AraizaAprendeConfigComponent } from './opcion-config/araiza-aprende-config/araiza-aprende-config.component';
 import { AddAraizaAprendeComponent } from './popup/add-araiza-aprende/add-araiza-aprende.component';
@@ -141,14 +141,14 @@ import { EliminarEquipoCompetenciaComponent } from './popup/eliminar-equipo-comp
         InicioRoutingModule,
         NgImageSliderModule,
         NgImageSliderModule,
-        NgbModule,
+        CarouselModule,
         CustomMaterialModule,
         LazyLoadImageModule,
         SlickCarouselModule,
         MatIconModule,
         MatAutocompleteModule,
         MatChipsModule,
-        ProgressModule
+        //ProgressModule
       ],
       providers: [
         {

@@ -6,7 +6,7 @@ import { imgVideoModel } from '../interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from '../interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import { Observable, Subscription, catchError, from } from 'rxjs';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselConfig } from 'ngx-bootstrap/carousel';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
@@ -64,7 +64,7 @@ export class InicioComponent implements OnInit {
     public route : Router,
     private serviceImgVideo : SubirImgVideoService,
     @Inject(DomSanitizer) private sanitizer : DomSanitizer,
-    config: NgbCarouselConfig,
+    config: CarouselConfig,
     private auth : AuthService,
     private renderer: Renderer2,
     private el: ElementRef
@@ -72,8 +72,8 @@ export class InicioComponent implements OnInit {
 
       // this.chartOptions
       config.interval = 9000;
-      config.keyboard = true;
-      config.pauseOnHover = true;
+      //config.keyboard = true;
+      config.pauseOnFocus = true;
 
       this.rivales.push(
         {
