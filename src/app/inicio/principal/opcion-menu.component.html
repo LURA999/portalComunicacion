@@ -1,27 +1,48 @@
 <div class="container-p">
-
-    <carousel *ngIf="imageObject == undefined? imageObjectRemplazo : imageObject">
-      <ng-template ngbSlide *ngFor="let slide of imageObject == undefined? imageObjectRemplazo : imageObject" >
-        <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
-          <img  rel="preload" class="img-carousel"
-          [src]="link+'assets/img/pruebas/loading-banner.png'"
-          [lazyLoad]="(recursoUrlStr( slide.src, 1, 1,true) | async)!.toString()"
-          [style.cursor]="slide.link==='' || slide.link=== null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
-          />
-        </ng-container>
-        <ng-template  #elseTemplate>
-          <div style="background-color: rgb(184, 184, 184);">
-            <video loop muted autoplay oncanplay="this.play()"
-            onloadedmetadata="this.muted = true" class="img-carousel"  >
-              <source [src]="recursoUrl(slide.src, 2,imageObject == undefined? 0: 1,true)" >
-            </video>
-          </div>
-        </ng-template>
-      </ng-template>
-    </carousel>
-
-
-
+  
+    @if(imageObject !== undefined){
+      <carousel [isAnimated]="true" >
+        <slide *ngFor="let slide of imageObject" >
+          <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
+            <img  rel="preload" class="img-carousel"
+            [src]="link+'assets/img/pruebas/loading-banner.png'"
+            [lazyLoad]="(recursoUrlStr( slide.src, 1, 1,true) | async)!.toString()"
+            [style.cursor]="slide.link==='' || slide.link=== null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
+            />
+          </ng-container>
+          <ng-template  #elseTemplate>
+            <div style="background-color: rgb(184, 184, 184);">
+              <video loop muted autoplay oncanplay="this.play()"
+              onloadedmetadata="this.muted = true" class="img-carousel"  >
+                <source [src]="recursoUrl(slide.src, 2,imageObject == undefined? 0: 1,true)" >
+              </video>
+            </div>
+          </ng-template>
+        </slide>
+      </carousel>
+    } @else {
+      <carousel [isAnimated]="true">
+        <slide *ngFor="let slide of imageObjectRemplazo" >
+          <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
+            <img  rel="preload" class="img-carousel"
+            [src]="link+'assets/img/pruebas/loading-banner.png'"
+            [lazyLoad]="(recursoUrlStr( slide.src, 1, 1,true) | async)!.toString()"
+            [style.cursor]="slide.link==='' || slide.link=== null?'auto':'pointer'" (click)="enviarPagina(slide.link!)"
+            />
+          </ng-container>
+          <ng-template  #elseTemplate>
+            <div style="background-color: rgb(184, 184, 184);">
+              <video loop muted autoplay oncanplay="this.play()"
+              onloadedmetadata="this.muted = true" class="img-carousel"  >
+                <source [src]="recursoUrl(slide.src, 2,imageObject == undefined? 0: 1,true)" >
+              </video>
+            </div>
+          </ng-template>
+        </slide>
+      </carousel>
+    }
+    
+<!----->
     <div id="section2">
       <div class="info">
         <h2>INFORMACIÓN <span id="nexo">DEL MES</span></h2>

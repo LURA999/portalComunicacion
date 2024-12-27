@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DataNavbarService } from '../core/services/data-navbar.service';
 import { SubirImgVideoService } from '../core/services/img-video.service';
@@ -33,7 +33,7 @@ export interface rival {
   encapsulation: ViewEncapsulation.None
 
 })
-export class InicioComponent implements OnInit {
+export class InicioComponent implements OnInit, AfterViewInit {
   /**
    * @api : Variable que ayuda a obtener recursos que estan fuera del proyecto, local o no local
    * @imageObject : en esta variable se guardaran los sliders que estan guardados en la bd
@@ -61,19 +61,19 @@ export class InicioComponent implements OnInit {
   link : string =  environment.production === true ? "": "../../";
 
   constructor(private DataService : DataNavbarService,
-    public route : Router,
-    private serviceImgVideo : SubirImgVideoService,
-    @Inject(DomSanitizer) private sanitizer : DomSanitizer,
-    config: CarouselConfig,
-    private auth : AuthService,
-    private renderer: Renderer2,
-    private el: ElementRef
+      public route : Router,
+      private serviceImgVideo : SubirImgVideoService,
+      @Inject(DomSanitizer) private sanitizer : DomSanitizer,
+      config: CarouselConfig,
+      private auth : AuthService,
+      private renderer: Renderer2,
+      private el: ElementRef
     ) {
-
+      
       // this.chartOptions
-      config.interval = 9000;
+      //config.interval = 9000;
       //config.keyboard = true;
-      config.pauseOnFocus = true;
+      //config.pauseOnFocus = true;
 
       this.rivales.push(
         {
@@ -96,28 +96,30 @@ export class InicioComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    for (let i = 0; i < this.rivales.length; i++) {
-      let bar = this.el.nativeElement.querySelector('#progress-container'+i);
-      this.renderer.setStyle(bar,'width',(this.rivales[i].porcentaje ).toString()+'%')
-      this.renderer.setStyle(bar,"background-color", "#DC994D")
-      this.renderer.setStyle(bar,"padding-left", "2%")
-      this.renderer.setStyle(bar,"padding-right", "2%")
-      this.renderer.setStyle(bar,"display", "flex")
-      this.renderer.setStyle(bar,"justify-content", "end")
-    }
+    // for (let i = 0; i < this.rivales.length; i++) {
+    //   let bar = this.el.nativeElement.querySelector('#progress-container'+i);
+    //   this.renderer.setStyle(bar,'width',(this.rivales[i].porcentaje ).toString()+'%')
+    //   this.renderer.setStyle(bar,"background-color", "#DC994D")
+    //   this.renderer.setStyle(bar,"padding-left", "2%")
+    //   this.renderer.setStyle(bar,"padding-right", "2%")
+    //   this.renderer.setStyle(bar,"display", "flex")
+    //   this.renderer.setStyle(bar,"justify-content", "end")
+    // }
   }
+
+
   ngOnInit(): void {
-    this.rellenarSlider("imgVideo",0)
-    this.rellenarSlider("imgVideoNoticia",0)
+    this.rellenarSlider("imgVideo",0);
+    this.rellenarSlider("imgVideoNoticia",0);
     this.DataService.open.emit("general");
   }
 
-  rellenarSlider(dir:string ,number : number){
+  rellenarSlider(dir:string ,number : number) {
     this.$sub.add(this.serviceImgVideo.todoImgVideo(dir,number,1,0,-1).pipe(
       catchError( _ => {
         throw "Error in source."
     })
-    ).subscribe(async (resp : ResponseInterfaceTs)=>{
+    ).subscribe(async (resp : ResponseInterfaceTs)=>{     
       if(resp.status.toString() === "200" ){
         if(dir === "imgVideo"){
           this.imageObject = []
@@ -130,7 +132,7 @@ export class InicioComponent implements OnInit {
           }
         }else{
           //En este se llenan las noticias que remplazaran a los de default
-          for await (const r of resp.container) {
+          for await (const r of resp.container) {            
             this.noticias.push( {
               idNoticia:r.idNoticia,
               fechaInicial: r.fechaInicial,

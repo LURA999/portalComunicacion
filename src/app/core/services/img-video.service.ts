@@ -13,12 +13,11 @@ import { environment } from 'src/environments/environment';
 })
 export class SubirImgVideoService {
   local = environment.api
-  local2 = environment.api
 
   constructor(private http : HttpClient) { }
 
   // fotos/videos de sliders o noticias
-  todoImgVideo(arch : string, cveLocal : number,cveSeccion : number,historial : number, filtroHistorial : number )  : Observable <ResponseInterfaceTs> {
+  todoImgVideo(arch : string, cveLocal : number,cveSeccion : number,historial : number, filtroHistorial : number )  : Observable <ResponseInterfaceTs>  {       
     return this.http.get<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php?cvLoc="+cveLocal+"&cvSec="+cveSeccion+"&historial="+historial+"&filtroHistorial="+filtroHistorial);
   }
 
@@ -50,6 +49,8 @@ export class SubirImgVideoService {
 
   actualizarImgVideo(obj : any,arch : string) : Observable <ResponseInterfaceTs>{
     let headers = new HttpHeaders().set('Content-type','Application/json')
+    console.log(this.local+"imgVideo/"+arch+".php",obj);
+    
     return this.http.patch<ResponseInterfaceTs>(this.local+"imgVideo/"+arch+".php",obj, {headers} );
   }
 

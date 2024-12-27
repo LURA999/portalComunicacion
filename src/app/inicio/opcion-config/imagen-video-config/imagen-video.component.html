@@ -32,6 +32,8 @@
         <mat-label>Ingrese link del slider</mat-label>
         <input autocomplete="off" matInput formControlName="link" (ngModelChange)="activarBut()">
       </mat-form-field><br>
+      <input autocomplete="off" mat-input name="info[]" formControlName="input"  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt" ><br><br>
+      <br>
       <mat-form-field appearance="outline">
         <mat-label>Elige la posición del slider</mat-label>
         <input  id="campo-numerico" min="1" pattern="^[0-9]+" matInput type="number"
@@ -52,7 +54,6 @@
       </mat-form-field>
       <br><br>
       <!-- [disabled]="activarBut()" -->
-        <input autocomplete="off" mat-input name="info[]" formControlName="input"  type="file" name="subir-imagen" id="subir-imagen" (change)="subirImg($event)" class="ing-txt" ><br><br>
         <button type="submit" mat-raised-button id="submit" color="primary"   (click)="enviandoDatos()" #miBoton>Enviar</button>
     </form>
 </div>

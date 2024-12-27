@@ -114,8 +114,6 @@ export class CreateQuestionComponent implements OnInit {
           this.selectedCheckboxes[i]--;
         }
     }
-
-       console.log('Selected Checkboxes:', this.selectedCheckboxes);
     });
 
     newComponent.instance.selectionChanged.subscribe((change: { id: number, type: string, selected: boolean }) => {
@@ -184,9 +182,6 @@ export class CreateQuestionComponent implements OnInit {
           this.selectedCheckboxes[i]--;
         }
       }
-
-      // Log the updated array of selected checkboxes
-      console.log('Selected Checkboxes (after deletion):', this.selectedCheckboxes);
     });
 
     newComponent.instance.selectionChanged.subscribe((change: { id: number, type: string, selected: boolean }) => {
@@ -242,12 +237,10 @@ export class CreateQuestionComponent implements OnInit {
       } else {
         this.selectedCheckboxes = this.selectedCheckboxes.filter(item => item !== id);  // Remove from array
       }
-      console.log('Selected Checkboxes:', this.selectedCheckboxes);
     }
 
     if (type === 'radio') {
       this.selectedRadioButton = id;  // Set the selected radio button ID
-      console.log('Selected Radio Button:', this.selectedRadioButton);
     }
   }
 

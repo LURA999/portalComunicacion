@@ -6,7 +6,6 @@ import { Subscription,Observable, concatMap, of, catchError } from 'rxjs';
 import { SubirImgVideoService } from 'src/app/core/services/img-video.service';
 import { localService } from 'src/app/core/services/local.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
-import { ChangeDetectorRef } from '@angular/core';
 
 export interface locales {
   idLocal : number
@@ -63,8 +62,7 @@ export class EditarSliderComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarSliderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private serviceImgVideo : SubirImgVideoService,
-    private local : localService,
-    private cdRef: ChangeDetectorRef
+    private local : localService
     ) {
       this.$sub.add(this.local.todoLocal(1).pipe(
       catchError( _ => {
@@ -188,7 +186,7 @@ export class EditarSliderComponent implements OnInit {
         // this.data.obj.formato = datos.tipo
       }
 
-      //(A)
+      //(A), se actualiza todo excepto el hotel y posicion
       if(Number(this.data.obj.posicion) == Number(this.data.obj.posicion2) &&
       Number(this.data.obj.cveLocal) == Number(this.data.obj.cveLocal2)) {
         Observable.push(this.serviceImgVideo.actualizarImgVideo(this.data,"imgVideo"))
@@ -292,9 +290,11 @@ export class EditarSliderComponent implements OnInit {
           })
         ).pipe(
       catchError( _ => {
-        throw "Error in source."
+        throw _
     })
     ).subscribe((resp:ResponseInterfaceTs)=>{
+      console.log(resp);
+      
           this.dialogRef.close(resp.container)
           this.contenedor_carga.style.display = "none";
         }))

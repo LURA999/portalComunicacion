@@ -34,9 +34,6 @@ export class CuestionariosService {
   }
 
   actualizarModDesc( cuest : cuestionarioTitulos) : Observable<ResponseInterfaceTs>{
-    console.log(this.api+'cuestionarios.php?llave=5');
-    console.log(cuest);
-
     return this.http.post<ResponseInterfaceTs>(this.api+'cuestionarios.php?llave=5', cuest)
   }
 

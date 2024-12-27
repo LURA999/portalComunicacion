@@ -78,6 +78,8 @@ export class OpcionMenuComponent implements OnInit {
     ) {
 
     this.config.interval = 9000;
+    this.config.noPause = true;
+    
     //this.config.keyboard = true;
     this.config.pauseOnFocus = true;
   }
@@ -165,11 +167,12 @@ export class OpcionMenuComponent implements OnInit {
         throw "Error in source."
     })
     ).subscribe(async (resp : ResponseInterfaceTs)=>{
-
+      
       if(resp.status.toString() === "200" ){
 
         //se remplazan los por default por los que si existen en el banner
         if(dir === "imgVideo"){
+          
           this.imageObject = []
           for await (const r of resp.container) {
             this.imageObject.push( {

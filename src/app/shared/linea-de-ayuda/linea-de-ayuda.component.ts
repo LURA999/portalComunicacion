@@ -5,7 +5,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { lastValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BuzonSugerenciaService } from 'src/app/core/services/buzonSugerencia.service';
-import { metodosRepetidos } from 'src/app/metodos-repetidos';
 
 export interface correoAyuda{
   experencia : String;
@@ -20,7 +19,7 @@ export interface correoAyuda{
   styleUrls: ['./linea-de-ayuda.component.css']
 })
 export class LineaDeAyudaComponent {
-  metodos = new metodosRepetidos();
+  
   formSugerencia : FormGroup = this.fb.group({
     asunto : ['', Validators.required],
     mensaje : ['', Validators.required]

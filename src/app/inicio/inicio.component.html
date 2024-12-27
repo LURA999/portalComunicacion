@@ -1,7 +1,7 @@
 
 <div class="container-p">
-  <carousel *ngIf="imageObject == undefined? imageObjectRemplazo : imageObject">
-    <ng-template ngbSlide *ngFor="let slide of imageObject == undefined? imageObjectRemplazo : imageObject">
+  <carousel [isAnimated]="true" *ngIf="imageObject === undefined? imageObjectRemplazo : imageObject">
+    <slide *ngFor="let slide of imageObject === undefined? imageObjectRemplazo : imageObject">
       <ng-container *ngIf="slide.formato === 'image'; else elseTemplate">
         <img  rel="preload"
         [src]="link+'assets/img/pruebas/loading-banner.png'"
@@ -17,7 +17,7 @@
           </video>
         </div>
       </ng-template>
-    </ng-template>
+    </slide>
   </carousel>
     <div class="pag-inicio-container-article">
         <div class="pag-inicio-article">

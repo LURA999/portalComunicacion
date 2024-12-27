@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ViewChild } from '@angular/core';
 import { AraizaAprendeService, videoAraizaAprende } from 'src/app/core/services/araiza_aprende.service';
 import { ResponseInterfaceTs } from 'src/app/interfaces_modelos/response.interface';
 import { categoriaInterfaz, temaInterfaz } from '../opcion-config/araiza-aprende-config/araiza-aprende-config.component';
@@ -15,7 +15,7 @@ import { NgDialogAnimationService } from 'ng-dialog-animation';
   templateUrl: './araiza-aprende.component.html',
   styleUrls: ['./araiza-aprende.component.css']
 })
-export class AraizaAprendeComponent {
+export class AraizaAprendeComponent implements AfterViewChecked {
   arrTemas : videoAraizaAprende [][]= [];
   categorias : categoriaInterfaz  [] = [];
   arrIndiceTema : Number [] = [];
@@ -83,10 +83,12 @@ export class AraizaAprendeComponent {
   ]
   };
 
-
-  ngAfterViewInit() {
+  ngAfterViewChecked () {
+    
+    
 
   }
+
   constructor(
     private serviceAraizaApr : AraizaAprendeService,
     public route : Router,
@@ -106,6 +108,15 @@ export class AraizaAprendeComponent {
           this.arrIndiceTema.push(resp.container[i]['fk_idTema']);
           this.nomTemas.push(resp.container[i]['tema'])
         }
+
+        if (this.nomTemas.length >0) {
+          this.slickModal.config.slidesToShow = 3; 
+          this.slickModal.config.arrows = true;
+          this.slickModal.config.swipe = true;
+          this.slickModal.config.infinite = true;
+          this.slickModal.config.variableWidth = true;
+          this.slickModal.config.initialSlide = 2;
+        }
         // Devuelve el observable de la llamada a selectVideo
         return this.serviceAraizaApr.selectVideo(1).pipe(
           concatMap((resp: ResponseInterfaceTs) => {
@@ -120,7 +131,9 @@ export class AraizaAprendeComponent {
           })
         );
       })
-    ).subscribe((resp: String) => { });
+    ).subscribe((resp: String) => { 
+     
+    });
 
 
 
