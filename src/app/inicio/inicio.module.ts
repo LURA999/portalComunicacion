@@ -18,7 +18,7 @@ import { EliminarComponent } from './popup/eliminar/eliminar.component';
 import { EditarSliderComponent } from './popup/editar-slider/editar-slider.component';
 import { EditarNoticiaComponent }from './popup/editar-noticia/editar-noticia.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+// import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UsuariosComponent } from './opcion-config/usuarios-config/usuarios.component';
 import { UsuarioFormComponent } from './popup/editar-usuario/usuario-form.component';
 import { EmpleadoDelMesComponent } from './opcion-config/empleado-mes-config/empleado-del-mes.component';
@@ -95,7 +95,6 @@ import { EditarDepartamentoComponent } from './popup/editar-departamento/editar-
     InicioRoutingModule,
     NgImageSliderModule,
     NgImageSliderModule,
-    NgbModule,
     CustomMaterialModule,
     LazyLoadImageModule,
     SlickCarouselModule

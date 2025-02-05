@@ -6,7 +6,6 @@ import { imgVideoModel } from '../interfaces_modelos/img-video.model';
 import { ResponseInterfaceTs } from '../interfaces_modelos/response.interface';
 import { environment } from 'src/environments/environment';
 import { Observable, Subscription, catchError, from } from 'rxjs';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
@@ -56,11 +55,11 @@ export class InicioComponent implements OnInit {
   constructor(private DataService : DataNavbarService,
     public route : Router,
     private serviceImgVideo : SubirImgVideoService,
-    private sanitizer : DomSanitizer, config: NgbCarouselConfig, private auth : AuthService
+    private sanitizer : DomSanitizer/* , config: NgxCarouselConfig */, private auth : AuthService
     ) {
-      config.interval = 9000;
+      /* config.interval = 9000;
       config.keyboard = true;
-      config.pauseOnHover = true;
+      config.pauseOnHover = true; */
 
 
   }

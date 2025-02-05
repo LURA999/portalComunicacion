@@ -15,7 +15,6 @@ import { SharedModule } from './shared/shared.module';
 import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { LoginAdminComponent } from './auth/login-admin/login-admin.component';
 import { CookieService } from 'ngx-cookie-service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorComponent } from './error/error.component';
 import { ComentarComidaComponent } from './comentar-comida/comentar-comida.component';
 import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component';
@@ -40,7 +39,6 @@ import { ThanksComponent } from './comentar-comida/popup/thanks/thanks.component
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
-    NgbModule
 
   ],
   exports: [ ],
