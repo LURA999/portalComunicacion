@@ -274,7 +274,7 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
           case "votaciones-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
           break;
-          case "cuestionarios-menu":
+          case "questionnaires-menu":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
           break;
         }
@@ -336,7 +336,7 @@ export class LayoutComponent implements OnDestroy, AfterViewInit {
           case "/general/votaciones-config":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[8],"color","#ffba60")
           break;
-          case "/general/cuestionarios-menu":
+          case "/general/questionnaires-menu":
             this.render.setStyle(document.getElementsByClassName("verticalN-opc")[9],"color","#ffba60")
           break;
         }

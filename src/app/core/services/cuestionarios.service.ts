@@ -37,5 +37,36 @@ export class CuestionariosService {
     return this.http.post<ResponseInterfaceTs>(this.api+'cuestionarios.php?llave=5', cuest)
   }
 
+  insertarCuestionario(cuestionario : cuestionario) : Observable<ResponseInterfaceTs>{
+    return this.http.post<ResponseInterfaceTs>(this.api+'cuestionarios.php?llave=6', cuestionario)
+  }
+
+  insertarModDesc( cuest : cuestionarioTitulos) : Observable<ResponseInterfaceTs>{
+
+    return this.http.post<ResponseInterfaceTs>(this.api+'cuestionarios.php?llave=7', cuest)
+  }
+
+  eliminarCuestionario(id : number) : Observable<ResponseInterfaceTs> {
+    return this.http.delete<ResponseInterfaceTs>(this.api+'cuestionarios.php?id='+id)
+  }
+
+  
+  eliminarPregunta(id : number) : Observable<ResponseInterfaceTs> {
+    return this.http.delete<ResponseInterfaceTs>(this.api+'cuestionarios.php?idP='+id)
+  }
+
+  eliminarRespuesta(id : number) : Observable<ResponseInterfaceTs> {
+    return this.http.delete<ResponseInterfaceTs>(this.api+'cuestionarios.php?idA='+id)
+  }
+
+
+
+  /**Net core */
+  //Obteniendo titulos
+/* 
+  getTitulos() : Observable <ResponseInterfaceTs>{
+    let headers = new HttpHeaders().set('Content-type','Application/json');
+    return this.http.get<ResponseInterfaceTs>('http://lura.somee.com/api/Formularios/TituloLocal', {headers})
+  } */
 
 }

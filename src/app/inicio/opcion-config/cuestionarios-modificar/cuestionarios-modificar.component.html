@@ -1,56 +1,75 @@
+
 <div class="container-cuestionario">
-    <!-- Seccion para agregar preguntas -->
-    <div class="seccion-botones">
-      <div>
-        <button mat-raised-button (click)="regresarMenu()" color="primary">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <button mat-raised-button color="primary" (click)="agregarPregunta()">
-            <i class="fas fa-plus"></i> Agregar pregunta
-        </button>
-      </div>
-      <div>
-        <button mat-raised-button color="primary" (click)="updateCuestionario()">Modificar</button>
-
-      </div>
+  <!-- Seccion para agregar preguntas -->
+  <div class="seccion-botones">
+    <div>
+      <button mat-raised-button (click)="regresarMenu()" color="primary">
+          <i class="fas fa-arrow-left"></i>
+      </button>
+      <button mat-raised-button color="primary" (click)="agregarPregunta()">
+          <i class="fas fa-plus"></i> Add question
+      </button>
     </div>
-    <!-- Titulo de cuestionario -->
-    <div class="card mt-4"  *ngIf="cuestionarioTitulos">
-      <div class="card-header">
-        <input class="form-control" type="text" placeholder="Titulo" [(ngModel)]="cuestionarioTitulos.titulo"/>
-
-      </div>
-      <div class="card-body">
-        <input class="form-control" type="text" placeholder="Descripcion" [(ngModel)]="cuestionarioTitulos.descripcion"/>
-      </div>
-    </div>
-
-     <!-- <ng-template #createQuestion></ng-template>  -->
-     <div *ngFor="let pregunta of cuestionarioPreguntas; let i = index">
-      <div class="card mt-4 mb-4">
-        <div class="card-header">
-          <p></p>
-            <button (click)="eliminarPregunta(pregunta.idPregunta-1)" class="btn"><i class="fas fa-times"></i></button>
-        </div>
-
-      <app-create-question #hijoComponent
-        (buttonEliminar)="handleEliminarPregunta($event)"
-        [idPregunta]="pregunta.idPregunta"
-        [valorSelect]="pregunta.tipoQuestion"
-        [preguntaNombre]="pregunta.pregunta"
-        [cantidadRespuestas]="pregunta.respuesta.length"
-        [respuestaCorrecta]="pregunta.respuestaCorrecta!"
-        [arrayRespuestas]="pregunta.respuesta" ></app-create-question>
-      </div>
-  <!--   <div class="card-header">
-      <p></p>
+    <div>
+    @if(this.paramUrl === "questionnaires-modify"){
+      <button mat-raised-button color="primary" (click)="updateCuestionario()">Update</button>
+    } @else {
+      <button mat-raised-button color="primary" (click)="sendCuestionario()">Complete</button>
+    }
 
     </div>
-     <ng-template (buttonEliminar)="handleEliminarPregunta($event)" #createQuestion></ng-template>  -->
-
   </div>
+  <!-- Titulo de cuestionario -->
+  <mat-card class="card mt-4 mb-4"  *ngIf="cuestionarioTitulos">
+    <mat-card-header class="card-header bg-light">
+      <input class="form-control mb-4" type="text" placeholder="Title" [(ngModel)]="cuestionarioTitulos.titulo"/>
+    </mat-card-header>
+    <mat-card-content>
+      <br>
+      <input class="form-control" type="text" placeholder="Description" [(ngModel)]="cuestionarioTitulos.descripcion"/>
+    </mat-card-content>
+  </mat-card>
 
 
+   <!-- <ng-template #createQuestion></ng-template>  -->
+  <div *ngFor="let pregunta of cuestionarioPreguntas; let i = index">
+    <mat-card class="card mt-4 mb-4">
+      <mat-card-header class="card-header bg-light">
+        <p></p>
+          <button (click)="eliminarPregunta(pregunta.idPregunta)" class="btn">
+            <mat-icon >delete</mat-icon>
+          </button>
+      </mat-card-header>
+    <mat-card-content>
+    <app-create-question #hijoComponent
+      (buttonEliminar)="handleEliminarPregunta($event)"
+      (buttonAdd)="handleEliminarPregunta($event)"
+      [idPregunta]="pregunta.idPregunta"
+      [valorSelect]="pregunta.tipoQuestion"
+      [preguntaNombre]="pregunta.pregunta"
+      [cantidadRespuestas]="pregunta.respuesta.length"
+      [respuestaCorrecta]="pregunta.respuestaCorrecta!"
+      [arrayRespuestas]="pregunta.respuesta" ></app-create-question>
+      
+    </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="seccion-botones">
+    <div>
+      <button mat-raised-button (click)="regresarMenu()" color="primary">
+          <i class="fas fa-arrow-left"></i>
+      </button>
+      <button mat-raised-button color="primary" (click)="agregarPregunta()">
+          <i class="fas fa-plus"></i> Add question
+      </button>
+    </div>
+    <div>
+    @if(this.paramUrl === "questionnaires-modify"){
+      <button mat-raised-button color="primary" (click)="updateCuestionario()">Update</button>
+    } @else {
+      <button mat-raised-button color="primary" (click)="sendCuestionario()">Complete</button>
+    }
 
-
-
+    </div>
+  </div>
+<br>
