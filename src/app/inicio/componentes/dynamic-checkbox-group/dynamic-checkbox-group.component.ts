@@ -22,6 +22,7 @@ export interface opcionCheckBoxButton {
         <mat-checkbox
         color="primary"
         (change)="seleccionar($event)"
+        [id]="opc.id.toString()"
         formControlName="{{opc.title}}">
           {{opc.title}}
 
@@ -71,6 +72,17 @@ export class DynamicCheckboxGroupComponent {
     }else{
       e.source.checked = false;
     }
+    // this.opciones[this.contador].state = e.source.checked
+/*     console.log("----");    
+    console.log(this.opciones);
+     */
+    
+    this.opciones[Number(e.source.id)].state = e.checked;
+     for (let i = 0; i < this.opciones.length; i++) {
+      console.log(this.opciones[i]);
+    } 
+    
+    
   }
 
 }

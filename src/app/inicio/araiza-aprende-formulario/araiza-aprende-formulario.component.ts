@@ -122,12 +122,12 @@ export class AraizaAprendeFormularioComponent {
               arrNum.push((this.quiz[i].respuesta[x] as opcionRadioButton).id - 1)
             }
           }else{
+            
             for (let x = 0; x < this.quiz[i].respuesta.length; x++) {
-             arrBool.push((this.quiz[i].respuesta[x] as opcionRadioButton).state!)
+             arrBool.push((this.quiz[i].respuesta[x] as opcionRadioButton).state?? false)
             }
-          }
-
-          await lastValueFrom(this.servicioForm.insertarRespuesta( arrNum.length == 0 ?"["+arrBool.toString()+"]":"["+arrNum.toString()+"]", this.quiz[i].idPregunta,this.auth.getId()))
+          }          
+         await lastValueFrom(this.servicioForm.insertarRespuesta( arrNum.length == 0 ?"["+arrBool.toString()+"]":"["+arrNum.toString()+"]", this.quiz[i].idPregunta,this.auth.getId()))
         }else if(typeof this.quiz[i].respuesta === "string"){
           await lastValueFrom(this.servicioForm.insertarRespuesta(this.quiz[i].respuesta.toString(), this.quiz[i].idPregunta,this.auth.getId()))
         }
